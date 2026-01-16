@@ -102,7 +102,7 @@
       <div class="item item-1">
         <div class="header-text">
           <span class="category">Pirituba, <em>São Paulo</em></span>
-          <h2>Corra!<br>Garanta a melhor para você</h2>
+          <h2>Corra!<br>Garanta o melhor para você</h2>
         </div>
       </div>
       <div class="item item-2">
@@ -525,19 +525,26 @@
               <div class="col-lg-12">
                 <fieldset>
                   <label for="name">Nome Completo</label>
-                  <input type="name" name="name" id="name" placeholder="Seu Nome..." autocomplete="on" required>
+                  <input type="text" name="name" id="name" placeholder="Seu Nome..." autocomplete="on" required>
                 </fieldset>
               </div>
               <div class="col-lg-12">
                 <fieldset>
                   <label for="email">E-mail</label>
-                  <input type="text" name="email" id="email" pattern="[^ @]*@[^ @]*" placeholder="Seu E-mail..." required="">
+                  <input type="email" name="email" id="email" placeholder="Seu E-mail..." required="">
+                </fieldset>
+              </div>
+              <div class="col-lg-12">
+                <fieldset>
+                  <label for="celular">Celular (com DDD)</label>
+                  <input type="tel" name="celular" id="celular" placeholder="Ex: 11912345678" autocomplete="on" required pattern="\d{11}" title="Formato: 11912345678">
                 </fieldset>
               </div>
               <div class="col-lg-12">
                 <fieldset>
                   <label for="subject">Assunto</label>
-                  <input type="subject" name="subject" id="subject" placeholder="Assunto..." autocomplete="on" >
+                  <input type="text" name="subject" id="subject" placeholder="Assunto..." autocomplete="on" >
+                  <input type="hidden" name="_captcha" value="false">
                 </fieldset>
               </div>
               <div class="col-lg-12">
@@ -574,6 +581,53 @@
   <script src="assets/js/owl-carousel.js"></script>
   <script src="assets/js/counter.js"></script>
   <script src="assets/js/custom.js"></script>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const form = document.getElementById('contact-form');
+        if (form) {
+            form.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                const formData = new FormData(form);
+                const formContainer = form.parentElement; // The column div containing the form
+    
+                fetch(form.action, {
+                    method: 'POST',
+                    body: formData,
+                    headers: {
+                        'Accept': 'application/json'
+                    }
+                }).then(response => {
+                    if (response.ok) {
+                        formContainer.innerHTML = `
+                            <div style="text-align: center; padding: 40px 0; border: 1px solid #eee; border-radius: 10px; box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.05); height: 100%; display: flex; flex-direction: column; justify-content: center; align-items: center;">
+                                <i class="fa fa-check-circle" style="font-size: 48px; color: #28a745; margin-bottom: 20px;"></i>
+                                <h4 style="color: #1e6041; margin-bottom: 30px;">Mensagem enviada com sucesso!</h4>
+                                <a href="https://wa.me/5511XXXXXXXXX" target="_blank" class="orange-button" style="display: inline-flex; align-items: center; text-decoration: none; padding: 12px 20px;">
+                                    <img src="assets/images/whatzapp.png" alt="WhatsApp" style="width: 24px; height: 24px; margin-right: 10px;">
+                                    Falar com um de nossos corretores
+                                </a>
+                            </div>
+                        `;
+                    } else {
+                        response.json().then(data => {
+                            if (Object.hasOwn(data, 'errors')) {
+                                alert(data["errors"].map(error => error["message"]).join(", "));
+                            } else {
+                                alert('Oops! Houve um problema ao enviar seu formulário.');
+                            }
+                        }).catch(error => {
+                            alert('Oops! Houve um problema ao enviar seu formulário.');
+                        });
+                    }
+                }).catch(error => {
+                    alert('Oops! Houve um problema ao enviar seu formulário.');
+                });
+            });
+        }
+    });
+    </script>
 
   </body>
 </html>
