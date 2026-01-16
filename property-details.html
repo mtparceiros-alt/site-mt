@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 
   <head>
 
@@ -19,6 +19,71 @@
     <link rel="stylesheet" href="assets/css/owl.css">
     <link rel="stylesheet" href="assets/css/animate.css">
     <link rel="stylesheet"href="https://unpkg.com/swiper@7/swiper-bundle.min.css"/>
+    <style>
+      .simulator-container {
+          font-family: 'Segoe UI', Arial, sans-serif;
+          background: #ffffff;
+          padding: 30px;
+          border-radius: 15px;
+          box-shadow: 0 8px 30px rgba(0,0,0,0.1);
+          width: 100%;
+          max-width: 450px;
+          margin: 0 auto;
+      }
+      .simulator-container h2 { text-align: center; color: #0056b3; margin-bottom: 25px; }
+
+      .simulator-container .form-row { margin-bottom: 15px; }
+      .simulator-container label { display: block; margin-bottom: 5px; font-weight: 600; color: #333; font-size: 14px; }
+      .simulator-container input {
+          width: 100%;
+          padding: 12px;
+          border: 2px solid #dee2e6;
+          border-radius: 8px;
+          font-size: 16px;
+          box-sizing: border-box;
+          transition: 0.3s;
+      }
+      .simulator-container input:focus { border-color: #0056b3; outline: none; }
+
+      .simulator-container .grid-inputs {
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          gap: 10px;
+      }
+
+      .simulator-container button {
+          width: 100%;
+          padding: 15px;
+          background-color: #f35525;
+          color: rgb(255, 255, 255);
+          border: none;
+          border-radius: 8px;
+          font-size: 18px;
+          font-weight: bold;
+          cursor: pointer;
+          margin-top: 15px;
+          transition: 0.2s;
+      }
+      .simulator-container button:hover { background-color: #e34a1a; transform: translateY(-2px); }
+
+      .simulator-container #resultado {
+          margin-top: 25px;
+          padding: 20px;
+          background-color: #e9f7ef;
+          border-radius: 10px;
+          display: none;
+          border: 1px solid #c3e6cb;
+          text-align: center;
+      }
+      .simulator-container .valor-destaque {
+          font-size: 26px;
+          color: #155724;
+          font-weight: 800;
+          display: block;
+          margin: 10px 0;
+      }
+      .simulator-container .detalhes { font-size: 13px; color: #555; text-align: left; background: #fff; padding: 10px; border-radius: 5px; margin-top: 10px; }
+  </style>
 <!--
 
 TemplateMo 591 villa agency
@@ -48,7 +113,7 @@ https://templatemo.com/tm-591-villa-agency
       <div class="row">
         <div class="col-lg-8 col-md-8">
           <ul class="info">
-            <li><i class="fa fa-envelope"></i> mtparceiros@gmail.com</li>
+            <li><i class="fa fa-envelope"></i> <a href="contact.html#contact-form">mtparceiros@gmail.com</a></li>
             <li><i class="fa fa-map"></i> Rua Manuel Alvares Passos, 249 – Pirituba, São Paulo</li>
           </ul>
         </div>
@@ -80,8 +145,8 @@ https://templatemo.com/tm-591-villa-agency
                       <li><a href="index.html">Início</a></li>
                       <li><a href="properties.html">Empreendimentos</a></li>
                       <li><a href="property-details.html" class="active">Detalhes</a></li>
-                      <li><a href="contact.html">Contato</a></li>
-                      <li><a href="#"><i class="fa fa-calendar"></i> Agende uma visita</a></li>
+                      <li><a href="contact.html">Contato</a></li> 
+                      <li><a href="#!" class="schedule-visit-link"><i class="fa fa-calendar"></i> Agende uma visita</a></li>
                   </ul>   
                     <a class='menu-trigger'>
                         <span>Menu</span>
@@ -98,8 +163,8 @@ https://templatemo.com/tm-591-villa-agency
     <div class="container">
       <div class="row">
         <div class="col-lg-12">
-          <span class="breadcrumb"><a href="#">Início</a>  /  Detalhes do Imóvel</span>
-          <h3>Detalhes do Imóvel</h3>
+          <span class="breadcrumb"><a href="#">Início</a>  /  Detalhes</span>
+          <h3>Detalhes do Processo</h3>
         </div>
       </div>
     </div>
@@ -113,25 +178,16 @@ https://templatemo.com/tm-591-villa-agency
             <img src="assets/images/single-property.jpg" alt="">
           </div>
           <div class="main-content">
-            <span class="category">Apartamento</span>
-            <h4>24 New Street Miami, OR 24560</h4>
-            <p>Este é um excelente template para sites imobiliários. O <strong>TemplateMo</strong> oferece os melhores templates CSS gratuitos do mundo. Sinta-se à vontade para nos contar o que acha. Obrigado. Este layout é totalmente personalizável para atender às suas necessidades.
+            <span class="category">Compra</span>
+            <h4>Uma Assessoria Inovadora que Devolve o Seu Tempo!</h4>
+            <p>Esqueça a papelada, as visitas inúteis e a insegurança. Na <strong>MT Parceiros</strong> redefinimos a experiência de compra de imóveis na planta com uma assessoria completa, desenhada para que sua única preocupação seja planejar a mudança.
             
-            <br><br>Você pode encontrar mais templates no site do TemplateMo. Explore as diversas categorias para encontrar o layout perfeito para o seu projeto. Agradecemos a sua visita.</p>
+            <br><br>Veja como nossa metodologia <strong>"Zero Burocracia"</strong> trabalha por você:</p>
           </div> 
           <div class="accordion" id="accordionExample">
             <div class="accordion-item">
               <h2 class="accordion-header" id="headingOne">
                 <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                  Links úteis?
-                </button>
-              </h2>
-              <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
-                <div class="accordion-body">
-                  Lorem <strong>ipsum dolor sit amet</strong>, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-                </div>
-              </div>
-            </div>
             <div class="accordion-item">
               <h2 class="accordion-header" id="headingTwo">
                 <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
@@ -140,7 +196,9 @@ https://templatemo.com/tm-591-villa-agency
               </h2>
               <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
                 <div class="accordion-body">
-                  Lorem <strong>ipsum dolor sit amet</strong>, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                  Na MT Parceiros, redefinimos a compra do seu imóvel na planta para que ela seja uma experiência segura e sem estresse. Nossa assessoria inovadora foi desenhada para devolver o seu tempo, blindando você de toda a complexidade do mercado imobiliário.
+
+Tudo começa com você. Antes de apresentar qualquer opção, realizamos um Diagnóstico Inteligente do seu perfil e objetivo financeiro. Em seguida, nossa equipe aplica um rigoroso Filtro de Engenharia, selecionando apenas a "nata" do mercado: imóveis com qualidade construtiva garantida e alto potencial de valorização.
                 </div>
               </div>
             </div>
@@ -152,7 +210,9 @@ https://templatemo.com/tm-591-villa-agency
               </h2>
               <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordionExample">
                 <div class="accordion-body">
-                  Lorem <strong>ipsum dolor sit amet</strong>, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                  Nós assumimos a parte pesada. Atuamos como um Escudo contra a Burocracia, analisando minuciosamente o contrato da construtora para garantir seus direitos e prazos de entrega. Simultaneamente, desenhamos a melhor estratégia de pagamento para o seu bolso, seja orientando sobre o uso do FGTS, enquadramento no Minha Casa Minha Vida ou negociando o financiamento direto.
+
+E a parceria não termina na assinatura. Oferecemos um Pós-Venda Conectado, com atendimento ágil via canais digitais e WhatsApp, para que você tenha suporte contínuo até o momento de pegar as chaves.
                 </div>
               </div>
             </div>
@@ -162,20 +222,28 @@ https://templatemo.com/tm-591-villa-agency
           <div class="info-table">
             <ul>
               <li>
-                <img src="assets/images/info-icon-01.png" alt="" style="max-width: 52px;">
-                <h4>450 m2<br><span>Área Total</span></h4>
+                <img src="assets/images/info-icon-6.png" alt="" style="max-width: 52px;">
+                <h4>Diagnóstico Inteligente<br><span>Entendemos antes de atender. Realizamos uma imersão no seu perfil e orçamento para traçar a estratégia de compra ideal, garantindo que buscaremos apenas o que faz sentido para o seu momento de vida.</span></h4>
               </li>
               <li>
-                <img src="assets/images/info-icon-02.png" alt="" style="max-width: 52px;">
-                <h4>Contrato<br><span>Contrato Pronto</span></h4>
+                <img src="assets/images/info-icon-01.png" alt="" style="max-width: 52px;">
+                <h4>Filtro de Engenharia<br><span>Não vendemos apenas metros quadrados. Nossa equipe técnica analisa a planta e a qualidade construtiva para garantir que você invista em imóveis funcionais e livres de vícios ocultos.</span></h4>
               </li>
               <li>
                 <img src="assets/images/info-icon-03.png" alt="" style="max-width: 52px;">
-                <h4>Pagamento<br><span>Processo de Pagamento</span></h4>
+                <h4>Facilidade no Pagamento<br><span>Desenhamos a melhor estratégia para o seu bolso. Orientamos sobre o uso do FGTS, enquadramento no Minha Casa Minha Vida ou as vantagens do financiamento direto com a construtora.</span></h4>
+              </li>
+              <li>
+                <img src="assets/images/info-icon-02.png" alt="" style="max-width: 52px;">
+                <h4>Análise Contratual<br><span>Assumimos a leitura das letras miúdas. Revisamos rigorosamente as cláusulas do contrato da construtora para assegurar seus direitos antes de qualquer assinatura.</span></h4>
               </li>
               <li>
                 <img src="assets/images/info-icon-04.png" alt="" style="max-width: 52px;">
-                <h4>Segurança<br><span>24/7 Sob Controle</span></h4>
+                <h4>Garantia de Entrega<br><span>Seu patrimônio blindado. Monitoramos a idoneidade da incorporadora e o andamento da obra para garantir que o prazo de entrega e a segurança do seu investimento sejam respeitados.</span></h4>
+              </li>
+              <li>
+                <img src="assets/images/info-icon-5.png" alt="" style="max-width: 52px;">
+                <h4>Suporte Conectado<br><span>A parceria continua após a assinatura. Oferecemos um canal direto e ágil via WhatsApp para tirar dúvidas e acompanhar você até a entrega das chaves.</span></h4>
               </li>
             </ul>
           </div>
@@ -184,13 +252,74 @@ https://templatemo.com/tm-591-villa-agency
     </div>
   </div>
 
-  <div class="section best-deal">
+  <div class="section">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-12">
+          <div class="simulator-container">
+            <form id="simulator-form" action="https://formsubmit.co/mtparceiros@gmail.com" method="POST">
+              <h2>Simulador de Financiamento</h2>
+              
+              <div class="form-row">
+                  <label>Nome Completo</label>
+                  <input type="text" id="nome" name="nome" placeholder="João Exemplo" required>
+              </div>
+          
+              <div class="form-row">
+                  <label>WhatsApp / Celular</label>
+                  <input type="tel" id="celular" name="celular" placeholder="(00) 00000-0000" required>
+              </div>
+          
+              <div class="form-row">
+                  <label>Renda Mensal (R$)</label>
+                  <input type="number" id="renda" name="renda" placeholder="Ex: 4000" required>
+              </div>
+          
+              <div class="grid-inputs">
+                  <div class="form-row">
+                      <label>Saldo FGTS (R$)</label>
+                      <input type="number" id="fgts" name="fgts" value="0">
+                  </div>
+                  <div class="form-row">
+                      <label>Entrada/Sinal (R$)</label>
+                      <input type="number" id="entrada" name="entrada" value="0">
+                  </div>
+              </div>
+  
+              <!-- Campos ocultos para envio -->
+              <input type="hidden" name="Crédito Aprovado (Estimativa)" id="credito_bancario_aprovado">
+              <input type="hidden" name="Valor do Imóvel (Estimativa)" id="valor_total_imovel">
+              <input type="hidden" name="_subject" value="Nova Simulação de Financiamento Recebida!">
+              <input type="hidden" name="_captcha" value="false">
+          
+              <button type="submit" class="orange-button">Simular Agora</button>
+            </form>
+        
+            <div id="resultado">
+                <div id="saudacao" style="font-weight: bold; margin-bottom: 5px;"></div>
+                <span>O valor total para compra do seu imóvel é:</span>
+                <span class="valor-destaque" id="valorTotal"></span>
+                
+                <div class="detalhes">
+                    <strong>Composição da estimativa:</strong><br>
+                    • Crédito Bancário: <span id="detalheCredito"></span><br>
+                    • Entrada + FGTS: <span id="detalheRecursos"></span>
+                </div>
+                <p style="font-size: 11px; color: #777; margin-top: 10px;">*Valores arredondados para facilitar o planejamento. Sujeito à análise.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+<div class="section best-deal">
     <div class="container">
       <div class="row">
         <div class="col-lg-4">
           <div class="section-heading">
-            <h6>| Melhor Oferta</h6>
-            <h2>Encontre a Melhor Oferta Agora!</h2>
+            <h6>| Melhores investimentos</h6>
+            <h2>Encontre oque você precisa!</h2>
           </div>
         </div>
         <div class="col-lg-12">
@@ -202,24 +331,24 @@ https://templatemo.com/tm-591-villa-agency
                     <button class="nav-link active" id="appartment-tab" data-bs-toggle="tab" data-bs-target="#appartment" type="button" role="tab" aria-controls="appartment" aria-selected="true">Apartamento</button>
                   </li>
                   <li class="nav-item" role="presentation">
-                    <button class="nav-link" id="villa-tab" data-bs-toggle="tab" data-bs-target="#villa" type="button" role="tab" aria-controls="villa" aria-selected="false">Casa</button>
+                    <button class="nav-link" id="villa-tab" data-bs-toggle="tab" data-bs-target="#villa" type="button" role="tab" aria-controls="villa" aria-selected="false">Loft</button>
                   </li>
                   <li class="nav-item" role="presentation">
                     <button class="nav-link" id="penthouse-tab" data-bs-toggle="tab" data-bs-target="#penthouse" type="button" role="tab" aria-controls="penthouse" aria-selected="false">Cobertura</button>
                   </li>
                 </ul>
-              </div>              
+              </div>               
               <div class="tab-content" id="myTabContent">
                 <div class="tab-pane fade show active" id="appartment" role="tabpanel" aria-labelledby="appartment-tab">
                   <div class="row">
                     <div class="col-lg-3">
                       <div class="info-table">
                         <ul>
-                          <li>Área Total <span>540 m2</span></li>
-                          <li>Andar <span>3</span></li>
-                          <li>Nº de Quartos <span>8</span></li>
-                          <li>Estacionamento <span>Sim</span></li>
-                          <li>Pagamento <span>Bancário</span></li>
+                          <li>Espaço Total<br><span>De 24m² a 120m²</span></li>
+                          <li>Andar<br><span>Varias opções</span></li>
+                          <li>Número de Quartos<br><span> de 1 a 4</span></li>
+                          <li>Estacionamento<br><span>Opcio</span></li>
+                          <li>Pagamento<br><span>Facilitado</span></li>
                         </ul>
                       </div>
                     </div>
@@ -227,10 +356,11 @@ https://templatemo.com/tm-591-villa-agency
                       <img src="assets/images/deal-01.jpg" alt="">
                     </div>
                     <div class="col-lg-3">
-                      <h4>Tudo sobre o Apartamento</h4>
-                      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, do eiusmod tempor pack incididunt ut labore et dolore magna aliqua quised ipsum suspendisse. <br><br>Swag fanny pack lyft blog twee. JOMO ethical copper mug, succulents typewriter shaman DIY kitsch twee taiyaki fixie hella venmo after messenger poutine next level humblebrag swag franzen.</p>
+                      <h4>Detalhes sobre Apartamentos</h4>
+                      <p>O equilíbrio perfeito entre conforto e segurança. Plantas inteligentes ideais para famílias que buscam condomínios com lazer completo e infraestrutura moderna. Um ativo sólido com valorização constante. 
+                      <br><br>Foco: Família, Segurança e Estabilidade.</p>
                       <div class="icon-button">
-                        <a href="#"><i class="fa fa-calendar"></i> Agende uma visita</a>
+                        <a href="#!" class="schedule-visit-link"><i class="fa fa-calendar"></i> Agende uma visita</a>
                       </div>
                     </div>
                   </div>
@@ -240,11 +370,11 @@ https://templatemo.com/tm-591-villa-agency
                     <div class="col-lg-3">
                       <div class="info-table">
                         <ul>
-                          <li>Área Total <span>250 m2</span></li>
-                          <li>Andar <span>26º</span></li>
-                          <li>Nº de Quartos <span>5</span></li>
-                          <li>Estacionamento <span>Sim</span></li>
-                          <li>Pagamento <span>Bancário</span></li>
+                          <li>Espaço Total<br><span>De 10m² a 24m²</span></li>
+                          <li>Andar<br><span>Varias opções</span></li>
+                          <li>Número de Quartos<br><span>1</span></li>
+                          <li>Estacionamento<br><span>Não</span></li>
+                          <li>Pagamento<br><span>Facilitado</span></li>
                         </ul>
                       </div>
                     </div>
@@ -252,10 +382,10 @@ https://templatemo.com/tm-591-villa-agency
                       <img src="assets/images/deal-02.jpg" alt="">
                     </div>
                     <div class="col-lg-3">
-                      <h4>Informações da Casa</h4>
-                      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, do eiusmod tempor pack incididunt ut labore et dolore magna aliqua quised ipsum suspendisse. <br><br>Swag fanny pack lyft blog twee. JOMO ethical copper mug, succulents typewriter shaman DIY kitsch twee taiyaki fixie hella venmo after messenger poutine next level humblebrag swag franzen.</p>
+                      <h4>Detalhes sobre Lofts</h4>
+                      <p>Conceito aberto para quem valoriza estilo e dinamismo. A escolha estratégica para investidores que buscam alta rentabilidade em locação ou para quem deseja morar com praticidade e tecnologia integrada.</p><br>Foco: Modernidade, Rentabilidade e Praticidade.</p>
                       <div class="icon-button">
-                        <a href="#"><i class="fa fa-calendar"></i> Agende uma visita</a>
+                        <a href="#!" class="schedule-visit-link"><i class="fa fa-calendar"></i> Agende uma visita</a>
                       </div>
                     </div>
                   </div>
@@ -265,11 +395,11 @@ https://templatemo.com/tm-591-villa-agency
                     <div class="col-lg-3">
                       <div class="info-table">
                         <ul>
-                          <li>Área Total <span>320 m2</span></li>
-                          <li>Andar <span>34º</span></li>
-                          <li>Nº de Quartos <span>6</span></li>
-                          <li>Estacionamento <span>Sim</span></li>
-                          <li>Pagamento <span>Bancário</span></li>
+                          <li>Espaço Total<br><span>De 40m² a 200m²</span></li>
+                          <li>Andar<br><span>Cobertura</span></li>
+                          <li>Número de Quartos<br><span> De 2 a 6</span></li>
+                          <li>Estacionamento<br><span>Sim</span></li>
+                          <li>Pagamento<br><span>financiamento</span></li>
                         </ul>
                       </div>
                     </div>
@@ -277,10 +407,10 @@ https://templatemo.com/tm-591-villa-agency
                       <img src="assets/images/deal-03.jpg" alt="">
                     </div>
                     <div class="col-lg-3">
-                      <h4>Informações da Cobertura</h4>
-                      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, do eiusmod tempor pack incididunt ut Kinfolk tonx seitan crucifix 3 wolf moon bicycle rights keffiyeh snackwave wolf same vice, chillwave vexillologistlabore et dolore magna aliqua quised ipsum suspendisse. <br><br>Swag fanny pack lyft blog twee. JOMO ethical copper mug, succulents typewriter shaman DIY kitsch twee taiyaki fixie hella venmo after messenger poutine next level humblebrag swag franzen.</p>
+                      <h4>Detalhes sobre sobre Coberturas</h4>
+                      <p>Exclusividade no topo. Desfrute de privacidade total, vistas privilegiadas e o luxo de uma área externa privativa. O investimento definitivo para quem não abre mão de espaço, liberdade e sofisticação.<br><br>Foco: Exclusividade, Espaço e Privacidade.</p>
                       <div class="icon-button">
-                        <a href="#"><i class="fa fa-calendar"></i> Agende uma visita</a>
+                        <a href="#!" class="schedule-visit-link"><i class="fa fa-calendar"></i> Agende uma visita</a>
                       </div>
                     </div>
                   </div>
@@ -293,6 +423,7 @@ https://templatemo.com/tm-591-villa-agency
     </div>
   </div>
 
+
   <footer class="footer-no-gap">
     <div class="container">
       <div class="col-lg-12">
@@ -303,6 +434,19 @@ https://templatemo.com/tm-591-villa-agency
     </div>
   </footer>
 
+  <!-- Calendar Modal -->
+  <div id="calendar-modal" class="calendar-modal">
+    <div class="calendar-modal-content">
+      <span class="calendar-close-button">&times;</span>
+      <h4>Selecione uma data para a visita</h4>
+      <div id="calendar-container"></div>
+    </div>
+  </div>
+
+  <a href="https://wa.me/5511960364355" target="_blank" class="whatsapp-float">
+    <img src="assets/images/bot-whatsapp.png" alt="Fale conosco pelo WhatsApp">
+  </a>
+
   <!-- Scripts -->
   <!-- Bootstrap core JavaScript -->
   <script src="vendor/jquery/jquery.min.js"></script>
@@ -311,6 +455,182 @@ https://templatemo.com/tm-591-villa-agency
   <script src="assets/js/owl-carousel.js"></script>
   <script src="assets/js/counter.js"></script>
   <script src="assets/js/custom.js"></script>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const form = document.getElementById('simulator-form');
+        if (form) {
+            form.addEventListener('submit', function(e) {
+                e.preventDefault();
+
+                // 1. Get values and validate
+                const nomeInput = document.getElementById('nome');
+                const celularInput = document.getElementById('celular');
+                const rendaInput = document.getElementById('renda');
+                
+                const nome = nomeInput.value;
+                const celular = celularInput.value;
+                const renda = parseFloat(rendaInput.value) || 0;
+                const fgts = parseFloat(document.getElementById('fgts').value) || 0;
+                const entrada = parseFloat(document.getElementById('entrada').value) || 0;
+
+                if (!nome.trim()) {
+                    alert("Por favor, preencha seu nome completo.");
+                    nomeInput.focus();
+                    return;
+                }
+
+                const unmaskedCelular = celular.replace(/\D/g, '');
+                if (unmaskedCelular.length < 10 || unmaskedCelular.length > 11) {
+                    alert('Por favor, insira um número de celular válido com DDD (10 ou 11 dígitos).');
+                    celularInput.focus();
+                    return;
+                }
+
+                if (renda <= 0) {
+                    alert("Por favor, preencha uma renda mensal válida.");
+                    rendaInput.focus();
+                    return;
+                }
+
+                // 2. Do the simulation logic
+                const fatorCorte = 50;
+                const creditoBancario = renda * fatorCorte;
+                const totalBruto = creditoBancario + fgts + entrada;
+                const totalArredondado = Math.ceil(totalBruto / 1000) * 1000;
+                const formatar = (v) => v.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL', maximumFractionDigits: 0 });
+
+                // 3. Display results
+                document.getElementById('saudacao').innerText = `Olá, ${nome.trim().split(' ')[0]}!`;
+                document.getElementById('valorTotal').innerText = formatar(totalArredondado);
+                document.getElementById('detalheCredito').innerText = formatar(creditoBancario);
+                document.getElementById('detalheRecursos').innerText = formatar(fgts + entrada);
+                document.getElementById('resultado').style.display = 'block';
+
+                // 4. Populate hidden fields
+                document.getElementById('credito_bancario_aprovado').value = formatar(creditoBancario);
+                document.getElementById('valor_total_imovel').value = formatar(totalArredondado);
+
+                // 5. Submit form data via fetch
+                const formData = new FormData(form);
+                formData.set('celular', unmaskedCelular); // Send unmasked phone number
+
+                fetch(form.action, {
+                    method: 'POST',
+                    body: formData,
+                    headers: {
+                        'Accept': 'application/json'
+                    }
+                }).then(response => {
+                    if (response.ok) {
+                        alert('Simulação enviada com sucesso! Em breve um de nossos corretores entrará em contato.');
+                    } else {
+                        alert('Oops! Houve um problema ao enviar sua simulação.');
+                    }
+                }).catch(error => {
+                    alert('Oops! Houve um problema ao enviar sua simulação.');
+                });
+            });
+        }
+
+        // --- Calendar Modal Logic ---
+        const modal = document.getElementById('calendar-modal');
+        const closeButton = document.querySelector('.calendar-close-button');
+        const scheduleLinks = document.querySelectorAll('.schedule-visit-link');
+        const calendarContainer = document.getElementById('calendar-container');
+        const whatsappNumber = '5511960364355';
+
+        let currentDate = new Date();
+
+        function renderCalendar(date) {
+            calendarContainer.innerHTML = ''; // Clear previous calendar
+
+            const month = date.getMonth();
+            const year = date.getFullYear();
+
+            const firstDayOfMonth = new Date(year, month, 1);
+            const lastDayOfMonth = new Date(year, month + 1, 0);
+            const daysInMonth = lastDayOfMonth.getDate();
+            const startDayOfWeek = firstDayOfMonth.getDay(); // 0=Sun, 1=Mon, ...
+
+            const monthNames = ["Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"];
+            const dayNames = ["Dom", "Seg", "Ter", "Qua", "Qui", "Sex", "Sáb"];
+
+            // Header
+            const header = document.createElement('div');
+            header.className = 'calendar-header';
+            const prevButton = document.createElement('button');
+            prevButton.id = 'prev-month';
+            prevButton.innerHTML = '&lt;';
+            const monthYear = document.createElement('h3');
+            monthYear.textContent = `${monthNames[month]} ${year}`;
+            const nextButton = document.createElement('button');
+            nextButton.id = 'next-month';
+            nextButton.innerHTML = '&gt;';
+            
+            header.appendChild(prevButton);
+            header.appendChild(monthYear);
+            header.appendChild(nextButton);
+            calendarContainer.appendChild(header);
+
+            // Weekdays
+            const weekdays = document.createElement('div');
+            weekdays.className = 'calendar-days calendar-weekdays';
+            dayNames.forEach(day => {
+                const dayEl = document.createElement('div');
+                dayEl.textContent = day;
+                weekdays.appendChild(dayEl);
+            });
+            calendarContainer.appendChild(weekdays);
+
+            // Days
+            const daysContainer = document.createElement('div');
+            daysContainer.className = 'calendar-days';
+
+            for (let i = 0; i < startDayOfWeek; i++) {
+                daysContainer.appendChild(document.createElement('div'));
+            }
+
+            const today = new Date();
+            today.setHours(0, 0, 0, 0);
+
+            for (let day = 1; day <= daysInMonth; day++) {
+                const dayEl = document.createElement('div');
+                dayEl.className = 'calendar-day';
+                dayEl.textContent = day;
+                
+                const currentDayDate = new Date(year, month, day);
+
+                if (currentDayDate < today) {
+                    dayEl.classList.add('past-day');
+                } else {
+                    dayEl.addEventListener('click', () => {
+                        const selectedDate = new Date(year, month, day);
+                        const formattedDate = selectedDate.toLocaleDateString('pt-BR');
+                        const message = `Olá, gostaria de agendar uma visita para o dia ${formattedDate}.`;
+                        const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`;
+                        
+                        window.open(whatsappUrl, '_blank');
+                        modal.style.display = 'none';
+                    });
+                }
+                daysContainer.appendChild(dayEl);
+            }
+            calendarContainer.appendChild(daysContainer);
+            
+            if (year < today.getFullYear() || (year === today.getFullYear() && month <= today.getMonth())) {
+                document.getElementById('prev-month').disabled = true;
+            }
+
+            document.getElementById('prev-month').addEventListener('click', () => { currentDate.setMonth(currentDate.getMonth() - 1); renderCalendar(currentDate); });
+            document.getElementById('next-month').addEventListener('click', () => { currentDate.setMonth(currentDate.getMonth() + 1); renderCalendar(currentDate); });
+        }
+
+        scheduleLinks.forEach(link => { link.addEventListener('click', function(e) { e.preventDefault(); currentDate = new Date(); renderCalendar(currentDate); modal.style.display = 'block'; }); });
+        closeButton.addEventListener('click', function() { modal.style.display = 'none'; });
+        window.addEventListener('click', function(event) { if (event.target == modal) { modal.style.display = 'none'; } });
+    });
+  </script>
 
   </body>
 </html>
