@@ -7,7 +7,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
 
-    <title>MT Parceiros - Detalhes do Empreendimento</title>
+    <title>Assessoria Zero Burocracia e Simulador de Financiamento | MT Parceiros</title>
+    <meta name="description" content="Use nosso simulador de financiamento e entenda como nossa assessoria protege sua compra. Filtro de engenharia e análise contratual gratuita.">
 
     <!-- Bootstrap core CSS -->
     <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -20,6 +21,85 @@
     <link rel="stylesheet" href="assets/css/animate.css">
     <link rel="stylesheet"href="https://unpkg.com/swiper@7/swiper-bundle.min.css"/>
     <style>
+      .best-deal .info-table ul li span {
+        float: none;
+        display: block;
+        text-align: left;
+      }
+      .whatsapp-float {
+        position: fixed;
+        width: 180px;
+        bottom: 40px;
+        right: 40px;
+        z-index: 1000;
+        transition: transform .2s ease-in-out;
+      }
+      .whatsapp-float:hover {
+        transform: scale(1.1);
+      }
+      .whatsapp-float img { width: 100%; }
+      .info li a,
+      .item.email h6 a,
+      .item.phone h6 a {
+        color: #000;
+        text-decoration: none;
+      }
+      .info li a:hover,
+      .item.email h6 a:hover,
+      .item.phone h6 a:hover {
+        color: #f35525;
+      }
+      /* Calendar Modal Styles */
+      .calendar-modal {
+        display: none; 
+        position: fixed; 
+        z-index: 2000; 
+        left: 0;
+        top: 0;
+        width: 100%; 
+        height: 100%; 
+        overflow: auto; 
+        background-color: rgba(0,0,0,0.6);
+        font-family: 'Poppins', sans-serif;
+      }
+      .calendar-modal-content {
+        background-color: #fefefe;
+        margin: 10% auto;
+        padding: 25px;
+        border: 1px solid #888;
+        width: 90%;
+        max-width: 400px;
+        border-radius: 15px;
+        position: relative;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+      }
+      .calendar-close-button {
+        color: #aaa;
+        position: absolute;
+        top: 10px;
+        right: 20px;
+        font-size: 28px;
+        font-weight: bold;
+        cursor: pointer;
+      }
+      .calendar-close-button:hover,
+      .calendar-close-button:focus {
+        color: black;
+      }
+      #calendar-container { text-align: center; }
+      #calendar-container .calendar-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
+      #calendar-container .calendar-header h3 { margin: 0; font-size: 1.2em; }
+      #calendar-container .calendar-header button { background: #f35525; color: white; border: none; padding: 5px 10px; border-radius: 5px; cursor: pointer; }
+      #calendar-container .calendar-header button:disabled { background: #ccc; cursor: not-allowed; }
+      #calendar-container .calendar-days { display: grid; grid-template-columns: repeat(7, 1fr); gap: 5px; }
+      #calendar-container .calendar-days div { padding: 10px 5px; font-size: 0.9em; }
+      #calendar-container .calendar-weekdays div { font-weight: bold; color: #555; }
+      #calendar-container .calendar-day { cursor: pointer; border-radius: 50%; transition: background-color 0.2s; }
+      #calendar-container .calendar-day:hover { background-color: #f0f0f0; }
+      #calendar-container .calendar-day.past-day { color: #ccc; cursor: not-allowed; }
+      #calendar-container .calendar-day.past-day:hover { background-color: transparent; }
+      #calendar-container .calendar-day.selected-day { background-color: #f35525; color: white; }
+      .calendar-modal-content h4 { font-size: 1.3em; text-align: center; margin-bottom: 20px; color: #333; }
       .simulator-container {
           font-family: 'Segoe UI', Arial, sans-serif;
           background: #ffffff;
@@ -296,16 +376,7 @@ E a parceria não termina na assinatura. Oferecemos um Pós-Venda Conectado, com
             </form>
         
             <div id="resultado">
-                <div id="saudacao" style="font-weight: bold; margin-bottom: 5px;"></div>
-                <span>O valor total para compra do seu imóvel é:</span>
-                <span class="valor-destaque" id="valorTotal"></span>
-                
-                <div class="detalhes">
-                    <strong>Composição da estimativa:</strong><br>
-                    • Crédito Bancário: <span id="detalheCredito"></span><br>
-                    • Entrada + FGTS: <span id="detalheRecursos"></span>
-                </div>
-                <p style="font-size: 11px; color: #777; margin-top: 10px;">*Valores arredondados para facilitar o planejamento. Sujeito à análise.</p>
+                <!-- O resultado da simulação aparecerá aqui -->
             </div>
           </div>
         </div>
@@ -474,61 +545,64 @@ E a parceria não termina na assinatura. Oferecemos um Pós-Venda Conectado, com
                 const fgts = parseFloat(document.getElementById('fgts').value) || 0;
                 const entrada = parseFloat(document.getElementById('entrada').value) || 0;
 
-                if (!nome.trim()) {
-                    alert("Por favor, preencha seu nome completo.");
-                    nomeInput.focus();
-                    return;
-                }
-
+                if (!nome.trim()) { alert("Por favor, preencha seu nome completo."); nomeInput.focus(); return; }
                 const unmaskedCelular = celular.replace(/\D/g, '');
-                if (unmaskedCelular.length < 10 || unmaskedCelular.length > 11) {
-                    alert('Por favor, insira um número de celular válido com DDD (10 ou 11 dígitos).');
-                    celularInput.focus();
-                    return;
-                }
+                if (unmaskedCelular.length < 10 || unmaskedCelular.length > 11) { alert('Por favor, insira um número de celular válido com DDD (10 ou 11 dígitos).'); celularInput.focus(); return; }
+                if (renda <= 0) { alert("Por favor, preencha uma renda mensal válida."); rendaInput.focus(); return; }
 
-                if (renda <= 0) {
-                    alert("Por favor, preencha uma renda mensal válida.");
-                    rendaInput.focus();
-                    return;
-                }
-
-                // 2. Do the simulation logic
+                // 2. Lógica da simulação
                 const fatorCorte = 50;
                 const creditoBancario = renda * fatorCorte;
                 const totalBruto = creditoBancario + fgts + entrada;
                 const totalArredondado = Math.ceil(totalBruto / 1000) * 1000;
                 const formatar = (v) => v.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL', maximumFractionDigits: 0 });
 
-                // 3. Display results
-                document.getElementById('saudacao').innerText = `Olá, ${nome.trim().split(' ')[0]}!`;
-                document.getElementById('valorTotal').innerText = formatar(totalArredondado);
-                document.getElementById('detalheCredito').innerText = formatar(creditoBancario);
-                document.getElementById('detalheRecursos').innerText = formatar(fgts + entrada);
-                document.getElementById('resultado').style.display = 'block';
-
-                // 4. Populate hidden fields
+                // 3. Preencher campos ocultos para envio
                 document.getElementById('credito_bancario_aprovado').value = formatar(creditoBancario);
                 document.getElementById('valor_total_imovel').value = formatar(totalArredondado);
 
-                // 5. Submit form data via fetch
+                // 4. Enviar dados do formulário
                 const formData = new FormData(form);
-                formData.set('celular', unmaskedCelular); // Send unmasked phone number
+                formData.set('celular', unmaskedCelular);
+
+                const submitButton = form.querySelector('button[type="submit"]');
+                const originalButtonText = submitButton.innerHTML;
+                submitButton.innerHTML = 'Enviando...';
+                submitButton.disabled = true;
 
                 fetch(form.action, {
                     method: 'POST',
                     body: formData,
-                    headers: {
-                        'Accept': 'application/json'
-                    }
+                    headers: { 'Accept': 'application/json' }
                 }).then(response => {
                     if (response.ok) {
-                        alert('Simulação enviada com sucesso! Em breve um de nossos corretores entrará em contato.');
+                        const resultadoDiv = document.getElementById('resultado');
+                        resultadoDiv.innerHTML = `
+                            <i class="fa fa-check-circle" style="font-size: 48px; color: #28a745; margin-bottom: 15px;"></i>
+                            <div style="font-weight: bold; font-size: 1.2em; margin-bottom: 10px;">Olá, ${nome.trim().split(' ')[0]}!</div>
+                            <span>Sua simulação foi enviada com sucesso! O valor estimado para compra do seu imóvel é:</span>
+                            <span class="valor-destaque">${formatar(totalArredondado)}</span>
+                            <div class="detalhes">
+                                <strong>Composição da estimativa:</strong><br>
+                                • Crédito Bancário: <span>${formatar(creditoBancario)}</span><br>
+                                • Entrada + FGTS: <span>${formatar(fgts + entrada)}</span>
+                            </div>
+                            <p style="font-size: 11px; color: #777; margin-top: 10px;">*Valores arredondados para facilitar o planejamento. Sujeito à análise.</p>
+                            <p style="color: #4a4a4a; margin-top: 20px; font-size: 16px;">Um de nossos corretores entrará em contato em breve. Se preferir, fale conosco agora:</p>
+                            <a href="https://wa.me/5511960364355" target="_blank">
+                                <img src="assets/images/whatsapp.png" alt="Fale conosco pelo WhatsApp" style="width: 150px; height: 150px; cursor: pointer; margin-top: 10px;">
+                            </a>`;
+                        form.style.display = 'none';
+                        resultadoDiv.style.display = 'block';
                     } else {
-                        alert('Oops! Houve um problema ao enviar sua simulação.');
+                        alert('Oops! Houve um problema ao enviar sua simulação. Por favor, tente novamente.');
+                        submitButton.innerHTML = originalButtonText;
+                        submitButton.disabled = false;
                     }
                 }).catch(error => {
-                    alert('Oops! Houve um problema ao enviar sua simulação.');
+                    alert('Oops! Houve um problema ao enviar sua simulação. Por favor, verifique sua conexão.');
+                    submitButton.innerHTML = originalButtonText;
+                    submitButton.disabled = false;
                 });
             });
         }
