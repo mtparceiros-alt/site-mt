@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
 
-    <title>Villa Agency - Property Listing by TemplateMo</title>
+    <title>MT Parceiros - Empreendimentos</title>
 
     <!-- Bootstrap core CSS -->
     <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -20,11 +20,23 @@
     <link rel="stylesheet"href="https://unpkg.com/swiper@7/swiper-bundle.min.css"/>
 <!--
 
-TemplateMo 591 villa agency
-
-https://templatemo.com/tm-591-villa-agency
 
 -->
+    <!-- CSS customizado para garantir a centralização dos preços -->
+    <style>
+      .section.properties .item h6 {
+        float: none !important;
+        text-align: center !important;
+        margin: 15px auto !important;
+        display: block !important;
+        width: 100%;
+      }
+      .section.properties .item .category {
+        display: block !important;
+        text-align: center;
+        margin-bottom: 10px;
+      }
+    </style>
   </head>
 
 <body>
@@ -47,8 +59,8 @@ https://templatemo.com/tm-591-villa-agency
       <div class="row">
         <div class="col-lg-8 col-md-8">
           <ul class="info">
-            <li><i class="fa fa-envelope"></i> info@company.com</li>
-            <li><i class="fa fa-map"></i> Sunny Isles Beach, FL 33160</li>
+            <li><i class="fa fa-envelope"></i> mtparceiros@gmail.com</li>
+            <li><i class="fa fa-map"></i> Rua Manuel Alvares Passos, 249 – Pirituba, São Paulo</li>
           </ul>
         </div>
         <div class="col-lg-4 col-md-4">
@@ -71,16 +83,16 @@ https://templatemo.com/tm-591-villa-agency
                 <nav class="main-nav">
                     <!-- ***** Logo Start ***** -->
                     <a href="index.html" class="logo">
-                        <h1>Villa</h1>
+                        <h1>MTParceiros</h1>
                     </a>
                     <!-- ***** Logo End ***** -->
                     <!-- ***** Menu Start ***** -->
                     <ul class="nav">
-                      <li><a href="index.html">Home</a></li>
-                      <li><a href="properties.html" class="active">Properties</a></li>
-                      <li><a href="property-details.html">Property Details</a></li>
-                      <li><a href="contact.html">Contact Us</a></li>
-                      <li><a href="#"><i class="fa fa-calendar"></i> Schedule a visit</a></li>
+                      <li><a href="index.html">Início</a></li>
+                      <li><a href="properties.html" class="active">Empreendimentos</a></li>
+                      <li><a href="property-details.html">Detalhes</a></li>
+                      <li><a href="contact.html">Contato</a></li>
+                      <li><a href="#"><i class="fa fa-calendar"></i> Agende uma visita</a></li>
                   </ul>   
                     <a class='menu-trigger'>
                         <span>Menu</span>
@@ -97,8 +109,8 @@ https://templatemo.com/tm-591-villa-agency
     <div class="container">
       <div class="row">
         <div class="col-lg-12">
-          <span class="breadcrumb"><a href="#">Home</a> / Properties</span>
-          <h3>Properties</h3>
+          <span class="breadcrumb"><a href="#">Início</a> / Empreendimentos</span>
+          <h3>Empreendimentos</h3>
         </div>
       </div>
     </div>
@@ -108,199 +120,401 @@ https://templatemo.com/tm-591-villa-agency
     <div class="container">
       <ul class="properties-filter">
         <li>
-          <a class="is_active" href="#!" data-filter="*">Show All</a>
+          <a class="is_active" href="#!" data-filter="*">Mostrar Todos</a>
         </li>
         <li>
-          <a href="#!" data-filter=".adv">Apartment</a>
+          <a href="#!" data-filter=".adv">Lançamento</a>
         </li>
         <li>
-          <a href="#!" data-filter=".str">Villa House</a>
+          <a href="#!" data-filter=".str">Em Obras</a>
         </li>
         <li>
-          <a href="#!" data-filter=".rac">Penthouse</a>
+          <a href="#!" data-filter=".rac">Pronto</a>
         </li>
       </ul>
       <div class="row properties-box">
+        <div class="col-lg-4 col-md-6 align-self-center mb-30 properties-items col-md-6 str">
+          <div class="item text-center">
+            <a href="property-details.html" title="Piscina, Academia, Espaço Camarote, Lavanderia, Minimercado."><img src="imag/Vivaz Santa Marina.jpg" alt="Vivaz Penha 2"></a>
+            <span class="category">Vivaz Penha 2</span>
+            <h6>A partir de: R$ 205mil</h6>
+            <ul class="text-start">
+              <li>Bairro: <span>Penha (Zona Leste)</span></li>
+              <li>Quartos: <span>1 a 2</span></li>
+              <li>Área: <span>De 24m² a 38m²</span></li>
+              <li>Diferenciais: <span>Opção de vaga e varanda</span></li>
+              <li>Entrega: <span>11/2028</span></li>
+            </ul>
+            <div class="main-button">
+              <a href="property-details.html">Agende uma visita</a>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-4 col-md-6 align-self-center mb-30 properties-items col-md-6 str">
+          <div class="item text-center">
+            <a href="property-details.html" title="Piscina, Coworking, Pet Place, Redário, Churrasqueira."><img src="imag/Vivaz Parque Freguesia do o.jpg" alt="Vivaz Freguesia do Ó"></a>
+            <span class="category">Vivaz Freguesia do Ó</span>
+            <h6>A partir de: R$ 226mil</h6>
+            <ul class="text-start">
+              <li>Bairro: <span>Freguesia (Zona Norte)</span></li>
+              <li>Quartos: <span>1 a 2</span></li>
+              <li>Área: <span>De 24m² a 45m²</span></li>
+              <li>Diferenciais: <span>Próximo ao Metrô João Paulo I</span></li>
+              <li>Entrega: <span>10/2027</span></li>
+            </ul>
+            <div class="main-button">
+              <a href="property-details.html">Agende uma visita</a>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-4 col-md-6 align-self-center mb-30 properties-items col-md-6 str">
+          <div class="item text-center">
+            <a href="property-details.html" title="Piscina, Fitness, Salão de Games, Lavanderia, Brinquedoteca."><img src="imag/Vivaz Santo Amaro.jpg" alt="Vivaz Santo Amaro"></a>
+            <span class="category">Vivaz Santo Amaro</span>
+            <h6>A partir de: R$ 218mil</h6>
+            <ul class="text-start">
+              <li>Bairro: <span>Santo Amaro (Zona Sul)</span></li>
+              <li>Quartos: <span>2 a 2</span></li>
+              <li>Área: <span>De 24m² a 40m²</span></li>
+              <li>Diferenciais: <span>Opção de varanda</span></li>
+              <li>Entrega: <span>01/2029</span></li>
+            </ul>
+            <div class="main-button">
+              <a href="property-details.html">Agende uma visita</a>
+            </div>
+          </div>
+        </div>
         <div class="col-lg-4 col-md-6 align-self-center mb-30 properties-items col-md-6 adv">
-          <div class="item">
-            <a href="property-details.html"><img src="assets/images/property-01.jpg" alt=""></a>
-            <span class="category">Luxury Villa</span>
-            <h6>$2.264.000</h6>
-            <h4><a href="property-details.html">18 Old Street Miami, OR 97219</a></h4>
-            <ul>
-              <li>Bedrooms: <span>8</span></li>
-              <li>Bathrooms: <span>8</span></li>
-              <li>Area: <span>545m2</span></li>
-              <li>Floor: <span>3</span></li>
-              <li>Parking: <span>6 spots</span></li>
+          <div class="item text-center">
+            <a href="property-details.html" title="Lazer completo, fácil acesso ao trem/terminal."><img src="imag/Vivaz Estacao Lapa.jpg" alt="Vivaz Estação Lapa"></a>
+            <span class="category">Vivaz Estação Lapa</span>
+            <h6>A partir de: R$ 214mil</h6>
+            <ul class="text-start">
+              <li>Bairro: <span>Lapa (Zona Oeste)</span></li>
+              <li>Quartos: <span>1 a 2</span></li>
+              <li>Área: <span>De 24m² a 36m²</span></li>
+              <li>Diferenciais: <span>Opção de varanda</span></li>
+              <li>Entrega: <span>Lançamento</span></li>
             </ul>
             <div class="main-button">
-              <a href="property-details.html">Schedule a visit</a>
+              <a href="property-details.html">Agende uma visita</a>
             </div>
           </div>
         </div>
         <div class="col-lg-4 col-md-6 align-self-center mb-30 properties-items col-md-6 str">
-          <div class="item">
-            <a href="property-details.html"><img src="assets/images/property-02.jpg" alt=""></a>
-            <span class="category">Luxury Villa</span>
-            <h6>$1.180.000</h6>
-            <h4><a href="property-details.html">54 New Street Florida, OR 27001</a></h4>
-            <ul>
-              <li>Bedrooms: <span>6</span></li>
-              <li>Bathrooms: <span>5</span></li>
-              <li>Area: <span>450m2</span></li>
-              <li>Floor: <span>3</span></li>
-              <li>Parking: <span>8 spots</span></li>
+          <div class="item text-center">
+            <a href="property-details.html" title="Linha &quot;Grand&quot; com acabamentos diferenciados e lazer."><img src="imag/Vivaz Penha.jpg" alt="Grand Vivaz Penha"></a>
+            <span class="category">Grand Vivaz Penha</span>
+            <h6>A partir de: R$ 235mil</h6>
+            <ul class="text-start">
+              <li>Bairro: <span>Penha (Zona Leste)</span></li>
+              <li>Quartos: <span>1 a 2</span></li>
+              <li>Área: <span>De 24m² a 38m²</span></li>
+              <li>Diferenciais: <span>Opção de vaga e varanda</span></li>
+              <li>Entrega: <span>02/2028</span></li>
             </ul>
             <div class="main-button">
-              <a href="property-details.html">Schedule a visit</a>
-            </div>
-          </div>
-        </div>
-        <div class="col-lg-4 col-md-6 align-self-center mb-30 properties-items col-md-6 adv rac">
-          <div class="item">
-            <a href="property-details.html"><img src="assets/images/property-03.jpg" alt=""></a>
-            <span class="category">Luxury Villa</span>
-            <h6>$1.460.000</h6>
-            <h4><a href="property-details.html">26 Mid Street Portland, OR 38540</a></h4>
-            <ul>
-              <li>Bedrooms: <span>5</span></li>
-              <li>Bathrooms: <span>4</span></li>
-              <li>Area: <span>225m2</span></li>
-              <li>Floor: <span>3</span></li>
-              <li>Parking: <span>10 spots</span></li>
-            </ul>
-            <div class="main-button">
-              <a href="property-details.html">Schedule a visit</a>
+              <a href="property-details.html">Agende uma visita</a>
             </div>
           </div>
         </div>
         <div class="col-lg-4 col-md-6 align-self-center mb-30 properties-items col-md-6 str">
-          <div class="item">
-            <a href="property-details.html"><img src="assets/images/property-04.jpg" alt=""></a>
-            <span class="category">Apartment</span>
-            <h6>$584.500</h6>
-            <h4><a href="property-details.html">12 Hope Street Portland, OR 12650</a></h4>
-            <ul>
-              <li>Bedrooms: <span>4</span></li>
-              <li>Bathrooms: <span>3</span></li>
-              <li>Area: <span>125m2</span></li>
-              <li>Floor: <span>25th</span></li>
-              <li>Parking: <span>2 cars</span></li>
+          <div class="item text-center">
+            <a href="property-details.html" title="Próximo ao Metrô e CPTM, lazer no condomínio."><img src="imag/Grand Vivaz Estacao Tamanduatei.jpg" alt="Grand Vivaz Estação Tamanduateí"></a>
+            <span class="category">Grand Vivaz Estação Tamanduateí</span>
+            <h6>A partir de: R$ 217mil</h6>
+            <ul class="text-start">
+              <li>Bairro: <span>Vila Prudente</span></li>
+              <li>Quartos: <span>1 a 2</span></li>
+              <li>Área: <span>De 24m² a 36m²</span></li>
+              <li>Diferenciais: <span>Opção de varanda</span></li>
+              <li>Entrega: <span>12/2028</span></li>
             </ul>
             <div class="main-button">
-              <a href="property-details.html">Schedule a visit</a>
+              <a href="property-details.html">Agende uma visita</a>
             </div>
           </div>
         </div>
-        <div class="col-lg-4 col-md-6 align-self-center mb-30 properties-items col-md-6 rac str">
-          <div class="item">
-            <a href="property-details.html"><img src="assets/images/property-05.jpg" alt=""></a>
-            <span class="category">Penthouse</span>
-            <h6>$925.600</h6>
-            <h4><a href="property-details.html">34 Hope Street Portland, OR 42680</a></h4>
-            <ul>
-              <li>Bedrooms: <span>4</span></li>
-              <li>Bathrooms: <span>4</span></li>
-              <li>Area: <span>180m2</span></li>
-              <li>Floor: <span>38th</span></li>
-              <li>Parking: <span>2 cars</span></li>
+        <div class="col-lg-4 col-md-6 align-self-center mb-30 properties-items col-md-6 str">
+          <div class="item text-center">
+            <a href="property-details.html" title="Localização residencial privilegiada na Zona Norte."><img src="imag/Grand Vivaz Jardim Franca.jpg" alt="Grand Vivaz Jardim França Paris"></a>
+            <span class="category">Grand Vivaz Jardim França Paris</span>
+            <h6>A partir de: R$ 224mil</h6>
+            <ul class="text-start">
+              <li>Bairro: <span>Jardim França</span></li>
+              <li>Quartos: <span>1 a 2</span></li>
+              <li>Área: <span>De 24m² a 36m²</span></li>
+              <li>Diferenciais: <span>Opção de varanda</span></li>
+              <li>Entrega: <span>05/2029</span></li>
             </ul>
             <div class="main-button">
-              <a href="property-details.html">Schedule a visit</a>
+              <a href="property-details.html">Agende uma visita</a>
             </div>
           </div>
         </div>
-        <div class="col-lg-4 col-md-6 align-self-center mb-30 properties-items col-md-6 rac adv">
-          <div class="item">
-            <a href="property-details.html"><img src="assets/images/property-06.jpg" alt=""></a>
-            <span class="category">Modern Condo</span>
-            <h6>$450.000</h6>
-            <h4><a href="property-details.html">22 Hope Street Portland, OR 16540</a></h4>
-            <ul>
-              <li>Bedrooms: <span>3</span></li>
-              <li>Bathrooms: <span>2</span></li>
-              <li>Area: <span>165m2</span></li>
-              <li>Floor: <span>26th</span></li>
-              <li>Parking: <span>3 cars</span></li>
+        <div class="col-lg-4 col-md-6 align-self-center mb-30 properties-items col-md-6 str">
+          <div class="item text-center">
+            <a href="property-details.html" title="Localização estratégica próxima a centros comerciais."><img src="imag/Vivaz Selection Santo Amaro.jpg" alt="Vivaz Selection Santo Amaro"></a>
+            <span class="category">Vivaz Selection Santo Amaro</span>
+            <h6>A partir de: R$ 218mil</h6>
+            <ul class="text-start">
+              <li>Bairro: <span>Santo Amaro</span></li>
+              <li>Quartos: <span>1 a 2</span></li>
+              <li>Área: <span>De 24m² a 40m²</span></li>
+              <li>Diferenciais: <span>Opção de varanda</span></li>
+              <li>Entrega: <span>01/2029</span></li>
             </ul>
             <div class="main-button">
-              <a href="property-details.html">Schedule a visit</a>
+              <a href="property-details.html">Agende uma visita</a>
             </div>
           </div>
         </div>
-        <div class="col-lg-4 col-md-6 align-self-center mb-30 properties-items col-md-6 rac str">
-          <div class="item">
-            <a href="property-details.html"><img src="assets/images/property-03.jpg" alt=""></a>
-            <span class="category">Luxury Villa</span>
-            <h6>$980.000</h6>
-            <h4><a href="property-details.html">14 Mid Street Miami, OR 36450</a></h4>
-            <ul>
-              <li>Bedrooms: <span>8</span></li>
-              <li>Bathrooms: <span>8</span></li>
-              <li>Area: <span>550m2</span></li>
-              <li>Floor: <span>3</span></li>
-              <li>Parking: <span>12 spots</span></li>
+        <div class="col-lg-4 col-md-6 align-self-center mb-30 properties-items col-md-6 str">
+          <div class="item text-center">
+            <a href="property-details.html" title="Próximo à Marginal Pinheiros e Parque Bruno Covas."><img src="imag/Vivaz Selection Laguna.jpg" alt="Vivaz Selection Laguna"></a>
+            <span class="category">Vivaz Selection Laguna</span>
+            <h6>A partir de: R$ 235mil</h6>
+            <ul class="text-start">
+              <li>Bairro: <span>Granja Julieta</span></li>
+              <li>Quartos: <span>1 a 2</span></li>
+              <li>Área: <span>De 24m² a 36m²</span></li>
+              <li>Diferenciais: <span>Opção de vaga e varanda</span></li>
+              <li>Entrega: <span>08/2028</span></li>
             </ul>
             <div class="main-button">
-              <a href="property-details.html">Schedule a visit</a>
+              <a href="property-details.html">Agende uma visita</a>
             </div>
           </div>
         </div>
-        <div class="col-lg-4 col-md-6 align-self-center mb-30 properties-items col-md-6 rac adv">
-          <div class="item">
-            <a href="property-details.html"><img src="assets/images/property-02.jpg" alt=""></a>
-            <span class="category">Luxury Villa</span>
-            <h6>$1.520.000</h6>
-            <h4><a href="property-details.html">26 Old Street Miami, OR 12870</a></h4>
-            <ul>
-              <li>Bedrooms: <span>12</span></li>
-              <li>Bathrooms: <span>15</span></li>
-              <li>Area: <span>380m2</span></li>
-              <li>Floor: <span>3</span></li>
-              <li>Parking: <span>14 spots</span></li>
+        <div class="col-lg-4 col-md-6 align-self-center mb-30 properties-items col-md-6 str">
+          <div class="item text-center">
+            <a href="property-details.html" title="Próximo à estação da CPTM, amplo lazer."><img src="imag/Vivaz Estacao Pirituba.jpg" alt="Vivaz Estação Pirituba"></a>
+            <span class="category">Vivaz Estação Pirituba</span>
+            <h6>A partir de: R$ 235mil</h6>
+            <ul class="text-start">
+              <li>Bairro: <span>Pirituba</span></li>
+              <li>Quartos: <span>1 a 2</span></li>
+              <li>Área: <span>De 24m² a 36m²</span></li>
+              <li>Diferenciais: <span>Opção de varanda</span></li>
+              <li>Entrega: <span>11/2028</span></li>
             </ul>
             <div class="main-button">
-              <a href="property-details.html">Schedule a visit</a>
+              <a href="property-details.html">Agende uma visita</a>
             </div>
           </div>
         </div>
-        <div class="col-lg-4 col-md-6 align-self-center mb-30 properties-items col-md-6 rac adv">
-          <div class="item">
-            <a href="property-details.html"><img src="assets/images/property-01.jpg" alt=""></a>
-            <span class="category">Luxury Villa</span>
-            <h6>$3.145.000</h6>
-            <h4><a href="property-details.html">34 New Street Miami, OR 24650</a></h4>
-            <ul>
-              <li>Bedrooms: <span>10</span></li>
-              <li>Bathrooms: <span>12</span></li>
-              <li>Area: <span>860m2</span></li>
-              <li>Floor: <span>3</span></li>
-              <li>Parking: <span>10 spots</span></li>
+        <div class="col-lg-4 col-md-6 align-self-center mb-30 properties-items col-md-6 str">
+          <div class="item text-center">
+            <a href="property-details.html" title="Integração com áreas verdes e lazer completo."><img src="imag/Vivaz Parque Joao Dias.jpg" alt="Vivaz Parque João Dias"></a>
+            <span class="category">Vivaz Parque João Dias</span>
+            <h6>A partir de: R$ 235mil</h6>
+            <ul class="text-start">
+              <li>Bairro: <span>Santo Amaro</span></li>
+              <li>Quartos: <span>1 a 2</span></li>
+              <li>Área: <span>De 24m² a 38m²</span></li>
+              <li>Diferenciais: <span>Opção de vaga e varanda</span></li>
+              <li>Entrega: <span>10/2028</span></li>
             </ul>
             <div class="main-button">
-              <a href="property-details.html">Schedule a visit</a>
+              <a href="property-details.html">Agende uma visita</a>
             </div>
           </div>
         </div>
-      </div>
-      <div class="row">
-        <div class="col-lg-12">
-          <ul class="pagination">
-            <li><a href="#">1</a></li>
-            <li><a class="is_active" href="#">2</a></li>
-            <li><a href="#">3</a></li>
-            <li><a href="#">>></a></li>
-          </ul>
+        <div class="col-lg-4 col-md-6 align-self-center mb-30 properties-items col-md-6 adv">
+          <div class="item text-center">
+            <a href="property-details.html" title="R. Dr Antônio Bento, 182"><img src="imag/Vivaz Connection.jpg" alt="Vivaz Parque João DiasVivaz Connection 
+Adolfo Pinheiro"></a>
+            <span class="category">Vivaz Connection Adolfo Pinheiro</span>
+            <h6>A partir de: R$ 244mil</h6>
+            <ul class="text-start">
+              <li>Bairro: <span>Santo Amaro</span></li>
+              <li>Quartos: <span>1 a 2</span></li>
+              <li>Área: <span>De 24m² a 36m²</span></li>
+              <li>Diferenciais: <span>Opção de varanda</span></li>
+              <li>Entrega: <span>Lançamento</span></li>
+            </ul>
+            <div class="main-button">
+              <a href="property-details.html">Agende uma visita</a>
+            </div>
+          </div>
         </div>
-      </div>
-    </div>
-  </div>
+        <div class="col-lg-4 col-md-6 align-self-center mb-30 properties-items col-md-6 str">
+          <div class="item text-center">
+            <a href="property-details.html" title="Piscina, Academia, Churrasqueira, Coworking, Brinquedoteca."><img src="imag/Vivaz Parque Freguesia do o.jpg" alt="Vivaz Parque Freguesia do Ó (1, 2 e 3)"></a>
+            <span class="category">Vivaz Parque Freguesia do Ó (1, 2 e 3)</span>
+            <h6>A partir de: R$ 226mil</h6>
+            <ul class="text-start">
+              <li>Bairro: <span>Freguesia do Ó</span></li>
+              <li>Quartos: <span>1 a 2</span></li>
+              <li>Área: <span>De 24m² a 45m²</span></li>
+              <li>Diferenciais: <span>Opção de vaga e varanda</span></li>
+              <li>Entrega: <span>10/2027</span></li>
+            </ul>
+            <div class="main-button">
+              <a href="property-details.html">Agende uma visita</a>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-4 col-md-6 align-self-center mb-30 properties-items col-md-6 str">
+          <div class="item text-center">
+            <a href="property-details.html" title="Lazer completo, próximo ao Metrô e Shopping Bourbon."><img src="imag/Vivaz Santa Marina.jpg" alt="Vivaz Santa Marina"></a>
+            <span class="category">Vivaz Santa Marina</span>
+            <h6>A partir de: R$ 306mil</h6>
+            <ul class="text-start">
+              <li>Bairro: <span>Água Branca</span></li>
+              <li>Quartos: <span>2</span></li>
+              <li>Área: <span>De 31m² a 34m²</span></li>
+              <li>Diferenciais: <span>Opção de 1 vaga</span></li>
+              <li>Entrega: <span>07/2027</span></li>
+            </ul>
+            <div class="main-button">
+              <a href="property-details.html">Agende uma visita</a>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-4 col-md-6 align-self-center mb-30 properties-items col-md-6 str">
+          <div class="item text-center">
+            <a href="property-details.html" title="Piscina, Salão de Jogos, Lavanderia coletiva, Quadra."><img src="imag/Vivaz Penha.jpg" alt="Vivaz Penha - Fase 3"></a>
+            <span class="category">Vivaz Penha - Fase 3</span>
+            <h6>A partir de: R$ 235mil</h6>
+            <ul class="text-start">
+              <li>Bairro: <span>Penha</span></li>
+              <li>Quartos: <span>1 a 2</span></li>
+              <li>Área: <span>De 24m² a 38m²</span></li>
+              <li>Diferenciais: <span>Opção de 1 vaga e varanda</span></li>
+              <li>Entrega: <span>11/2028</span></li>
+            </ul>
+            <div class="main-button">
+              <a href="property-details.html">Agende uma visita</a>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-4 col-md-6 align-self-center mb-30 properties-items col-md-6 str">
+          <div class="item text-center">
+            <a href="property-details.html" title="Localização próxima ao Horto Florestal, Lazer completo."><img src="imag/Vivaz Cantareira.jpg" alt="Vivaz Cantareira (1, 2 e 3)"></a>
+            <span class="category">Vivaz Cantareira (1, 2 e 3)</span>
+            <h6>A partir de: R$ 293mil</h6>
+            <ul class="text-start">
+              <li>Bairro: <span>V. N. Cachoeirinha</span></li>
+              <li>Quartos: <span>1 a 2</span></li>
+              <li>Área: <span>34m²</span></li>
+              <li>Diferenciais: <span>Opção de 1 vaga e varanda</span></li>
+              <li>Entrega: <span>12/2027</span></li>
+            </ul>
+            <div class="main-button">
+              <a href="property-details.html">Agende uma visita</a>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-4 col-md-6 align-self-center mb-30 properties-items col-md-6 str">
+          <div class="item text-center">
+            <a href="property-details.html" title="Próximo a faculdades e Estação Juventus-Mooca."><img src="imag/Vivaz Connection Mooca.jpg" alt="Vivaz Connection Mooca"></a>
+            <span class="category">Vivaz Connection Mooca</span>
+            <h6>A partir de: R$ 239mil</h6>
+            <ul class="text-start">
+              <li>Bairro: <span>Mooca</span></li>
+              <li>Quartos: <span>1 a 2</span></li>
+              <li>Área: <span>24m²</span></li>
+              <li>Diferenciais: <span>Opção de varanda</span></li>
+              <li>Entrega: <span>02/2028</span></li>
+            </ul>
+            <div class="main-button">
+              <a href="property-details.html">Agende uma visita</a>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-4 col-md-6 align-self-center mb-30 properties-items col-md-6 str">
+          <div class="item text-center">
+            <a href="property-details.html" title="Localização estratégica na Zona Norte, lazer elevado."><img src="imag/Vivaz Prime Voluntarios da Patria.jpg" alt="Vivaz Prime Voluntários da Pátria"></a>
+            <span class="category">Vivaz Prime Voluntários da Pátria</span>
+            <h6>A partir de: R$ 523mil</h6>
+            <ul class="text-start">
+              <li>Bairro: <span>Santana</span></li>
+              <li>Quartos: <span>2 a 3</span></li>
+              <li>Área: <span>De 46m² a 61m²</span></li>
+              <li>Diferenciais: <span>Opção de varanda</span></li>
+              <li>Entrega: <span>11/2025</span></li>
+            </ul>
+            <div class="main-button">
+              <a href="property-details.html">Agende uma visita</a>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-4 col-md-6 align-self-center mb-30 properties-items col-md-6 str">
+          <div class="item text-center">
+            <a href="property-details.html" title="Churrasqueiras, Playground, Fitness, Salão de Festas."><img src="imag/Vivaz Estacao Pirituba.jpg" alt="Vivaz Estação Pirituba (1 e 2)"></a>
+            <span class="category">Vivaz Estação Pirituba (1 e 2)</span>
+            <h6>A partir de: R$ 209mil</h6>
+            <ul class="text-start">
+              <li>Bairro: <span>Pirituba</span></li>
+              <li>Quartos: <span>1 a 2</span></li>
+              <li>Área: <span>De 24m² a 36m²</span></li>
+              <li>Diferenciais: <span>Opção de varanda</span></li>
+              <li>Entrega: <span>11/2028</span></li>
+            </ul>
+            <div class="main-button">
+              <a href="property-details.html">Agende uma visita</a>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-4 col-md-6 align-self-center mb-30 properties-items col-md-6 rac">
+          <div class="item text-center">
+            <a href="property-details.html" title="Linha Prime: Acabamento superior, Piscina, Espaço Gourmet."><img src="imag/Vivaz Prime Vila Maria.jpg" alt="Vivaz Prime Vila Maria"></a>
+            <span class="category">Vivaz Prime Vila Maria</span>
+            <h6>A partir de: R$ 525mil</h6>
+            <ul class="text-start">
+              <li>Bairro: <span>Vila Maria</span></li>
+              <li>Quartos: <span>2 a 3</span></li>
+              <li>Área: <span>55m²</span></li>
+              <li>Diferenciais: <span>Suíte e Varanda</span></li>
+              <li>Entrega: <span>Pronto</span></li>
+            </ul>
+            <div class="main-button">
+              <a href="property-details.html">Agende uma visita</a>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-4 col-md-6 align-self-center mb-30 properties-items col-md-6 rac">
+          <div class="item text-center">
+            <a href="property-details.html" title="Linha Prime: Acabamento superior, Piscina, Espaço Gourmet."><img src="imag/Vivaz Prime Vila Prudente.jpg" alt="Vivaz Prime Vila Prudente"></a>
+            <span class="category">Vivaz Prime Vila Prudente</span>
+            <h6>A partir de: R$ 537mil</h6>
+            <ul class="text-start">
+              <li>Bairro: <span>Vila Prudente</span></li>
+              <li>Quartos: <span>2 a 3</span></li>
+              <li>Área: <span>De 48m² a 56m²</span></li>
+              <li>Diferenciais: <span>Suíte, Varanda e Vaga</span></li>
+              <li>Entrega: <span>Pronto</span></li>
+            </ul>
+            <div class="main-button">
+              <a href="property-details.html">Agende uma visita</a>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-4 col-md-6 align-self-center mb-30 properties-items col-md-6 adv">
+          <div class="item text-center">
+            <a href="property-details.html" title="Churrasqueiras, Playground, Fitness, Salão de Festas."><img src="imag/Grand Vivaz Jardim Franca.jpg" alt="Grand Vivaz Jardim França - Paris"></a>
+            <span class="category">Grand Vivaz Jardim França - Paris</span>
+            <h6>A partir de: R$ 224mil</h6>
+            <ul class="text-start">
+              <li>Bairro: <span>Tucuruvi</span></li>
+              <li>Quartos: <span>1 a 2</span></li>
+              <li>Área: <span>De 24m² a 36m²</span></li>
+              <li>Diferenciais: <span>Suíte e Varanda</span></li>
+              <li>Entrega: <span>Lançamento</span></li>
+            </ul>
+            <div class="main-button">
+              <a href="property-details.html">Agende uma visita</a>
+            </div>
+          </div>
+        </div>
+</div>
+      
 
   <footer>
     <div class="container">
       <div class="col-lg-12">
-        <p>Copyright © 2048 Villa Agency Co., Ltd. All rights reserved. 
+        <p>Copyright © 2024 MT Parceiros - Consultoria Imobiliária e Soluções Inteligentes. Todos os direitos reservados. 
         
         Design: <a rel="nofollow" href="https://templatemo.com" target="_blank">TemplateMo</a> Distribution: <a href="https://themewagon.com">ThemeWagon</a></p>
       </div>
