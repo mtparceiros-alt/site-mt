@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap"
+    rel="stylesheet">
+
+  <title>Empreendimentos e Lançamentos em São Paulo | MT Parceiros</title>
+  <meta name="description"
+    content="Confira nossa seleção de apartamentos na planta e prontos para morar. Opções na Penha, Santo Amaro, Pirituba e mais. Lazer completo e facilidade de pagamento.">
+  <meta name="keywords"
+    content="apartamento na planta Penha, Vivaz Santo Amaro, lançamentos imobiliários SP, apartamentos zona oeste SP, Vivaz Estação Pirituba">
+
+  <!-- Bootstrap core CSS -->
+  <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Additional CSS Files -->
+  <link rel="stylesheet" href="assets/css/fontawesome.min.css">
+  <link rel="stylesheet" href="assets/css/templatemo-villa-agency.min.css">
+  <link rel="stylesheet" href="assets/css/owl.min.css">
+  <link rel="stylesheet" href="assets/css/animate.min.css">
+  <link rel="stylesheet" href="https://unpkg.com/swiper@7/swiper-bundle.min.css" />
+  <!--
+
+
+-->
+  <!-- CSS customizado para garantir a centralização dos preços -->
+  <style>
+    .section.properties .item h6 {
+      float: none !important;
+      text-align: center !important;
+      margin: 15px auto !important;
+      display: block !important;
+      width: 100%;
+    }
+
+    .section.properties .item .category {
+      display: block !important;
+      text-align: center;
+      margin-bottom: 10px;
+    }
+
+    .whatsapp-float {
+      position: fixed;
+      width: 180px;
+      bottom: 40px;
+      right: 40px;
+      z-index: 1000;
+      transition: transform .2s ease-in-out;
+    }
+
+    .whatsapp-float:hover {
+      transform: scale(1.1);
+    }
+
+    .whatsapp-float img {
+      width: 100%;
+    }
+
+    .info li a,
+    .item.email h6 a,
+    .item.phone h6 a {
+      color: #000;
+      text-decoration: none;
+    }
+
+    .info li a:hover,
+    .item.email h6 a:hover,
+    .item.phone h6 a:hover {
+      color: #f35525;
+    }
+
+    /* Calendar Modal Styles */
+    .calendar-modal {
+      display: none;
+      position: fixed;
+      z-index: 2000;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      overflow: auto;
+      background-color: rgba(0, 0, 0, 0.6);
+      font-family: 'Poppins', sans-serif;
+    }
+
+    .calendar-modal-content {
+      background-color: #fefefe;
+      margin: 10% auto;
+      padding: 25px;
+      border: 1px solid #888;
+      width: 90%;
+      max-width: 400px;
+      border-radius: 15px;
+      position: relative;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    }
+
+    .calendar-close-button {
+      color: #aaa;
+      position: absolute;
+      top: 10px;
+      right: 20px;
+      font-size: 28px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .calendar-close-button:hover,
+    .calendar-close-button:focus {
+      color: black;
+    }
+
+    #calendar-container {
+      text-align: center;
+    }
+
+    #calendar-container .calendar-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+
+    #calendar-container .calendar-header h3 {
+      margin: 0;
+      font-size: 1.2em;
+    }
+
+    #calendar-container .calendar-header button {
+      background: #f35525;
+      color: white;
+      border: none;
+      padding: 5px 10px;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    #calendar-container .calendar-header button:disabled {
+      background: #ccc;
+      cursor: not-allowed;
+    }
+
+    #calendar-container .calendar-days {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 5px;
+    }
+
+    #calendar-container .calendar-days div {
+      padding: 10px 5px;
+      font-size: 0.9em;
+    }
+
+    #calendar-container .calendar-weekdays div {
+      font-weight: bold;
+      color: #555;
+    }
+
+    #calendar-container .calendar-day {
+      cursor: pointer;
+      border-radius: 50%;
+      transition: background-color 0.2s;
+    }
+
+    #calendar-container .calendar-day:hover {
+      background-color: #f0f0f0;
+    }
+
+    #calendar-container .calendar-day.past-day {
+      color: #ccc;
+      cursor: not-allowed;
+    }
+
+    #calendar-container .calendar-day.past-day:hover {
+      background-color: transparent;
+    }
+
+    #calendar-container .calendar-day.selected-day {
+      background-color: #f35525;
+      color: white;
+    }
+
+    .calendar-modal-content h4 {
+      font-size: 1.3em;
+      text-align: center;
+      margin-bottom: 20px;
+      color: #333;
+    }
+  </style>
+  <link rel="stylesheet" href="assets/css/micro-animations.css">
+</head>
+
+<body>
+
+  <!-- ***** Preloader Start ***** -->
+  <div id="js-preloader" class="js-preloader">
+    <div class="preloader-inner">
+      <span class="dot"></span>
+      <div class="dots">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+    </div>
+  </div>
+  <!-- ***** Preloader End ***** -->
+
+  <div class="sub-header">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-8 col-md-8">
+          <ul class="info">
+            <li><i class="fa fa-envelope"></i> <a href="contact.html#contact-form">mtparceiros@gmail.com</a></li>
+            <li><i class="fa fa-map"></i> Rua Manuel Alvares Passos, 249 – Pirituba, São Paulo</li>
+          </ul>
+        </div>
+        <div class="col-lg-4 col-md-4">
+          <ul class="social-links">
+            <li><a href="https://www.facebook.com/profile.php?id=61587335061570" target="_blank"><i
+                  class="fab fa-facebook"></i></a></li>
+            <li><a href="https://x.com/minthu" target="_blank"><i class="fab fa-twitter"></i></a></li>
+            <li><a href="#"><i class="fab fa-linkedin"></i></a></li>
+            <li><a href="https://www.instagram.com/corretora.thainak/" target="_blank"><i
+                  class="fab fa-instagram"></i></a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ***** Header Area Start ***** -->
+  <header class="header-area header-sticky">
+    <div class="container">
+      <div class="row">
+        <div class="col-12">
+          <nav class="main-nav">
+            <!-- ***** Logo Start ***** -->
+            <a href="index.html" class="logo">
+              <h1>MTParceiros</h1>
+            </a>
+            <!-- ***** Logo End ***** -->
+            <!-- ***** Menu Start ***** -->
+            <ul class="nav">
+              <li><a href="index.html">Início</a></li>
+              <li><a href="properties.html" class="active">Empreendimentos</a></li>
+              <li><a href="property-details.html">Detalhes</a></li>
+              <li><a href="contact.html">Contato</a></li>
+              <li><a href="#!" class="schedule-visit-link"><i class="fa fa-calendar"></i> Agende uma visita</a></li>
+            </ul>
+            <a class='menu-trigger'>
+              <span>Menu</span>
+            </a>
+            <!-- ***** Menu End ***** -->
+          </nav>
+        </div>
+      </div>
+    </div>
+  </header>
+  <!-- ***** Header Area End ***** -->
+
+  <div class="page-heading header-text">
+    <!-- ★ Vídeo de Fundo do Cabeçalho -->
+    <video class="page-heading-video" autoplay muted loop playsinline preload="auto" aria-hidden="true">
+      <source src="videos/videoplayback.mp4" type="video/mp4">
+    </video>
+    <div class="page-heading-overlay"></div>
+    <!-- ★ Fim Vídeo -->
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-12">
+          <span class="breadcrumb"><a href="#">Início</a> / Empreendimentos</span>
+          <h3>Empreendimentos</h3>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section properties">
+    <div class="container">
+      <ul class="properties-filter">
+        <li>
+          <a class="is_active" href="#!" data-filter="*">Mostrar Todos</a>
+        </li>
+        <li>
+          <a href="#!" data-filter=".adv">Lançamento</a>
+        </li>
+        <li>
+          <a href="#!" data-filter=".str">Em Obras</a>
+        </li>
+        <li>
+          <a href="#!" data-filter=".rac">Pronto</a>
+        </li>
+      </ul>
+      <div class="row properties-box" id="properties-container">
+        <!-- Cartões gerados automaticamente pelo CMS (cms-renderer.js) -->
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <div class="container">
+      <div class="col-lg-12">
+        <p>Copyright © 2024 MT Parceiros - Consultoria Imobiliária e Soluções Inteligentes. Todos os direitos
+          reservados.
+
+          Design: <a rel="nofollow" href="https://templatemo.com" target="_blank">TemplateMo</a> Distribution: <a
+            href="https://themewagon.com">ThemeWagon</a></p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Calendar Modal -->
+  <div id="calendar-modal" class="calendar-modal">
+    <div class="calendar-modal-content">
+      <span class="calendar-close-button">&times;</span>
+      <h4>Selecione uma data para a visita</h4>
+      <div id="calendar-container"></div>
+    </div>
+  </div>
+
+  <a href="https://wa.me/5511960364355" target="_blank" class="whatsapp-float">
+    <img src="assets/images/bot-whatsapp.png" alt="Fale conosco pelo WhatsApp">
+  </a>
+
+  <!-- Scripts -->
+  <!-- Bootstrap core JavaScript -->
+  <script src="vendor/jquery/jquery.min.js"></script>
+  <script src="vendor/bootstrap/js/bootstrap.min.js"></script>
+  <script src="assets/js/isotope.min.js"></script>
+  <script src="assets/js/owl-carousel.js"></script>
+  <script src="assets/js/counter.js"></script>
+  <script src="empreendimentos.js"></script>
+  <script src="assets/js/cms-renderer.js"></script>
+  <script>document.addEventListener('DOMContentLoaded', function () { renderListaCompleta('#properties-container'); });</script>
+  <script src="assets/js/custom.js"></script>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      // --- Calendar Modal Logic ---
+      const modal = document.getElementById('calendar-modal');
+      const closeButton = document.querySelector('.calendar-close-button');
+      const scheduleLinks = document.querySelectorAll('.schedule-visit-link');
+      const calendarContainer = document.getElementById('calendar-container');
+      const whatsappNumber = '5511960364355';
+
+      let currentDate = new Date();
+
+      function renderCalendar(date) {
+        calendarContainer.innerHTML = ''; // Clear previous calendar
+
+        const month = date.getMonth();
+        const year = date.getFullYear();
+
+        const firstDayOfMonth = new Date(year, month, 1);
+        const lastDayOfMonth = new Date(year, month + 1, 0);
+        const daysInMonth = lastDayOfMonth.getDate();
+        const startDayOfWeek = firstDayOfMonth.getDay(); // 0=Sun, 1=Mon, ...
+
+        const monthNames = ["Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"];
+        const dayNames = ["Dom", "Seg", "Ter", "Qua", "Qui", "Sex", "Sáb"];
+
+        // Header
+        const header = document.createElement('div');
+        header.className = 'calendar-header';
+        const prevButton = document.createElement('button');
+        prevButton.id = 'prev-month';
+        prevButton.innerHTML = '&lt;';
+        const monthYear = document.createElement('h3');
+        monthYear.textContent = `${monthNames[month]} ${year}`;
+        const nextButton = document.createElement('button');
+        nextButton.id = 'next-month';
+        nextButton.innerHTML = '&gt;';
+
+        header.appendChild(prevButton);
+        header.appendChild(monthYear);
+        header.appendChild(nextButton);
+        calendarContainer.appendChild(header);
+
+        // Weekdays
+        const weekdays = document.createElement('div');
+        weekdays.className = 'calendar-days calendar-weekdays';
+        dayNames.forEach(day => {
+          const dayEl = document.createElement('div');
+          dayEl.textContent = day;
+          weekdays.appendChild(dayEl);
+        });
+        calendarContainer.appendChild(weekdays);
+
+        // Days
+        const daysContainer = document.createElement('div');
+        daysContainer.className = 'calendar-days';
+
+        for (let i = 0; i < startDayOfWeek; i++) {
+          daysContainer.appendChild(document.createElement('div'));
+        }
+
+        const today = new Date();
+        today.setHours(0, 0, 0, 0);
+
+        for (let day = 1; day <= daysInMonth; day++) {
+          const dayEl = document.createElement('div');
+          dayEl.className = 'calendar-day';
+          dayEl.textContent = day;
+
+          const currentDayDate = new Date(year, month, day);
+
+          if (currentDayDate < today) {
+            dayEl.classList.add('past-day');
+          } else {
+            dayEl.addEventListener('click', () => {
+              const selectedDate = new Date(year, month, day);
+              const formattedDate = selectedDate.toLocaleDateString('pt-BR');
+              const message = `Olá, gostaria de agendar uma visita para o dia ${formattedDate}.`;
+              const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`;
+
+              window.open(whatsappUrl, '_blank');
+              modal.style.display = 'none';
+            });
+          }
+          daysContainer.appendChild(dayEl);
+        }
+        calendarContainer.appendChild(daysContainer);
+
+        if (year < today.getFullYear() || (year === today.getFullYear() && month <= today.getMonth())) {
+          document.getElementById('prev-month').disabled = true;
+        }
+
+        document.getElementById('prev-month').addEventListener('click', () => { currentDate.setMonth(currentDate.getMonth() - 1); renderCalendar(currentDate); });
+        document.getElementById('next-month').addEventListener('click', () => { currentDate.setMonth(currentDate.getMonth() + 1); renderCalendar(currentDate); });
+      }
+
+      scheduleLinks.forEach(link => { link.addEventListener('click', function (e) { e.preventDefault(); currentDate = new Date(); renderCalendar(currentDate); modal.style.display = 'block'; }); });
+      closeButton.addEventListener('click', function () { modal.style.display = 'none'; });
+      window.addEventListener('click', function (event) { if (event.target == modal) { modal.style.display = 'none'; } });
+    });
+  </script>
+
+  <script src="assets/js/micro-animations.js"></script>
+  <script src="assets/js/property-drawer.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://mtparceiros.github.io/site_mt/sitemap.xml
