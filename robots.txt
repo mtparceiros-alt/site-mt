@@ -1,5 +1,3 @@
 User-agent: *
 Allow: /
-
-Sitemap: https://mtparceiros-alt.github.io/site-mt/sitemap.xml
-
+Sitemap: https://mtparceiros.github.io/site_mt/sitemap.xml

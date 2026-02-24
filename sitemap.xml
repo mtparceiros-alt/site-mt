@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://mtparceiros-alt.github.io/site-mt/index.html</loc>
+    <loc>https://mtparceiros.github.io/site_mt/index.html</loc>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://mtparceiros-alt.github.io/site-mt/properties.html</loc>
+    <loc>https://mtparceiros.github.io/site_mt/properties.html</loc>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://mtparceiros-alt.github.io/site-mt/property-details.html</loc>
+    <loc>https://mtparceiros.github.io/site_mt/property-details.html</loc>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://mtparceiros-alt.github.io/site-mt/contact.html</loc>
+    <loc>https://mtparceiros.github.io/site_mt/contact.html</loc>
     <priority>0.6</priority>
   </url>
 </urlset>

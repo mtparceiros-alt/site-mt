@@ -1,119 +1,200 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 
-  <head>
+<head>
 
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap"
+    rel="stylesheet">
 
-    <title>Empreendimentos e Lançamentos em São Paulo | MT Parceiros</title>
-    <meta name="description" content="Confira nossa seleção de apartamentos na planta e prontos para morar. Opções na Penha, Santo Amaro, Pirituba e mais. Lazer completo e facilidade de pagamento.">
-    <meta name="keywords" content="apartamento na planta Penha, Vivaz Santo Amaro, lançamentos imobiliários SP, apartamentos zona oeste SP, Vivaz Estação Pirituba">
+  <title>Empreendimentos e Lançamentos em São Paulo | MT Parceiros</title>
+  <meta name="description"
+    content="Confira nossa seleção de apartamentos na planta e prontos para morar. Opções na Penha, Santo Amaro, Pirituba e mais. Lazer completo e facilidade de pagamento.">
+  <meta name="keywords"
+    content="apartamento na planta Penha, Vivaz Santo Amaro, lançamentos imobiliários SP, apartamentos zona oeste SP, Vivaz Estação Pirituba">
 
-    <!-- Bootstrap core CSS -->
-    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Bootstrap core CSS -->
+  <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
-    <!-- Additional CSS Files -->
-    <link rel="stylesheet" href="assets/css/fontawesome.css">
-    <link rel="stylesheet" href="assets/css/templatemo-villa-agency.css">
-    <link rel="stylesheet" href="assets/css/owl.css">
-    <link rel="stylesheet" href="assets/css/animate.css">
-    <link rel="stylesheet"href="https://unpkg.com/swiper@7/swiper-bundle.min.css"/>
-<!--
+  <!-- Additional CSS Files -->
+  <link rel="stylesheet" href="assets/css/fontawesome.min.css">
+  <link rel="stylesheet" href="assets/css/templatemo-villa-agency.min.css">
+  <link rel="stylesheet" href="assets/css/owl.min.css">
+  <link rel="stylesheet" href="assets/css/animate.min.css">
+  <link rel="stylesheet" href="https://unpkg.com/swiper@7/swiper-bundle.min.css" />
+  <!--
 
 
 -->
-    <!-- CSS customizado para garantir a centralização dos preços -->
-    <style>
-      .section.properties .item h6 {
-        float: none !important;
-        text-align: center !important;
-        margin: 15px auto !important;
-        display: block !important;
-        width: 100%;
-      }
-      .section.properties .item .category {
-        display: block !important;
-        text-align: center;
-        margin-bottom: 10px;
-      }
-      .whatsapp-float {
-        position: fixed;
-        width: 180px;
-        bottom: 40px;
-        right: 40px;
-        z-index: 1000;
-        transition: transform .2s ease-in-out;
-      }
-      .whatsapp-float:hover {
-        transform: scale(1.1);
-      }
-      .whatsapp-float img { width: 100%; }
-      .info li a,
-      .item.email h6 a,
-      .item.phone h6 a {
-        color: #000;
-        text-decoration: none;
-      }
-      .info li a:hover,
-      .item.email h6 a:hover,
-      .item.phone h6 a:hover {
-        color: #f35525;
-      }
-      /* Calendar Modal Styles */
-      .calendar-modal {
-        display: none; 
-        position: fixed; 
-        z-index: 2000; 
-        left: 0;
-        top: 0;
-        width: 100%; 
-        height: 100%; 
-        overflow: auto; 
-        background-color: rgba(0,0,0,0.6);
-        font-family: 'Poppins', sans-serif;
-      }
-      .calendar-modal-content {
-        background-color: #fefefe;
-        margin: 10% auto;
-        padding: 25px;
-        border: 1px solid #888;
-        width: 90%;
-        max-width: 400px;
-        border-radius: 15px;
-        position: relative;
-        box-shadow: 0 5px 15px rgba(0,0,0,0.3);
-      }
-      .calendar-close-button {
-        color: #aaa;
-        position: absolute;
-        top: 10px;
-        right: 20px;
-        font-size: 28px;
-        font-weight: bold;
-        cursor: pointer;
-      }
-      .calendar-close-button:hover,
-      .calendar-close-button:focus {
-        color: black;
-      }
-      #calendar-container { text-align: center; }
-      #calendar-container .calendar-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
-      #calendar-container .calendar-header h3 { margin: 0; font-size: 1.2em; }
-      #calendar-container .calendar-header button { background: #f35525; color: white; border: none; padding: 5px 10px; border-radius: 5px; cursor: pointer; }
-      #calendar-container .calendar-header button:disabled { background: #ccc; cursor: not-allowed; }
-      #calendar-container .calendar-days { display: grid; grid-template-columns: repeat(7, 1fr); gap: 5px; }
-      #calendar-container .calendar-days div { padding: 10px 5px; font-size: 0.9em; }
-      #calendar-container .calendar-weekdays div { font-weight: bold; color: #555; }
-      #calendar-container .calendar-day { cursor: pointer; border-radius: 50%; transition: background-color 0.2s; }
-      #calendar-container .calendar-day:hover { background-color: #f0f0f0; }
-      #calendar-container .calendar-day.past-day { color: #ccc; cursor: not-allowed; }
-      #calendar-container .calendar-day.past-day:hover { background-color: transparent; }
-      #calendar-container .calendar-day.selected-day { background-color: #f35525; color: white; }
-      .calendar-modal-content h4 { font-size: 1.3em; text-align: center; margin-bottom: 20px; color: #333; }
-    </style>
-  </head>
+  <!-- CSS customizado para garantir a centralização dos preços -->
+  <style>
+    .section.properties .item h6 {
+      float: none !important;
+      text-align: center !important;
+      margin: 15px auto !important;
+      display: block !important;
+      width: 100%;
+    }
+
+    .section.properties .item .category {
+      display: block !important;
+      text-align: center;
+      margin-bottom: 10px;
+    }
+
+    .whatsapp-float {
+      position: fixed;
+      width: 180px;
+      bottom: 40px;
+      right: 40px;
+      z-index: 1000;
+      transition: transform .2s ease-in-out;
+    }
+
+    .whatsapp-float:hover {
+      transform: scale(1.1);
+    }
+
+    .whatsapp-float img {
+      width: 100%;
+    }
+
+    .info li a,
+    .item.email h6 a,
+    .item.phone h6 a {
+      color: #000;
+      text-decoration: none;
+    }
+
+    .info li a:hover,
+    .item.email h6 a:hover,
+    .item.phone h6 a:hover {
+      color: #f35525;
+    }
+
+    /* Calendar Modal Styles */
+    .calendar-modal {
+      display: none;
+      position: fixed;
+      z-index: 2000;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      overflow: auto;
+      background-color: rgba(0, 0, 0, 0.6);
+      font-family: 'Poppins', sans-serif;
+    }
+
+    .calendar-modal-content {
+      background-color: #fefefe;
+      margin: 10% auto;
+      padding: 25px;
+      border: 1px solid #888;
+      width: 90%;
+      max-width: 400px;
+      border-radius: 15px;
+      position: relative;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    }
+
+    .calendar-close-button {
+      color: #aaa;
+      position: absolute;
+      top: 10px;
+      right: 20px;
+      font-size: 28px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .calendar-close-button:hover,
+    .calendar-close-button:focus {
+      color: black;
+    }
+
+    #calendar-container {
+      text-align: center;
+    }
+
+    #calendar-container .calendar-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+
+    #calendar-container .calendar-header h3 {
+      margin: 0;
+      font-size: 1.2em;
+    }
+
+    #calendar-container .calendar-header button {
+      background: #f35525;
+      color: white;
+      border: none;
+      padding: 5px 10px;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    #calendar-container .calendar-header button:disabled {
+      background: #ccc;
+      cursor: not-allowed;
+    }
+
+    #calendar-container .calendar-days {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 5px;
+    }
+
+    #calendar-container .calendar-days div {
+      padding: 10px 5px;
+      font-size: 0.9em;
+    }
+
+    #calendar-container .calendar-weekdays div {
+      font-weight: bold;
+      color: #555;
+    }
+
+    #calendar-container .calendar-day {
+      cursor: pointer;
+      border-radius: 50%;
+      transition: background-color 0.2s;
+    }
+
+    #calendar-container .calendar-day:hover {
+      background-color: #f0f0f0;
+    }
+
+    #calendar-container .calendar-day.past-day {
+      color: #ccc;
+      cursor: not-allowed;
+    }
+
+    #calendar-container .calendar-day.past-day:hover {
+      background-color: transparent;
+    }
+
+    #calendar-container .calendar-day.selected-day {
+      background-color: #f35525;
+      color: white;
+    }
+
+    .calendar-modal-content h4 {
+      font-size: 1.3em;
+      text-align: center;
+      margin-bottom: 20px;
+      color: #333;
+    }
+  </style>
+  <link rel="stylesheet" href="assets/css/micro-animations.css">
+</head>
 
 <body>
 
@@ -141,10 +222,12 @@
         </div>
         <div class="col-lg-4 col-md-4">
           <ul class="social-links">
-            <li><a href="#"><i class="fab fa-facebook"></i></a></li>
+            <li><a href="https://www.facebook.com/profile.php?id=61587335061570" target="_blank"><i
+                  class="fab fa-facebook"></i></a></li>
             <li><a href="https://x.com/minthu" target="_blank"><i class="fab fa-twitter"></i></a></li>
             <li><a href="#"><i class="fab fa-linkedin"></i></a></li>
-            <li><a href="#"><i class="fab fa-instagram"></i></a></li>
+            <li><a href="https://www.instagram.com/corretora.thainak/" target="_blank"><i
+                  class="fab fa-instagram"></i></a></li>
           </ul>
         </div>
       </div>
@@ -154,34 +237,40 @@
   <!-- ***** Header Area Start ***** -->
   <header class="header-area header-sticky">
     <div class="container">
-        <div class="row">
-            <div class="col-12">
-                <nav class="main-nav">
-                    <!-- ***** Logo Start ***** -->
-                    <a href="index.html" class="logo">
-                        <h1>MTParceiros</h1>
-                    </a>
-                    <!-- ***** Logo End ***** -->
-                    <!-- ***** Menu Start ***** -->
-                    <ul class="nav">
-                      <li><a href="index.html">Início</a></li>
-                      <li><a href="properties.html" class="active">Empreendimentos</a></li>
-                      <li><a href="property-details.html">Detalhes</a></li>
-                      <li><a href="contact.html">Contato</a></li>
-                      <li><a href="#!" class="schedule-visit-link"><i class="fa fa-calendar"></i> Agende uma visita</a></li>
-                  </ul>   
-                    <a class='menu-trigger'>
-                        <span>Menu</span>
-                    </a>
-                    <!-- ***** Menu End ***** -->
-                </nav>
-            </div>
+      <div class="row">
+        <div class="col-12">
+          <nav class="main-nav">
+            <!-- ***** Logo Start ***** -->
+            <a href="index.html" class="logo">
+              <h1>MTParceiros</h1>
+            </a>
+            <!-- ***** Logo End ***** -->
+            <!-- ***** Menu Start ***** -->
+            <ul class="nav">
+              <li><a href="index.html">Início</a></li>
+              <li><a href="properties.html" class="active">Empreendimentos</a></li>
+              <li><a href="property-details.html">Detalhes</a></li>
+              <li><a href="contact.html">Contato</a></li>
+              <li><a href="#!" class="schedule-visit-link"><i class="fa fa-calendar"></i> Agende uma visita</a></li>
+            </ul>
+            <a class='menu-trigger'>
+              <span>Menu</span>
+            </a>
+            <!-- ***** Menu End ***** -->
+          </nav>
         </div>
+      </div>
     </div>
   </header>
   <!-- ***** Header Area End ***** -->
 
   <div class="page-heading header-text">
+    <!-- ★ Vídeo de Fundo do Cabeçalho -->
+    <video class="page-heading-video" autoplay muted loop playsinline preload="auto" aria-hidden="true">
+      <source src="videos/videoplayback.mp4" type="video/mp4">
+    </video>
+    <div class="page-heading-overlay"></div>
+    <!-- ★ Fim Vídeo -->
     <div class="container">
       <div class="row">
         <div class="col-lg-12">
@@ -208,391 +297,20 @@
           <a href="#!" data-filter=".rac">Pronto</a>
         </li>
       </ul>
-      <div class="row properties-box">
-        <div class="col-lg-4 col-md-6 align-self-center mb-30 properties-items col-md-6 str">
-          <div class="item text-center">
-            <a href="property-details.html" title="Piscina, Academia, Espaço Camarote, Lavanderia, Minimercado."><img src="imag/Vivaz Santa Marina.jpg" alt="Vivaz Penha 2"></a>
-            <span class="category">Vivaz Penha 2</span>
-            <h6>A partir de: R$ 205mil</h6>
-            <ul class="text-start">
-              <li>Bairro: <span>Penha (Zona Leste)</span></li>
-              <li>Quartos: <span>1 a 2</span></li>
-              <li>Área: <span>De 24m² a 38m²</span></li>
-              <li>Diferenciais: <span>Opção de vaga e varanda</span></li>
-              <li>Entrega: <span>11/2028</span></li>
-            </ul>
-            <div class="main-button">
-              <a href="#!" class="schedule-visit-link">Agende uma visita</a>
-            </div>
-          </div>
-        </div>
-        <div class="col-lg-4 col-md-6 align-self-center mb-30 properties-items col-md-6 str">
-          <div class="item text-center">
-            <a href="property-details.html" title="Piscina, Coworking, Pet Place, Redário, Churrasqueira."><img src="imag/Vivaz Parque Freguesia do o.jpg" alt="Vivaz Freguesia do Ó"></a>
-            <span class="category">Vivaz Freguesia do Ó</span>
-            <h6>A partir de: R$ 226mil</h6>
-            <ul class="text-start">
-              <li>Bairro: <span>Freguesia (Zona Norte)</span></li>
-              <li>Quartos: <span>1 a 2</span></li>
-              <li>Área: <span>De 24m² a 45m²</span></li>
-              <li>Diferenciais: <span>Próximo ao Metrô João Paulo I</span></li>
-              <li>Entrega: <span>10/2027</span></li>
-            </ul>
-            <div class="main-button">
-              <a href="#!" class="schedule-visit-link">Agende uma visita</a>
-            </div>
-          </div>
-        </div>
-        <div class="col-lg-4 col-md-6 align-self-center mb-30 properties-items col-md-6 str">
-          <div class="item text-center">
-            <a href="property-details.html" title="Piscina, Fitness, Salão de Games, Lavanderia, Brinquedoteca."><img src="imag/Vivaz Santo Amaro.jpg" alt="Vivaz Santo Amaro"></a>
-            <span class="category">Vivaz Santo Amaro</span>
-            <h6>A partir de: R$ 218mil</h6>
-            <ul class="text-start">
-              <li>Bairro: <span>Santo Amaro (Zona Sul)</span></li>
-              <li>Quartos: <span>2 a 2</span></li>
-              <li>Área: <span>De 24m² a 40m²</span></li>
-              <li>Diferenciais: <span>Opção de varanda</span></li>
-              <li>Entrega: <span>01/2029</span></li>
-            </ul>
-            <div class="main-button">
-              <a href="#!" class="schedule-visit-link">Agende uma visita</a>
-            </div>
-          </div>
-        </div>
-        <div class="col-lg-4 col-md-6 align-self-center mb-30 properties-items col-md-6 adv">
-          <div class="item text-center">
-            <a href="property-details.html" title="Lazer completo, fácil acesso ao trem/terminal."><img src="imag/Vivaz Estacao Lapa.jpg" alt="Vivaz Estação Lapa"></a>
-            <span class="category">Vivaz Estação Lapa</span>
-            <h6>A partir de: R$ 214mil</h6>
-            <ul class="text-start">
-              <li>Bairro: <span>Lapa (Zona Oeste)</span></li>
-              <li>Quartos: <span>1 a 2</span></li>
-              <li>Área: <span>De 24m² a 36m²</span></li>
-              <li>Diferenciais: <span>Opção de varanda</span></li>
-              <li>Entrega: <span>Lançamento</span></li>
-            </ul>
-            <div class="main-button">
-              <a href="#!" class="schedule-visit-link">Agende uma visita</a>
-            </div>
-          </div>
-        </div>
-        <div class="col-lg-4 col-md-6 align-self-center mb-30 properties-items col-md-6 str">
-          <div class="item text-center">
-            <a href="property-details.html" title="Linha &quot;Grand&quot; com acabamentos diferenciados e lazer."><img src="imag/Vivaz Penha.jpg" alt="Grand Vivaz Penha"></a>
-            <span class="category">Grand Vivaz Penha</span>
-            <h6>A partir de: R$ 235mil</h6>
-            <ul class="text-start">
-              <li>Bairro: <span>Penha (Zona Leste)</span></li>
-              <li>Quartos: <span>1 a 2</span></li>
-              <li>Área: <span>De 24m² a 38m²</span></li>
-              <li>Diferenciais: <span>Opção de vaga e varanda</span></li>
-              <li>Entrega: <span>02/2028</span></li>
-            </ul>
-            <div class="main-button">
-              <a href="#!" class="schedule-visit-link">Agende uma visita</a>
-            </div>
-          </div>
-        </div>
-        <div class="col-lg-4 col-md-6 align-self-center mb-30 properties-items col-md-6 str">
-          <div class="item text-center">
-            <a href="property-details.html" title="Próximo ao Metrô e CPTM, lazer no condomínio."><img src="imag/Grand Vivaz Estacao Tamanduatei.jpg" alt="Grand Vivaz Estação Tamanduateí"></a>
-            <span class="category">Grand Vivaz Estação Tamanduateí</span>
-            <h6>A partir de: R$ 217mil</h6>
-            <ul class="text-start">
-              <li>Bairro: <span>Vila Prudente</span></li>
-              <li>Quartos: <span>1 a 2</span></li>
-              <li>Área: <span>De 24m² a 36m²</span></li>
-              <li>Diferenciais: <span>Opção de varanda</span></li>
-              <li>Entrega: <span>12/2028</span></li>
-            </ul>
-            <div class="main-button">
-              <a href="#!" class="schedule-visit-link">Agende uma visita</a>
-            </div>
-          </div>
-        </div>
-        <div class="col-lg-4 col-md-6 align-self-center mb-30 properties-items col-md-6 str">
-          <div class="item text-center">
-            <a href="property-details.html" title="Localização residencial privilegiada na Zona Norte."><img src="imag/Grand Vivaz Jardim Franca.jpg" alt="Grand Vivaz Jardim França Paris"></a>
-            <span class="category">Grand Vivaz Jardim França Paris</span>
-            <h6>A partir de: R$ 224mil</h6>
-            <ul class="text-start">
-              <li>Bairro: <span>Jardim França</span></li>
-              <li>Quartos: <span>1 a 2</span></li>
-              <li>Área: <span>De 24m² a 36m²</span></li>
-              <li>Diferenciais: <span>Opção de varanda</span></li>
-              <li>Entrega: <span>05/2029</span></li>
-            </ul>
-            <div class="main-button">
-              <a href="#!" class="schedule-visit-link">Agende uma visita</a>
-            </div>
-          </div>
-        </div>
-        <div class="col-lg-4 col-md-6 align-self-center mb-30 properties-items col-md-6 str">
-          <div class="item text-center">
-            <a href="property-details.html" title="Localização estratégica próxima a centros comerciais."><img src="imag/Vivaz Selection Santo Amaro.jpg" alt="Vivaz Selection Santo Amaro"></a>
-            <span class="category">Vivaz Selection Santo Amaro</span>
-            <h6>A partir de: R$ 218mil</h6>
-            <ul class="text-start">
-              <li>Bairro: <span>Santo Amaro</span></li>
-              <li>Quartos: <span>1 a 2</span></li>
-              <li>Área: <span>De 24m² a 40m²</span></li>
-              <li>Diferenciais: <span>Opção de varanda</span></li>
-              <li>Entrega: <span>01/2029</span></li>
-            </ul>
-            <div class="main-button">
-              <a href="#!" class="schedule-visit-link">Agende uma visita</a>
-            </div>
-          </div>
-        </div>
-        <div class="col-lg-4 col-md-6 align-self-center mb-30 properties-items col-md-6 str">
-          <div class="item text-center">
-            <a href="property-details.html" title="Próximo à Marginal Pinheiros e Parque Bruno Covas."><img src="imag/Vivaz Selection Laguna.jpg" alt="Vivaz Selection Laguna"></a>
-            <span class="category">Vivaz Selection Laguna</span>
-            <h6>A partir de: R$ 235mil</h6>
-            <ul class="text-start">
-              <li>Bairro: <span>Granja Julieta</span></li>
-              <li>Quartos: <span>1 a 2</span></li>
-              <li>Área: <span>De 24m² a 36m²</span></li>
-              <li>Diferenciais: <span>Opção de vaga e varanda</span></li>
-              <li>Entrega: <span>08/2028</span></li>
-            </ul>
-            <div class="main-button">
-              <a href="#!" class="schedule-visit-link">Agende uma visita</a>
-            </div>
-          </div>
-        </div>
-        <div class="col-lg-4 col-md-6 align-self-center mb-30 properties-items col-md-6 str">
-          <div class="item text-center">
-            <a href="property-details.html" title="Próximo à estação da CPTM, amplo lazer."><img src="imag/Vivaz Estacao Pirituba.jpg" alt="Vivaz Estação Pirituba"></a>
-            <span class="category">Vivaz Estação Pirituba</span>
-            <h6>A partir de: R$ 235mil</h6>
-            <ul class="text-start">
-              <li>Bairro: <span>Pirituba</span></li>
-              <li>Quartos: <span>1 a 2</span></li>
-              <li>Área: <span>De 24m² a 36m²</span></li>
-              <li>Diferenciais: <span>Opção de varanda</span></li>
-              <li>Entrega: <span>11/2028</span></li>
-            </ul>
-            <div class="main-button">
-              <a href="#!" class="schedule-visit-link">Agende uma visita</a>
-            </div>
-          </div>
-        </div>
-        <div class="col-lg-4 col-md-6 align-self-center mb-30 properties-items col-md-6 str">
-          <div class="item text-center">
-            <a href="property-details.html" title="Integração com áreas verdes e lazer completo."><img src="imag/Vivaz Parque Joao Dias.jpg" alt="Vivaz Parque João Dias"></a>
-            <span class="category">Vivaz Parque João Dias</span>
-            <h6>A partir de: R$ 235mil</h6>
-            <ul class="text-start">
-              <li>Bairro: <span>Santo Amaro</span></li>
-              <li>Quartos: <span>1 a 2</span></li>
-              <li>Área: <span>De 24m² a 38m²</span></li>
-              <li>Diferenciais: <span>Opção de vaga e varanda</span></li>
-              <li>Entrega: <span>10/2028</span></li>
-            </ul>
-            <div class="main-button">
-              <a href="#!" class="schedule-visit-link">Agende uma visita</a>
-            </div>
-          </div>
-        </div>
-        <div class="col-lg-4 col-md-6 align-self-center mb-30 properties-items col-md-6 adv">
-          <div class="item text-center">
-            <a href="property-details.html" title="R. Dr Antônio Bento, 182"><img src="imag/Vivaz Connection.jpg" alt="Vivaz Parque João DiasVivaz Connection 
-Adolfo Pinheiro"></a>
-            <span class="category">Vivaz Connection Adolfo Pinheiro</span>
-            <h6>A partir de: R$ 244mil</h6>
-            <ul class="text-start">
-              <li>Bairro: <span>Santo Amaro</span></li>
-              <li>Quartos: <span>1 a 2</span></li>
-              <li>Área: <span>De 24m² a 36m²</span></li>
-              <li>Diferenciais: <span>Opção de varanda</span></li>
-              <li>Entrega: <span>Lançamento</span></li>
-            </ul>
-            <div class="main-button">
-              <a href="#!" class="schedule-visit-link">Agende uma visita</a>
-            </div>
-          </div>
-        </div>
-        <div class="col-lg-4 col-md-6 align-self-center mb-30 properties-items col-md-6 str">
-          <div class="item text-center">
-            <a href="property-details.html" title="Piscina, Academia, Churrasqueira, Coworking, Brinquedoteca."><img src="imag/Vivaz Parque Freguesia do o.jpg" alt="Vivaz Parque Freguesia do Ó (1, 2 e 3)"></a>
-            <span class="category">Vivaz Parque Freguesia do Ó (1, 2 e 3)</span>
-            <h6>A partir de: R$ 226mil</h6>
-            <ul class="text-start">
-              <li>Bairro: <span>Freguesia do Ó</span></li>
-              <li>Quartos: <span>1 a 2</span></li>
-              <li>Área: <span>De 24m² a 45m²</span></li>
-              <li>Diferenciais: <span>Opção de vaga e varanda</span></li>
-              <li>Entrega: <span>10/2027</span></li>
-            </ul>
-            <div class="main-button">
-              <a href="#!" class="schedule-visit-link">Agende uma visita</a>
-            </div>
-          </div>
-        </div>
-        <div class="col-lg-4 col-md-6 align-self-center mb-30 properties-items col-md-6 str">
-          <div class="item text-center">
-            <a href="property-details.html" title="Lazer completo, próximo ao Metrô e Shopping Bourbon."><img src="imag/Vivaz Santa Marina.jpg" alt="Vivaz Santa Marina"></a>
-            <span class="category">Vivaz Santa Marina</span>
-            <h6>A partir de: R$ 306mil</h6>
-            <ul class="text-start">
-              <li>Bairro: <span>Água Branca</span></li>
-              <li>Quartos: <span>2</span></li>
-              <li>Área: <span>De 31m² a 34m²</span></li>
-              <li>Diferenciais: <span>Opção de 1 vaga</span></li>
-              <li>Entrega: <span>07/2027</span></li>
-            </ul>
-            <div class="main-button">
-              <a href="#!" class="schedule-visit-link">Agende uma visita</a>
-            </div>
-          </div>
-        </div>
-        <div class="col-lg-4 col-md-6 align-self-center mb-30 properties-items col-md-6 str">
-          <div class="item text-center">
-            <a href="property-details.html" title="Piscina, Salão de Jogos, Lavanderia coletiva, Quadra."><img src="imag/Vivaz Penha.jpg" alt="Vivaz Penha - Fase 3"></a>
-            <span class="category">Vivaz Penha - Fase 3</span>
-            <h6>A partir de: R$ 235mil</h6>
-            <ul class="text-start">
-              <li>Bairro: <span>Penha</span></li>
-              <li>Quartos: <span>1 a 2</span></li>
-              <li>Área: <span>De 24m² a 38m²</span></li>
-              <li>Diferenciais: <span>Opção de 1 vaga e varanda</span></li>
-              <li>Entrega: <span>11/2028</span></li>
-            </ul>
-            <div class="main-button">
-              <a href="#!" class="schedule-visit-link">Agende uma visita</a>
-            </div>
-          </div>
-        </div>
-        <div class="col-lg-4 col-md-6 align-self-center mb-30 properties-items col-md-6 str">
-          <div class="item text-center">
-            <a href="property-details.html" title="Localização próxima ao Horto Florestal, Lazer completo."><img src="imag/Vivaz Cantareira.jpg" alt="Vivaz Cantareira (1, 2 e 3)"></a>
-            <span class="category">Vivaz Cantareira (1, 2 e 3)</span>
-            <h6>A partir de: R$ 293mil</h6>
-            <ul class="text-start">
-              <li>Bairro: <span>V. N. Cachoeirinha</span></li>
-              <li>Quartos: <span>1 a 2</span></li>
-              <li>Área: <span>34m²</span></li>
-              <li>Diferenciais: <span>Opção de 1 vaga e varanda</span></li>
-              <li>Entrega: <span>12/2027</span></li>
-            </ul>
-            <div class="main-button">
-              <a href="#!" class="schedule-visit-link">Agende uma visita</a>
-            </div>
-          </div>
-        </div>
-        <div class="col-lg-4 col-md-6 align-self-center mb-30 properties-items col-md-6 str">
-          <div class="item text-center">
-            <a href="property-details.html" title="Próximo a faculdades e Estação Juventus-Mooca."><img src="imag/Vivaz Connection Mooca.jpg" alt="Vivaz Connection Mooca"></a>
-            <span class="category">Vivaz Connection Mooca</span>
-            <h6>A partir de: R$ 239mil</h6>
-            <ul class="text-start">
-              <li>Bairro: <span>Mooca</span></li>
-              <li>Quartos: <span>1 a 2</span></li>
-              <li>Área: <span>24m²</span></li>
-              <li>Diferenciais: <span>Opção de varanda</span></li>
-              <li>Entrega: <span>02/2028</span></li>
-            </ul>
-            <div class="main-button">
-              <a href="#!" class="schedule-visit-link">Agende uma visita</a>
-            </div>
-          </div>
-        </div>
-        <div class="col-lg-4 col-md-6 align-self-center mb-30 properties-items col-md-6 str">
-          <div class="item text-center">
-            <a href="property-details.html" title="Localização estratégica na Zona Norte, lazer elevado."><img src="imag/Vivaz Prime Voluntarios da Patria.jpg" alt="Vivaz Prime Voluntários da Pátria"></a>
-            <span class="category">Vivaz Prime Voluntários da Pátria</span>
-            <h6>A partir de: R$ 523mil</h6>
-            <ul class="text-start">
-              <li>Bairro: <span>Santana</span></li>
-              <li>Quartos: <span>2 a 3</span></li>
-              <li>Área: <span>De 46m² a 61m²</span></li>
-              <li>Diferenciais: <span>Opção de varanda</span></li>
-              <li>Entrega: <span>11/2025</span></li>
-            </ul>
-            <div class="main-button">
-              <a href="#!" class="schedule-visit-link">Agende uma visita</a>
-            </div>
-          </div>
-        </div>
-        <div class="col-lg-4 col-md-6 align-self-center mb-30 properties-items col-md-6 str">
-          <div class="item text-center">
-            <a href="property-details.html" title="Churrasqueiras, Playground, Fitness, Salão de Festas."><img src="imag/Vivaz Estacao Pirituba.jpg" alt="Vivaz Estação Pirituba (1 e 2)"></a>
-            <span class="category">Vivaz Estação Pirituba (1 e 2)</span>
-            <h6>A partir de: R$ 209mil</h6>
-            <ul class="text-start">
-              <li>Bairro: <span>Pirituba</span></li>
-              <li>Quartos: <span>1 a 2</span></li>
-              <li>Área: <span>De 24m² a 36m²</span></li>
-              <li>Diferenciais: <span>Opção de varanda</span></li>
-              <li>Entrega: <span>11/2028</span></li>
-            </ul>
-            <div class="main-button">
-              <a href="#!" class="schedule-visit-link">Agende uma visita</a>
-            </div>
-          </div>
-        </div>
-        <div class="col-lg-4 col-md-6 align-self-center mb-30 properties-items col-md-6 rac">
-          <div class="item text-center">
-            <a href="property-details.html" title="Linha Prime: Acabamento superior, Piscina, Espaço Gourmet."><img src="imag/Vivaz Prime Vila Maria.jpg" alt="Vivaz Prime Vila Maria"></a>
-            <span class="category">Vivaz Prime Vila Maria</span>
-            <h6>A partir de: R$ 525mil</h6>
-            <ul class="text-start">
-              <li>Bairro: <span>Vila Maria</span></li>
-              <li>Quartos: <span>2 a 3</span></li>
-              <li>Área: <span>55m²</span></li>
-              <li>Diferenciais: <span>Suíte e Varanda</span></li>
-              <li>Entrega: <span>Pronto</span></li>
-            </ul>
-            <div class="main-button">
-              <a href="#!" class="schedule-visit-link">Agende uma visita</a>
-            </div>
-          </div>
-        </div>
-        <div class="col-lg-4 col-md-6 align-self-center mb-30 properties-items col-md-6 rac">
-          <div class="item text-center">
-            <a href="property-details.html" title="Linha Prime: Acabamento superior, Piscina, Espaço Gourmet."><img src="imag/Vivaz Prime Vila Prudente.jpg" alt="Vivaz Prime Vila Prudente"></a>
-            <span class="category">Vivaz Prime Vila Prudente</span>
-            <h6>A partir de: R$ 537mil</h6>
-            <ul class="text-start">
-              <li>Bairro: <span>Vila Prudente</span></li>
-              <li>Quartos: <span>2 a 3</span></li>
-              <li>Área: <span>De 48m² a 56m²</span></li>
-              <li>Diferenciais: <span>Suíte, Varanda e Vaga</span></li>
-              <li>Entrega: <span>Pronto</span></li>
-            </ul>
-            <div class="main-button">
-              <a href="#!" class="schedule-visit-link">Agende uma visita</a>
-            </div>
-          </div>
-        </div>
-        <div class="col-lg-4 col-md-6 align-self-center mb-30 properties-items col-md-6 adv">
-          <div class="item text-center">
-            <a href="property-details.html" title="Churrasqueiras, Playground, Fitness, Salão de Festas."><img src="imag/Grand Vivaz Jardim Franca.jpg" alt="Grand Vivaz Jardim França - Paris"></a>
-            <span class="category">Grand Vivaz Jardim França - Paris</span>
-            <h6>A partir de: R$ 224mil</h6>
-            <ul class="text-start">
-              <li>Bairro: <span>Tucuruvi</span></li>
-              <li>Quartos: <span>1 a 2</span></li>
-              <li>Área: <span>De 24m² a 36m²</span></li>
-              <li>Diferenciais: <span>Suíte e Varanda</span></li>
-              <li>Entrega: <span>Lançamento</span></li>
-            </ul>
-            <div class="main-button">
-              <a href="#!" class="schedule-visit-link">Agende uma visita</a>
-            </div>
-          </div>
-        </div>
-</div>
-      
+      <div class="row properties-box" id="properties-container">
+        <!-- Cartões gerados automaticamente pelo CMS (cms-renderer.js) -->
+      </div>
+    </div>
+  </div>
 
   <footer>
     <div class="container">
       <div class="col-lg-12">
-        <p>Copyright © 2024 MT Parceiros - Consultoria Imobiliária e Soluções Inteligentes. Todos os direitos reservados. 
-        
-        Design: <a rel="nofollow" href="https://templatemo.com" target="_blank">TemplateMo</a> Distribution: <a href="https://themewagon.com">ThemeWagon</a></p>
+        <p>Copyright © 2024 MT Parceiros - Consultoria Imobiliária e Soluções Inteligentes. Todos os direitos
+          reservados.
+
+          Design: <a rel="nofollow" href="https://templatemo.com" target="_blank">TemplateMo</a> Distribution: <a
+            href="https://themewagon.com">ThemeWagon</a></p>
       </div>
     </div>
   </footer>
@@ -617,108 +335,114 @@ Adolfo Pinheiro"></a>
   <script src="assets/js/isotope.min.js"></script>
   <script src="assets/js/owl-carousel.js"></script>
   <script src="assets/js/counter.js"></script>
+  <script src="empreendimentos.js"></script>
+  <script src="assets/js/cms-renderer.js"></script>
+  <script>document.addEventListener('DOMContentLoaded', function () { renderListaCompleta('#properties-container'); });</script>
   <script src="assets/js/custom.js"></script>
 
   <script>
-    document.addEventListener('DOMContentLoaded', function() {
-        // --- Calendar Modal Logic ---
-        const modal = document.getElementById('calendar-modal');
-        const closeButton = document.querySelector('.calendar-close-button');
-        const scheduleLinks = document.querySelectorAll('.schedule-visit-link');
-        const calendarContainer = document.getElementById('calendar-container');
-        const whatsappNumber = '5511960364355';
+    document.addEventListener('DOMContentLoaded', function () {
+      // --- Calendar Modal Logic ---
+      const modal = document.getElementById('calendar-modal');
+      const closeButton = document.querySelector('.calendar-close-button');
+      const scheduleLinks = document.querySelectorAll('.schedule-visit-link');
+      const calendarContainer = document.getElementById('calendar-container');
+      const whatsappNumber = '5511960364355';
 
-        let currentDate = new Date();
+      let currentDate = new Date();
 
-        function renderCalendar(date) {
-            calendarContainer.innerHTML = ''; // Clear previous calendar
+      function renderCalendar(date) {
+        calendarContainer.innerHTML = ''; // Clear previous calendar
 
-            const month = date.getMonth();
-            const year = date.getFullYear();
+        const month = date.getMonth();
+        const year = date.getFullYear();
 
-            const firstDayOfMonth = new Date(year, month, 1);
-            const lastDayOfMonth = new Date(year, month + 1, 0);
-            const daysInMonth = lastDayOfMonth.getDate();
-            const startDayOfWeek = firstDayOfMonth.getDay(); // 0=Sun, 1=Mon, ...
+        const firstDayOfMonth = new Date(year, month, 1);
+        const lastDayOfMonth = new Date(year, month + 1, 0);
+        const daysInMonth = lastDayOfMonth.getDate();
+        const startDayOfWeek = firstDayOfMonth.getDay(); // 0=Sun, 1=Mon, ...
 
-            const monthNames = ["Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"];
-            const dayNames = ["Dom", "Seg", "Ter", "Qua", "Qui", "Sex", "Sáb"];
+        const monthNames = ["Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"];
+        const dayNames = ["Dom", "Seg", "Ter", "Qua", "Qui", "Sex", "Sáb"];
 
-            // Header
-            const header = document.createElement('div');
-            header.className = 'calendar-header';
-            const prevButton = document.createElement('button');
-            prevButton.id = 'prev-month';
-            prevButton.innerHTML = '&lt;';
-            const monthYear = document.createElement('h3');
-            monthYear.textContent = `${monthNames[month]} ${year}`;
-            const nextButton = document.createElement('button');
-            nextButton.id = 'next-month';
-            nextButton.innerHTML = '&gt;';
-            
-            header.appendChild(prevButton);
-            header.appendChild(monthYear);
-            header.appendChild(nextButton);
-            calendarContainer.appendChild(header);
+        // Header
+        const header = document.createElement('div');
+        header.className = 'calendar-header';
+        const prevButton = document.createElement('button');
+        prevButton.id = 'prev-month';
+        prevButton.innerHTML = '&lt;';
+        const monthYear = document.createElement('h3');
+        monthYear.textContent = `${monthNames[month]} ${year}`;
+        const nextButton = document.createElement('button');
+        nextButton.id = 'next-month';
+        nextButton.innerHTML = '&gt;';
 
-            // Weekdays
-            const weekdays = document.createElement('div');
-            weekdays.className = 'calendar-days calendar-weekdays';
-            dayNames.forEach(day => {
-                const dayEl = document.createElement('div');
-                dayEl.textContent = day;
-                weekdays.appendChild(dayEl);
-            });
-            calendarContainer.appendChild(weekdays);
+        header.appendChild(prevButton);
+        header.appendChild(monthYear);
+        header.appendChild(nextButton);
+        calendarContainer.appendChild(header);
 
-            // Days
-            const daysContainer = document.createElement('div');
-            daysContainer.className = 'calendar-days';
+        // Weekdays
+        const weekdays = document.createElement('div');
+        weekdays.className = 'calendar-days calendar-weekdays';
+        dayNames.forEach(day => {
+          const dayEl = document.createElement('div');
+          dayEl.textContent = day;
+          weekdays.appendChild(dayEl);
+        });
+        calendarContainer.appendChild(weekdays);
 
-            for (let i = 0; i < startDayOfWeek; i++) {
-                daysContainer.appendChild(document.createElement('div'));
-            }
+        // Days
+        const daysContainer = document.createElement('div');
+        daysContainer.className = 'calendar-days';
 
-            const today = new Date();
-            today.setHours(0, 0, 0, 0);
-
-            for (let day = 1; day <= daysInMonth; day++) {
-                const dayEl = document.createElement('div');
-                dayEl.className = 'calendar-day';
-                dayEl.textContent = day;
-                
-                const currentDayDate = new Date(year, month, day);
-
-                if (currentDayDate < today) {
-                    dayEl.classList.add('past-day');
-                } else {
-                    dayEl.addEventListener('click', () => {
-                        const selectedDate = new Date(year, month, day);
-                        const formattedDate = selectedDate.toLocaleDateString('pt-BR');
-                        const message = `Olá, gostaria de agendar uma visita para o dia ${formattedDate}.`;
-                        const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`;
-                        
-                        window.open(whatsappUrl, '_blank');
-                        modal.style.display = 'none';
-                    });
-                }
-                daysContainer.appendChild(dayEl);
-            }
-            calendarContainer.appendChild(daysContainer);
-            
-            if (year < today.getFullYear() || (year === today.getFullYear() && month <= today.getMonth())) {
-                document.getElementById('prev-month').disabled = true;
-            }
-
-            document.getElementById('prev-month').addEventListener('click', () => { currentDate.setMonth(currentDate.getMonth() - 1); renderCalendar(currentDate); });
-            document.getElementById('next-month').addEventListener('click', () => { currentDate.setMonth(currentDate.getMonth() + 1); renderCalendar(currentDate); });
+        for (let i = 0; i < startDayOfWeek; i++) {
+          daysContainer.appendChild(document.createElement('div'));
         }
 
-        scheduleLinks.forEach(link => { link.addEventListener('click', function(e) { e.preventDefault(); currentDate = new Date(); renderCalendar(currentDate); modal.style.display = 'block'; }); });
-        closeButton.addEventListener('click', function() { modal.style.display = 'none'; });
-        window.addEventListener('click', function(event) { if (event.target == modal) { modal.style.display = 'none'; } });
+        const today = new Date();
+        today.setHours(0, 0, 0, 0);
+
+        for (let day = 1; day <= daysInMonth; day++) {
+          const dayEl = document.createElement('div');
+          dayEl.className = 'calendar-day';
+          dayEl.textContent = day;
+
+          const currentDayDate = new Date(year, month, day);
+
+          if (currentDayDate < today) {
+            dayEl.classList.add('past-day');
+          } else {
+            dayEl.addEventListener('click', () => {
+              const selectedDate = new Date(year, month, day);
+              const formattedDate = selectedDate.toLocaleDateString('pt-BR');
+              const message = `Olá, gostaria de agendar uma visita para o dia ${formattedDate}.`;
+              const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`;
+
+              window.open(whatsappUrl, '_blank');
+              modal.style.display = 'none';
+            });
+          }
+          daysContainer.appendChild(dayEl);
+        }
+        calendarContainer.appendChild(daysContainer);
+
+        if (year < today.getFullYear() || (year === today.getFullYear() && month <= today.getMonth())) {
+          document.getElementById('prev-month').disabled = true;
+        }
+
+        document.getElementById('prev-month').addEventListener('click', () => { currentDate.setMonth(currentDate.getMonth() - 1); renderCalendar(currentDate); });
+        document.getElementById('next-month').addEventListener('click', () => { currentDate.setMonth(currentDate.getMonth() + 1); renderCalendar(currentDate); });
+      }
+
+      scheduleLinks.forEach(link => { link.addEventListener('click', function (e) { e.preventDefault(); currentDate = new Date(); renderCalendar(currentDate); modal.style.display = 'block'; }); });
+      closeButton.addEventListener('click', function () { modal.style.display = 'none'; });
+      window.addEventListener('click', function (event) { if (event.target == modal) { modal.style.display = 'none'; } });
     });
   </script>
 
-  </body>
+  <script src="assets/js/micro-animations.js"></script>
+  <script src="assets/js/property-drawer.js"></script>
+</body>
+
 </html>
