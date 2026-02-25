@@ -159,7 +159,24 @@
     function updateWhatsAppLink() {
         if (!currentProperty) return;
         var dateStr = selectedDate ? selectedDate.toLocaleDateString('pt-BR') : '[Escolha uma data acima]';
-        var waMsg = 'Olá! Gostaria de agendar uma visita para o dia *' + dateStr + '* no empreendimento *' + currentProperty.nome + '*.\nVi no site MT Parceiros.';
+
+        var fmt = function (v) {
+            return typeof v === 'number' ? v.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL', maximumFractionDigits: 0 }) : v;
+        };
+
+        var waMsg = 'Olá! Gostaria de agendar uma visita para o dia *' + dateStr + '* no empreendimento *' + currentProperty.nome + '*.\n';
+
+        // Integrar dados da simulação se existirem
+        if (window.mtSimData) {
+            var d = window.mtSimData;
+            waMsg += '\n📊 *Dados da minha simulação:*';
+            waMsg += '\n- Renda: ' + fmt(d.renda);
+            waMsg += '\n- Financiamento: ' + fmt(d.potencial);
+            waMsg += '\n- Poder de compra: ' + fmt(d.poder);
+            waMsg += '\n';
+        }
+
+        waMsg += '\nVi no site MT Parceiros.';
         btnWhatsapp.href = 'https://wa.me/5511960364355?text=' + encodeURIComponent(waMsg);
 
         if (selectedDate) {

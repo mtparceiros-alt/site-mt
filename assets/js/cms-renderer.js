@@ -18,7 +18,7 @@ function renderDestaques(containerId, limite) {
     dados.forEach(function (emp) {
         html += '<div class="col-lg-4 col-md-6">';
         html += '  <div class="item text-center">';
-        html += '    <a href="property-details.html" title="' + escapeHtml(emp.lazer) + '">';
+        html += '    <a href="#!" class="schedule-visit-link" data-emp-nome="' + escapeHtml(emp.nome) + '" title="' + escapeHtml(emp.lazer) + '">';
         html += '      <img src="' + emp.imagem + '" alt="' + escapeHtml(emp.nome) + '" loading="lazy">';
         html += '    </a>';
         html += '    <span class="category">' + escapeHtml(emp.nome) + '</span>';
@@ -53,7 +53,7 @@ function renderListaCompleta(containerId) {
 
         html += '<div class="col-lg-4 col-md-6 align-self-center mb-30 properties-items col-md-6 ' + categoriaCSS + '">';
         html += '  <div class="item text-center">';
-        html += '    <a href="property-details.html" title="' + escapeHtml(emp.lazer) + '">';
+        html += '    <a href="#!" class="schedule-visit-link" data-emp-nome="' + escapeHtml(emp.nome) + '" title="' + escapeHtml(emp.lazer) + '">';
         html += '      <img src="' + emp.imagem + '" alt="' + escapeHtml(emp.nome) + '" loading="lazy">';
         html += '    </a>';
         html += '    <span class="category">' + escapeHtml(emp.nome) + '</span>';

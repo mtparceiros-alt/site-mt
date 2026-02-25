@@ -8,6 +8,15 @@
 /* ══════════════════════════════════════════════════════
    0. PAGE HEADERS — Vídeo em Background (Properties, Contact, Details)
    ══════════════════════════════════════════════════════ */
+.section.properties .section-heading h2 {
+  animation: heroFadeIn 1s ease-out forwards;
+  transition: letter-spacing 0.3s ease;
+}
+
+.section.properties .section-heading h2:hover {
+  letter-spacing: 1px;
+}
+
 .page-heading {
   position: relative;
   overflow: hidden;
@@ -47,6 +56,15 @@
 .page-heading .breadcrumb {
   position: relative;
   z-index: 3;
+}
+
+/* Ajuste de Tamanho (30%) e Transparência do Breadcrumb */
+.page-heading .breadcrumb {
+  font-size: 18px !important;
+  padding: 13px 33px !important;
+  background-color: rgba(255, 255, 255, 0.7) !important;
+  display: inline-block;
+  border-radius: 5px;
 }
 
 
@@ -189,6 +207,37 @@ a.schedule-visit-link:hover {
   color: #ffffff !important;
 }
 
+/* Sincronização de Cores dos Filtros com o Mapa */
+.properties-filter li a[data-filter=".adv"]::before {
+  background: #007bff !important;
+}
+
+.properties-filter li a[data-filter=".adv"]:hover,
+.properties-filter li a[data-filter=".adv"].is_active {
+  background-color: #007bff !important;
+  color: #fff !important;
+}
+
+.properties-filter li a[data-filter=".rac"]::before {
+  background: #28a745 !important;
+}
+
+.properties-filter li a[data-filter=".rac"]:hover,
+.properties-filter li a[data-filter=".rac"].is_active {
+  background-color: #28a745 !important;
+  color: #fff !important;
+}
+
+.properties-filter li a[data-filter=".str"]::before {
+  background: #f35525 !important;
+}
+
+.properties-filter li a[data-filter=".str"]:hover,
+.properties-filter li a[data-filter=".str"].is_active {
+  background-color: #f35525 !important;
+  color: #fff !important;
+}
+
 /* Pulse rápido ao clicar num filtro */
 @keyframes filterPulse {
   0% {
@@ -289,141 +338,563 @@ a.schedule-visit-link:hover {
 }
 
 /* ══════════════════════════════════════════════════════
-   11. SIMULADOR V3 — Wizard, Sliders e Progress Bar
+   11. SIMULADOR DE FINANCIAMENTO (V3 Ultra - Glassmorphism)
    ══════════════════════════════════════════════════════ */
+/* Seção do Simulador - Fundo Limpo */
+.sim-section-bg {
+  background: #f7f8fa;
+  padding: 80px 16px;
+  position: relative;
+  overflow: hidden;
+  z-index: 1;
+}
 
-/* Containers das Etapas */
+/* Container Principal Glassmorphism */
+.sim-glass-container {
+  max-width: 800px;
+  margin: 0 auto;
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  border-radius: 20px;
+  box-shadow: 0 10px 50px rgba(0, 0, 0, 0.08);
+  padding: 40px 32px;
+  position: relative;
+  overflow: hidden;
+}
+
+.sim-glass-container::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 6px;
+  height: 100%;
+  background: linear-gradient(180deg, #f35525, #ff8c00);
+  border-radius: 4px 0 0 4px;
+}
+
+/* Cabeçado */
+.sim-title {
+  text-align: center;
+  font-size: 2rem;
+  font-weight: 800;
+  color: #1a1a2e;
+  margin: 0 0 8px 0;
+  font-family: 'Poppins', sans-serif;
+  letter-spacing: -0.5px;
+}
+
+.sim-subtitle {
+  text-align: center;
+  color: #666;
+  font-size: 0.95rem;
+  margin: 0 0 35px 0;
+}
+
+/* Steps do Wizard */
 .sim-step {
   display: none;
-  animation: ma-fade-up 0.5s ease forwards;
+  animation: simFadeIn 0.4s cubic-bezier(0.165, 0.84, 0.44, 1) forwards;
 }
 
 .sim-step.active {
   display: block;
 }
 
-/* Barra de Progresso */
-.sim-progress-bg {
-  width: 100%;
-  height: 6px;
-  background: #f0f0f0;
-  border-radius: 10px;
-  margin-bottom: 30px;
-  overflow: hidden;
+@keyframes simFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(15px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
-.sim-progress-bar {
-  height: 100%;
-  background: linear-gradient(90deg, #f35525, #ff8c00);
-  width: 33.33%;
-  transition: width 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-}
-
-/* Estilização Customizada dos Sliders (Range) */
-.sim-slider {
-  -webkit-appearance: none;
-  appearance: none;
-  width: 100%;
-  height: 8px;
-  border-radius: 5px;
-  background: #e0e0e0;
-  outline: none;
-  margin: 15px 0;
-  transition: background 0.2s;
-}
-
-.sim-slider::-webkit-slider-thumb {
-  -webkit-appearance: none;
-  appearance: none;
-  width: 22px;
-  height: 22px;
-  border-radius: 50%;
-  background: #f35525;
-  cursor: pointer;
-  border: 3px solid #fff;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
-  transition: transform 0.2s;
-}
-
-.sim-slider::-webkit-slider-thumb:hover {
-  transform: scale(1.15);
-}
-
-.sim-slider::-moz-range-thumb {
-  width: 22px;
-  height: 22px;
-  border-radius: 50%;
-  background: #f35525;
-  cursor: pointer;
-  border: 3px solid #fff;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
-}
-
-/* Rótulos de Valor (Label dinâmico) */
-.sim-value-display {
+.sim-step-title {
+  font-size: 1.1rem;
   font-weight: 700;
   color: #f35525;
+  margin-bottom: 24px;
+  letter-spacing: -0.3px;
+}
+
+/* Inputs Manuais (ETAPA 1) */
+.sim-input-group {
+  margin-bottom: 20px;
+}
+
+.sim-label {
+  display: block;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: #555;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+  letter-spacing: 0.5px;
+}
+
+.sim-input-wrap {
+  display: flex;
+  align-items: center;
+  border: 2px solid rgba(224, 224, 224, 0.6);
+  border-radius: 12px;
+  background: rgba(250, 250, 250, 0.8);
+  overflow: hidden;
+  transition: all 0.2s ease;
+}
+
+.sim-input-wrap:focus-within {
+  border-color: #f35525;
+  background: #fff;
+  box-shadow: 0 0 0 4px rgba(243, 85, 37, 0.1);
+}
+
+.sim-input-icon {
+  padding: 0 16px;
+  color: #888;
   font-size: 1.1rem;
 }
 
-/* Botões de Navegação do Wizard */
-.sim-nav-buttons {
-  display: flex;
-  gap: 12px;
-  margin-top: 25px;
+.sim-input-control {
+  border: none;
+  background: transparent;
+  padding: 18px 18px 18px 0;
+  font-size: 1.05rem;
+  width: 100%;
+  outline: none;
+  color: #333;
 }
 
-.sim-btn-next,
-.sim-btn-prev {
+/* Sliders Premium (ETAPAS 2 e 3) */
+.sim-slider-group {
+  margin-bottom: 28px;
+}
+
+.sim-slider-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.sim-value-display {
+  font-size: 1.1rem;
+  font-weight: 800;
+  color: #1a1a2e;
+  background: rgba(243, 85, 37, 0.1);
+  padding: 4px 12px;
+  border-radius: 8px;
+  color: #f35525;
+}
+
+.sim-modern-slider {
+  -webkit-appearance: none;
+  width: 100%;
+  height: 8px;
+  background: #e0e0e0;
+  border-radius: 4px;
+  outline: none;
+  transition: background 0.2s;
+}
+
+.sim-modern-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: #fff;
+  border: 3px solid #f35525;
+  cursor: pointer;
+  box-shadow: 0 4px 10px rgba(243, 85, 37, 0.4);
+  transition: transform 0.1s;
+}
+
+.sim-modern-slider::-webkit-slider-thumb:hover {
+  transform: scale(1.15);
+}
+
+.sim-modern-slider:active::-webkit-slider-thumb {
+  transform: scale(0.95);
+  box-shadow: 0 2px 5px rgba(243, 85, 37, 0.6);
+}
+
+.sim-slider-hint {
+  font-size: 0.7rem;
+  color: #888;
+  margin-top: 6px;
+  font-style: italic;
+}
+
+/* Botões de Navegação */
+.sim-nav-buttons {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  margin-top: 30px;
+}
+
+.sim-btn-prev,
+.sim-btn-next {
   padding: 12px 24px;
   border-radius: 10px;
   font-weight: 700;
+  font-size: 0.95rem;
   cursor: pointer;
-  transition: all 0.2s;
   border: none;
-  font-family: 'Poppins', sans-serif;
+  transition: all 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.sim-btn-prev {
+  background: #f1f2f6;
+  color: #555;
+}
+
+.sim-btn-prev:hover {
+  background: #e4e5e9;
+  color: #333;
 }
 
 .sim-btn-next {
   background: #f35525;
   color: #fff;
-  flex: 2;
+  box-shadow: 0 4px 15px rgba(243, 85, 37, 0.3);
 }
 
 .sim-btn-next:hover {
-  background: #e14a1c;
+  background: #e2491b;
   transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(243, 85, 37, 0.3);
+  box-shadow: 0 6px 20px rgba(243, 85, 37, 0.4);
 }
 
-.sim-btn-prev {
-  background: #f5f5f5;
-  color: #666;
-  flex: 1;
+.sim-btn-submit {
+  background: #28a745;
+  box-shadow: 0 4px 15px rgba(40, 167, 69, 0.3);
 }
 
-.sim-btn-prev:hover {
-  background: #eee;
+.sim-btn-submit:hover {
+  background: #218838;
+  box-shadow: 0 6px 20px rgba(40, 167, 69, 0.4);
 }
 
-/* Efeito Glow nos Resultados Real-time */
-.sim-live-update {
-  animation: sim-glow 0.8s ease;
+/* Divisor */
+.sim-divider {
+  border: none;
+  border-top: 2px dashed rgba(0, 0, 0, 0.1);
+  margin: 35px 0;
 }
 
-@keyframes sim-glow {
+/* Cards de Resultado Otimizados com Efeito Neon */
+.sim-results-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.sim-glow-card {
+  border-radius: 16px;
+  padding: 20px 12px;
+  text-align: center;
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+  position: relative;
+  overflow: hidden;
+  background: rgba(255, 255, 255, 0.9);
+}
+
+.sim-glow-label {
+  font-size: 0.7rem;
+  font-weight: 800;
+  color: #777;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+  letter-spacing: 0.5px;
+}
+
+.sim-glow-value {
+  font-size: 1.25rem;
+  font-weight: 900;
+  letter-spacing: -0.5px;
+}
+
+/* Cores Específicas dos Cards */
+.card-orange {
+  border: 2px solid rgba(255, 167, 38, 0.3);
+  box-shadow: 0 4px 15px rgba(255, 152, 0, 0.05);
+}
+
+.card-orange .sim-glow-value {
+  color: #e65100;
+}
+
+.card-blue {
+  border: 2px solid rgba(144, 202, 249, 0.4);
+  box-shadow: 0 4px 15px rgba(33, 150, 243, 0.05);
+}
+
+.card-blue .sim-glow-value {
+  color: #1565c0;
+}
+
+.card-green {
+  border: 2px solid rgba(102, 187, 106, 0.4);
+  box-shadow: 0 4px 15px rgba(76, 175, 80, 0.05);
+}
+
+.card-green .sim-glow-value {
+  color: #1b5e20;
+  font-size: 1.4rem;
+}
+
+/* Animação Live Update (O Pulso) */
+@keyframes simLiveGlow {
   0% {
-    box-shadow: 0 0 0 rgba(243, 85, 37, 0);
+    transform: scale(1);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
   }
 
   50% {
-    box-shadow: 0 0 15px rgba(243, 85, 37, 0.4);
+    transform: scale(1.03);
   }
 
   100% {
-    box-shadow: 0 0 0 rgba(243, 85, 37, 0);
+    transform: scale(1);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
   }
 }
+
+.card-orange.sim-live-update {
+  animation: simLiveGlow 0.4s ease-out;
+  box-shadow: 0 0 25px rgba(255, 152, 0, 0.3);
+  border-color: #ffa726;
+}
+
+.card-blue.sim-live-update {
+  animation: simLiveGlow 0.4s ease-out;
+  box-shadow: 0 0 25px rgba(33, 150, 243, 0.3);
+  border-color: #64b5f6;
+}
+
+.card-green.sim-live-update {
+  animation: simLiveGlow 0.4s ease-out;
+  box-shadow: 0 0 25px rgba(76, 175, 80, 0.3);
+  border-color: #81c784;
+}
+
+/* Botão WhatsApp Final */
+.sim-btn-wpp {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 16px;
+  background: #25D366;
+  color: #fff;
+  border: none;
+  border-radius: 12px;
+  font-size: 1.05rem;
+  font-weight: 700;
+  text-decoration: none !important;
+  box-shadow: 0 6px 20px rgba(37, 211, 102, 0.3);
+  transition: all 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.sim-btn-wpp:hover {
+  background: #20bd5a;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(37, 211, 102, 0.4);
+  color: #fff;
+}
+
+/* Disclaimer */
+.sim-disclaimer {
+  font-size: 0.7rem;
+  color: #aaa;
+  text-align: center;
+  border-top: 1px solid rgba(0, 0, 0, 0.05);
+  padding-top: 16px;
+  margin: 20px 0 0 0;
+}
+
+/* ══════════════════════════════════════════════════════
+   12. SIMULADOR V3 ULTRA - ETAPA 4 (Resultados e Docs)
+   ══════════════════════════════════════════════════════ */
+
+/* Vitrine de Imóveis (Match) */
+.sim-match-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 16px;
+  margin-top: 20px;
+}
+
+.sim-match-card {
+  background: rgba(255, 255, 255, 0.85);
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.3s;
+}
+
+.sim-match-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 25px rgba(243, 85, 37, 0.15);
+  border-color: rgba(243, 85, 37, 0.3);
+}
+
+.sim-match-img {
+  width: 100%;
+  height: 140px;
+  background-size: cover;
+  background-position: center;
+  position: relative;
+}
+
+.sim-match-info {
+  padding: 16px;
+  text-align: center;
+}
+
+.sim-match-info h6 {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #333;
+  margin: 0 0 6px 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.sim-match-price {
+  font-size: 0.85rem;
+  color: #f35525;
+  font-weight: 700;
+  margin-bottom: 15px;
+}
+
+.sim-btn-agendar {
+  display: inline-block;
+  background: #1a1a2e;
+  color: #fff;
+  padding: 8px 16px;
+  border-radius: 8px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition: background 0.2s;
+  width: 100%;
+}
+
+.sim-btn-agendar:hover {
+  background: #f35525;
+  color: #fff;
+}
+
+/* Grid de Documentação (Glassmorphism Pockets) */
+.sim-docs-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+}
+
+.doc-card-glass {
+  background: rgba(255, 255, 255, 0.5);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.8);
+  border-radius: 12px;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.5), 0 2px 8px rgba(0, 0, 0, 0.03);
+  cursor: pointer;
+  overflow: hidden;
+  height: fit-content;
+}
+
+.doc-card-main {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+}
+
+.doc-desc {
+  max-height: 0;
+  opacity: 0;
+  margin: 0;
+  font-size: 0.8rem;
+  color: #666;
+  line-height: 1.4;
+  transition: all 0.3s ease;
+  pointer-events: none;
+}
+
+.doc-card-glass.active {
+  background: rgba(255, 255, 255, 0.9);
+  border-color: #f35525;
+  box-shadow: 0 8px 20px rgba(243, 85, 37, 0.1);
+}
+
+.doc-card-glass.active .doc-desc {
+  max-height: 100px;
+  opacity: 1;
+  margin-top: 12px;
+  padding-top: 12px;
+  border-top: 1px dashed rgba(243, 85, 37, 0.2);
+}
+
+.doc-card-glass:hover:not(.active) {
+  background: rgba(255, 255, 255, 0.8);
+  transform: translateY(-2px);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.8), 0 6px 15px rgba(0, 0, 0, 0.05);
+}
+
+.doc-icon {
+  font-size: 1.5rem;
+  background: rgba(243, 85, 37, 0.1);
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+}
+
+.doc-name {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: #444;
+  line-height: 1.3;
+}
+
+.doc-name small {
+  font-weight: 400;
+  color: #888;
+  font-size: 0.7rem;
+}
+
+/* Responsividade Básica */
+@media (max-width: 768px) {
+  .sim-results-grid {
+
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .sim-glass-container {
+    padding: 30px 20px;
+  }
+}
+
 
 .main-banner h6 {
   animation: heroFadeIn 0.7s ease forwards;
@@ -866,5 +1337,547 @@ body.drawer-open {
   to {
     opacity: 1;
     transform: translateY(0);
+  }
+}
+
+/* ══════════════════════════════════════════════════════
+   13. SIMULADOR V4 DASHBOARD (Grid Unificado)
+   ══════════════════════════════════════════════════════ */
+
+.sim-dashboard-grid {
+  display: grid;
+  grid-template-columns: 1.35fr 2fr;
+  grid-template-rows: auto auto;
+  gap: 24px;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+@media (max-width: 991px) {
+  .sim-dashboard-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.dash-block {
+  border-radius: 20px;
+  padding: 24px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+  display: flex;
+  flex-direction: column;
+}
+
+.dash-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 8px;
+}
+
+.dash-title {
+  margin: 0;
+  font-size: 1.25rem;
+  font-weight: 700;
+}
+
+.dash-subtitle {
+  font-size: 0.85rem;
+  margin-bottom: 20px;
+}
+
+/* Bloco 1: Performance (Esquerda Superior) - Escuro Premium */
+.dash-performance {
+  grid-column: 1 / 2;
+  grid-row: 1 / 2;
+  background: #171821;
+  /* Chumbo/Azul profundo elegante */
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  color: #fff;
+}
+
+.dash-performance .dash-title {
+  color: #fff;
+}
+
+.dash-performance .dash-subtitle {
+  color: #a0a0a0;
+}
+
+.dash-performance .sim-input-wrap {
+  background: #1e1f29;
+  /* CHUMBO SÓLIDO (OPÇÃO C) */
+  border-color: rgba(255, 255, 255, 0.1);
+  border-radius: 14px;
+}
+
+.dash-performance .sim-input-wrap:focus-within {
+  border-color: #f35525;
+  /* FICA APENAS COM A BORDA ACESA AO CLICAR */
+}
+
+.dash-performance .sim-input-control {
+  color: #fff;
+  font-weight: 500;
+  /* LEITURA MELHOR */
+}
+
+/* Neutraliza o fundo claro do preenchimento automático (Autofill) do Navegador */
+.dash-performance .sim-input-control:-webkit-autofill,
+.dash-performance .sim-input-control:-webkit-autofill:hover,
+.dash-performance .sim-input-control:-webkit-autofill:focus {
+  -webkit-text-fill-color: #fff !important;
+  -webkit-box-shadow: 0 0 0px 1000px #1e1f29 inset !important;
+  transition: background-color 5000s ease-in-out 0s;
+}
+
+.dash-performance .sim-input-control::placeholder {
+  color: rgba(255, 255, 255, 0.6);
+  /* PLACEHOLDER MAIS VISIVEL */
+}
+
+.dash-performance .sim-input-icon {
+  color: rgba(255, 255, 255, 0.8);
+  /* ICONE MAIS VISIVEL */
+}
+
+/* Bloco 2: Activity (Direita Superior) - Cyan Pastel */
+.dash-activity {
+  grid-column: 2 / 3;
+  grid-row: 1 / 2;
+  background: #b3d9dd;
+  /* Ciano da imagem */
+  border: none;
+  position: relative;
+  overflow: hidden;
+  padding: 24px !important;
+}
+
+.dash-sliders-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-top: 15px;
+}
+
+/* Ajustes Sliders para fundo Cyan */
+.dash-activity {
+  padding: 24px !important;
+}
+
+.sim-slider-group {
+  background: rgba(255, 255, 255, 0.4);
+  /* Branco translúcido conforme imagem */
+  padding: 20px;
+  border-radius: 18px;
+  box-shadow: none;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  transition: transform 0.2s ease;
+}
+
+.sim-slider-group:hover {
+  transform: translateY(-2px);
+  background: rgba(255, 255, 255, 0.5);
+}
+
+.dash-activity .sim-label {
+  color: #2c3e40;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  position: relative;
+  font-weight: 700;
+  font-size: 0.95rem;
+}
+
+.sim-label-hover {
+  cursor: help;
+  border-bottom: 1px dotted rgba(0, 0, 0, 0.2);
+  padding-bottom: 2px;
+}
+
+.sim-label-hover:hover .sim-tooltip {
+  opacity: 1;
+  visibility: visible;
+  bottom: 110%;
+}
+
+/* Tooltip em HTML Real (Corrige o erro de aparecer o código como texto) */
+.sim-tooltip {
+  position: absolute;
+  bottom: 125%;
+  left: 0;
+  width: 220px;
+  background: #171821;
+  color: #fff;
+  padding: 12px;
+  border-radius: 12px;
+  font-size: 0.75rem;
+  font-weight: 500;
+  line-height: 1.4;
+  text-transform: none;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  z-index: 1000;
+  pointer-events: auto;
+  /* Permite clicar no botão dentro */
+}
+
+.sim-label-hover:hover .sim-tooltip {
+  opacity: 1;
+  visibility: visible;
+  bottom: 110%;
+}
+
+/* Seta do Tooltip */
+.sim-tooltip::before {
+  content: '';
+  position: absolute;
+  bottom: -6px;
+  left: 30px;
+  border: 6px solid transparent;
+  border-top-color: #171821;
+  z-index: 1000;
+}
+
+/* Botão dentro do Tooltip */
+.sim-hint-btn {
+  display: block;
+  margin-top: 10px;
+  background: #257fe6;
+  color: #fff !important;
+  text-align: center;
+  padding: 6px;
+  border-radius: 6px;
+  text-decoration: none;
+  font-weight: 700;
+  font-size: 0.75rem;
+  transition: background 0.2s;
+}
+
+.sim-hint-btn:hover {
+  background: #1b63b8;
+}
+
+.dash-activity .sim-modern-slider {
+  background: #ced4da;
+  /* Cinza claro da imagem */
+  height: 8px;
+  border-radius: 4px;
+}
+
+/* Cores Neutras conforme imagem (Removendo variações táticas) */
+.group-renda .sim-modern-slider::-webkit-slider-runnable-track,
+.group-dividas .sim-modern-slider::-webkit-slider-runnable-track,
+.group-fgts .sim-modern-slider::-webkit-slider-runnable-track,
+.group-entrada .sim-modern-slider::-webkit-slider-runnable-track {
+  background: #ced4da !important;
+  border-radius: 4px;
+  height: 8px;
+}
+
+.dash-activity .sim-modern-slider::-webkit-slider-thumb {
+  border: 4px solid #fff;
+  background: #1a1a24;
+  /* Dark Navy da imagem */
+  width: 26px;
+  height: 26px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  margin-top: -9px;
+  cursor: pointer;
+}
+
+.dash-activity .sim-value-display {
+  background: #1a1a24;
+  /* Dark Navy da imagem */
+  color: #fff;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  border-radius: 10px;
+  padding: 8px 18px;
+  font-size: 1.15rem;
+  font-weight: 800;
+  min-width: 110px;
+  text-align: center;
+}
+
+/* Bloco 3: Engagement (Inferior Ocupando Tudo) - Areia Quente */
+.dash-engagement {
+  grid-column: 1 / -1;
+  grid-row: 2 / 3;
+  background: #ffeee9;
+  /* Cor pêssego dos contadores Fun Facts */
+  border: none;
+  padding: 30px;
+  border-radius: 24px;
+}
+
+.dash-engagement-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 25px;
+}
+
+.dash-engagement .sim-results-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  padding-top: 15px;
+}
+
+.dash-engagement .card-action {
+  grid-column: 1 / -1;
+  /* Botão ocupa o espaço das 3 colunas */
+  margin-top: 10px;
+}
+
+/* Redesign dos Cards Internos da Barra Engagement */
+.dash-engagement .sim-glow-card {
+  background: rgba(255, 255, 255, 0.45);
+  /* Translúcido como no Perfil Financeiro */
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.05);
+  border-radius: 20px;
+  padding: 20px;
+  margin-top: 5px;
+  display: flex !important;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 110px;
+  backdrop-filter: blur(4px);
+}
+
+/* Ícones Flutuantes do referencial Activity/Engagement */
+.dash-engagement .sim-glow-card {
+  transform: none;
+  /* Reseta as animações de pulso pesadas */
+}
+
+/* ICONES DENTRO DO CARD EM VEZ DE FLUTUANTES (EVITA CORTE) */
+.dash-engagement .sim-glow-card::before {
+  display: block;
+  position: static;
+  /* Tira o position absolute (que cortava na borda) */
+  transform: none;
+  width: 32px;
+  height: 32px;
+  margin: 0 auto 8px auto;
+  /* Centraliza acima do texto */
+  font-size: 14px;
+  content: "⚡";
+  background: #f35525;
+  color: white;
+  border-radius: 10px;
+  display: flex;
+  /* Display grid no flex para ele alinhar o emoji no centro do icone */
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 10px rgba(243, 85, 37, 0.25);
+}
+
+/* Substitui ícones originais por emojis para encaixar no visual limpo */
+.dash-engagement #card-potencial::before {
+  content: "💰";
+  background: #007BFF;
+  box-shadow: 0 4px 10px rgba(0, 123, 255, 0.25);
+}
+
+.dash-engagement #card-poder::before {
+  content: "🚀";
+  background: #28a745;
+  box-shadow: 0 4px 10px rgba(40, 167, 69, 0.25);
+}
+
+/* Ajustes TEXTOS RESULTADOS para Nao ficarem esmagados */
+.dash-engagement .sim-glow-label {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: #888;
+  margin-bottom: 5px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  text-align: center;
+}
+
+.dash-engagement .sim-glow-value {
+  font-size: 1.35rem;
+  /* UM POUCO MAIS COMPACTO PARA CABER O VALOR INTEIRO */
+  font-weight: 800;
+  text-align: center;
+  width: 100%;
+}
+
+.dash-engagement #r-margem {
+  color: #f35525;
+}
+
+.dash-engagement #r-potencial {
+  color: #007BFF;
+}
+
+.dash-engagement #r-poder {
+  color: #28a745;
+}
+
+
+/* Botão Submit na Grid Inferior */
+.dash-engagement .card-action {
+  background: transparent;
+  box-shadow: none;
+  border: none;
+  margin-top: 0;
+  padding: 0;
+}
+
+.dash-engagement .card-action::before {
+  display: none;
+  /* Remove o icone falso no botão se existir */
+}
+
+.dash-engagement .sim-btn-submit {
+  background: #171821;
+  /* Botão segue a base escura do Performance */
+  border-radius: 18px;
+  color: #fff;
+  font-weight: 700;
+  transition: all 0.3s;
+  box-shadow: 0 8px 20px rgba(23, 24, 33, 0.2);
+  height: 100px;
+  /* MESMO TAMANHO DOS CARDS E ESMAGAMENTO CORRIGIDO */
+  font-size: 1.1rem;
+}
+
+.dash-engagement .sim-btn-submit:hover {
+  background: #2a2c3a;
+  transform: translateY(-3px);
+  box-shadow: 0 12px 25px rgba(23, 24, 33, 0.3);
+}
+
+/* Animação Faltante (HeroFadeIn) para o Passo 4 não bugar */
+@keyframes heroFadeIn {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Ajustes Responsive Básicos */
+@media (max-width: 900px) {
+  .sim-dashboard-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .dash-performance {
+    grid-column: 1 / -1;
+  }
+
+  .dash-activity {
+    grid-column: 1 / -1;
+    grid-row: 2 / 3;
+  }
+
+  .dash-sliders-wrapper {
+    grid-template-columns: 1fr;
+  }
+
+  .dash-engagement {
+    grid-column: 1 / -1;
+    grid-row: 3 / 4;
+  }
+}
+
+/* ══════════════════════════════════════════════════════
+   15. CARROSSEL EM DETALHES (Versão Adaptada)
+   ══════════════════════════════════════════════════════ */
+
+.details-carousel .item {
+  padding: 100px 8% 140px 8% !important;
+  /* Padding reduzido para Detalhes */
+  border-radius: 20px;
+  min-height: 450px;
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  color: #fff;
+  /* Força texto branco */
+}
+
+/* Definição das imagens para Detalhes */
+.details-carousel .item-1 {
+  background-image: url(../images/banner-01.jpg);
+}
+
+.details-carousel .item-2 {
+  background-image: url(../images/banner-02.jpg);
+}
+
+.details-carousel .item-3 {
+  background-image: url(../images/banner-03.jpg);
+}
+
+.details-carousel .header-text h2 {
+  font-size: 34px !important;
+  /* Menor que na home */
+  line-height: 44px !important;
+  width: 90% !important;
+  margin-top: 15px;
+  color: #fff !important;
+  /* Força cor do título */
+}
+
+.details-carousel .header-text .category {
+  color: #fff !important;
+  background: rgba(255, 255, 255, 0.2) !important;
+  backdrop-filter: blur(5px);
+}
+
+.details-carousel .owl-nav {
+  transform: translateY(-20px) !important;
+}
+
+.details-carousel .owl-nav .owl-prev i,
+.details-carousel .owl-nav .owl-next i {
+  width: 40px !important;
+  height: 40px !important;
+  line-height: 40px !important;
+  font-size: 18px !important;
+  background-color: rgba(255, 255, 255, 0.3) !important;
+}
+
+.details-carousel .owl-nav .owl-prev i {
+  left: 20px !important;
+}
+
+.details-carousel .owl-nav .owl-next i {
+  right: 20px !important;
+}
+
+.details-carousel .owl-dots {
+  left: 8% !important;
+  bottom: 30px !important;
+}
+
+.details-carousel .item span.category {
+  font-size: 14px !important;
+  padding: 4px 12px !important;
+}
+
+@media (max-width: 767px) {
+  .details-carousel .item {
+    min-height: 350px;
+    padding: 60px 5% 80px 5% !important;
+  }
+
+  .details-carousel .header-text h2 {
+    font-size: 24px !important;
+    line-height: 32px !important;
   }
 }
