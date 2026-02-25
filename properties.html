@@ -25,6 +25,7 @@
   <link rel="stylesheet" href="assets/css/owl.min.css">
   <link rel="stylesheet" href="assets/css/animate.min.css">
   <link rel="stylesheet" href="https://unpkg.com/swiper@7/swiper-bundle.min.css" />
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
   <!--
 
 
@@ -274,8 +275,7 @@
     <div class="container">
       <div class="row">
         <div class="col-lg-12">
-          <span class="breadcrumb"><a href="#">Início</a> / Empreendimentos</span>
-          <h3>Empreendimentos</h3>
+          <span class="breadcrumb">Empreendimentos</span>
         </div>
       </div>
     </div>
@@ -283,6 +283,14 @@
 
   <div class="section properties">
     <div class="container">
+      <div class="section-heading text-center mb-5 mt-0">
+        <h6>| Exploração Geográfica</h6>
+        <h2 style="font-size: 32px; border-bottom: 3px solid #f35525; display: inline-block; padding-bottom: 10px;">Mapa
+          dos Empreendimentos</h2>
+      </div>
+      <div id="map"
+        style="height:500px; border-radius:15px; margin-bottom:40px; box-shadow:0 5px 15px rgba(0,0,0,0.1); z-index:1;">
+      </div>
       <ul class="properties-filter">
         <li>
           <a class="is_active" href="#!" data-filter="*">Mostrar Todos</a>
@@ -443,6 +451,81 @@
 
   <script src="assets/js/micro-animations.js"></script>
   <script src="assets/js/property-drawer.js"></script>
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      if (document.getElementById('map')) {
+        var map = L.map('map').setView([-23.55, -46.63], 11);
+
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+          attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+          maxZoom: 18
+        }).addTo(map);
+
+        // --- Botão "Minha Localização" ---
+        var LocationControl = L.Control.extend({
+          options: { position: 'topleft' },
+          onAdd: function (map) {
+            var container = L.DomUtil.create('div', 'leaflet-bar leaflet-control leaflet-control-location');
+            var link = L.DomUtil.create('a', '', container);
+            link.href = '#';
+            link.title = 'Minha Localização';
+            link.innerHTML = '📍';
+            link.style.fontSize = '18px';
+            link.style.lineHeight = '30px';
+            link.style.textAlign = 'center';
+
+            L.DomEvent.on(link, 'click', function (e) {
+              L.DomEvent.stopPropagation(e);
+              L.DomEvent.preventDefault(e);
+              map.locate({ setView: true, maxZoom: 15 });
+            });
+
+            return container;
+          }
+        });
+        map.addControl(new LocationControl());
+
+        function getCorPorStatus(entrega) {
+          if (!entrega) return '#f35525';
+          var texto = entrega.toLowerCase();
+          if (texto.indexOf('lançamento') !== -1 || texto.indexOf('lancamento') !== -1) return '#007bff';
+          if (texto.indexOf('pronto') !== -1) return '#28a745';
+          return '#f35525';
+        }
+
+        if (typeof EMPREENDIMENTOS !== 'undefined' && EMPREENDIMENTOS.length) {
+          var bounds = [];
+          EMPREENDIMENTOS.forEach(function (e) {
+            if (!e.lat || !e.lng) return;
+            var cor = getCorPorStatus(e.entrega);
+            var icone = L.divIcon({
+              className: '',
+              html: '<div style="background:' + cor + ';width:20px;height:20px;border-radius:50% 50% 50% 0;transform:rotate(-45deg);border:3px solid #fff;box-shadow:0 2px 8px rgba(0,0,0,0.35);"></div>',
+              iconSize: [20, 20],
+              iconAnchor: [10, 20],
+              popupAnchor: [0, -22]
+            });
+
+            var popup = '<div style="font-family:Poppins,sans-serif;min-width:190px;">'
+              + '<strong style="color:' + cor + ';font-size:14px;">' + e.nome + '</strong><br>'
+              + (e.bairro ? '<span style="font-size:12px;">📍 ' + e.bairro + '</span><br>' : '')
+              + (e.area ? '<span style="font-size:12px;">📐 ' + e.area + '</span><br>' : '')
+              + (e.quartos ? '<span style="font-size:12px;">🛏 ' + e.quartos + ' quarto(s)</span><br>' : '')
+              + (e.preco ? '<strong style="color:#1a1a2e;font-size:13px;">A partir de ' + e.preco + '</strong><br>' : '')
+              + (e.entrega ? '<span style="font-size:11px;color:#888;">Entrega: ' + e.entrega + '</span><br>' : '')
+              + '<a href="#!" class="schedule-visit-link" data-emp-nome="' + e.nome + '" '
+              + 'style="display:inline-block;margin-top:8px;padding:6px 12px;background:#1e1e1e;color:#fff;border-radius:6px;font-size:12px;font-weight:700;text-decoration:none;">'
+              + 'ℹ️ Mais Informações</a></div>';
+
+            L.marker([e.lat, e.lng], { icon: icone }).addTo(map).bindPopup(popup);
+            bounds.push([e.lat, e.lng]);
+          });
+          if (bounds.length > 1) map.fitBounds(bounds, { padding: [40, 40] });
+        }
+      }
+    });
+  </script>
 </body>
 
 </html>

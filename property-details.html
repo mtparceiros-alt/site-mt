@@ -45,6 +45,19 @@
       transform: scale(1.1);
     }
 
+    /* Efeito para imagens clicáveis de agendamento */
+    .schedule-visit-link img,
+    .sim-match-img.schedule-visit-link {
+      cursor: pointer;
+      transition: all 0.3s ease !important;
+    }
+
+    .schedule-visit-link img:hover,
+    .sim-match-img.schedule-visit-link:hover {
+      filter: brightness(0.9);
+      transform: scale(1.03);
+    }
+
     .whatsapp-float img {
       width: 100%;
     }
@@ -268,8 +281,7 @@ https://templatemo.com/tm-591-villa-agency
     <div class="container">
       <div class="row">
         <div class="col-lg-12">
-          <span class="breadcrumb"><a href="#">Início</a> / Detalhes</span>
-          <h3>Detalhes do Processo</h3>
+          <span class="breadcrumb">Detalhes</span>
         </div>
       </div>
     </div>
@@ -280,7 +292,26 @@ https://templatemo.com/tm-591-villa-agency
       <div class="row">
         <div class="col-lg-8">
           <div class="main-image">
-            <img src="assets/images/single-property.jpg" alt="">
+            <div class="owl-carousel owl-banner details-carousel">
+              <div class="item item-1">
+                <div class="header-text">
+                  <span class="category">Pirituba, <em>São Paulo</em></span>
+                  <h2>O Caminho Seguro<br>Para seu novo lar</h2>
+                </div>
+              </div>
+              <div class="item item-2">
+                <div class="header-text">
+                  <span class="category">Lapa, <em>São Paulo</em></span>
+                  <h2>Escolha Técnica.<br>Deixe a burocracia conosco</h2>
+                </div>
+              </div>
+              <div class="item item-3">
+                <div class="header-text">
+                  <span class="category">Freguesia do Ó, <em>São Paulo</em></span>
+                  <h2>Conectividade.<br>Seu novo lar a passos do Metrô</h2>
+                </div>
+              </div>
+            </div>
           </div>
           <div class="main-content">
             <span class="category">Compra</span>
@@ -353,9 +384,10 @@ https://templatemo.com/tm-591-villa-agency
                 </li>
                 <li>
                   <img src="assets/images/info-icon-01.png" alt="" style="max-width: 52px;">
-                  <h4>Filtro de Engenharia<br><span>Não vendemos apenas metros quadrados. Nossa equipe técnica analisa a
-                      planta e a qualidade construtiva para garantir que você invista em imóveis funcionais e livres de
-                      vícios ocultos.</span></h4>
+                  <h4>Filtro de Engenharia<br><span>Peneiramos o mercado por você. Nossa equipe técnica valida a planta
+                      e a
+                      qualidade construtiva para garantir que seu investimento seja sólido e livre de vícios
+                      ocultos.</span></h4>
                 </li>
                 <li>
                   <img src="assets/images/info-icon-03.png" alt="" style="max-width: 52px;">
@@ -365,8 +397,8 @@ https://templatemo.com/tm-591-villa-agency
                 </li>
                 <li>
                   <img src="assets/images/info-icon-02.png" alt="" style="max-width: 52px;">
-                  <h4>Análise Contratual<br><span>Assumimos a leitura das letras miúdas. Revisamos rigorosamente as
-                      cláusulas do contrato da construtora para assegurar seus direitos antes de qualquer
+                  <h4>Blindagem Contratual<br><span>Assumimos a leitura das letras miúdas. Revisamos rigorosamente as
+                      cláusulas para assegurar seus direitos e sua paz de espírito antes de qualquer
                       assinatura.</span></h4>
                 </li>
                 <li>
@@ -387,159 +419,6 @@ https://templatemo.com/tm-591-villa-agency
       </div>
     </div>
 
-    <!-- SIMULADOR V2 -->
-    <div id="simulador" style="background:#f7f8fa;padding:60px 16px;margin:0;">
-      <div
-        style="max-width:800px;margin:0 auto;background:#fff;border-radius:20px;box-shadow:0 8px 40px rgba(0,0,0,0.10);padding:40px 32px;position:relative;overflow:hidden;">
-        <!-- Barra lateral laranja -->
-        <div
-          style="position:absolute;top:0;left:0;width:6px;height:100%;background:linear-gradient(180deg,#f35525,#ff8c00);border-radius:3px 0 0 3px;">
-        </div>
-
-        <h2
-          style="text-align:center;font-size:1.9em;font-weight:800;color:#1a1a2e;margin:0 0 6px 0;font-family:'Poppins',sans-serif;">
-          🏠 Simulador de Financiamento</h2>
-        <p style="text-align:center;color:#999;font-size:0.9em;margin:0 0 30px 0;">Descubra seu potencial de compra em
-          segundos — 100% gratuito</p>
-
-        <form id="simulator-form" action="https://formsubmit.co/mtparceiros@gmail.com" method="POST">
-
-          <!-- Barra de Progresso Interativa -->
-          <div class="sim-progress-bg">
-            <div id="sim-progress" class="sim-progress-bar" style="width: 33%;"></div>
-          </div>
-
-          <!-- ETAPA 1: CONTATO -->
-          <div id="step-1" class="sim-step active">
-            <h5 style="font-size:16px; font-weight:700; color:#f35525; margin-bottom:20px;">1. Identificação</h5>
-            <div style="margin-bottom:16px;">
-              <label
-                style="display:block;font-size:11px;font-weight:700;color:#555;text-transform:uppercase;margin-bottom:7px;">👤
-                Nome Completo</label>
-              <div
-                style="display:flex;align-items:center;border:2px solid #e0e0e0;border-radius:10px;background:#fafafa;overflow:hidden;">
-                <span style="padding:0 13px;color:#bbb;">👤</span>
-                <input type="text" id="nome" name="nome" placeholder="Seu Nome..." required
-                  style="border:none;background:transparent;padding:12px;font-size:15px;width:100%;outline:none;">
-              </div>
-            </div>
-            <div style="margin-bottom:16px;">
-              <label
-                style="display:block;font-size:11px;font-weight:700;color:#555;text-transform:uppercase;margin-bottom:7px;">📱
-                WhatsApp / Celular</label>
-              <div
-                style="display:flex;align-items:center;border:2px solid #e0e0e0;border-radius:10px;background:#fafafa;overflow:hidden;">
-                <span style="padding:0 13px;color:#bbb;">📱</span>
-                <input type="tel" id="celular" name="celular" placeholder="(11) 99999-9999" required
-                  style="border:none;background:transparent;padding:12px;font-size:15px;width:100%;outline:none;">
-              </div>
-            </div>
-            <div class="sim-nav-buttons">
-              <button type="button" class="sim-btn-next" onclick="nextStep(2)">Próximo passo →</button>
-            </div>
-          </div>
-
-          <!-- ETAPA 2: FINANCEIRO (Com Sliders) -->
-          <div id="step-2" class="sim-step">
-            <h5 style="font-size:16px; font-weight:700; color:#f35525; margin-bottom:20px;">2. Perfil Financeiro</h5>
-            <div style="margin-bottom:24px;">
-              <div style="display:flex; justify-content:space-between; align-items:center;">
-                <label style="font-size:11px;font-weight:700;color:#555;text-transform:uppercase;">💰 Renda Bruta
-                  Familiar</label>
-                <span id="label-renda" class="sim-value-display">R$ 5.000</span>
-              </div>
-              <input type="range" id="renda" name="renda" min="1500" max="30000" step="100" value="5000"
-                class="sim-slider">
-            </div>
-            <div style="margin-bottom:16px;">
-              <div style="display:flex; justify-content:space-between; align-items:center;">
-                <label style="font-size:11px;font-weight:700;color:#555;text-transform:uppercase;">💳 Dívidas Mensais
-                  (Total)</label>
-                <span id="label-dividas" class="sim-value-display">R$ 0</span>
-              </div>
-              <input type="range" id="dividas" name="dividas" min="0" max="10000" step="50" value="0"
-                class="sim-slider">
-              <p style="font-size:10px; color:#999; margin-top:-10px;">(Empréstimos, parcelas de carro, etc)</p>
-            </div>
-            <div class="sim-nav-buttons">
-              <button type="button" class="sim-btn-prev" onclick="prevStep(1)">← Voltar</button>
-              <button type="button" class="sim-btn-next" onclick="nextStep(3)">Próximo passo →</button>
-            </div>
-          </div>
-
-          <!-- ETAPA 3: DISPONIBILIDADE (Com Sliders) -->
-          <div id="step-3" class="sim-step">
-            <h5 style="font-size:16px; font-weight:700; color:#f35525; margin-bottom:20px;">3. Recursos Disponíveis</h5>
-            <div style="margin-bottom:24px;">
-              <div style="display:flex; justify-content:space-between; align-items:center;">
-                <label style="font-size:11px;font-weight:700;color:#555;text-transform:uppercase;">💼 Saldo FGTS</label>
-                <span id="label-fgts" class="sim-value-display">R$ 0</span>
-              </div>
-              <input type="range" id="fgts" name="fgts" min="0" max="100000" step="500" value="0" class="sim-slider">
-            </div>
-            <div style="margin-bottom:16px;">
-              <div style="display:flex; justify-content:space-between; align-items:center;">
-                <label style="font-size:11px;font-weight:700;color:#555;text-transform:uppercase;">🏦 Entrada em
-                  Dinheiro</label>
-                <span id="label-entrada" class="sim-value-display">R$ 0</span>
-              </div>
-              <input type="range" id="entrada" name="entrada" min="0" max="200000" step="1000" value="0"
-                class="sim-slider">
-            </div>
-            <div class="sim-nav-buttons">
-              <button type="button" class="sim-btn-prev" onclick="prevStep(2)">← Voltar</button>
-              <button type="submit" class="sim-btn-next" style="background:#28a745;">Ver Análise Completa 🚀</button>
-            </div>
-            <!-- Campo oculto para o FormSubmit não se perder -->
-            <input type="hidden" name="_captcha" value="false">
-            <input type="hidden" name="Margem de Parcela" id="h_margem">
-            <input type="hidden" name="Potencial de Financiamento" id="h_potencial">
-            <input type="hidden" name="Poder de Compra Total" id="h_poder">
-            <input type="hidden" name="_subject" value="🏠 Nova Simulação de Financiamento!">
-          </div>
-
-          <!-- Divisor e Resultados Real-time -->
-          <hr style="border:none;border-top:1px dashed #d0d0d0;margin:30px 0;">
-
-          <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:20px;">
-            <div id="card-margem"
-              style="background:#fff8e1;border:1.5px solid #ffe082;border-radius:12px;padding:15px 10px;text-align:center; transition: all 0.3s; opacity: 1; transform: none;">
-              <div style="font-size:11px;font-weight:700;color:#888;text-transform:uppercase;margin-bottom:5px;">Margem
-              </div>
-              <div id="r-margem" style="font-size:16px;font-weight:800;color:#e65100;">--</div>
-            </div>
-            <div id="card-potencial"
-              style="background:#e3f2fd;border:1.5px solid #90caf9;border-radius:12px;padding:15px 10px;text-align:center; transition: all 0.3s; opacity: 1; transform: none;">
-              <div style="font-size:11px;font-weight:700;color:#888;text-transform:uppercase;margin-bottom:5px;">
-                Financiamento</div>
-              <div id="r-potencial" style="font-size:16px;font-weight:800;color:#1565c0;">--</div>
-            </div>
-            <div id="card-poder"
-              style="background:#e8f5e9;border:2px solid #66bb6a;border-radius:12px;padding:15px 10px;text-align:center; transition: all 0.3s; opacity: 1; transform: none;">
-              <div style="font-size:11px;font-weight:700;color:#888;text-transform:uppercase;margin-bottom:5px;">Poder
-                de Compra</div>
-              <div id="r-poder" style="font-size:18px;font-weight:900;color:#1b5e20;">--</div>
-            </div>
-          </div>
-
-          <!-- Botão de WhatsApp (Invisível até o envio do e-mail no Passo 3) -->
-          <div id="wpp-box" style="display:none; margin-top:10px;">
-            <a id="btn-wpp" href="#" target="_blank"
-              style="display:flex;align-items:center;justify-content:center;gap:9px;padding:15px;background:#25D366;color:#fff;border:none;border-radius:11px;font-size:15px;font-weight:700;text-decoration:none;box-shadow:0 4px 15px rgba(37,211,102,0.35);">
-              <i class="fab fa-whatsapp" style="font-size:20px;"></i> Enviar para Corretor
-            </a>
-          </div>
-
-          <p
-            style="font-size:11px;color:#bbb;text-align:center;border-top:1px solid #f0f0f0;padding-top:14px; margin:0;">
-            ⚠️ Valores estimados para fins de consultoria. MT Parceiros | (11) 96036-4355
-          </p>
-        </form>
-
-        <!-- O container sim-resultado antigo não será mais necessário pois o feedback é live ou final -->
-        <div id="sim-resultado" style="display:none;"></div>
-      </div>
-    </div>
 
     <div class="section best-deal">
       <div class="container">
@@ -696,227 +575,13 @@ https://templatemo.com/tm-591-villa-agency
     <script src="assets/js/isotope.min.js"></script>
     <script src="assets/js/owl-carousel.js"></script>
     <script src="assets/js/counter.js"></script>
+    <script src="empreendimentos.js"></script>
     <script src="assets/js/custom.js"></script>
 
-    <script>
-      document.addEventListener('DOMContentLoaded', function () {
-        // ====== SIMULADOR V3 ======
-        const simForm = document.getElementById('simulator-form');
-        const wppNumber = '5511960364355';
-        const fmt = (v) => v.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL', maximumFractionDigits: 0 });
+    <script src="assets/js/schedule-system.js"></script>
+    <script src="assets/js/property-drawer.js"></script>
 
-        // Navegação do Wizard
-        window.nextStep = function (step) {
-          if (step === 2) {
-            const nome = document.getElementById('nome').value.trim();
-            const celular = document.getElementById('celular').value.replace(/\D/g, '');
-            if (!nome) { alert('Por favor, informe seu nome.'); return; }
-            if (celular.length < 10) { alert('Informe um celular válido.'); return; }
-          }
-          document.querySelectorAll('.sim-step').forEach(s => s.classList.remove('active'));
-          document.getElementById('step-' + step).classList.add('active');
-          document.getElementById('sim-progress').style.width = (step * 33.33) + '%';
-        };
-
-        window.prevStep = function (step) {
-          document.querySelectorAll('.sim-step').forEach(s => s.classList.remove('active'));
-          document.getElementById('step-' + step).classList.add('active');
-          document.getElementById('sim-progress').style.width = (step * 33.33) + '%';
-        };
-
-        // Lógica de Cálculo e Feedback Real-time
-        function updateSimResults() {
-          const renda = parseFloat(document.getElementById('renda').value) || 0;
-          const dividas = parseFloat(document.getElementById('dividas').value) || 0;
-          const fgts = parseFloat(document.getElementById('fgts').value) || 0;
-          const entrada = parseFloat(document.getElementById('entrada').value) || 0;
-
-          // Atualiza Labels
-          document.getElementById('label-renda').textContent = fmt(renda);
-          document.getElementById('label-dividas').textContent = fmt(dividas);
-          document.getElementById('label-fgts').textContent = fmt(fgts);
-          document.getElementById('label-entrada').textContent = fmt(entrada);
-
-          // Algoritmo Original Preservado
-          const margem = Math.max(0, (renda * 0.30) - dividas);
-          const fatorFinanc = renda <= 4400 ? 250 : renda <= 8000 ? 230 : 210;
-          const potencial = margem * fatorFinanc;
-          const poder = Math.ceil((potencial + fgts + entrada) / 1000) * 1000;
-
-          // Atualiza Interface Real-time
-          document.getElementById('r-margem').textContent = fmt(margem) + '/mês';
-          document.getElementById('r-potencial').textContent = fmt(potencial);
-          document.getElementById('r-poder').textContent = fmt(poder);
-
-          // Efeito de Glow (Feedback Visual)
-          ['card-margem', 'card-potencial', 'card-poder'].forEach(id => {
-            const el = document.getElementById(id);
-            el.classList.remove('sim-live-update');
-            void el.offsetWidth; // Trigger reflow
-            el.classList.add('sim-live-update');
-          });
-
-          // Preenche campos ocultos para o E-mail
-          document.getElementById('h_margem').value = fmt(margem);
-          document.getElementById('h_potencial').value = fmt(potencial);
-          document.getElementById('h_poder').value = fmt(poder);
-
-          return { nome: document.getElementById('nome').value, celular: document.getElementById('celular').value, renda, dividas, fgts, entrada, margem, potencial, poder };
-        }
-
-        // Listeners para os Sliders
-        if (simForm) {
-          ['renda', 'dividas', 'fgts', 'entrada'].forEach(id => {
-            document.getElementById(id).addEventListener('input', updateSimResults);
-          });
-
-          // Submissão Final - Captura Dupla
-          simForm.addEventListener('submit', function (e) {
-            e.preventDefault();
-            const data = updateSimResults();
-
-            // 1. Envio Silencioso por E-mail (Leads Segurados)
-            const fd = new FormData(simForm);
-            fetch(simForm.action, {
-              method: 'POST',
-              body: fd,
-              headers: { 'Accept': 'application/json' }
-            }).catch(() => { });
-
-            // 2. Preparar WhatsApp
-            const msgWpp = [
-              '🏠 *NOVA SIMULAÇÃO — MT Parceiros*',
-              '━━━━━━━━━━━━━━━━━━━',
-              '👤 Cliente: ' + data.nome,
-              '💰 Renda: ' + fmt(data.renda),
-              '💳 Dívidas: ' + fmt(data.dividas),
-              '━━━━━━━━━━━━━━━━━━━',
-              '📊 Parcela: ' + fmt(data.margem) + '/mês',
-              '🏦 Financiamento: ' + fmt(data.potencial),
-              '🏡 Poder Total: ' + fmt(data.poder),
-              '━━━━━━━━━━━━━━━━━━━',
-              'MT Parceiros | (11) 96036-4355'
-            ].join('\n');
-
-            const btnWpp = document.getElementById('btn-wpp');
-            btnWpp.href = 'https://wa.me/' + wppNumber + '?text=' + encodeURIComponent(msgWpp);
-
-            // 3. Interface de Sucesso
-            document.getElementById('wpp-box').style.display = 'block';
-            const submitBtn = document.querySelector('#step-3 .sim-btn-next');
-            submitBtn.innerHTML = '✅ Dados Enviados com Sucesso!';
-            submitBtn.style.background = '#6c757d';
-            submitBtn.disabled = true;
-
-            // Scroll suave até o WhatsApp
-            document.getElementById('wpp-box').scrollIntoView({ behavior: 'smooth', block: 'center' });
-          });
-
-          // Inicializa cálculo
-          updateSimResults();
-        }
-
-
-        // --- Calendar Modal Logic ---
-
-        const modal = document.getElementById('calendar-modal');
-        const closeButton = document.querySelector('.calendar-close-button');
-        const scheduleLinks = document.querySelectorAll('.schedule-visit-link');
-        const calendarContainer = document.getElementById('calendar-container');
-        const whatsappNumber = '5511960364355';
-
-        let currentDate = new Date();
-
-        function renderCalendar(date) {
-          calendarContainer.innerHTML = ''; // Clear previous calendar
-
-          const month = date.getMonth();
-          const year = date.getFullYear();
-
-          const firstDayOfMonth = new Date(year, month, 1);
-          const lastDayOfMonth = new Date(year, month + 1, 0);
-          const daysInMonth = lastDayOfMonth.getDate();
-          const startDayOfWeek = firstDayOfMonth.getDay(); // 0=Sun, 1=Mon, ...
-
-          const monthNames = ["Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"];
-          const dayNames = ["Dom", "Seg", "Ter", "Qua", "Qui", "Sex", "Sáb"];
-
-          // Header
-          const header = document.createElement('div');
-          header.className = 'calendar-header';
-          const prevButton = document.createElement('button');
-          prevButton.id = 'prev-month';
-          prevButton.innerHTML = '&lt;';
-          const monthYear = document.createElement('h3');
-          monthYear.textContent = `${monthNames[month]} ${year}`;
-          const nextButton = document.createElement('button');
-          nextButton.id = 'next-month';
-          nextButton.innerHTML = '&gt;';
-
-          header.appendChild(prevButton);
-          header.appendChild(monthYear);
-          header.appendChild(nextButton);
-          calendarContainer.appendChild(header);
-
-          // Weekdays
-          const weekdays = document.createElement('div');
-          weekdays.className = 'calendar-days calendar-weekdays';
-          dayNames.forEach(day => {
-            const dayEl = document.createElement('div');
-            dayEl.textContent = day;
-            weekdays.appendChild(dayEl);
-          });
-          calendarContainer.appendChild(weekdays);
-
-          // Days
-          const daysContainer = document.createElement('div');
-          daysContainer.className = 'calendar-days';
-
-          for (let i = 0; i < startDayOfWeek; i++) {
-            daysContainer.appendChild(document.createElement('div'));
-          }
-
-          const today = new Date();
-          today.setHours(0, 0, 0, 0);
-
-          for (let day = 1; day <= daysInMonth; day++) {
-            const dayEl = document.createElement('div');
-            dayEl.className = 'calendar-day';
-            dayEl.textContent = day;
-
-            const currentDayDate = new Date(year, month, day);
-
-            if (currentDayDate < today) {
-              dayEl.classList.add('past-day');
-            } else {
-              dayEl.addEventListener('click', () => {
-                const selectedDate = new Date(year, month, day);
-                const formattedDate = selectedDate.toLocaleDateString('pt-BR');
-                const message = `Olá, gostaria de agendar uma visita para o dia ${formattedDate}.`;
-                const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`;
-
-                window.open(whatsappUrl, '_blank');
-                modal.style.display = 'none';
-              });
-            }
-            daysContainer.appendChild(dayEl);
-          }
-          calendarContainer.appendChild(daysContainer);
-
-          if (year < today.getFullYear() || (year === today.getFullYear() && month <= today.getMonth())) {
-            document.getElementById('prev-month').disabled = true;
-          }
-
-          document.getElementById('prev-month').addEventListener('click', () => { currentDate.setMonth(currentDate.getMonth() - 1); renderCalendar(currentDate); });
-          document.getElementById('next-month').addEventListener('click', () => { currentDate.setMonth(currentDate.getMonth() + 1); renderCalendar(currentDate); });
-        }
-
-        scheduleLinks.forEach(link => { link.addEventListener('click', function (e) { e.preventDefault(); currentDate = new Date(); renderCalendar(currentDate); modal.style.display = 'block'; }); });
-        closeButton.addEventListener('click', function () { modal.style.display = 'none'; });
-        window.addEventListener('click', function (event) { if (event.target == modal) { modal.style.display = 'none'; } });
-      });
-    </script>
-
+    <script src="empreendimentos.js"></script>
     <script src="assets/js/micro-animations.js"></script>
 </body>
 
