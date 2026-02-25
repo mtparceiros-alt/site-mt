@@ -311,18 +311,22 @@
   <div class="featured section">
     <div class="container">
       <div class="row">
-        <div class="col-lg-4">
-          <div class="left-image">
-            <img src="assets/images/featured.jpg" alt="Fachada de um empreendimento MT Parceiros">
-            <a href="property-details.html"><img src="assets/images/featured-icon.png" alt="Ícone de detalhes"
-                style="max-width: 60px; padding: 0px;"></a>
-          </div>
-        </div>
-        <div class="col-lg-5">
+        <div class="col-lg-5 order-lg-2">
           <div class="section-heading">
             <h6>| Consultoria</h6>
             <h2>MT Parceiros: Protegendo sua Conquista.</h2>
           </div>
+
+          <!-- Imagem exclusiva para Mobile (entre título e acordeão) -->
+          <div class="left-image d-block d-lg-none mb-5" style="margin-bottom: 60px !important;">
+            <img src="assets/images/featured.jpg" alt="Fachada de um empreendimento MT Parceiros"
+              style="padding-left: 0;">
+            <a href="property-details.html"
+              style="bottom: -40px; width: 80px; height: 80px; line-height: 80px; left: 20px;">
+              <img src="assets/images/featured-icon.png" alt="Ícone de detalhes" style="max-width: 40px; padding: 0px;">
+            </a>
+          </div>
+
           <div class="accordion" id="accordionExample">
             <div class="accordion-item">
               <h2 class="accordion-header" id="headingOne">
@@ -377,7 +381,14 @@
             </div>
           </div>
         </div>
-        <div class="col-lg-3">
+        <div class="col-lg-4 order-lg-1 d-none d-lg-block">
+          <div class="left-image">
+            <img src="assets/images/featured.jpg" alt="Fachada de um empreendimento MT Parceiros">
+            <a href="property-details.html"><img src="assets/images/featured-icon.png" alt="Ícone de detalhes"
+                style="max-width: 60px; padding: 0px;"></a>
+          </div>
+        </div>
+        <div class="col-lg-3 order-lg-3">
           <div class="info-table">
             <ul>
               <li>
@@ -767,8 +778,10 @@
           </div>
         </div>
       </div>
-      <div class="row" id="destaques-container">
-        <!-- Cartões gerados automaticamente pelo CMS (cms-renderer.js) -->
+      <div class="row">
+        <div id="destaques-container" class="owl-carousel owl-properties">
+          <!-- Cartões gerados automaticamente pelo CMS (cms-renderer.js) -->
+        </div>
       </div>
     </div>
   </div>
@@ -981,7 +994,33 @@
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
   <script src="empreendimentos.js"></script>
   <script src="assets/js/cms-renderer.js"></script>
-  <script>document.addEventListener('DOMContentLoaded', function () { renderDestaques('#destaques-container', 6); });</script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      // 1. Renderiza os itens via CMS
+      renderDestaques('#destaques-container', 12); // Pega mais itens para o carrossel ficar rico
+
+      // 2. Inicializa o Owl Carousel após a renderização
+      // Pequeno delay para garantir que o DOM foi preenchido pelo renderizador
+      setTimeout(function () {
+        $('#destaques-container').owlCarousel({
+          items: 3,
+          loop: true,
+          dots: true,
+          nav: true,
+          margin: 30,
+          autoplay: true,
+          autoplayTimeout: 5000,
+          autoplayHoverPause: true,
+          navText: ['<i class="fa fa-angle-left"></i>', '<i class="fa fa-angle-right"></i>'],
+          responsive: {
+            0: { items: 1 },
+            768: { items: 2 },
+            1200: { items: 3 }
+          }
+        });
+      }, 500);
+    });
+  </script>
   <script>
     document.addEventListener('DOMContentLoaded', function () {
       var map = L.map('map').setView([-23.55, -46.63], 11);
