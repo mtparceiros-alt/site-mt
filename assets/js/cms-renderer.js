@@ -16,8 +16,7 @@ function renderDestaques(containerId, limite) {
     var html = '';
 
     dados.forEach(function (emp) {
-        html += '<div class="col-lg-4 col-md-6">';
-        html += '  <div class="item text-center">';
+        html += '<div class="item text-center item-slide">';
         html += '    <a href="#!" class="schedule-visit-link" data-emp-nome="' + escapeHtml(emp.nome) + '" title="' + escapeHtml(emp.lazer) + '">';
         html += '      <img src="' + emp.imagem + '" alt="' + escapeHtml(emp.nome) + '" loading="lazy">';
         html += '    </a>';
@@ -33,7 +32,6 @@ function renderDestaques(containerId, limite) {
         html += '    <div class="main-button">';
         html += '      <a href="#!" class="schedule-visit-link" data-emp-nome="' + escapeHtml(emp.nome) + '">Agende uma visita</a>';
         html += '    </div>';
-        html += '  </div>';
         html += '</div>';
     });
 

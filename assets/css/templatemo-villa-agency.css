@@ -829,7 +829,8 @@ Banner Style
   background-position: center center;
   background-repeat: no-repeat;
   background-size: cover;
-  padding: 220px 20% 320px 20%;
+  padding: 176px 20% 256px 20%;
+  /* Reduzido em 20% (era 220px/320px) */
   margin-top: 0px;
 }
 
@@ -1851,8 +1852,15 @@ body {
     padding-right: 15px;
   }
 
+  .main-banner .item {
+    padding: 120px 5% 150px 5% !important;
+    /* Ajuste mobile: Reduzido para não ficar enorme */
+  }
+
   .main-banner .item h2 {
     width: 100%;
+    font-size: 32px;
+    line-height: normal;
   }
 
   .featured .section-heading {
