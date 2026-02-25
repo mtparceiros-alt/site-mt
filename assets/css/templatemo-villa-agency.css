@@ -830,7 +830,7 @@ Banner Style
   background-repeat: no-repeat;
   background-size: cover;
   padding: 176px 20% 256px 20%;
-  /* Reduzido em 20% (era 220px/320px) */
+  /* Original que o usuário gosta no desktop */
   margin-top: 0px;
 }
 
@@ -1863,10 +1863,18 @@ body {
     line-height: normal;
   }
 
+  .main-banner .item {
+    padding-bottom: 80px;
+  }
+
+  .featured.section {
+    margin-top: 40px;
+  }
+
   .featured .section-heading {
     margin-left: 0px;
     margin-right: 0px;
-    margin-top: 100px;
+    margin-top: 0px;
   }
 
   .featured .accordion {
