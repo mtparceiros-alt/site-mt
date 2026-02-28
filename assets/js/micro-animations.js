@@ -122,7 +122,7 @@
        ══════════════════════════════════════════════════════ */
     function initRipple() {
         document.addEventListener('click', function (e) {
-            var btn = e.target.closest('.main-button a, .schedule-visit-link, .btn');
+            var btn = e.target.closest('.main-button a, .schedule-visit-link, .btn, .orange-button');
             if (!btn) return;
 
             var ripple = document.createElement('span');

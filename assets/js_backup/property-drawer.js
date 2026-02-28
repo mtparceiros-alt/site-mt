@@ -83,54 +83,102 @@
 
     function renderCalendar(date) {
         if (!inlineCalendar) return;
+        inlineCalendar.innerHTML = '';
 
-        if (window.MT_Utils && window.MT_Utils.renderGenericCalendar) {
-            window.MT_Utils.renderGenericCalendar(inlineCalendar, date, {
-                theme: 'drawer',
-                selectedDate: selectedDate,
-                onMonthChange: (dir) => { currentCalendarDate.setMonth(currentCalendarDate.getMonth() + dir); renderCalendar(currentCalendarDate); },
-                onDayClick: (day, month, year) => {
-                    selectedDate = new Date(year, month, day);
-                    updateWhatsAppLink();
-                    renderCalendar(currentCalendarDate);
-                }
-            });
-            return;
+        var year = date.getFullYear();
+        var month = date.getMonth();
+        var firstDay = new Date(year, month, 1).getDay();
+        var lastDay = new Date(year, month + 1, 0).getDate();
+
+        var monthNames = ["Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"];
+        var dayNames = ["Dom", "Seg", "Ter", "Qua", "Qui", "Sex", "Sáb"];
+
+        // Header do Calendário
+        var header = document.createElement('div');
+        header.className = 'ma-cal-header';
+
+        var prev = document.createElement('button');
+        prev.innerHTML = '&lt;';
+        prev.onclick = function () { currentCalendarDate.setMonth(currentCalendarDate.getMonth() - 1); renderCalendar(currentCalendarDate); };
+
+        var title = document.createElement('span');
+        title.textContent = monthNames[month] + ' ' + year;
+
+        var next = document.createElement('button');
+        next.innerHTML = '&gt;';
+        next.onclick = function () { currentCalendarDate.setMonth(currentCalendarDate.getMonth() + 1); renderCalendar(currentCalendarDate); };
+
+        header.appendChild(prev);
+        header.appendChild(title);
+        header.appendChild(next);
+        inlineCalendar.appendChild(header);
+
+        // Dias da Semana
+        var grid = document.createElement('div');
+        grid.className = 'ma-cal-grid';
+        dayNames.forEach(function (d) {
+            var el = document.createElement('div');
+            el.className = 'ma-cal-weekday';
+            el.textContent = d;
+            grid.appendChild(el);
+        });
+
+        // Espaços vazios
+        for (var i = 0; i < firstDay; i++) {
+            grid.appendChild(document.createElement('div'));
         }
 
-        inlineCalendar.innerHTML = '<p>Calendário indisponível.</p>';
+        var today = new Date();
+        today.setHours(0, 0, 0, 0);
+
+        // Dias do mês
+        for (var d = 1; d <= lastDay; d++) {
+            var dayEl = document.createElement('div');
+            dayEl.className = 'ma-cal-day';
+            dayEl.textContent = d;
+
+            var checkDate = new Date(year, month, d);
+            if (checkDate < today) {
+                dayEl.classList.add('disabled');
+            } else {
+                if (selectedDate && checkDate.getTime() === selectedDate.getTime()) {
+                    dayEl.classList.add('selected');
+                }
+                dayEl.onclick = (function (dd) {
+                    return function () {
+                        selectedDate = new Date(year, month, dd);
+                        updateWhatsAppLink();
+                        renderCalendar(currentCalendarDate);
+                    };
+                })(d);
+            }
+            grid.appendChild(dayEl);
+        }
+        inlineCalendar.appendChild(grid);
     }
 
     function updateWhatsAppLink() {
         if (!currentProperty) return;
         var dateStr = selectedDate ? selectedDate.toLocaleDateString('pt-BR') : '[Escolha uma data acima]';
 
-        if (window.MT_Utils) {
-            btnWhatsapp.href = window.MT_Utils.getWhatsAppLink('VISITA_IMOVEL', {
-                data: dateStr,
-                imovel: currentProperty.nome,
-                simData: window.mtSimData || null
-            });
-        } else {
-            var fmt = function (v) {
-                return typeof v === 'number' ? v.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL', maximumFractionDigits: 0 }) : v;
-            };
+        var fmt = function (v) {
+            return typeof v === 'number' ? v.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL', maximumFractionDigits: 0 }) : v;
+        };
 
-            var waMsg = 'Olá! Gostaria de agendar uma visita para o dia *' + dateStr + '* no empreendimento *' + currentProperty.nome + '*.\n';
+        var waMsg = 'Olá! Gostaria de agendar uma visita para o dia *' + dateStr + '* no empreendimento *' + currentProperty.nome + '*.\n';
 
-            // Integrar dados da simulação se existirem
-            if (window.mtSimData) {
-                var d = window.mtSimData;
-                waMsg += '\n📊 *Dados da minha simulação:*';
-                waMsg += '\n- Renda: ' + fmt(d.renda);
-                waMsg += '\n- Financiamento: ' + fmt(d.potencial);
-                waMsg += '\n- Poder de compra: ' + fmt(d.poder);
-                waMsg += '\n';
-            }
-
-            waMsg += '\nVi no site MT Parceiros.';
-            btnWhatsapp.href = 'https://wa.me/5511960364355?text=' + encodeURIComponent(waMsg);
+        // Integrar dados da simulação se existirem
+        if (window.mtSimData) {
+            var d = window.mtSimData;
+            waMsg += '\n📊 *Dados da minha simulação:*';
+            waMsg += '\n- Renda: ' + fmt(d.renda);
+            waMsg += '\n- Financiamento: ' + fmt(d.potencial);
+            waMsg += '\n- Poder de compra: ' + fmt(d.poder);
+            waMsg += '\n';
         }
+
+        waMsg += '\nVi no site MT Parceiros.';
+        btnWhatsapp.href = 'https://wa.me/5511960364355?text=' + encodeURIComponent(waMsg);
 
         if (selectedDate) {
             btnWhatsapp.style.opacity = '1';

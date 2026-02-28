@@ -34,13 +34,155 @@ document.addEventListener('DOMContentLoaded', function () {
     // 2. Inicializa o Mapa (Leaflet)
     initHomeMap();
 
+    // 3. Lógica do Formulário de Contato (Rodapé)
+    initHomeContactForm();
+
     // 4. Inicializa o Simulador
     initHomeSimulator();
 });
 
+function initHomeContactForm() {
+    const form = document.querySelector('.contact-content form');
+    if (!form) return;
+
+    form.addEventListener('submit', function (e) {
+        e.preventDefault();
+
+        const nameInput = form.querySelector('#name');
+        const emailInput = form.querySelector('#email');
+        const celularInput = form.querySelector('#celular');
+
+        if (!nameInput.value.trim()) { alert('Por favor, preencha seu nome completo.'); nameInput.focus(); return; }
+        if (!emailInput.value.trim()) { alert('Por favor, preencha seu e-mail.'); emailInput.focus(); return; }
+
+        const unmaskedValue = celularInput.value.replace(/\D/g, '');
+        if (unmaskedValue.length < 10 || unmaskedValue.length > 11) {
+            alert('Por favor, insira um número de celular válido com DDD.');
+            celularInput.focus();
+            return;
+        }
+
+        const formData = new FormData(form);
+        formData.set('celular', unmaskedValue);
+        const formContainer = form.parentElement;
+
+        fetch(form.action, {
+            method: 'POST',
+            body: formData,
+            headers: { 'Accept': 'application/json' }
+        }).then(response => {
+            if (response.ok) {
+                const waName = (form.querySelector('#name') || {}).value || '';
+                const waCelular = (form.querySelector('#celular') || {}).value.replace(/\D/g, '') || '';
+                const waSubject = (form.querySelector('#subject') || {}).value || 'Contato pelo site';
+                const waMessage = (form.querySelector('#message') || {}).value || '';
+                const waMsg = `Olá! Me chamo *${waName.trim()}*.\nMeu WhatsApp: ${waCelular}.\nAssunto: ${waSubject}${waMessage ? '\n\n' + waMessage : ''}`;
+
+                setTimeout(() => {
+                    window.open('https://wa.me/5511960364355?text=' + encodeURIComponent(waMsg), '_blank');
+                }, 2000);
+
+                formContainer.innerHTML = `
+                <div class="ma-success-wrapper">
+                  <div class="ma-success-icon-box">
+                    <div class="ma-success-circle"></div>
+                    <svg class="ma-checkmark" viewBox="0 0 52 52">
+                      <path d="M14.1 27.2l7.1 7.2 16.7-16.8"/>
+                    </svg>
+                  </div>
+                  <h4>Mensagem Enviada!</h4>
+                  <p>Sua jornada para o novo lar começou com sucesso.</p>
+                  <button class="ma-btn-reset" onclick="location.reload()">Enviar outra mensagem</button>
+                </div>
+              `;
+            } else {
+                alert('Oops! Houve um problema ao enviar seu formulário.');
+            }
+        }).catch(error => {
+            alert('Oops! Houve um problema ao enviar seu formulário.');
+        });
+    });
+}
+
 function initHomeMap() {
-    if (window.MT_Utils && window.MT_Utils.initMap) {
-        window.MT_Utils.initMap('map');
+    if (!document.getElementById('map')) return;
+    if (typeof L === 'undefined') return;
+
+    var map = L.map('map').setView([-23.55, -46.63], 11);
+
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+        maxZoom: 18
+    }).addTo(map);
+
+    // Botão "Minha Localização"
+    var LocationControl = L.Control.extend({
+        options: { position: 'topleft' },
+        onAdd: function (map) {
+            var container = L.DomUtil.create('div', 'leaflet-bar leaflet-control leaflet-control-location');
+            var link = L.DomUtil.create('a', '', container);
+            link.href = '#';
+            link.title = 'Minha Localização';
+            link.innerHTML = '📍';
+            link.style.fontSize = '18px';
+            link.style.lineHeight = '30px';
+            link.style.textAlign = 'center';
+
+            L.DomEvent.on(link, 'click', function (e) {
+                L.DomEvent.stopPropagation(e);
+                L.DomEvent.preventDefault(e);
+
+                if (window.location.protocol === 'file:') {
+                    alert("A geolocalização automática é bloqueada por segurança em arquivos locais (abertos diretamente da pasta). Para testar este botão, o site precisa estar em um servidor (http/https).");
+                    return;
+                }
+
+                map.locate({ setView: true, maxZoom: 15 });
+            });
+
+            return container;
+        }
+    });
+    map.addControl(new LocationControl());
+
+    map.on('locationerror', function () { alert("Não foi possível obter sua localização."); });
+
+    // Função para definir cor baseada no status
+    function getCorPorStatus(entrega) {
+        if (!entrega) return '#f35525';
+        var texto = entrega.toLowerCase();
+        if (texto.indexOf('lançamento') !== -1 || texto.indexOf('lancamento') !== -1) return '#007bff';
+        if (texto.indexOf('pronto') !== -1) return '#28a745';
+        return '#f35525';
+    }
+
+    if (typeof EMPREENDIMENTOS !== 'undefined' && EMPREENDIMENTOS.length) {
+        var bounds = [];
+        EMPREENDIMENTOS.forEach(function (e) {
+            if (!e.lat || !e.lng) return;
+
+            var cor = getCorPorStatus(e.entrega);
+            var icone = L.divIcon({
+                className: '',
+                html: '<div style="background:' + cor + ';width:20px;height:20px;border-radius:50% 50% 50% 0;transform:rotate(-45deg);border:3px solid #fff;box-shadow:0 2px 8px rgba(0,0,0,0.35);"></div>',
+                iconSize: [20, 20],
+                iconAnchor: [10, 20],
+                popupAnchor: [0, -22]
+            });
+
+            var popup = '<div style="font-family:Poppins,sans-serif;min-width:190px;">'
+                + '<strong style="color:' + cor + ';font-size:14px;">' + e.nome + '</strong><br>'
+                + (e.bairro ? '<span style="font-size:12px;">📍 ' + e.bairro + '</span><br>' : '')
+                + (e.preco ? '<strong style="color:#1a1a2e;font-size:13px;">A partir de ' + e.preco + '</strong><br>' : '')
+                + (e.entrega ? '<span style="font-size:11px;color:#888;">Entrega: ' + e.entrega + '</span><br>' : '')
+                + '<a href="#!" class="schedule-visit-link" data-emp-nome="' + e.nome + '" '
+                + 'style="display:inline-block;margin-top:8px;padding:6px 12px;background:#1e1e1e;color:#fff;border-radius:6px;font-size:12px;font-weight:700;text-decoration:none;">'
+                + 'ℹ️ Mais Informações</a></div>';
+
+            L.marker([e.lat, e.lng], { icon: icone }).addTo(map).bindPopup(popup);
+            bounds.push([e.lat, e.lng]);
+        });
+        if (bounds.length > 1) map.fitBounds(bounds, { padding: [40, 40] });
     }
 }
 
@@ -242,35 +384,23 @@ function initHomeSimulator() {
         }).catch(() => { });
 
         // 3. Montar Link do WhatsApp
+        const msgWpp = [
+            '🏠 *NOVA SIMULAÇÃO — MT Parceiros*',
+            '━━━━━━━━━━━━━━━━━━━',
+            '👤 Cliente: ' + data.nome,
+            '👨‍👩‍👧‍👦 Dependentes: ' + (data.temDependentes ? 'Sim' : 'Não'),
+            '💰 Renda: ' + fmt(data.renda),
+            '💳 Dívidas: ' + fmt(data.dividas),
+            '━━━━━━━━━━━━━━━━━━━',
+            '📊 Parcela: ' + fmt(data.margem) + '/mês',
+            '🏦 Financiamento: ' + fmt(data.potencial),
+            '🏡 Poder Total: ' + fmt(data.poder),
+            '━━━━━━━━━━━━━━━━━━━',
+            'MT Parceiros | (11) 96036-4355'
+        ].join('\n');
+
         const btnWpp = document.getElementById('btn-wpp');
-        if (window.MT_Utils) {
-            btnWpp.href = window.MT_Utils.getWhatsAppLink('SIMULADOR', {
-                nome: data.nome,
-                dependentes: data.temDependentes ? 'Sim' : 'Não',
-                renda: data.renda,
-                dividas: data.dividas,
-                margem: data.margem,
-                potencial: data.potencial,
-                poder: data.poder
-            });
-        } else {
-            const fmt = (v) => v.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL', maximumFractionDigits: 0 });
-            const msgWpp = [
-                '🏠 *NOVA SIMULAÇÃO — MT Parceiros*',
-                '━━━━━━━━━━━━━━━━━━━',
-                '👤 Cliente: ' + data.nome,
-                '👨‍👩‍👧‍👦 Dependentes: ' + (data.temDependentes ? 'Sim' : 'Não'),
-                '💰 Renda: ' + fmt(data.renda),
-                '💳 Dívidas: ' + fmt(data.dividas),
-                '━━━━━━━━━━━━━━━━━━━',
-                '📊 Parcela: ' + fmt(data.margem) + '/mês',
-                '🏦 Financiamento: ' + fmt(data.potencial),
-                '🏡 Poder Total: ' + fmt(data.poder),
-                '━━━━━━━━━━━━━━━━━━━',
-                'MT Parceiros | (11) 96036-4355'
-            ].join('\n');
-            btnWpp.href = 'https://wa.me/5511960364355?text=' + encodeURIComponent(msgWpp);
-        }
+        btnWpp.href = 'https://wa.me/' + wppNumber + '?text=' + encodeURIComponent(msgWpp);
 
         // 4. Experiência de Loading (3 Segundos)
         setTimeout(() => {

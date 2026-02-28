@@ -4,7 +4,9 @@
 
 	// Page loading animation
 	$(window).on('load', function () {
+
 		$('#js-preloader').addClass('loaded');
+
 	});
 
 
@@ -93,7 +95,6 @@
 
 
 	// Page loading animation
-	/* REMOVIDO: Classes parallax (.cover) e IDs de preloader não existem nos HTMLs atuais.
 	$(window).on('load', function () {
 		if ($('.cover').length) {
 			$('.cover').parallax({
@@ -110,7 +111,6 @@
 			}, 300);
 		});
 	});
-	*/
 
 
 

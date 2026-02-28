@@ -8,6 +8,7 @@ document.addEventListener('DOMContentLoaded', function () {
     renderHeader();
     renderFooter();
     renderWhatsApp();
+    renderContactForm();
 });
 
 function renderSubHeader() {
@@ -127,4 +128,61 @@ function renderWhatsApp() {
         </a>
     `;
     document.body.insertAdjacentHTML('beforeend', waHtml);
+}
+
+function renderContactForm() {
+    const placeholders = document.querySelectorAll('#contact-form-placeholder');
+    if (!placeholders.length) return;
+
+    const formHtml = `
+          <form id="contact-form" class="contact-form" action="https://formsubmit.co/marcos.onn@gmail.com" method="POST">
+            <div class="row">
+              <div class="col-lg-12">
+                <fieldset>
+                  <label for="name">Nome Completo</label>
+                  <input type="text" name="name" id="name" placeholder="Seu Nome..." autocomplete="on" required>
+                </fieldset>
+              </div>
+              <div class="col-lg-12">
+                <fieldset>
+                  <label for="email">E-mail</label>
+                  <input type="email" name="email" id="email" placeholder="Seu E-mail..." required>
+                </fieldset>
+              </div>
+              <div class="col-lg-12">
+                <fieldset>
+                  <label for="celular">Celular (com DDD)</label>
+                  <input type="tel" name="celular" id="celular" placeholder="Ex: (11) 91234-5678" autocomplete="on" required>
+                </fieldset>
+              </div>
+              <div class="col-lg-12">
+                <fieldset>
+                  <label for="subject">Assunto</label>
+                  <input type="text" name="subject" id="subject" placeholder="Assunto..." autocomplete="on">
+                  <input type="hidden" name="_captcha" value="false">
+                </fieldset>
+              </div>
+              <div class="col-lg-12">
+                <fieldset>
+                  <label for="message">Mensagem</label>
+                  <textarea name="message" id="message" placeholder="Sua Mensagem"></textarea>
+                </fieldset>
+              </div>
+              <div class="col-lg-12">
+                <fieldset>
+                  <button type="submit" id="form-submit" class="orange-button">Enviar Mensagem</button>
+                </fieldset>
+              </div>
+            </div>
+          </form>
+    `;
+
+    placeholders.forEach(el => {
+        el.innerHTML = formHtml;
+    });
+
+    // Re-inicia o listener do form de contato após a injeção do HTML
+    if (typeof initSharedContactForm === 'function') {
+        initSharedContactForm();
+    }
 }
