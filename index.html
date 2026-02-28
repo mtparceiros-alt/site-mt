@@ -1,0 +1,786 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+
+  <meta charset="utf-8">
+  <title>MT Parceiros | Imóveis em São Paulo — Pirituba, Lapa e Freguesia do Ó</title>
+  <meta name="description"
+    content="Consultoria imobiliária em São Paulo com segurança jurídica e análise técnica. Apartamentos, lofts e coberturas nas regiões de Pirituba, Lapa e Freguesia do Ó com parcelas facilitadas e acompanhamento do início ao fim.">
+  <meta name="robots" content="index, follow">
+
+  <!-- Open Graph (WhatsApp, Facebook, LinkedIn) -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="MT Parceiros | Imóveis em São Paulo">
+  <meta property="og:description"
+    content="Consultoria imobiliária com segurança jurídica. Encontre o imóvel ideal em Pirituba, Lapa e Freguesia do Ó.">
+  <meta property="og:image" content="assets/images/banner-01.jpg">
+  <meta property="og:locale" content="pt_BR">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="assets/images/bot-whatsapp.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap"
+    rel="stylesheet">
+
+  <link rel="stylesheet" href="vendor/bootstrap/css/bootstrap.min.css">
+  <link rel="stylesheet" href="assets/css/fontawesome.css">
+  <link rel="stylesheet" href="assets/css/templatemo-villa-agency.css">
+  <link rel="stylesheet" href="assets/css/owl.css">
+  <link rel="stylesheet" href="assets/css/animate.css">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+    integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+  <link rel="stylesheet" href="assets/css/shared.css">
+  <link rel="stylesheet" href="assets/css/micro-animations.css">
+
+  <!-- ExcelJS para gerar a planilha customizada baseada no template avançado -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/exceljs/4.3.0/exceljs.min.js"></script>
+</head>
+
+<body>
+
+  <div id="js-preloader" class="js-preloader">
+    <div class="preloader-inner">
+      <span class="dot"></span>
+      <div class="dots">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+    </div>
+  </div>
+  <div class="sub-header"></div>
+
+  <header class="header-area header-sticky">
+    <div class="container">
+      <div class="row">
+        <div class="col-12">
+          <nav class="main-nav"></nav>
+        </div>
+      </div>
+    </div>
+  </header>
+  <div class="main-banner">
+    <div class="owl-carousel owl-banner">
+      <div class="item item-1">
+        <div class="header-text">
+          <span class="category">Pirituba, <em>São Paulo</em></span>
+          <h2>O Caminho Seguro<br>Para seu novo lar</h2>
+        </div>
+      </div>
+      <div class="item item-2">
+        <div class="header-text">
+          <span class="category">Lapa, <em>São Paulo</em></span>
+          <h2>Escolha Técnica.<br>Deixe a burocracia conosco</h2>
+        </div>
+      </div>
+      <div class="item item-3">
+        <div class="header-text">
+          <span class="category">Freguesia do Ó, <em>São Paulo</em></span>
+          <h2>Conectividade.<br>Seu novo lar a passos do Metrô</h2>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="featured section">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-5 order-lg-2">
+          <div class="section-heading">
+            <h6>| Consultoria</h6>
+            <h2>MT Parceiros: Protegendo sua Conquista.</h2>
+          </div>
+
+          <!-- Imagem exclusiva para Mobile (entre título e acordeão) -->
+          <div class="left-image d-block d-lg-none mb-5" style="margin-bottom: 60px !important;">
+            <img src="assets/images/featured.jpg" alt="Fachada de um empreendimento MT Parceiros"
+              style="padding-left: 0;">
+            <a href="property-details.html"
+              style="bottom: -40px; width: 80px; height: 80px; line-height: 80px; left: 20px;">
+              <img src="assets/images/featured-icon.png" alt="Ícone de detalhes" style="max-width: 40px; padding: 0px;">
+            </a>
+          </div>
+
+          <div class="accordion" id="accordionExample">
+            <div class="accordion-item">
+              <h2 class="accordion-header" id="headingOne">
+                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne"
+                  aria-expanded="true" aria-controls="collapseOne">
+                  Como garantimos sua segurança?
+                </button>
+              </h2>
+              <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne"
+                data-bs-parent="#accordionExample">
+                <div class="accordion-body">
+                  Obtenha <strong>a melhor consultoria</strong> A compra de um imóvel é, muitas vezes, a maior decisão
+                  financeira da sua vida. Não deixe esse momento nas mãos do acaso. Nossa consultoria vai além da venda:
+                  analisamos a segurança jurídica, a qualidade técnica do projeto e o real potencial de valorização da
+                  região.</div>
+              </div>
+            </div>
+            <div class="accordion-item">
+              <h2 class="accordion-header" id="headingTwo">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                  data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                  Como isso funciona?
+                </button>
+              </h2>
+              <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo"
+                data-bs-parent="#accordionExample">
+                <div class="accordion-body">
+                  Nosso processo elimina a complexidade e a incerteza da compra. Tudo começa com um diagnóstico
+                  detalhado do seu objetivo. Em seguida, nossa equipe técnica entra em ação: filtramos centenas de
+                  opções no mercado e mostramos as que se enquadram dentro das suas especificações. Apresentamos a você
+                  apenas as melhores opções do mercado imobiliário — imóveis seguros, com potencial de personalização
+                  tecnológica e alto retorno. Acompanhamos você da visita à assinatura, garantindo transparência e a
+                  melhor negociação, mantendo você informado de todos os passos por meios digitais.trabalho e o cansaço,
+                  para que a dor de alguns grandes desafios sejam superadas.
+                </div>
+              </div>
+            </div>
+            <div class="accordion-item">
+              <h2 class="accordion-header" id="headingThree">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                  data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                  O que nos torna seu escudo?
+                </button>
+              </h2>
+              <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree"
+                data-bs-parent="#accordionExample">
+                <div class="accordion-body">
+                  Oferecemos as melhores opções de mercado com transparência e segurança para você e sua família
+                  encontrarem o lar ideal.
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-4 order-lg-1 d-none d-lg-block">
+          <div class="left-image">
+            <img src="assets/images/featured.jpg" alt="Fachada de um empreendimento MT Parceiros">
+            <a href="property-details.html"><img src="assets/images/featured-icon.png" alt="Ícone de detalhes"
+                style="max-width: 60px; padding: 0px;"></a>
+          </div>
+        </div>
+        <div class="col-lg-3 order-lg-3">
+          <div class="info-table">
+            <ul>
+              <li>
+                <img src="assets/images/info-icon-01.png" alt="Ícone Plantas Diversas" style="max-width: 52px;">
+                <h4>Diversas<br><span>Plantas</span></h4>
+              </li>
+              <li>
+                <img src="assets/images/info-icon-02.png" alt="Ícone Contrato Revisado" style="max-width: 52px;">
+                <h4>Contrato<br><span>Revisado</span></h4>
+              </li>
+              <li>
+                <img src="assets/images/info-icon-03.png" alt="Ícone Pagamento Facilitado" style="max-width: 52px;">
+                <h4>Pagamento<br><span>Facilitado</span></h4>
+              </li>
+              <li>
+                <img src="assets/images/info-icon-04.png" alt="Ícone Segurança e Controle" style="max-width: 52px;">
+                <h4>Segurança<br><span>Controle</span></h4>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="video section">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-4 offset-lg-4">
+          <div class="section-heading text-center">
+            <h6>| Vídeo</h6>
+            <h2>Tenha uma Visão Mais Próxima e uma Sensação Diferente</h2>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="video-content">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-10 offset-lg-1">
+          <div class="video-frame">
+            <video width="100%" height="500" controls autoplay muted loop style="border-radius: 10px;">
+              <source src="videos/videoplayback.mp4" type="video/mp4">
+              Seu navegador não suporta o elemento de vídeo.
+            </video>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="fun-facts">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-12">
+          <div class="wrapper">
+            <div class="row gx-lg-5">
+              <div class="col-lg-4">
+                <div class="counter">
+                  <h2 class="timer count-title count-number" data-to="22" data-speed="1000"></h2>
+                  <p class="count-text ">Empreendimentos</p>
+                </div>
+              </div>
+              <div class="col-lg-4">
+                <div class="counter">
+                  <h2 class="timer count-title count-number" data-to="8" data-speed="1000"></h2>
+                  <p class="count-text ">Anos de<br>Experiência</p>
+                </div>
+              </div>
+              <div class="col-lg-4">
+                <div class="counter">
+                  <h2 class="timer count-title count-number" data-to="1300" data-speed="1000"></h2>
+                  <p class="count-text ">Unidades<br>Vendidas 2025</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SIMULADOR V3 (Premium Glassmorphism) -->
+  <div id="simulador" class="sim-section-bg">
+    <div class="sim-glass-container">
+      <h2 class="sim-title"><img src="assets/images/bola_laranja.gif" alt="IA"
+          style="width: 42px; height: 42px; vertical-align: middle; margin-right: 8px; margin-bottom: 6px;">Simulador
+        Inteligente MT Parceiros</h2>
+      <p class="sim-subtitle">Seu caminho real até as chaves com tecnologia IA e assessoria técnica especializada.</p>
+
+      <!-- Overlay de Processamento IA (Cortina Deslizante) -->
+      <div id="sim-loading-overlay" class="sim-loading-overlay">
+        <div class="sim-loading-content">
+          <img src="assets/images/bola_laranja.gif" alt="Processando"
+            style="width: 180px; height: 180px; margin-bottom: 25px; filter: drop-shadow(0 0 20px rgba(243, 85, 37, 0.4));">
+          <h3 class="sim-loading-text">Processando dados...</h3>
+        </div>
+      </div>
+
+      <!-- Barra de Progresso Inteligente -->
+      <div class="sim-progress-container mb-4" style="margin-top: 20px;">
+        <div class="sim-progress-header d-flex justify-content-between align-items-center mb-2">
+          <span class="sim-progress-text" style="color: #fff; font-size: 0.95rem; font-weight: 600;">Status do Perfil
+            IA</span>
+          <span class="sim-progress-pct" id="sim-progress-pct"
+            style="color: #f35525; font-size: 1.1rem; font-weight: 800;">0%</span>
+        </div>
+        <div class="sim-progress-bar-bg"
+          style="background: rgba(255, 255, 255, 0.1); backdrop-filter: blur(5px); border-radius: 20px; height: 14px; border: 1px solid rgba(255,255,255,0.2); position: relative; overflow: visible;">
+          <div class="sim-progress-bar-fill" id="sim-progress-fill"
+            style="background: linear-gradient(90deg, #f35525, #ffa07a); height: 100%; border-radius: 20px; width: 0%; transition: width 0.6s cubic-bezier(0.4, 0, 0.2, 1); position: relative; box-shadow: 0 0 15px rgba(243, 85, 37, 0.6); overflow: visible;">
+            <!-- Efeito de Brilho Interno (Shimmer) com clipping próprio -->
+            <div style="position: absolute; inset: 0; overflow: hidden; border-radius: inherit; pointer-events: none;">
+              <div
+                style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent); animation: shimmer 2s infinite linear;">
+              </div>
+            </div>
+            <!-- Mascote IA (À frente da barra, integrado no final) -->
+            <img src="assets/images/mascote_ia.gif" id="sim-ia-mascot" alt="IA"
+              style="position: absolute; right: -48px; top: 50%; transform: translateY(-50%); width: 50px; height: 50px; pointer-events: none; opacity: 0; transition: opacity 0.3s ease; filter: drop-shadow(0 0 10px rgba(243, 85, 37, 0.4));">
+          </div>
+        </div>
+        <div id="sim-progress-msg"
+          style="color: rgba(255,255,255,0.7); font-size: 0.85rem; text-align: right; margin-top: 8px; font-weight: 500; min-height: 20px; transition: color 0.3s;">
+          Aguardando dados iniciais...</div>
+      </div>
+
+      <form id="simulator-form">
+        <div id="sim-dashboard" class="sim-dashboard-grid">
+          <div class="dash-block dash-performance">
+            <div class="dash-header">
+              <i class="fas fa-user-circle"></i>
+              <h5 class="dash-title">Identificação</h5>
+            </div>
+            <p class="dash-subtitle">Preencha seus dados para iniciarmos a análise de crédito.</p>
+            <div class="sim-input-group mt-4">
+              <label class="sim-label text-light">👤 Nome Completo</label>
+              <div class="sim-input-wrap">
+                <input type="text" id="sim-name" name="name" placeholder="Seu Nome..." required
+                  class="sim-input-control" style="padding-left: 18px;">
+              </div>
+            </div>
+            <div class="sim-input-group mt-4">
+              <label class="sim-label text-light">📱 WhatsApp / Celular</label>
+              <div class="sim-input-wrap">
+                <input type="tel" id="sim-celular" name="celular" placeholder="(11) 99999-9999" required
+                  class="sim-input-control" style="padding-left: 18px;">
+              </div>
+            </div>
+
+            <div class="sim-input-group mt-4">
+              <div class="sim-input-wrap"
+                style="padding: 10px 15px; background: rgba(255,255,255,0.1); cursor: pointer; border: 1px solid rgba(255,255,255,0.2);">
+                <input type="checkbox" id="dependentes" name="dependentes"
+                  style="width: 20px; height: 20px; cursor: pointer; accent-color: #f35525;">
+                <label for="dependentes"
+                  style="margin-left: 10px; color: #fff; font-size: 0.85rem; cursor: pointer; margin-bottom: 0; font-weight: 600;">Possuo
+                  dependentes (Filhos ou Cônjuge)</label>
+              </div>
+            </div>
+          </div>
+
+          <div class="dash-block dash-activity">
+            <div class="dash-header" style="justify-content: space-between; width: 100%;">
+              <div style="display: flex; align-items: center; gap: 10px;">
+                <i class="fas fa-sliders-h" style="color:#007BFF; font-size:1.2rem;"></i>
+                <h5 class="dash-title" style="color:#333;">Perfil Financeiro</h5>
+              </div>
+            </div>
+            <div class="dash-sliders-wrapper">
+              <div class="sim-slider-group group-renda">
+                <div class="sim-slider-header">
+                  <label class="sim-label sim-label-hover">
+                    💰 Renda Bruta
+                    <span class="sim-tooltip">Você pode somar a renda de todos que vão comprar o imóvel com você (Ex:
+                      cônjuge, pais).</span>
+                  </label>
+                  <span id="label-renda" class="sim-value-display">R$ 0</span>
+                </div>
+                <input type="range" id="renda" name="renda" min="0" max="30000" step="100" value="0"
+                  class="sim-modern-slider">
+              </div>
+              <div class="sim-slider-group group-dividas">
+                <div class="sim-slider-header">
+                  <label class="sim-label sim-label-hover">
+                    💳 Dívidas Mensais
+                    <span class="sim-tooltip">Informe a soma de parcelas de cartões de crédito, empréstimos ou
+                      financiamentos ativos.</span>
+                  </label>
+                  <span id="label-dividas" class="sim-value-display">R$ 0</span>
+                </div>
+                <input type="range" id="dividas" name="dividas" min="0" max="10000" step="50" value="0"
+                  class="sim-modern-slider">
+              </div>
+              <div class="sim-slider-group group-fgts">
+                <div class="sim-slider-header">
+                  <label class="sim-label sim-label-hover">
+                    💼 Saldo FGTS
+                    <span class="sim-tooltip">O valor total em todas as suas contas do FGTS. <a
+                        href='https://www.caixa.gov.br/extrato-fgts' target='_blank'
+                        class='sim-hint-btn'>Consultar</a></span>
+                  </label>
+                  <span id="label-fgts" class="sim-value-display">R$ 0</span>
+                </div>
+                <input type="range" id="fgts" name="fgts" min="0" max="100000" step="500" value="0"
+                  class="sim-modern-slider">
+              </div>
+              <div class="sim-slider-group group-entrada mb-0">
+                <div class="sim-slider-header">
+                  <label class="sim-label sim-label-hover">
+                    🏦 Entrada em Dinheiro
+                    <span class="sim-tooltip">O valor em dinheiro que você tem disponível agora para dar como sinal na
+                      compra.</span>
+                  </label>
+                  <span id="label-entrada" class="sim-value-display">R$ 0</span>
+                </div>
+                <input type="range" id="entrada" name="entrada" min="0" max="200000" step="1000" value="0"
+                  class="sim-modern-slider">
+              </div>
+            </div>
+          </div>
+
+          <div class="dash-block dash-engagement">
+            <div class="dash-engagement-header">
+              <i class="fas fa-chart-line" style="color:#f35525;"></i>
+              <h5 class="dash-title" style="color:#333;">Resultados Estimados</h5>
+            </div>
+            <div class="sim-results-grid">
+              <div id="card-margem" class="sim-glow-card card-orange">
+                <div class="sim-card-main">
+                  <div class="sim-glow-label">Parcelas</div>
+                  <div id="r-margem" class="sim-glow-value">--</div>
+                </div>
+                <div class="sim-card-desc">Parcela máxima permitida do seu salário (30%) já descontando outras
+                  obrigações financeiras.</div>
+              </div>
+              <div id="card-potencial" class="sim-glow-card card-blue">
+                <div class="sim-card-main">
+                  <div class="sim-glow-label">Financiamento</div>
+                  <div id="r-potencial" class="sim-glow-value">--</div>
+                </div>
+                <div class="sim-card-desc">Valor que o banco aprova para você baseado na sua renda e no prazo Máximo de
+                  amortização.</div>
+              </div>
+              <div id="card-poder" class="sim-glow-card card-green">
+                <div class="sim-card-main">
+                  <div class="sim-glow-label">Poder de Compra</div>
+                  <div id="r-poder" class="sim-glow-value">--</div>
+                </div>
+                <div class="sim-card-desc">(Financiamento + Seu Dinheiro + FGTS + Subsídio Federal Concedido).</div>
+              </div>
+              <div class="sim-glow-card card-action"
+                style="display:flex; align-items:center; justify-content:center; background: transparent; box-shadow: none; border:none; padding:0;">
+                <button type="submit" id="btn-final-submit" class="sim-btn-next sim-btn-submit w-100 h-100"
+                  style="font-size: 1.05rem;">⚡ Iniciar Análise Profissional IA</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <input type="hidden" name="_captcha" value="false">
+        <input type="hidden" name="Parcelas Estimadas" id="h_margem">
+        <input type="hidden" name="Potencial de Financiamento" id="h_potencial">
+        <input type="hidden" name="Poder de Compra Total" id="h_poder">
+        <input type="hidden" name="_subject" value="🏠 Nova Simulação de Financiamento!">
+        <p class="sim-disclaimer">
+          ⚠️ Valores estimados para fins de consultoria. MT Parceiros | (11) 96036-4355
+        </p>
+      </form>
+
+      <div id="step-4" style="display:none; margin-top: 30px;">
+        <h5 class="sim-step-title" style="text-align:center;">Detalhamento do seu Plano de Pagamento</h5>
+
+        <!-- Novos Cards de Evolução e Parcelas -->
+        <div class="sim-results-grid" style="margin-bottom: 30px; margin-top: 20px;">
+          <!-- Card de Entrada Parcelada -->
+          <div id="card-entrada" class="sim-glow-card card-orange"
+            style="background: rgba(255, 140, 0, 0.05); border: 1px solid rgba(255,140,0,0.2);">
+            <div class="sim-card-main">
+              <div class="sim-glow-label" style="color: #d35400;">Mensais da Entrada</div>
+              <div id="r-parcela-entrada" class="sim-glow-value" style="font-size: 1.5rem; color: #d35400;">--</div>
+              <div style="font-size: 0.8rem; color: #777; margin-top: 5px;">36x (Parcelas)</div>
+            </div>
+            <div class="sim-card-desc">Valor cobrado pela construtora durante os meses de obra.</div>
+          </div>
+
+          <!-- Card Evolução de Obra -->
+          <div id="card-evolucao" class="sim-glow-card card-blue"
+            style="background: rgba(0, 123, 255, 0.05); border: 1px solid rgba(0,123,255,0.2);">
+            <div class="sim-card-main">
+              <div class="sim-glow-label" style="color: #0056b3;">Evolução de Obra (Caixa)</div>
+              <div id="r-evolucao" class="sim-glow-value" style="font-size: 1.5rem; color: #0056b3;">--</div>
+              <div style="font-size: 0.8rem; color: #777; margin-top: 5px;">Média mensal até as chaves</div>
+            </div>
+            <div class="sim-card-desc">Taxa de juros progressiva cobrada pela CAIXA de forma mensal durante o período de
+              construção do imóvel.</div>
+          </div>
+
+          <!-- Card Pós Chaves -->
+          <div id="card-pos-chaves" class="sim-glow-card card-green"
+            style="background: rgba(40, 167, 69, 0.05); border: 1px solid rgba(40,167,69,0.2);">
+            <div class="sim-card-main">
+              <div class="sim-glow-label" style="color: #1e7e34;">Parcela Financiamento</div>
+              <div id="r-pos-chaves" class="sim-glow-value" style="font-size: 1.5rem; color: #1e7e34;">--</div>
+              <div style="font-size: 0.8rem; color: #777; margin-top: 5px;">Após a entrega (até 35 anos)</div>
+            </div>
+            <div class="sim-card-desc">Valor permanente da prestação da sua casa própria (amortização de fato) que você
+              passa a pagar apenas após receber e morar no imóvel.</div>
+          </div>
+        </div>
+
+        <div style="display:flex; justify-content:center; margin-bottom: 40px;">
+          <button type="button" id="btn-download-planilha"
+            style="background: #207245; color: white; border: none; padding: 12px 25px; border-radius: 8px; font-weight: 600; font-size: 1rem; cursor: pointer; display: flex; align-items: center; gap: 8px; box-shadow: 0 4px 15px rgba(32, 114, 69, 0.3); transition: 0.3s;">
+            <i class="fas fa-file-excel"></i> Baixar Planilha de Controle de Valores
+          </button>
+        </div>
+
+        <h5 class="sim-step-title" style="text-align:center;">Opções para o seu Perfil</h5>
+        <div id="sim-match-container" class="sim-match-grid"></div>
+        <hr class="sim-divider" style="margin: 35px 0;">
+        <h5 class="sim-step-title" style="margin-bottom:15px; text-align:center;">Documentação Necessária</h5>
+        <p style="font-size:0.95rem; color:#666; margin-bottom:20px; text-align:center;">
+          Separe estes documentos para acelerar sua aprovação com a Caixa:
+        </p>
+        <div class="sim-docs-grid" style="margin-bottom:30px;">
+          <div class="doc-card-glass" onclick="this.classList.toggle('active')">
+            <div class="doc-card-main"><span class="doc-icon">🪪</span><span class="doc-name">RG e CPF</span></div>
+            <p class="doc-desc">Foto nítida frente e verso (RG ou CNH) ou arquivo PDF original do documento digital.</p>
+          </div>
+          <div class="doc-card-glass" onclick="this.classList.toggle('active')">
+            <div class="doc-card-main"><span class="doc-icon">📍</span><span class="doc-name">Comprovante de
+                Residência<br><small>(Atualizado)</small></span></div>
+            <p class="doc-desc">Conta de consumo recente (luz, água ou internet) emitida nos últimos 60 dias.</p>
+          </div>
+          <div class="doc-card-glass" onclick="this.classList.toggle('active')">
+            <div class="doc-card-main"><span class="doc-icon">💍</span><span class="doc-name">Estado
+                Civil<br><small>(Nascimento ou
+                  Casamento)</small></span></div>
+            <p class="doc-desc">Certidão de Nascimento (solteiros) ou Casamento (com averbação se houver).</p>
+          </div>
+          <div class="doc-card-glass" onclick="this.classList.toggle('active')">
+            <div class="doc-card-main"><span class="doc-icon">💼</span><span class="doc-name">Comprovante de
+                Renda<br><small>(Holerite ou IR)</small></span></div>
+            <p class="doc-desc">Últimos 3 holerites (CLT) ou Declaração de Imposto de Renda atualizada.</p>
+          </div>
+          <div class="doc-card-glass" style="grid-column: 1 / -1;" onclick="this.classList.toggle('active')">
+            <div class="doc-card-main"><span class="doc-icon">🏦</span><span class="doc-name">Extratos
+                Bancários<br><small>(Últimos 3 meses - Conta Corrente Principal)</small></span></div>
+            <p class="doc-desc">Extratos bancários completos (PDF) dos últimos 3 meses da sua conta principal.</p>
+          </div>
+        </div>
+        <div id="wpp-box" style="display:none; justify-content:center; margin-top:20px;">
+          <a id="btn-wpp" href="#" target="_blank" class="sim-btn-wpp"
+            style="width:100%; max-width:400px; text-align:center; padding:15px; border-radius:30px; font-weight:700; font-size:1.1rem; text-decoration:none; display:flex; align-items:center; justify-content:center; gap:10px;">
+            <i class="fab fa-whatsapp" style="font-size:24px;"></i> Iniciar Atendimento
+          </a>
+        </div>
+        <div class="sim-nav-buttons" style="justify-content:center; margin-top:20px;">
+          <button type="button" onclick="window.location.reload();"
+            style="background:transparent; color:#999; border:none; text-decoration:underline; cursor:pointer;">Refazer
+            simulação</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section best-deal">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-4">
+          <div class="section-heading">
+            <h6>| Melhores investimentos</h6>
+            <h2>Encontre o que você precisa!</h2>
+          </div>
+        </div>
+        <div class="col-lg-12">
+          <div class="tabs-content">
+            <div class="row">
+              <div class="nav-wrapper ">
+                <ul class="nav nav-tabs" role="tablist">
+                  <li class="nav-item" role="presentation">
+                    <button class="nav-link active" id="appartment-tab" data-bs-toggle="tab"
+                      data-bs-target="#appartment" type="button" role="tab" aria-controls="appartment"
+                      aria-selected="true">Apartamento</button>
+                  </li>
+                  <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="villa-tab" data-bs-toggle="tab" data-bs-target="#villa" type="button"
+                      role="tab" aria-controls="villa" aria-selected="false">Loft</button>
+                  </li>
+                  <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="penthouse-tab" data-bs-toggle="tab" data-bs-target="#penthouse"
+                      type="button" role="tab" aria-controls="penthouse" aria-selected="false">Cobertura</button>
+                  </li>
+                </ul>
+              </div>
+              <div class="tab-content" id="myTabContent">
+                <div class="tab-pane fade show active" id="appartment" role="tabpanel" aria-labelledby="appartment-tab">
+                  <div class="row">
+                    <div class="col-lg-3">
+                      <div class="info-table">
+                        <ul>
+                          <li>Espaço Total<br><span>De 24m² a 120m²</span></li>
+                          <li>Andar<br><span>Varias opções</span></li>
+                          <li>Número de Quartos<br><span> de 1 a 4</span></li>
+                          <li>Estacionamento<br><span>Opcional</span></li>
+                          <li>Pagamento<br><span>Facilitado</span></li>
+                        </ul>
+                      </div>
+                    </div>
+                    <div class="col-lg-6">
+                      <img src="assets/images/deal-01.jpg" alt="">
+                    </div>
+                    <div class="col-lg-3">
+                      <p>A base sólida para ver sua família crescer com segurança. Plantas inteligentes em condomínios
+                        com lazer completo e infraestrutura moderna para quem busca estabilidade e um patrimônio seguro.
+                        <br><br>Foco: Família, Proteção e Futuro.
+                      </p>
+                      <div class="icon-button">
+                        <a href="#!" class="schedule-visit-link"><i class="fa fa-calendar"></i> Agende uma visita</a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="tab-pane fade" id="villa" role="tabpanel" aria-labelledby="villa-tab">
+                  <div class="row">
+                    <div class="col-lg-3">
+                      <div class="info-table">
+                        <ul>
+                          <li>Espaço Total<br><span>De 10m² a 24m²</span></li>
+                          <li>Andar<br><span>Varias opções</span></li>
+                          <li>Número de Quartos<br><span>1</span></li>
+                          <li>Estacionamento<br><span>Não</span></li>
+                          <li>Pagamento<br><span>Facilitado</span></li>
+                        </ul>
+                      </div>
+                    </div>
+                    <div class="col-lg-6">
+                      <img src="assets/images/deal-02.jpg" alt="">
+                    </div>
+                    <div class="col-lg-3">
+                      <p>Agilidade urbana para mentes conectadas e investidores visionários. Conceito aberto que une
+                        estilo, praticidade e alta rentabilidade em locação com tecnologia integrada ao seu dia a dia.
+                      </p><br>Foco: Modernidade, Dinamismo e Rentabilidade.</p>
+                      <div class="icon-button">
+                        <a href="#!" class="schedule-visit-link"><i class="fa fa-calendar"></i> Agende uma visita</a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="tab-pane fade" id="penthouse" role="tabpanel" aria-labelledby="penthouse-tab">
+                  <div class="row">
+                    <div class="col-lg-3">
+                      <div class="info-table">
+                        <ul>
+                          <li>Espaço Total<br><span>De 40m² a 200m²</span></li>
+                          <li>Andar<br><span>Cobertura</span></li>
+                          <li>Número de Quartos<br><span> De 2 a 6</span></li>
+                          <li>Estacionamento<br><span>Sim</span></li>
+                          <li>Pagamento<br><span>Financiamento</span></li>
+                        </ul>
+                      </div>
+                    </div>
+                    <div class="col-lg-6">
+                      <img src="assets/images/deal-03.jpg" alt="">
+                    </div>
+                    <div class="col-lg-3">
+                      <p>O ápice do horizonte onde o conforto encontra a privacidade absoluta. Exclusividade total,
+                        vistas privilegiadas e o luxo de uma área externa privativa para quem não abre mão de
+                        sofisticação e liberdade.<br><br>Foco: Exclusividade, Status e Liberdade.</p>
+                      <div class="icon-button">
+                        <a href="#!" class="schedule-visit-link"><i class="fa fa-calendar"></i> Agende uma visita</a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="properties section">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-4 offset-lg-4">
+          <div class="section-heading text-center">
+            <h6>| Destaques</h6>
+            <h2>Nós Oferecemos os Melhores Imóveis!</h2>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div id="destaques-container" class="owl-carousel owl-properties">
+          <!-- Cartões gerados automaticamente pelo CMS (cms-renderer.js) -->
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="contact section">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-4 offset-lg-4">
+          <div class="section-heading text-center">
+            <h6>| Contato</h6>
+            <h2>Entre em Contato com Nossos Agentes</h2>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="contact-content">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-7">
+          <div id="map"
+            style="height:500px; border-radius:10px; box-shadow:0 0 15px rgba(0,0,0,0.15); position:relative; z-index:2;">
+          </div>
+          <div class="row">
+            <div class="col-lg-6">
+              <div class="item phone">
+                <img src="assets/images/phone-icon.png" alt="Ícone de telefone" style="max-width: 52px;">
+                <h6><a href="https://wa.me/5511960364355" target="_blank">(11) 96036-4355</a> /
+                  94621-1111<br><span>Número de Telefone</span></h6>
+              </div>
+            </div>
+            <div class="col-lg-6">
+              <div class="item email">
+                <img src="assets/images/email-icon.png" alt="Ícone de e-mail" style="max-width: 52px;">
+                <h6><a href="contact.html#contact-form">mtparceiros@gmail.com</a><br><span>E-mail Profissional</span>
+                </h6>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-5">
+          <form id="contact-form" action="https://formsubmit.co/mtparceiros@gmail.com" method="POST">
+            <div class="row">
+              <div class="col-lg-12">
+                <fieldset>
+                  <label for="name">Nome Completo</label>
+                  <input type="text" name="name" id="name" placeholder="Seu Nome..." autocomplete="on" required>
+                </fieldset>
+              </div>
+              <div class="col-lg-12">
+                <fieldset>
+                  <label for="email">E-mail</label>
+                  <input type="email" name="email" id="email" placeholder="Seu E-mail..." required="">
+                </fieldset>
+              </div>
+              <div class="col-lg-12">
+                <fieldset>
+                  <label for="celular-contato">Celular (com DDD)</label>
+                  <input type="tel" name="celular" id="celular-contato" placeholder="Ex: (11) 91234-5678"
+                    autocomplete="on" required>
+                </fieldset>
+              </div>
+              <div class="col-lg-12">
+                <fieldset>
+                  <label for="subject">Assunto</label>
+                  <input type="text" name="subject" id="subject" placeholder="Assunto..." autocomplete="on">
+                  <input type="hidden" name="_captcha" value="false">
+                </fieldset>
+              </div>
+              <div class="col-lg-12">
+                <fieldset>
+                  <label for="message">Mensagem</label>
+                  <textarea name="message" id="message" placeholder="Sua Mensagem"></textarea>
+                </fieldset>
+              </div>
+              <div class="col-lg-12">
+                <fieldset>
+                  <button type="submit" id="form-submit" class="orange-button">Enviar Mensagem</button>
+                </fieldset>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <div class="container"></div>
+  </footer>
+
+  <div id="calendar-modal" class="calendar-modal">
+    <div class="calendar-modal-content">
+      <span class="calendar-close-button">&times;</span>
+      <h4>Selecione uma data para a visita</h4>
+      <div id="calendar-container"></div>
+    </div>
+  </div>
+
+  <script src="vendor/jquery/jquery.min.js"></script>
+  <script src="vendor/bootstrap/js/bootstrap.min.js"></script>
+  <script src="assets/js/isotope.min.js"></script>
+  <script src="assets/js/owl-carousel.js"></script>
+  <script src="assets/js/counter.js"></script>
+  <script src="assets/js/components-renderer.js"></script>
+  <script src="assets/js/custom.js"></script>
+  <script src="assets/js/shared.js"></script>
+  <script src="assets/js/micro-animations.js"></script>
+  <script src="assets/js/property-drawer.js"></script>
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script src="empreendimentos.js"></script>
+  <script src="assets/js/cms-renderer.js"></script>
+  <script src="assets/js/index-logic.js"></script>
+
+</body>
+
+</html>
