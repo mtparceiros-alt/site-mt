@@ -42,6 +42,36 @@ CONFIG = {
         'phone': '(11) 96036-4355',
         'email': 'mtparceiros@gmail.com',
         'website': 'mtparceiros-alt.github.io/site-mt'
+    },
+    # MAPEAMENTO DE ENDEREÇOS (Fonte de Verdade para o JS)
+    'map': {
+        'inicio': {
+            'nome': 'E23',
+            'm_entrada': 'C35',
+            'm_evolucao': 'G35',
+            'm_parcela': 'K35'
+        },
+        'simulador': {
+            'nome': 'D9',
+            'imovel': 'G8',
+            'renda': 'E13',
+            'fgts': 'E24',
+            'entrada': 'E14', # Nova célula para entrada em dinheiro explícita
+            'dividas': 'E17',
+            'carteira': 'E26',
+            'potencial': 'E29',
+            'subsidio': 'E30',
+            'poder': 'E31',
+            'parcela': 'E33'
+        },
+        'laudo': {
+            'renda': 'C12',
+            'potencial': 'C16',
+            'subsidio': 'C20',
+            'fgts': 'C24',
+            'poder': 'E12',
+            'parcela': 'E16'
+        }
     }
 }
 
@@ -395,11 +425,12 @@ def build_landing_page(workbook, ws_start, formats):
     ws_start.merge_range('C21:K21', '2. Vá para as abas de análise para conferir seu potencial.', formats['label'])
     
     ws_start.write('C23', 'SEU NOME:', formats['label'])
+    
     fmt_input_start = workbook.add_format({
         'font_name': f, 'font_size': 16, 'bold': True, 'border': 1, 'border_color': c['orange_cta'],
         'bg_color': c['white'], 'font_color': c['dark'], 'locked': False, 'align': 'center', 'valign': 'vcenter'
     })
-    ws_start.merge_range('E23:I23', 'Digite seu nome aqui...', fmt_input_start)
+    ws_start.write(CONFIG['map']['inicio']['nome'], 'Digite seu nome aqui...', fmt_input_start)
     
     # BOTÃO "INICIAR SIMULAÇÃO"
     fmt_btn_iniciar = workbook.add_format({
@@ -434,17 +465,17 @@ def build_landing_page(workbook, ws_start, formats):
 
     # Card 1 (Inicia em C34)
     ws_start.merge_range('C34:E34', 'MENSAIS DA ENTRADA', fmt_card_orange_title)
-    ws_start.merge_range('C35:E35', 0, fmt_card_orange_val) 
+    ws_start.merge_range('C35:E35', 0, fmt_card_orange_val) # m_entrada
     ws_start.merge_range('C36:E36', '36x (Parcelas)', fmt_card_orange_sub)
     
     # Card 2 (Inicia em G34)
     ws_start.merge_range('G34:I34', 'EVOLUÇÃO OBRA', fmt_card_blue_title)
-    ws_start.merge_range('G35:I35', 0, fmt_card_blue_val) 
+    ws_start.merge_range('G35:I35', 0, fmt_card_blue_val) # m_evolucao
     ws_start.merge_range('G36:I36', 'Média mensal', fmt_card_blue_sub)
     
     # Card 3 (Inicia em K34)
     ws_start.merge_range('K34:L34', 'PARCELA FINANCIAMENTO', fmt_card_green_title)
-    ws_start.merge_range('K35:L35', 0, fmt_card_green_val) 
+    ws_start.merge_range('K35:L35', 0, fmt_card_green_val) # m_parcela
     ws_start.merge_range('K36:L36', 'Após a entrega (até 35 anos)', fmt_card_green_sub)
     
     # Documentos
@@ -515,13 +546,13 @@ def build_laudo_credito(workbook, ws_laudo, formats):
     
     # KPIs principais conectadas ao Simulador (Coluna E)
     kpis = [
-        (12, 2, 'RENDA FAMILIAR', "='Educação Financeira'!E13", False),
-        (16, 2, 'CRÉDITO CAIXA MAX', "='Educação Financeira'!E29", False),
-        (20, 2, 'SUBSÍDIO ESTIMADO', "='Educação Financeira'!E30", False),
-        (24, 2, 'SALDO FGTS', "='Educação Financeira'!E24", False),
-        (12, 6, 'PODER DE COMPRA TOTAL', "='Educação Financeira'!E31", True),
-        (16, 6, 'PARCELA PROJETADA', "='Educação Financeira'!E33", True), 
-        (20, 6, 'COMPROMETIMENTO', f"=('Educação Financeira'!E33 / 'Educação Financeira'!E13)", True) # Parcela/Renda
+        (11, 2, 'RENDA FAMILIAR', f"='Educação Financeira'!${CONFIG['map']['simulador']['renda']}", False),
+        (15, 2, 'CRÉDITO CAIXA MAX', f"='Educação Financeira'!${CONFIG['map']['simulador']['potencial']}", False),
+        (19, 2, 'SUBSÍDIO ESTIMADO', f"='Educação Financeira'!${CONFIG['map']['simulador']['subsidio']}", False),
+        (23, 2, 'SALDO FGTS', f"='Educação Financeira'!${CONFIG['map']['simulador']['fgts']}", False),
+        (11, 6, 'PODER DE COMPRA TOTAL', f"='Educação Financeira'!${CONFIG['map']['simulador']['poder']}", True),
+        (15, 6, 'PARCELA PROJETADA', f"='Educação Financeira'!${CONFIG['map']['simulador']['parcela']}", True), 
+        (19, 6, 'COMPROMETIMENTO', f"=('Educação Financeira'!${CONFIG['map']['simulador']['parcela']} / 'Educação Financeira'!${CONFIG['map']['simulador']['renda']})", True)
     ]
     
     for row, col, label, formula, is_highlight in kpis:
@@ -620,7 +651,7 @@ def build_educacao_financeira(workbook, ws_simul, formats, num_empreendimentos):
     # Nome do Cliente
     ws_simul.write('C8', 'NOME DO CLIENTE:', formats['label'])
     fmt_personalized = workbook.add_format({'font_name': f, 'font_size': 12, 'bold': True, 'font_color': c['orange_cta']})
-    ws_simul.merge_range('C9:E9', "='Início'!E23", fmt_personalized)
+    ws_simul.merge_range('C9:E9', "='Início'!E23", fmt_personalized) # simulador.nome
     
     # Textos de Ajuda
     fmt_help = workbook.add_format({'font_name': f, 'font_size': 9, 'italic': True, 'font_color': c['text_gray'], 'text_wrap': True})
@@ -630,8 +661,8 @@ def build_educacao_financeira(workbook, ws_simul, formats, num_empreendimentos):
     # --- BLOCO 1: RENDA ---
     ws_simul.write('C12', '1. DADOS DE ENTRADA (Sua Renda)', formats['subtitle'])
     ws_simul.write('C13', 'Renda Bruta Familiar:', formats['label'])
-    ws_simul.write('E13', 8000, formats['input_money'])
-    ws_simul.write_formula('G13', '=IF(E13>0, REPT("█", INT(MIN(20, E13/1000))), "")', formats['bar_success'])
+    ws_simul.write(CONFIG['map']['simulador']['renda'], 8000, formats['input_money'])
+    ws_simul.write_formula('G13', f'=IF({CONFIG["map"]["simulador"]["renda"]}>0, REPT("█", INT(MIN(20, {CONFIG["map"]["simulador"]["renda"]}/1000))), "")', formats['bar_success'])
 
     # --- BLOCO 2: DESPESAS ---
     ws_simul.write('C15', '2. COMPROMETIMENTO (Despesas)', formats['subtitle'])
@@ -645,13 +676,13 @@ def build_educacao_financeira(workbook, ws_simul, formats, num_empreendimentos):
     ws_simul.write_formula('E22', '=SUM(E17:E21)', formats['kpi_value'])
     
     ws_simul.write('C24', 'SALDO FGTS:', formats['label'])
-    ws_simul.write('E24', 30000, formats['input_money'])
-    ws_simul.write_formula('G24', '=IF(E24>0, REPT("█", INT(MIN(20, E24/2000))), "")', formats['bar_flat'])
+    ws_simul.write(CONFIG['map']['simulador']['fgts'], 30000, formats['input_money'])
+    ws_simul.write_formula('G24', f'=IF({CONFIG["map"]["simulador"]["fgts"]}>0, REPT("█", INT(MIN(20, {CONFIG["map"]["simulador"]["fgts"]}/2000))), "")', formats['bar_flat'])
 
     ws_simul.write('C26', 'TEM CARTEIRA (3+ ANOS)?', formats['label'])
     fmt_input_drop = workbook.add_format({'font_name': f, 'font_size': 12, 'bold': True, 'align': 'center', 'border': 1, 'border_color': c['orange_cta'], 'bg_color': '#FFF8F6', 'font_color': c['dark'], 'locked': False})
-    ws_simul.write('E26', 'SIM', fmt_input_drop)
-    ws_simul.data_validation('E26', {'validate': 'list', 'source': ['SIM', 'NÃO']})
+    ws_simul.write(CONFIG['map']['simulador']['carteira'], 'SIM', fmt_input_drop)
+    ws_simul.data_validation(CONFIG['map']['simulador']['carteira'], {'validate': 'list', 'source': ['SIM', 'NÃO']})
 
     # --- BLOCO 3: ANALISE MCMV (OUTPUTS - Utilizados pelas outras abas) ---
     ws_simul.write('C28', '3. ANÁLISE DO FINANCIAMENTO (MCMV)', formats['subtitle'])
@@ -713,9 +744,9 @@ def build_fluxo_mensal(workbook, ws_fluxo, formats):
     # Como as linhas vão até ~100
     ws_fluxo.merge_range('C10:E11', '=SUMIF(B13:B100, "Sim", D13:D100) + SUMIF(B13:B100, "Sim", E13:E100)', fmt_dash_val_green)
     
-    ws_fluxo.merge_range('F9:G9', '⏳ SALDO DEVEDOR (Restante)', fmt_dash_title)
+    ws_fluxo.merge_range('F9:G9', '⏳ SALDO DEVEDOR (Restante)', formats['dash_title'])
     # Meta em E31.
-    formula_meta_total = "('Educação Financeira'!E31)"
+    formula_meta_total = f"('Educação Financeira'!${CONFIG['map']['simulador']['poder']})"
     ws_fluxo.merge_range('F10:G11', f"={formula_meta_total} - (SUMIF(B13:B100, \"Sim\", D13:D100) + SUMIF(B13:B100, \"Sim\", E13:E100))", fmt_dash_val_orange)
     
     # -------------------------------------------------------------
