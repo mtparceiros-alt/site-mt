@@ -4,7 +4,7 @@
 <head>
 
   <meta charset="utf-8">
-  <title>MT Parceiros | Imóveis em São Paulo — Pirituba, Lapa e Freguesia do Ó</title>
+  <title>MT Parceiros | Inteligência e Tecnologia em Negócios Imobiliários</title>
   <meta name="description"
     content="Consultoria imobiliária em São Paulo com segurança jurídica e análise técnica. Apartamentos, lofts e coberturas nas regiões de Pirituba, Lapa e Freguesia do Ó com parcelas facilitadas e acompanhamento do início ao fim.">
   <meta name="robots" content="index, follow">
@@ -18,7 +18,7 @@
   <meta property="og:locale" content="pt_BR">
 
   <!-- Favicon -->
-  <link rel="icon" type="image/png" href="assets/images/bot-whatsapp.png">
+  <link rel="icon" type="image/jpeg" href="assets/images/LOGO_MT.jpg">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -268,7 +268,7 @@
       </div>
 
       <!-- Barra de Progresso Inteligente -->
-      <div class="sim-progress-container mb-4" style="margin-top: 20px;">
+      <div class="sim-progress-container mb-4" style="margin-top: 20px; padding-right: 55px;">
         <div class="sim-progress-header d-flex justify-content-between align-items-center mb-2">
           <span class="sim-progress-text" style="color: #fff; font-size: 0.95rem; font-weight: 600;">Status do Perfil
             IA</span>
@@ -293,6 +293,16 @@
         <div id="sim-progress-msg"
           style="color: rgba(255,255,255,0.7); font-size: 0.85rem; text-align: right; margin-top: 8px; font-weight: 500; min-height: 20px; transition: color 0.3s;">
           Aguardando dados iniciais...</div>
+      </div>
+
+      <!-- Badge Visual "Pré-Aprovado" (Inicia Oculto, Expande a 100%) -->
+      <div id="sim-approval-badge"
+        style="display: none; align-items: center; justify-content: center; margin-top: 5px; margin-bottom: 25px; padding: 10px; background: rgba(40, 167, 69, 0.15); border: 1px solid rgba(40, 167, 69, 0.3); border-radius: 12px; animation: heroFadeIn 0.8s ease forwards; width: 100%;">
+        <img src="assets/images/ia-aprovado.gif" alt="Aprovado IA"
+          style="width: 45px; height: 45px; border-radius: 50%; margin-right: 12px; box-shadow: 0 0 10px rgba(40, 167, 69, 0.5);">
+        <span
+          style="color: #28a745; font-weight: 700; font-size: 1.1rem; text-transform: uppercase; letter-spacing: 0.5px; text-shadow: 0 0 5px rgba(40, 167, 69, 0.4);">Análise
+          Concluída: Crédito Pré-Aprovado</span>
       </div>
 
       <form id="simulator-form">
@@ -673,8 +683,9 @@
   <div class="contact section">
     <div class="container">
       <div class="row">
-        <div class="col-lg-4 offset-lg-4">
-          <div class="section-heading text-center">
+        <div class="col-lg-12">
+          <!-- Cabeçalho movido para ficar integrado e com respiro vertical normal -->
+          <div class="section-heading text-center" style="margin-bottom: 50px;">
             <h6>| Contato</h6>
             <h2>Entre em Contato com Nossos Agentes</h2>
           </div>
@@ -708,47 +719,8 @@
           </div>
         </div>
         <div class="col-lg-5">
-          <form id="contact-form" action="https://formsubmit.co/mtparceiros@gmail.com" method="POST">
-            <div class="row">
-              <div class="col-lg-12">
-                <fieldset>
-                  <label for="name">Nome Completo</label>
-                  <input type="text" name="name" id="name" placeholder="Seu Nome..." autocomplete="on" required>
-                </fieldset>
-              </div>
-              <div class="col-lg-12">
-                <fieldset>
-                  <label for="email">E-mail</label>
-                  <input type="email" name="email" id="email" placeholder="Seu E-mail..." required="">
-                </fieldset>
-              </div>
-              <div class="col-lg-12">
-                <fieldset>
-                  <label for="celular-contato">Celular (com DDD)</label>
-                  <input type="tel" name="celular" id="celular-contato" placeholder="Ex: (11) 91234-5678"
-                    autocomplete="on" required>
-                </fieldset>
-              </div>
-              <div class="col-lg-12">
-                <fieldset>
-                  <label for="subject">Assunto</label>
-                  <input type="text" name="subject" id="subject" placeholder="Assunto..." autocomplete="on">
-                  <input type="hidden" name="_captcha" value="false">
-                </fieldset>
-              </div>
-              <div class="col-lg-12">
-                <fieldset>
-                  <label for="message">Mensagem</label>
-                  <textarea name="message" id="message" placeholder="Sua Mensagem"></textarea>
-                </fieldset>
-              </div>
-              <div class="col-lg-12">
-                <fieldset>
-                  <button type="submit" id="form-submit" class="orange-button">Enviar Mensagem</button>
-                </fieldset>
-              </div>
-            </div>
-          </form>
+          <!-- Formulário de Contato unificado (rendido por components-renderer.js) -->
+          <div id="contact-form-placeholder"></div>
         </div>
       </div>
     </div>
@@ -772,14 +744,14 @@
   <script src="assets/js/owl-carousel.js"></script>
   <script src="assets/js/counter.js"></script>
   <script src="assets/js/components-renderer.js"></script>
-  <script src="assets/js/custom.js"></script>
-  <script src="assets/js/shared.js"></script>
+  <script src="assets/js/custom.js?v=1.1"></script>
+  <script src="assets/js/shared.js?v=1.2"></script>
   <script src="assets/js/micro-animations.js"></script>
-  <script src="assets/js/property-drawer.js"></script>
+  <script src="assets/js/property-drawer.js?v=1.1"></script>
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
   <script src="empreendimentos.js"></script>
   <script src="assets/js/cms-renderer.js"></script>
-  <script src="assets/js/index-logic.js"></script>
+  <script src="assets/js/index-logic.js?v=1.2"></script>
 
 </body>
 
