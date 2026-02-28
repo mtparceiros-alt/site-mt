@@ -494,6 +494,7 @@ a.schedule-visit-link:hover {
 
 .sim-modern-slider {
   -webkit-appearance: none;
+  appearance: none;
   width: 100%;
   height: 8px;
   background: #e0e0e0;
@@ -724,6 +725,17 @@ a.schedule-visit-link:hover {
 /* ══════════════════════════════════════════════════════
    12. SIMULADOR V3 ULTRA - ETAPA 4 (Resultados e Docs)
    ══════════════════════════════════════════════════════ */
+
+/* Animação para Barra de Progresso Inteligente */
+@keyframes shimmer {
+  0% {
+    transform: translateX(-100%);
+  }
+
+  100% {
+    transform: translateX(100%);
+  }
+}
 
 /* Vitrine de Imóveis (Match) */
 .sim-match-grid {
@@ -2000,6 +2012,7 @@ body.drawer-open {
 /* Ajuste mobile para o carrossel de destaques */
 @media (max-width: 767px) {
   .owl-properties {
+    padding-bottom: 30px;
     padding: 0 10px;
   }
 
@@ -2010,5 +2023,77 @@ body.drawer-open {
 
   .owl-properties .owl-dots {
     margin-top: 15px;
+  }
+}
+
+/* ══════════════════════════════════════════════════════
+   13. TELA DE CARREGAMENTO IA (OVERLAY DESLIZANTE)
+   ══════════════════════════════════════════════════════ */
+.sim-loading-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(15, 15, 25, 0.95);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transform: translateX(-100%);
+  transition: transform 0.6s cubic-bezier(0.77, 0, 0.175, 1), opacity 0.4s ease;
+  border-radius: 20px;
+}
+
+.sim-loading-overlay.is-processing {
+  transform: translateX(0);
+}
+
+.sim-loading-overlay.is-hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.sim-loading-content {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 30px;
+}
+
+.sim-loading-text {
+  color: #ffffff;
+  font-size: 1.8rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+  margin-bottom: 10px;
+  animation: pulseText 1.5s infinite;
+}
+
+.sim-loading-subtext {
+  color: #aaa;
+  font-size: 0.9rem;
+  max-width: 80%;
+  margin: 0 auto;
+}
+
+@keyframes pulseText {
+  0% {
+    opacity: 0.5;
+    transform: scale(0.98);
+  }
+
+  50% {
+    opacity: 1;
+    transform: scale(1.02);
+  }
+
+  100% {
+    opacity: 0.5;
+    transform: scale(0.98);
   }
 }

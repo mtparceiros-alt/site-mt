@@ -4,226 +4,39 @@
 <head>
 
   <meta charset="utf-8">
+  <title>MT Parceiros | Imóveis em São Paulo — Pirituba, Lapa e Freguesia do Ó</title>
+  <meta name="description"
+    content="Consultoria imobiliária em São Paulo com segurança jurídica e análise técnica. Apartamentos, lofts e coberturas nas regiões de Pirituba, Lapa e Freguesia do Ó com parcelas facilitadas e acompanhamento do início ao fim.">
+  <meta name="robots" content="index, follow">
+
+  <!-- Open Graph (WhatsApp, Facebook, LinkedIn) -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="MT Parceiros | Imóveis em São Paulo">
+  <meta property="og:description"
+    content="Consultoria imobiliária com segurança jurídica. Encontre o imóvel ideal em Pirituba, Lapa e Freguesia do Ó.">
+  <meta property="og:image" content="assets/images/banner-01.jpg">
+  <meta property="og:locale" content="pt_BR">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="assets/images/bot-whatsapp.png">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap"
     rel="stylesheet">
 
-  <title>MT Parceiros | Consultoria Imobiliária e Imóveis na Planta em SP</title>
-  <meta name="description"
-    content="Encontre seu apartamento na planta em Pirituba, Lapa e Freguesia do Ó. Consultoria especializada com filtro de engenharia e assessoria zero burocracia.">
-  <meta name="keywords"
-    content="MT Parceiros, comprar apartamento na planta SP, imóveis em Pirituba, Minha Casa Minha Vida Lapa, consultoria imobiliária São Paulo, simulador de financiamento">
-  <!-- Meta Tags para Redes Sociais (Open Graph) -->
-  <meta property="og:title" content="MT Parceiros | Consultoria Imobiliária Inteligente">
-  <meta property="og:description"
-    content="Ajudamos você a encontrar o imóvel ideal com segurança jurídica e técnica. Agende sua visita!">
-  <meta property="og:image" content="https://mtparceiros.github.io/site_mt/assets/images/featured.jpg">
-  <meta property="og:url" content="https://mtparceiros.github.io/site_mt/index.html">
-
-  <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-
-
-  <link rel="stylesheet" href="assets/css/fontawesome.min.css">
+  <link rel="stylesheet" href="vendor/bootstrap/css/bootstrap.min.css">
+  <link rel="stylesheet" href="assets/css/fontawesome.css">
   <link rel="stylesheet" href="assets/css/templatemo-villa-agency.css">
-  <link rel="stylesheet" href="assets/css/owl.min.css">
-  <link rel="stylesheet" href="assets/css/animate.min.css">
-  <link rel="stylesheet" href="https://unpkg.com/swiper@7/swiper-bundle.min.css" />
-  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
-
-  <!-- CSS customizado para garantir a centralização dos preços -->
-  <style>
-    .section.properties .item h6 {
-      float: none !important;
-      text-align: center !important;
-      margin: 15px auto !important;
-      display: block !important;
-      width: 100%;
-    }
-
-    .section.properties .item .category {
-      display: block !important;
-      text-align: center;
-      margin-bottom: 10px;
-    }
-
-    .best-deal .info-table ul li span {
-      float: none;
-      display: block;
-      text-align: left;
-    }
-
-    .whatsapp-float {
-      position: fixed;
-      width: 180px;
-      bottom: 40px;
-      right: 40px;
-      z-index: 1000;
-      transition: transform .2s ease-in-out;
-    }
-
-    .whatsapp-float:hover {
-      transform: scale(1.1);
-    }
-
-    /* Efeito para imagens clicáveis de agendamento */
-    .schedule-visit-link img,
-    .sim-match-img.schedule-visit-link {
-      cursor: pointer;
-      transition: all 0.3s ease !important;
-    }
-
-    .schedule-visit-link img:hover,
-    .sim-match-img.schedule-visit-link:hover {
-      filter: brightness(0.9);
-      transform: scale(1.03);
-    }
-
-    .whatsapp-float img {
-      width: 100%;
-    }
-
-    .info li a,
-    .item.email h6 a,
-    .item.phone h6 a {
-      color: #000;
-      text-decoration: none;
-    }
-
-    .info li a:hover,
-    .item.email h6 a:hover,
-    .item.phone h6 a:hover {
-      color: #f35525;
-    }
-
-    /* Calendar Modal Styles */
-    .calendar-modal {
-      display: none;
-      position: fixed;
-      z-index: 2000;
-      left: 0;
-      top: 0;
-      width: 100%;
-      height: 100%;
-      overflow: auto;
-      background-color: rgba(0, 0, 0, 0.6);
-      font-family: 'Poppins', sans-serif;
-    }
-
-    .calendar-modal-content {
-      background-color: #fefefe;
-      margin: 10% auto;
-      padding: 25px;
-      border: 1px solid #888;
-      width: 90%;
-      max-width: 400px;
-      border-radius: 15px;
-      position: relative;
-      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-    }
-
-    .calendar-close-button {
-      color: #aaa;
-      position: absolute;
-      top: 10px;
-      right: 20px;
-      font-size: 28px;
-      font-weight: bold;
-      cursor: pointer;
-    }
-
-    .calendar-close-button:hover,
-    .calendar-close-button:focus {
-      color: black;
-    }
-
-    #calendar-container {
-      text-align: center;
-    }
-
-    #calendar-container .calendar-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 20px;
-    }
-
-    #calendar-container .calendar-header h3 {
-      margin: 0;
-      font-size: 1.2em;
-    }
-
-    #calendar-container .calendar-header button {
-      background: #f35525;
-      color: white;
-      border: none;
-      padding: 5px 10px;
-      border-radius: 5px;
-      cursor: pointer;
-    }
-
-    #calendar-container .calendar-header button:disabled {
-      background: #ccc;
-      cursor: not-allowed;
-    }
-
-    #calendar-container .calendar-days {
-      display: grid;
-      grid-template-columns: repeat(7, 1fr);
-      gap: 5px;
-    }
-
-    #calendar-container .calendar-days div {
-      padding: 10px 5px;
-      font-size: 0.9em;
-    }
-
-    #calendar-container .calendar-weekdays div {
-      font-weight: bold;
-      color: #555;
-    }
-
-    #calendar-container .calendar-day {
-      cursor: pointer;
-      border-radius: 50%;
-      transition: background-color 0.2s;
-    }
-
-    #calendar-container .calendar-day:hover {
-      background-color: #f0f0f0;
-    }
-
-    #calendar-container .calendar-day.past-day {
-      color: #ccc;
-      cursor: not-allowed;
-    }
-
-    #calendar-container .calendar-day.past-day:hover {
-      background-color: transparent;
-    }
-
-    #calendar-container .calendar-day.selected-day {
-      background-color: #f35525;
-      color: white;
-    }
-
-    .calendar-modal-content h4 {
-      font-size: 1.3em;
-      text-align: center;
-      margin-bottom: 20px;
-      color: #333;
-    }
-
-    /* Estilos para o botão de localização no mapa */
-    .leaflet-bar.leaflet-control-location a {
-      font-size: 18px;
-      font-weight: bold;
-      color: #444;
-    }
-  </style>
-
+  <link rel="stylesheet" href="assets/css/owl.css">
+  <link rel="stylesheet" href="assets/css/animate.css">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+    integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+  <link rel="stylesheet" href="assets/css/shared.css">
   <link rel="stylesheet" href="assets/css/micro-animations.css">
+
+  <!-- ExcelJS para gerar a planilha customizada baseada no template avançado -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/exceljs/4.3.0/exceljs.min.js"></script>
 </head>
 
 <body>
@@ -238,49 +51,13 @@
       </div>
     </div>
   </div>
-  <div class="sub-header">
-    <div class="container">
-      <div class="row">
-        <div class="col-lg-8 col-md-8">
-          <ul class="info">
-            <li><i class="fa fa-envelope"></i><a href="contact.html#contact-form">mtparceiros@gmail.com</a></li>
-            <li><i class="fa fa-map"></i> Rua Manuel Alvares Passos, 249 – Pirituba, São Paulo</li>
-          </ul>
-        </div>
-        <div class="col-lg-4 col-md-4">
-          <ul class="social-links">
-            <li><a href="https://www.facebook.com/profile.php?id=61587335061570" target="_blank"><i
-                  class="fab fa-facebook"></i></a></li>
-            <li><a href="https://x.com/minthu" target="_blank"><i class="fab fa-twitter"></i></a></li>
-            <li><a href="#"><i class="fab fa-linkedin"></i></a></li>
-            <li><a href="https://www.instagram.com/corretora.thainak/" target="_blank"><i
-                  class="fab fa-instagram"></i></a></li>
-          </ul>
-        </div>
-      </div>
-    </div>
-  </div>
+  <div class="sub-header"></div>
 
   <header class="header-area header-sticky">
     <div class="container">
       <div class="row">
         <div class="col-12">
-          <nav class="main-nav">
-            <a href="index.html" class="logo">
-              <h1>MTParceiros</h1>
-            </a>
-            <ul class="nav">
-              <li><a href="index.html" class="active">Início</a></li>
-              <li><a href="properties.html">Empreendimentos</a></li>
-              <li><a href="#simulador">Simulador</a></li>
-              <li><a href="property-details.html">Detalhes</a></li>
-              <li><a href="contact.html">Contato</a></li>
-              <li><a href="#!" class="schedule-visit-link"><i class="fa fa-calendar"></i> Agende uma visita</a></li>
-            </ul>
-            <a class='menu-trigger'>
-              <span>Menu</span>
-            </a>
-          </nav>
+          <nav class="main-nav"></nav>
         </div>
       </div>
     </div>
@@ -476,10 +253,49 @@
   <!-- SIMULADOR V3 (Premium Glassmorphism) -->
   <div id="simulador" class="sim-section-bg">
     <div class="sim-glass-container">
-      <h2 class="sim-title">🏠 Simulador de Financiamento</h2>
-      <p class="sim-subtitle">Descubra quanto a Caixa libera para você — 100% gratuito</p>
+      <h2 class="sim-title"><img src="assets/images/bola_laranja.gif" alt="IA"
+          style="width: 42px; height: 42px; vertical-align: middle; margin-right: 8px; margin-bottom: 6px;">Simulador
+        Inteligente MT Parceiros</h2>
+      <p class="sim-subtitle">Seu caminho real até as chaves com tecnologia IA e assessoria técnica especializada.</p>
 
-      <form id="simulator-form" action="https://formsubmit.co/mtparceiros@gmail.com" method="POST">
+      <!-- Overlay de Processamento IA (Cortina Deslizante) -->
+      <div id="sim-loading-overlay" class="sim-loading-overlay">
+        <div class="sim-loading-content">
+          <img src="assets/images/bola_laranja.gif" alt="Processando"
+            style="width: 180px; height: 180px; margin-bottom: 25px; filter: drop-shadow(0 0 20px rgba(243, 85, 37, 0.4));">
+          <h3 class="sim-loading-text">Processando dados...</h3>
+        </div>
+      </div>
+
+      <!-- Barra de Progresso Inteligente -->
+      <div class="sim-progress-container mb-4" style="margin-top: 20px;">
+        <div class="sim-progress-header d-flex justify-content-between align-items-center mb-2">
+          <span class="sim-progress-text" style="color: #fff; font-size: 0.95rem; font-weight: 600;">Status do Perfil
+            IA</span>
+          <span class="sim-progress-pct" id="sim-progress-pct"
+            style="color: #f35525; font-size: 1.1rem; font-weight: 800;">0%</span>
+        </div>
+        <div class="sim-progress-bar-bg"
+          style="background: rgba(255, 255, 255, 0.1); backdrop-filter: blur(5px); border-radius: 20px; height: 14px; border: 1px solid rgba(255,255,255,0.2); position: relative; overflow: visible;">
+          <div class="sim-progress-bar-fill" id="sim-progress-fill"
+            style="background: linear-gradient(90deg, #f35525, #ffa07a); height: 100%; border-radius: 20px; width: 0%; transition: width 0.6s cubic-bezier(0.4, 0, 0.2, 1); position: relative; box-shadow: 0 0 15px rgba(243, 85, 37, 0.6); overflow: visible;">
+            <!-- Efeito de Brilho Interno (Shimmer) com clipping próprio -->
+            <div style="position: absolute; inset: 0; overflow: hidden; border-radius: inherit; pointer-events: none;">
+              <div
+                style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent); animation: shimmer 2s infinite linear;">
+              </div>
+            </div>
+            <!-- Mascote IA (À frente da barra, integrado no final) -->
+            <img src="assets/images/mascote_ia.gif" id="sim-ia-mascot" alt="IA"
+              style="position: absolute; right: -48px; top: 50%; transform: translateY(-50%); width: 50px; height: 50px; pointer-events: none; opacity: 0; transition: opacity 0.3s ease; filter: drop-shadow(0 0 10px rgba(243, 85, 37, 0.4));">
+          </div>
+        </div>
+        <div id="sim-progress-msg"
+          style="color: rgba(255,255,255,0.7); font-size: 0.85rem; text-align: right; margin-top: 8px; font-weight: 500; min-height: 20px; transition: color 0.3s;">
+          Aguardando dados iniciais...</div>
+      </div>
+
+      <form id="simulator-form">
         <div id="sim-dashboard" class="sim-dashboard-grid">
           <div class="dash-block dash-performance">
             <div class="dash-header">
@@ -490,16 +306,26 @@
             <div class="sim-input-group mt-4">
               <label class="sim-label text-light">👤 Nome Completo</label>
               <div class="sim-input-wrap">
-                <span class="sim-input-icon">👤</span>
-                <input type="text" id="nome" name="nome" placeholder="Seu Nome..." required class="sim-input-control">
+                <input type="text" id="sim-name" name="name" placeholder="Seu Nome..." required
+                  class="sim-input-control" style="padding-left: 18px;">
               </div>
             </div>
             <div class="sim-input-group mt-4">
               <label class="sim-label text-light">📱 WhatsApp / Celular</label>
               <div class="sim-input-wrap">
-                <span class="sim-input-icon">📱</span>
-                <input type="tel" id="celular" name="celular" placeholder="(11) 99999-9999" required
-                  class="sim-input-control">
+                <input type="tel" id="sim-celular" name="celular" placeholder="(11) 99999-9999" required
+                  class="sim-input-control" style="padding-left: 18px;">
+              </div>
+            </div>
+
+            <div class="sim-input-group mt-4">
+              <div class="sim-input-wrap"
+                style="padding: 10px 15px; background: rgba(255,255,255,0.1); cursor: pointer; border: 1px solid rgba(255,255,255,0.2);">
+                <input type="checkbox" id="dependentes" name="dependentes"
+                  style="width: 20px; height: 20px; cursor: pointer; accent-color: #f35525;">
+                <label for="dependentes"
+                  style="margin-left: 10px; color: #fff; font-size: 0.85rem; cursor: pointer; margin-bottom: 0; font-weight: 600;">Possuo
+                  dependentes (Filhos ou Cônjuge)</label>
               </div>
             </div>
           </div>
@@ -571,21 +397,32 @@
             </div>
             <div class="sim-results-grid">
               <div id="card-margem" class="sim-glow-card card-orange">
-                <div class="sim-glow-label">Parcelas</div>
-                <div id="r-margem" class="sim-glow-value">--</div>
+                <div class="sim-card-main">
+                  <div class="sim-glow-label">Parcelas</div>
+                  <div id="r-margem" class="sim-glow-value">--</div>
+                </div>
+                <div class="sim-card-desc">Parcela máxima permitida do seu salário (30%) já descontando outras
+                  obrigações financeiras.</div>
               </div>
               <div id="card-potencial" class="sim-glow-card card-blue">
-                <div class="sim-glow-label">Financiamento</div>
-                <div id="r-potencial" class="sim-glow-value">--</div>
+                <div class="sim-card-main">
+                  <div class="sim-glow-label">Financiamento</div>
+                  <div id="r-potencial" class="sim-glow-value">--</div>
+                </div>
+                <div class="sim-card-desc">Valor que o banco aprova para você baseado na sua renda e no prazo Máximo de
+                  amortização.</div>
               </div>
               <div id="card-poder" class="sim-glow-card card-green">
-                <div class="sim-glow-label">Poder de Compra</div>
-                <div id="r-poder" class="sim-glow-value">--</div>
+                <div class="sim-card-main">
+                  <div class="sim-glow-label">Poder de Compra</div>
+                  <div id="r-poder" class="sim-glow-value">--</div>
+                </div>
+                <div class="sim-card-desc">(Financiamento + Seu Dinheiro + FGTS + Subsídio Federal Concedido).</div>
               </div>
               <div class="sim-glow-card card-action"
                 style="display:flex; align-items:center; justify-content:center; background: transparent; box-shadow: none; border:none; padding:0;">
                 <button type="submit" id="btn-final-submit" class="sim-btn-next sim-btn-submit w-100 h-100"
-                  style="font-size: 1.05rem;">Garantir minha Análise de Crédito 🚀</button>
+                  style="font-size: 1.05rem;">⚡ Iniciar Análise Profissional IA</button>
               </div>
             </div>
           </div>
@@ -602,6 +439,55 @@
       </form>
 
       <div id="step-4" style="display:none; margin-top: 30px;">
+        <h5 class="sim-step-title" style="text-align:center;">Detalhamento do seu Plano de Pagamento</h5>
+
+        <!-- Novos Cards de Evolução e Parcelas -->
+        <div class="sim-results-grid" style="margin-bottom: 30px; margin-top: 20px;">
+          <!-- Card de Entrada Parcelada -->
+          <div id="card-entrada" class="sim-glow-card card-orange"
+            style="background: rgba(255, 140, 0, 0.05); border: 1px solid rgba(255,140,0,0.2);">
+            <div class="sim-card-main">
+              <div class="sim-glow-label" style="color: #d35400;">Mensais da Entrada</div>
+              <div id="r-parcela-entrada" class="sim-glow-value" style="font-size: 1.5rem; color: #d35400;">--</div>
+              <div style="font-size: 0.8rem; color: #777; margin-top: 5px;">36x (Parcelas)</div>
+            </div>
+            <div class="sim-card-desc">Valor cobrado pela construtora durante os meses de obra.</div>
+          </div>
+
+          <!-- Card Evolução de Obra -->
+          <div id="card-evolucao" class="sim-glow-card card-blue"
+            style="background: rgba(0, 123, 255, 0.05); border: 1px solid rgba(0,123,255,0.2);">
+            <div class="sim-card-main">
+              <div class="sim-glow-label" style="color: #0056b3;">Evolução de Obra (Caixa)</div>
+              <div id="r-evolucao" class="sim-glow-value" style="font-size: 1.5rem; color: #0056b3;">--</div>
+              <div style="font-size: 0.8rem; color: #777; margin-top: 5px;">Média mensal até as chaves</div>
+            </div>
+            <div class="sim-card-desc">Taxa de juros progressiva cobrada pela CAIXA de forma mensal durante o período de
+              construção do imóvel.</div>
+          </div>
+
+          <!-- Card Pós Chaves -->
+          <div id="card-pos-chaves" class="sim-glow-card card-green"
+            style="background: rgba(40, 167, 69, 0.05); border: 1px solid rgba(40,167,69,0.2);">
+            <div class="sim-card-main">
+              <div class="sim-glow-label" style="color: #1e7e34;">Parcela Financiamento</div>
+              <div id="r-pos-chaves" class="sim-glow-value" style="font-size: 1.5rem; color: #1e7e34;">--</div>
+              <div style="font-size: 0.8rem; color: #777; margin-top: 5px;">Após a entrega (até 35 anos)</div>
+            </div>
+            <div class="sim-card-desc">Valor permanente da prestação da sua casa própria (amortização de fato) que você
+              passa a pagar apenas após receber e morar no imóvel.</div>
+          </div>
+        </div>
+
+        <div style="display:none; justify-content:center; margin-bottom: 40px;">
+          <!-- Botão de download desativado temporariamente
+          <button type="button" id="btn-download-planilha" 
+            style="background: #207245; color: white; border: none; padding: 12px 25px; border-radius: 8px; font-weight: 600; font-size: 1rem; cursor: pointer; display: flex; align-items: center; gap: 8px; box-shadow: 0 4px 15px rgba(32, 114, 69, 0.3); transition: 0.3s;">
+            <i class="fas fa-file-excel"></i> Baixar Planilha de Controle de Valores
+          </button>
+          -->
+        </div>
+
         <h5 class="sim-step-title" style="text-align:center;">Opções para o seu Perfil</h5>
         <div id="sim-match-container" class="sim-match-grid"></div>
         <hr class="sim-divider" style="margin: 35px 0;">
@@ -803,7 +689,9 @@
     <div class="container">
       <div class="row">
         <div class="col-lg-7">
-          <div id="map" style="height:500px;border-radius:10px;box-shadow:0 0 15px rgba(0,0,0,0.15);z-index:1;"></div>
+          <div id="map"
+            style="height:500px; border-radius:10px; box-shadow:0 0 15px rgba(0,0,0,0.15); position:relative; z-index:2;">
+          </div>
           <div class="row">
             <div class="col-lg-6">
               <div class="item phone">
@@ -838,9 +726,9 @@
               </div>
               <div class="col-lg-12">
                 <fieldset>
-                  <label for="celular">Celular (com DDD)</label>
-                  <input type="tel" name="celular" id="celular" placeholder="Ex: (11) 91234-5678" autocomplete="on"
-                    required>
+                  <label for="celular-contato">Celular (com DDD)</label>
+                  <input type="tel" name="celular" id="celular-contato" placeholder="Ex: (11) 91234-5678"
+                    autocomplete="on" required>
                 </fieldset>
               </div>
               <div class="col-lg-12">
@@ -869,18 +757,9 @@
   </div>
 
   <footer>
-    <div class="container">
-      <div class="col-lg-8">
-        <p>Copyright © 2024 MT Parceiros - Consultoria Imobiliária e Soluções Inteligentes. Todos os direitos
-          reservados.
-
-          Design: <a rel="nofollow" href="https://templatemo.com" target="_blank">TemplateMo</a> Distribuição: <a
-            href="https://themewagon.com">ThemeWagon</a></p>
-      </div>
-    </div>
+    <div class="container"></div>
   </footer>
 
-  <!-- Calendar Modal -->
   <div id="calendar-modal" class="calendar-modal">
     <div class="calendar-modal-content">
       <span class="calendar-close-button">&times;</span>
@@ -889,373 +768,21 @@
     </div>
   </div>
 
-  <a href="https://wa.me/5511960364355" target="_blank" class="whatsapp-float">
-    <img src="assets/images/bot-whatsapp.png" alt="Fale conosco pelo WhatsApp">
-  </a>
-
   <script src="vendor/jquery/jquery.min.js"></script>
   <script src="vendor/bootstrap/js/bootstrap.min.js"></script>
   <script src="assets/js/isotope.min.js"></script>
   <script src="assets/js/owl-carousel.js"></script>
   <script src="assets/js/counter.js"></script>
+  <script src="assets/js/components-renderer.js"></script>
   <script src="assets/js/custom.js"></script>
-
-  <script>
-    document.addEventListener('DOMContentLoaded', function () {
-      const form = document.getElementById('contact-form');
-      if (form) {
-        form.addEventListener('submit', function (e) {
-          e.preventDefault();
-
-          const nameInput = form.querySelector('#name');
-          const emailInput = form.querySelector('#email');
-          const celularInput = form.querySelector('#celular');
-
-          // Validação dos campos
-          if (!nameInput.value.trim()) {
-            alert('Por favor, preencha seu nome completo.');
-            nameInput.focus();
-            return;
-          }
-
-          if (!emailInput.value.trim()) {
-            alert('Por favor, preencha seu e-mail.');
-            emailInput.focus();
-            return;
-          }
-
-          const unmaskedValue = celularInput.value.replace(/\D/g, '');
-
-          if (unmaskedValue.length < 10 || unmaskedValue.length > 11) {
-            alert('Por favor, insira um número de celular válido com DDD (10 ou 11 dígitos).');
-            celularInput.focus();
-            return; // Impede o envio do formulário
-          }
-
-          const formData = new FormData(form);
-          formData.set('celular', unmaskedValue); // Envia o número limpo
-
-          const formContainer = form.parentElement; // The column div containing the form
-
-          fetch(form.action, {
-            method: 'POST',
-            body: formData,
-            headers: {
-              'Accept': 'application/json'
-            }
-          }).then(response => {
-            if (response.ok) {
-              // Abrir WhatsApp com um pequeno atraso para dar tempo da animação acontecer
-              const waName = form.querySelector('#name').value.trim();
-              const waCelular = form.querySelector('#celular').value.replace(/\D/g, '');
-              const waSubject = (form.querySelector('#subject') || {}).value || 'Contato pelo site';
-              const waMsg = `Olá! Me chamo *${waName}*.\nMeu WhatsApp: ${waCelular}.\nAssunto: ${waSubject}`;
-
-              setTimeout(() => {
-                window.open('https://wa.me/5511960364355?text=' + encodeURIComponent(waMsg), '_blank');
-              }, 2000);
-
-              formContainer.innerHTML = `
-                <div class="ma-success-wrapper">
-                  <div class="ma-success-icon-box">
-                    <div class="ma-success-circle"></div>
-                    <svg class="ma-checkmark" viewBox="0 0 52 52">
-                      <path d="M14.1 27.2l7.1 7.2 16.7-16.8"/>
-                    </svg>
-                  </div>
-                  <h4>Mensagem Enviada!</h4>
-                  <p>Sua jornada para o novo lar começou com sucesso.</p>
-                  <button class="ma-btn-reset" onclick="location.reload()">Enviar outra mensagem</button>
-                </div>
-              `;
-            } else {
-              response.json().then(data => {
-                if (Object.hasOwn(data, 'errors')) {
-                  alert(data["errors"].map(error => error["message"]).join(", "));
-                } else {
-                  alert('Oops! Houve um problema ao enviar seu formulário.');
-                }
-              }).catch(error => {
-                alert('Oops! Houve um problema ao enviar seu formulário.');
-              });
-            }
-          }).catch(error => {
-            alert('Oops! Houve um problema ao enviar seu formulário.');
-          });
-        });
-      }
-    });
-  </script>
-  <script src="assets/js/schedule-system.js"></script>
-
-
-  <!-- Google Maps JS API + Empreendimentos -->
-  <!-- Leaflet.js + Mapa de Empreendimentos -->
+  <script src="assets/js/shared.js"></script>
+  <script src="assets/js/micro-animations.js"></script>
+  <script src="assets/js/property-drawer.js"></script>
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
   <script src="empreendimentos.js"></script>
   <script src="assets/js/cms-renderer.js"></script>
-  <script>
-    document.addEventListener('DOMContentLoaded', function () {
-      // 1. Renderiza os itens via CMS
-      renderDestaques('#destaques-container', 12); // Pega mais itens para o carrossel ficar rico
+  <script src="assets/js/index-logic.js"></script>
 
-      // 2. Inicializa o Owl Carousel após a renderização
-      // Pequeno delay para garantir que o DOM foi preenchido pelo renderizador
-      setTimeout(function () {
-        $('#destaques-container').owlCarousel({
-          items: 3,
-          loop: true,
-          dots: true,
-          nav: true,
-          margin: 30,
-          autoplay: true,
-          autoplayTimeout: 5000,
-          autoplayHoverPause: true,
-          navText: ['<i class="fa fa-angle-left"></i>', '<i class="fa fa-angle-right"></i>'],
-          responsive: {
-            0: { items: 1 },
-            768: { items: 2 },
-            1200: { items: 3 }
-          }
-        });
-      }, 500);
-    });
-  </script>
-  <script>
-    document.addEventListener('DOMContentLoaded', function () {
-      var map = L.map('map').setView([-23.55, -46.63], 11);
-
-      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
-        maxZoom: 18
-      }).addTo(map);
-
-      // --- Botão "Minha Localização" ---
-      var LocationControl = L.Control.extend({
-        options: { position: 'topleft' },
-        onAdd: function (map) {
-          var container = L.DomUtil.create('div', 'leaflet-bar leaflet-control leaflet-control-location');
-          var link = L.DomUtil.create('a', '', container);
-          link.href = '#';
-          link.title = 'Minha Localização';
-          link.innerHTML = '📍';
-          link.style.fontSize = '18px';
-          link.style.lineHeight = '30px';
-          link.style.textAlign = 'center';
-
-          L.DomEvent.on(link, 'click', function (e) {
-            L.DomEvent.stopPropagation(e);
-            L.DomEvent.preventDefault(e);
-            map.locate({ setView: true, maxZoom: 15 });
-          });
-
-          return container;
-        }
-      });
-      map.addControl(new LocationControl());
-
-      map.on('locationerror', function () { alert("Não foi possível obter sua localização."); });
-
-      // --- Função para definir cor baseada no status ---
-      function getCorPorStatus(entrega) {
-        if (!entrega) return '#f35525'; // Laranja (Padrão)
-        var texto = entrega.toLowerCase();
-        if (texto.indexOf('lançamento') !== -1 || texto.indexOf('lancamento') !== -1) return '#007bff'; // Azul
-        if (texto.indexOf('pronto') !== -1) return '#28a745'; // Verde
-        return '#f35525'; // Em Obras / Padrão
-      }
-
-      if (typeof EMPREENDIMENTOS !== 'undefined' && EMPREENDIMENTOS.length) {
-        var bounds = [];
-        EMPREENDIMENTOS.forEach(function (e) {
-          if (!e.lat || !e.lng) return;
-
-          var cor = getCorPorStatus(e.entrega);
-          var icone = L.divIcon({
-            className: '',
-            html: '<div style="background:' + cor + ';width:20px;height:20px;border-radius:50% 50% 50% 0;transform:rotate(-45deg);border:3px solid #fff;box-shadow:0 2px 8px rgba(0,0,0,0.35);"></div>',
-            iconSize: [20, 20],
-            iconAnchor: [10, 20],
-            popupAnchor: [0, -22]
-          });
-
-          var popup = '<div style="font-family:Poppins,sans-serif;min-width:190px;">'
-            + '<strong style="color:' + cor + ';font-size:14px;">' + e.nome + '</strong><br>'
-            + (e.bairro ? '<span style="font-size:12px;">📍 ' + e.bairro + '</span><br>' : '')
-            + (e.area ? '<span style="font-size:12px;">📐 ' + e.area + '</span><br>' : '')
-            + (e.quartos ? '<span style="font-size:12px;">🛏 ' + e.quartos + ' quarto(s)</span><br>' : '')
-            + (e.preco ? '<strong style="color:#1a1a2e;font-size:13px;">A partir de ' + e.preco + '</strong><br>' : '')
-            + (e.entrega ? '<span style="font-size:11px;color:#888;">Entrega: ' + e.entrega + '</span><br>' : '')
-            + '<a href="#!" class="schedule-visit-link" data-emp-nome="' + e.nome + '" '
-            + 'style="display:inline-block;margin-top:8px;padding:6px 12px;background:#1e1e1e;color:#fff;border-radius:6px;font-size:12px;font-weight:700;text-decoration:none;">'
-            + 'ℹ️ Mais Informações</a></div>';
-
-          L.marker([e.lat, e.lng], { icon: icone }).addTo(map).bindPopup(popup);
-          bounds.push([e.lat, e.lng]);
-        });
-        if (bounds.length > 1) map.fitBounds(bounds, { padding: [40, 40] });
-      }
-    });
-  </script>
-
-  <script src="assets/js/micro-animations.js"></script>
-  <script src="assets/js/property-drawer.js"></script>
-
-  <script>
-    document.addEventListener('DOMContentLoaded', function () {
-      // ====== SIMULADOR V3 (Home Version) ======
-      const simForm = document.getElementById('simulator-form');
-      const wppNumber = '5511960364355';
-      const fmt = (v) => v.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL', maximumFractionDigits: 0 });
-
-      // Lógica de Cálculo e Feedback Real-time
-      function updateSimResults() {
-        const renda = parseFloat(document.getElementById('renda').value) || 0;
-        const dividas = parseFloat(document.getElementById('dividas').value) || 0;
-        const fgts = parseFloat(document.getElementById('fgts').value) || 0;
-        const entrada = parseFloat(document.getElementById('entrada').value) || 0;
-
-        // Atualiza Labels
-        document.getElementById('label-renda').textContent = fmt(renda);
-        document.getElementById('label-dividas').textContent = fmt(dividas);
-        document.getElementById('label-fgts').textContent = fmt(fgts);
-        document.getElementById('label-entrada').textContent = fmt(entrada);
-
-        // Algoritmo de Cálculo
-        const margem = Math.max(0, (renda * 0.30) - dividas);
-        const fatorFinanc = renda <= 4400 ? 250 : renda <= 8000 ? 230 : 210;
-        const potencial = margem * fatorFinanc;
-        const poder = Math.ceil((potencial + fgts + entrada) / 1000) * 1000;
-
-        // Atualiza Interface Real-time
-        document.getElementById('r-margem').textContent = fmt(margem) + '/mês';
-        document.getElementById('r-potencial').textContent = fmt(potencial);
-        document.getElementById('r-poder').textContent = fmt(poder);
-
-        // Preenche campos ocultos para o E-mail
-        document.getElementById('h_margem').value = fmt(margem);
-        document.getElementById('h_potencial').value = fmt(potencial);
-        document.getElementById('h_poder').value = fmt(poder);
-
-        const simData = {
-          nome: document.getElementById('nome').value,
-          celular: document.getElementById('celular').value,
-          renda, dividas, fgts, entrada, margem, potencial, poder
-        };
-
-        window.mtSimData = simData; // Global para sistema de agendamento
-        return simData;
-      }
-
-      // Listeners para os Sliders
-      if (simForm) {
-        ['renda', 'dividas', 'fgts', 'entrada'].forEach(id => {
-          const el = document.getElementById(id);
-          if (el) el.addEventListener('input', updateSimResults);
-        });
-
-        // Submissão Final
-        simForm.addEventListener('submit', function (e) {
-          e.preventDefault();
-
-          const nomeStr = document.getElementById('nome').value.trim();
-          const celularStr = document.getElementById('celular').value.replace(/\D/g, '');
-          if (!nomeStr) { alert('Por favor, informe seu nome na área de Identificação.'); return; }
-          if (celularStr.length < 10) { alert('Por favor, informe um WhatsApp válido.'); return; }
-
-          const data = updateSimResults();
-          const btnSubmit = document.getElementById('btn-final-submit');
-          btnSubmit.innerHTML = 'Analisando... ⏳';
-          btnSubmit.disabled = true;
-
-          // 1. Envio por E-mail
-          const fd = new FormData(simForm);
-          fetch(simForm.action, {
-            method: 'POST',
-            body: fd,
-            headers: { 'Accept': 'application/json' }
-          }).catch(() => { });
-
-          // 2. Preparar WhatsApp
-          const msgWpp = [
-            '🏠 *NOVA SIMULAÇÃO — MT Parceiros*',
-            '━━━━━━━━━━━━━━━━━━━',
-            '👤 Cliente: ' + data.nome,
-            '💰 Renda: ' + fmt(data.renda),
-            '💳 Dívidas: ' + fmt(data.dividas),
-            '━━━━━━━━━━━━━━━━━━━',
-            '📊 Parcela: ' + fmt(data.margem) + '/mês',
-            '🏦 Financiamento: ' + fmt(data.potencial),
-            '🏡 Poder Total: ' + fmt(data.poder),
-            '━━━━━━━━━━━━━━━━━━━',
-            'MT Parceiros | (11) 96036-4355'
-          ].join('\n');
-
-          const btnWpp = document.getElementById('btn-wpp');
-          btnWpp.href = 'https://wa.me/' + wppNumber + '?text=' + encodeURIComponent(msgWpp);
-
-          // 3. Transição de Interface
-          setTimeout(() => {
-            const dashboard = document.getElementById('sim-dashboard');
-            dashboard.style.transition = 'opacity 0.4s ease';
-            dashboard.style.opacity = '0';
-
-            setTimeout(() => {
-              dashboard.style.display = 'none';
-              recomendarImoveis(data.poder);
-              const step4 = document.getElementById('step-4');
-              step4.style.display = 'block';
-              document.getElementById('wpp-box').style.display = 'flex';
-              step4.style.animation = 'heroFadeIn 0.8s ease forwards';
-              document.getElementById('simulador').scrollIntoView({ behavior: 'smooth', block: 'start' });
-            }, 400);
-          }, 800);
-        });
-
-        function recomendarImoveis(poderDeCompra) {
-          const container = document.getElementById('sim-match-container');
-          if (!container) return;
-          container.innerHTML = '';
-
-          if (typeof EMPREENDIMENTOS === 'undefined' || !Array.isArray(EMPREENDIMENTOS)) {
-            container.innerHTML = '<div style="text-align:center; padding: 20px;"><h6>Análise Concluída!</h6><p>Fale com nosso corretor.</p></div>';
-            return;
-          }
-
-          const parsePreco = (s) => {
-            if (!s) return Infinity;
-            let num = parseInt(s.replace(/[^\d]/g, ''), 10);
-            if (s.toLowerCase().includes('mil')) num *= 1000;
-            return num || Infinity;
-          };
-
-          const limite = poderDeCompra;
-          let matches = EMPREENDIMENTOS.filter(emp => parsePreco(emp.preco) <= limite);
-          matches.sort((a, b) => parsePreco(b.preco) - parsePreco(a.preco));
-          matches = matches.slice(0, 3);
-
-          if (matches.length > 0) {
-            matches.forEach(emp => {
-              const card = document.createElement('div');
-              card.className = 'sim-match-card';
-              card.innerHTML = `
-                <div class="sim-match-img schedule-visit-link" data-emp-nome="${emp.nome}" style="background-image: url('${emp.imagem}'); cursor: pointer;"></div>
-                <div class="sim-match-info">
-                  <h6>${emp.nome}</h6>
-                  <p class="sim-match-price">A partir de R$ ${emp.preco}</p>
-                  <a href="#" class="sim-btn-agendar schedule-visit-link" data-emp-nome="${emp.nome}">ℹ️ Mais informações</a>
-                </div>
-              `;
-              container.appendChild(card);
-            });
-          } else {
-            container.innerHTML = '<div style="text-align:center; padding: 20px;"><h6>Oportunidades exclusivas!</h6><p>Fale com nosso corretor para opções sob medida.</p></div>';
-          }
-        }
-        updateSimResults();
-      }
-    });
-  </script>
 </body>
 
 </html>
