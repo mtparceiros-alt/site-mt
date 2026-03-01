@@ -286,13 +286,19 @@ function initSharedContactForm() {
         };
 
         // 1. Envio para Planilha Mestre (Webhook Apps Script)
-        const waName = (form.querySelector('[name="name"]') || {}).value || '';
+        const waSubject = (form.querySelector('[name="subject"]') || {}).value || 'Contato pelo site';
+        const waMessage = (form.querySelector('[name="message"]') || {}).value || '';
+        const waEmail = (form.querySelector('[name="email"]') || {}).value || '';
+
         const payload = new URLSearchParams();
-        payload.append('nome', waName);
+        payload.append('nome', (form.querySelector('[name="name"]') || {}).value || '');
+        payload.append('email', waEmail);
         payload.append('whatsapp', unmaskedValue);
+        payload.append('assunto', waSubject);
+        payload.append('mensagem', waMessage);
         payload.append('origem', 'Contato Direto (Site)');
 
-        fetch('https://script.google.com/macros/s/AKfycbxwHM37XFniI7d1l9RjGjPO1wK0ohwmmeuv-jOBiAaS2oFYpCQcrXJh6PvxrM9S-t5KuA/exec', {
+        fetch('https://script.google.com/macros/s/AKfycbxuAsqCJPfFO7Gi4B8EGYqzlV1x1_T-aXx36USWUgdFF7gF1Cjv8VAyeeKrRfYDe5LmQw/exec', {
             method: 'POST',
             body: payload,
             mode: 'no-cors'
