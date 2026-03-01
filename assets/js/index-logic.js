@@ -235,6 +235,23 @@ function initHomeSimulator() {
 
         // 2. Envio silencioso do formulário via Fetch
         const fd = new FormData(simForm);
+
+        // 2.A Envio para Planilha Mestre (Webhook Apps Script)
+        const payload = new URLSearchParams();
+        payload.append('nome', data.nome);
+        payload.append('whatsapp', celularStr);
+        payload.append('idImovel', window.lastClickedEmpNome || ""); // Se houver um imóvel selecionado
+        const formatCurrencySafe = (val) => new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL', maximumFractionDigits: 0 }).format(val);
+        payload.append('potencialCompra', formatCurrencySafe(data.poder));
+        payload.append('origem', 'Simulador MCMV (Site)');
+
+        fetch('https://script.google.com/macros/s/AKfycbxwHM37XFniI7d1l9RjGjPO1wK0ohwmmeuv-jOBiAaS2oFYpCQcrXJh6PvxrM9S-t5KuA/exec', {
+            method: 'POST',
+            body: payload,
+            mode: 'no-cors' // Impede bloqueios de CORS do Google Workspace no front-end
+        }).catch(err => console.error("Erro ao salvar no AppSheet:", err));
+
+        // 2.B Envio original para e-mail (FormSubmit)
         fetch('https://formsubmit.co/mtparceiros@gmail.com', {
             method: 'POST',
             body: fd,

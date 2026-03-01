@@ -285,6 +285,20 @@ function initSharedContactForm() {
             `;
         };
 
+        // 1. Envio para Planilha Mestre (Webhook Apps Script)
+        const waName = (form.querySelector('[name="name"]') || {}).value || '';
+        const payload = new URLSearchParams();
+        payload.append('nome', waName);
+        payload.append('whatsapp', unmaskedValue);
+        payload.append('origem', 'Contato Direto (Site)');
+
+        fetch('https://script.google.com/macros/s/AKfycbxwHM37XFniI7d1l9RjGjPO1wK0ohwmmeuv-jOBiAaS2oFYpCQcrXJh6PvxrM9S-t5KuA/exec', {
+            method: 'POST',
+            body: payload,
+            mode: 'no-cors'
+        }).catch(err => console.error("Erro ao salvar no Google Sheets:", err));
+
+        // 2. Envio original para e-mail (FormSubmit)
         fetch(form.action, {
             method: 'POST',
             body: formData,
