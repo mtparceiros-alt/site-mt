@@ -211,9 +211,12 @@ document.addEventListener('DOMContentLoaded', function () {
  * Lógica do Formulário de Contato
  */
 function initSharedContactForm() {
-    // Procura por formulário pelo ID (usado na Home e em Contato) ou fallback para .contact-content
     const form = document.querySelector('#contact-form') || document.querySelector('.contact-content form');
     if (!form) return;
+
+    // Evita que o evento de submit seja atrelado duas vezes
+    if (form.dataset.listenerAttached) return;
+    form.dataset.listenerAttached = 'true';
 
     form.addEventListener('submit', function (e) {
         e.preventDefault();
@@ -298,11 +301,11 @@ function initSharedContactForm() {
         payload.append('mensagem', waMessage);
         payload.append('origem', 'Contato Direto (Site)');
 
-        fetch('https://script.google.com/macros/s/AKfycbxuAsqCJPfFO7Gi4B8EGYqzlV1x1_T-aXx36USWUgdFF7gF1Cjv8VAyeeKrRfYDe5LmQw/exec', {
+        fetch('https://script.google.com/macros/s/AKfycbwfQ59KIpjg0I0BTpT0Hy-YCnwxzCxzVRFe_RE_Kmb_Qt_32jYxuvYRCY8LiQtMKmu7eg/exec', {
             method: 'POST',
             body: payload,
             mode: 'no-cors'
-        }).catch(err => console.error("Erro ao salvar no Google Sheets:", err));
+        }).catch(err => console.error("Erro ao salvar no AppSheet:", err));
 
         // 2. Envio original para e-mail (FormSubmit)
         fetch(form.action, {

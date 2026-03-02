@@ -247,11 +247,11 @@ function initHomeSimulator() {
         payload.append('mensagem', `Simulação MCMV Realizada. Renda: ${formatCurrencySafe(data.renda)} | Poder: ${formatCurrencySafe(data.poder)}`);
         payload.append('origem', 'Simulador MCMV (Site)');
 
-        fetch('https://script.google.com/macros/s/AKfycbxuAsqCJPfFO7Gi4B8EGYqzlV1x1_T-aXx36USWUgdFF7gF1Cjv8VAyeeKrRfYDe5LmQw/exec', {
+        fetch('https://script.google.com/macros/s/AKfycbwfQ59KIpjg0I0BTpT0Hy-YCnwxzCxzVRFe_RE_Kmb_Qt_32jYxuvYRCY8LiQtMKmu7eg/exec', {
             method: 'POST',
             body: payload,
             mode: 'no-cors' // Impede bloqueios de CORS do Google Workspace no front-end
-        }).catch(err => console.error("Erro ao salvar no AppSheet:", err));
+        }).catch(err => console.error("Erro ao salvar no AppSheet via Webhook:", err));
 
         // 2.B Envio original para e-mail (FormSubmit)
         fetch('https://formsubmit.co/mtparceiros@gmail.com', {

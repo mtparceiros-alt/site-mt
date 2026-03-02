@@ -693,7 +693,7 @@ Header Style
 
 }
 
-@media (max-width: 767px) {
+@media (max-width: 992px) {
   .background-header .main-nav {
     box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.15);
     border-radius: 0px 0px 25px 25px;
@@ -817,7 +817,6 @@ Header Style
     padding-left: 0px !important;
     padding-right: 0px !important;
   }
-
 }
 
 /* 
@@ -1327,11 +1326,13 @@ Contact Style
 }
 
 .contact .section-heading h2 {
-  color: #1e1e1e; /* Voltando para escuro para aparecer no fundo claro */
+  color: #1e1e1e;
+  /* Voltando para escuro para aparecer no fundo claro */
 }
 
 .contact-content {
-  margin-top: 0px; /* Removendo o recuo negativo que fatiava o layout */
+  margin-top: 0px;
+  /* Removendo o recuo negativo que fatiava o layout */
   position: relative;
   z-index: 1;
 }
