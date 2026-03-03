@@ -1,0 +1,111 @@
+📋 Relatório Técnico — Análise do simulator-core.js
+MT Parceiros × Vivaz | Simulador MCMV
+Versão analisada: 1.1 · Data: Março 2026
+🔍 Visão Geral
+O código implementa um único ponto de entrada (MT_Core.calculateMCMV) que recebe 5 parâmetros e retorna 14 valores calculados. A lógica está razoavelmente organizada, mas contém 7 erros críticos, 4 inconsistências lógicas e 6 lacunas funcionais em relação às regras vigentes do MCMV e ao contexto específico da Vivaz em São Paulo.
+🔴 ERROS CRÍTICOS (impactam diretamente o resultado)
+ERRO 1 — Faixas de renda desatualizadas e com fronteiras erradas
+Código atual:
+if (renda <= 2640) fatorFinanc = 340;      // "Faixa 1 (~4.00%)"
+else if (renda <= 3200) fatorFinanc = 310;
+else if (renda <= 4400) fatorFinanc = 270; // "Faixa 2 (~5.50%)"
+else if (renda <= 8000) fatorFinanc = 230; // "Faixa 3 (~7.66%)"
+// renda > 8000 fica com fatorFinanc = 210 (padrão)
+O problema: As faixas do MCMV foram atualizadas e a Faixa 4 (nova) não existe no código. Os limites estão errados.
+Valores corretos (MCMV 2025):
+Faixa
+Renda
+Juros ao ano
+Código atual
+Correto?
+1
+Até R$ 2.850
+4,00–4,75%
+Usa R$ 2.640
+❌ Errado
+2
+R$ 2.850–R$ 4.700
+4,75–7,00%
+Usa R$ 4.400
+❌ Errado
+3
+R$ 4.700–R$ 8.600
+7,66–8,16%
+Usa R$ 8.000
+❌ Errado
+4
+R$ 8.600–R$ 12.000
+~10%+TR
+Inexistente
+❌ Ausente
+Impacto: Um comprador com renda de R$ 2.700 seria classificado na Faixa 1 pelo código (limite R$ 2.640), mas pertence à Faixa 2 pelo MCMV atual — recebendo subsídio errado e fator de financiamento incorreto. Para renda entre R$ 8.000 e R$ 12.000 o simulador não reconhece a Faixa 4 e cai no fatorFinanc = 210 padrão, completamente sem base de cálculo.
+ERRO 2 — Fórmula do subsídio é empiricamente inventada e incorreta
+Código atual:
+if (renda > 0 && renda <= 4400) {
+    const diferencaAteOTeto = 4400 - Math.max(2000, renda);
+    subsidio = diferencaAteOTeto * 22.91;
+    if (!temDependentes) {
+        subsidio = subsidio * 0.30;
+    }
+}
+Os problemas são múltiplos:
+O multiplicador 22.91 não tem base nas tabelas oficiais. O subsídio real é uma tabela regional por faixa de renda, não uma fórmula linear com multiplicador fixo — o subsídio máximo para Faixa 1 e 2 é de até R$ 55.000. A fórmula atual pode gerar valores de R$ 0 a ~R$ 55.000, mas sem precisão para a faixa correta do cliente.
+O teto do loop está em R$ 4.400 (desatualizado) — o teto correto para subsídio é R$ 4.700 (Faixa 2).
+O redutor de 30% para "sem dependentes" não existe nas regras do MCMV. A Caixa não reduz o subsídio formalmente por ausência de dependentes — ela pode usar isso como critério de priorização na Faixa 1, mas não como redutor matemático linear no cálculo.
+Para Faixa 1 (renda R$ 2.640), com !temDependentes: (4400 - 2640) * 22.91 * 0.30 = R$ 12.099. Mas o subsídio real pode chegar a 95% de um imóvel de R$ 190.000 = R$ 180.500. A diferença é de 15x — tornando o simulador completamente enganoso para esse perfil.
+ERRO 3 — Fator de Financiamento não reflete cálculo real do SAC
+O que é o "fator": O código usa uma constante (ex: 230) como multiplicador de margem para estimar o valor financiável. Isso é uma aproximação pedagógica razoável, mas os valores estão desalinhados com a matemática real do SAC da Caixa.
+Como funciona de verdade: O valor financiável máximo é determinado pela equação da primeira parcela do SAC (a maior) limitada a 30% da renda líquida:
+Primeira parcela SAC = (Saldo / n) + (Saldo × taxa_mensal)
+onde n = 420 meses
+Para taxa de 4,25% a.a. → 0,347% a.m., financiamento de R$ 190.000 / 420 parcelas:
+Amortização: R$ 452,38
+Juros mês 1: R$ 659,30
+1ª parcela: R$ 1.111,68
+Para renda de R$ 2.850 → margem de 30% = R$ 855. Esse imóvel já não caberia na renda pelo SAC puro. O fator fixo de 340 geraria R$ 855 × 340 = R$ 290.700 como potencial — que está muito acima do teto de R$ 190.000 da Faixa 1 e ignora a lógica de parcela crescente inicial do SAC.
+Correção necessária: Calcular o valor financiável iterativamente com a fórmula SAC real ou pela Price, considerando taxa por faixa, e em seguida verificar se está dentro do teto da faixa.
+ERRO 4 — parcelaPosChaves: margem é matematicamente incorreto
+Código atual:
+return { parcelaPosChaves: margem }
+O código retorna a própria margem de comprometimento (30% da renda) como estimativa da parcela pós-chaves. Isso presume que o comprador sempre usará 100% da sua capacidade de comprometimento — o que raramente é verdade e não representa o cálculo real da parcela SAC sobre o saldo devedor.
+O correto seria: calcular a primeira parcela SAC com base no saldo devedor efetivo (valor do imóvel − entrada − subsídio − FGTS), aplicando a taxa de juros da faixa correspondente em 420 meses.
+ERRO 5 — Teto de valor do imóvel por faixa não é validado
+O código calcula um poder (poder de compra) que pode ultrapassar os tetos legais do MCMV sem nenhum aviso ou truncamento. Exemplo: renda R$ 4.000, margem R$ 1.200, fator 270, FGTS R$ 30.000, subsídio estimado R$ 50.000:
+potencial = 1.200 × 270 = R$ 324.000
+poder = 324.000 + 30.000 + 50.000 = R$ 404.000
+Esse valor está acima do teto de R$ 264.000 da Faixa 2. O simulador entregaria ao usuário um "poder de compra" impossível de ser exercido dentro do programa, sem qualquer alerta.
+ERRO 6 — ITBI de São Paulo não está incluído nos cálculos
+Você confirmou que o simulador é exclusivo para imóveis da Vivaz em São Paulo capital, e que a Vivaz não cobra taxas de cartório e registro. Porém, o ITBI é cobrado pela Prefeitura de SP e é obrigatório — não é uma taxa da Vivaz.
+O código não inclui nem menciona o ITBI em nenhum momento, e o output não orienta o comprador sobre esse custo. Isso representa um erro grave de planejamento financeiro para o usuário, pois o ITBI em SP sobre um imóvel de R$ 300.000 gira em torno de R$ 9.000 a R$ 15.000 dependendo do percentual financiado.
+Regra específica de SP que deveria estar implementada:
+0,5% sobre o valor financiado (até o limite de ~R$ 120.968)
+3% sobre o restante
+ERRO 7 — evolucaoMedia = margem / 2 não tem definição de negócio
+const evolucaoMedia = margem / 2;
+Esse valor é retornado mas não há documentação sobre o que representa. Aparentemente simula a "parcela de evolução de obra" (que a Caixa cobra durante a construção quando o banco financia a obra diretamente), mas esse conceito não se aplica ao modelo da Vivaz — onde o comprador paga a entrada diretamente à construtora, e o banco só entra na entrega das chaves. O valor não é exibido ao usuário? Se for, está incorreto e sem fundamento.
+🟡 INCONSISTÊNCIAS LÓGICAS
+INCONSISTÊNCIA 1 — Lógica de ajuste de parcela mínima cria distorções
+if (recursosProprios === 0 && parcelaEntrada > 0 && parcelaEntrada < 500) {
+    parcelaEntrada = 500;
+    saldoMensais = parcelaEntrada * mesesObra; // = 18.000
+    saldoAnuais = saldoEntrada - saldoMensais - chaves;
+    if (saldoAnuais < 0) saldoAnuais = 0;
+}
+O problema: quando saldoAnuais vira 0 por conta do ajuste, a soma saldoMensais + chaves pode ultrapassar saldoEntrada, fazendo o comprador "pagar mais do que deve" na entrada. Não há verificação de consistência final:
+saldoMensais + saldoAnuais + chaves == saldoEntrada?
+Isso deveria ser sempre verdadeiro, mas com o if (saldoAnuais < 0) saldoAnuais = 0 sem reajustar chaves, o invariante é quebrado.
+✅ O QUE ESTÁ CORRETO
+Para equilibrar a análise, estes pontos estão bem implementados:
+Margem de 30% calculada corretamente e deduzindo dívidas: Math.max(0, (renda * 0.30) - dividas) — alinhado com as regras da Caixa.
+Prazo de 420 meses correto para o MCMV.
+Entrada mínima de 20% calculada corretamente.
+Desvio para FGTS e entrada em espécie abate corretamente do saldo de entrada.
+Trava de domínio funcional — boa prática de segurança.
+IIFE (função auto-invocada) garante encapsulamento correto sem poluir o escopo global.
+💡 RECOMENDAÇÕES PRIORITÁRIAS
+Prioridade 1 — Corrigir imediatamente:
+Atualizar os limites de faixa para: 2.850 / 4.700 / 8.600 / 12.000
+Substituir a fórmula de subsídio por tabela fixa regional (SP) com teto de R$ 55.000
+Adicionar validação de teto de valor por faixa com alerta ao usuário
+Incluir cálculo e exibição do ITBI de SP no output
+Implementar Faixa 4

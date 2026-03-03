@@ -330,12 +330,30 @@
 
             <div class="sim-input-group mt-4">
               <div class="sim-input-wrap"
-                style="padding: 10px 15px; background: rgba(255,255,255,0.1); cursor: pointer; border: 1px solid rgba(255,255,255,0.2);">
+                style="padding: 10px 15px; background: rgba(255,255,255,0.1); cursor: pointer; border: 1px solid rgba(255,255,255,0.2); margin-bottom: 10px;">
                 <input type="checkbox" id="dependentes" name="dependentes"
                   style="width: 20px; height: 20px; cursor: pointer; accent-color: #f35525;">
                 <label for="dependentes"
                   style="margin-left: 10px; color: #fff; font-size: 0.85rem; cursor: pointer; margin-bottom: 0; font-weight: 600;">Possuo
                   dependentes (Filhos ou Cônjuge)</label>
+              </div>
+
+              <div class="sim-input-wrap"
+                style="padding: 10px 15px; background: rgba(255,255,255,0.1); cursor: pointer; border: 1px solid rgba(255,255,255,0.2); margin-bottom: 10px;">
+                <input type="checkbox" id="clt3anos" name="clt3anos"
+                  style="width: 20px; height: 20px; cursor: pointer; accent-color: #f35525;">
+                <label for="clt3anos"
+                  style="margin-left: 10px; color: #fff; font-size: 0.85rem; cursor: pointer; margin-bottom: 0; font-weight: 600;">Trabalhei
+                  3 anos ou mais (CLT/FGTS)</label>
+              </div>
+
+              <div class="sim-input-wrap"
+                style="padding: 10px 15px; background: rgba(255,255,255,0.1); cursor: pointer; border: 1px solid rgba(255,255,255,0.2);">
+                <input type="checkbox" id="primeiroImovel" name="primeiroImovel" checked
+                  style="width: 20px; height: 20px; cursor: pointer; accent-color: #f35525;">
+                <label for="primeiroImovel"
+                  style="margin-left: 10px; color: #fff; font-size: 0.85rem; cursor: pointer; margin-bottom: 0; font-weight: 600;">Este
+                  é meu primeiro imóvel</label>
               </div>
             </div>
           </div>
@@ -411,23 +429,32 @@
                   <div class="sim-glow-label">Parcelas</div>
                   <div id="r-margem" class="sim-glow-value">--</div>
                 </div>
-                <div class="sim-card-desc">Parcela máxima permitida do seu salário (30%) já descontando outras
-                  obrigações financeiras.</div>
+                <div class="sim-card-desc">
+                  <strong>Margem de Segurança:</strong> Este valor representa 30% da sua renda mensal bruta, já
+                  subtraindo suas dívidas atuais. É o limite máximo que o banco permite comprometer para garantir que
+                  você tenha fôlego financeiro.
+                </div>
               </div>
               <div id="card-potencial" class="sim-glow-card card-blue">
                 <div class="sim-card-main">
                   <div class="sim-glow-label">Financiamento</div>
                   <div id="r-potencial" class="sim-glow-value">--</div>
                 </div>
-                <div class="sim-card-desc">Valor que o banco aprova para você baseado na sua renda e no prazo Máximo de
-                  amortização.</div>
+                <div class="sim-card-desc">
+                  <strong>Capacidade Bancária:</strong> Valor máximo que o banco disponibiliza para você. Calculado via
+                  sistema SAC (MCMV 2025), considerando sua idade, renda e as taxas de juros reduzidas do programa.
+                </div>
               </div>
               <div id="card-poder" class="sim-glow-card card-green">
                 <div class="sim-card-main">
                   <div class="sim-glow-label">Poder de Compra</div>
                   <div id="r-poder" class="sim-glow-value">--</div>
                 </div>
-                <div class="sim-card-desc">(Financiamento + Seu Dinheiro + FGTS + Subsídio Federal Concedido).</div>
+                <div class="sim-card-desc">
+                  <strong>Seu Patrimônio Total:</strong> É a soma de tudo o que você tem para comprar o imóvel:
+                  (Financiamento + FGTS + Entrada + Subsídio do Governo). É o valor do imóvel que você consegue comprar
+                  hoje.
+                </div>
               </div>
               <div class="sim-glow-card card-action"
                 style="display:flex; align-items:center; justify-content:center; background: transparent; box-shadow: none; border:none; padding:0;">
@@ -461,7 +488,14 @@
               <div id="r-parcela-entrada" class="sim-glow-value" style="font-size: 1.5rem; color: #d35400;">--</div>
               <div style="font-size: 0.8rem; color: #777; margin-top: 5px;">36x (Parcelas)</div>
             </div>
-            <div class="sim-card-desc">Valor cobrado pela construtora durante os meses de obra.</div>
+            <div class="sim-card-desc">
+              <strong>Investimento Direto (36 Meses):</strong> Este é o valor que você paga à construtora enquanto o seu
+              imóvel é construído.
+              <br><br>
+              Como a obra ainda não começou, você tem o benefício máximo de parcelamento (36x), permitindo que a entrada
+              seja diluída de forma leve e sem juros bancários (apenas correção INCC).
+              <p style="margin-top:10px; font-weight:700; color:#f35525;">💡 Clique para fechar</p>
+            </div>
           </div>
 
           <!-- Card Evolução de Obra -->
@@ -472,8 +506,14 @@
               <div id="r-evolucao" class="sim-glow-value" style="font-size: 1.5rem; color: #0056b3;">--</div>
               <div style="font-size: 0.8rem; color: #777; margin-top: 5px;">Média mensal até as chaves</div>
             </div>
-            <div class="sim-card-desc">Taxa de juros progressiva cobrada pela CAIXA de forma mensal durante o período de
-              construção do imóvel.</div>
+            <div class="sim-card-desc">
+              <strong>Taxa de Obra (CAIXA):</strong> Juro progressivo cobrado pelo banco apenas sobre os valores
+              repassados à obra.
+              <br><br>
+              Nos primeiros meses, o valor é mínimo e sobe gradualmente conforme a construção avança. É a sua garantia
+              de que a obra está segurada e em dia com o cronograma da Caixa.
+              <p style="margin-top:10px; font-weight:700; color:#0056b3;">💡 Clique para fechar</p>
+            </div>
           </div>
 
           <!-- Card Pós Chaves -->
@@ -484,8 +524,14 @@
               <div id="r-pos-chaves" class="sim-glow-value" style="font-size: 1.5rem; color: #1e7e34;">--</div>
               <div style="font-size: 0.8rem; color: #777; margin-top: 5px;">Após a entrega (até 35 anos)</div>
             </div>
-            <div class="sim-card-desc">Valor permanente da prestação da sua casa própria (amortização de fato) que você
-              passa a pagar apenas após receber e morar no imóvel.</div>
+            <div class="sim-card-desc">
+              <strong>Sua Casa Própria (Pós-Chaves):</strong> O valor da prestação definitiva que você começa a pagar ao
+              banco apenas após receber as chaves.
+              <br><br>
+              <strong>Sistema SAC:</strong> Suas parcelas são decrescentes — a primeira é a mais alta e todas as
+              seguintes diminuem até o final do contrato, garantindo que você pague cada vez menos juros.
+              <p style="margin-top:10px; font-weight:700; color:#1e7e34;">💡 Clique para fechar</p>
+            </div>
           </div>
         </div>
 
@@ -751,6 +797,7 @@
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
   <script src="empreendimentos.js"></script>
   <script src="assets/js/cms-renderer.js"></script>
+  <script src="assets/js/simulator-core.min.js"></script>
   <script src="assets/js/index-logic.js?v=1.2"></script>
 
 </body>
