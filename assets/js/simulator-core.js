@@ -32,44 +32,53 @@
             // 2. DEFINIÇÃO DE TAXAS E TETOS (Tabela Oficial MCMV 2025 - São Paulo/Sudeste)
             let taxaAnual = 0.0816; // Taxa padrão (Faixa 3)
             let tetoImovel = 500000; // Teto para rendas mais altas
+            let faixaMCMV = "Fora do MCMV";
+            let foraDoMCMV = false;
+            let n = 420; // Prazo de 35 anos (MCMV)
 
             // Lógica por Faixas de Renda (Diferenciando Cotista CLT e Não-Cotista)
             if (renda <= 2850) {
                 // Faixa 1: Benefício máximo de juros reduzidos
                 taxaAnual = clt3anos ? 0.0425 : 0.0475;
                 tetoImovel = 190000;
+                faixaMCMV = "Faixa 1";
             }
             else if (renda <= 4700) {
                 // Faixa 2: Escalonamento moderado
                 taxaAnual = clt3anos ? 0.0650 : 0.0700;
                 tetoImovel = 264000;
+                faixaMCMV = "Faixa 2";
             }
-            else if (renda <= 8600) {
+            else if (renda <= 8000) {
                 // Faixa 3: Teto padrão MCMV SP
                 taxaAnual = clt3anos ? 0.0766 : 0.0816;
                 tetoImovel = 350000;
+                faixaMCMV = "Faixa 3";
             }
             else if (renda <= 12000) {
                 // Faixa 4 (NOVA): Classe Média com recursos FGTS
                 taxaAnual = 0.1050;
                 tetoImovel = 500000;
+                faixaMCMV = "Faixa 4";
             }
             else {
                 // SBPE/SFH: Imóveis acima de 500k ou rendas acima de 12k
                 taxaAnual = 0.1150;
                 tetoImovel = 1500000;
+                n = 360; // 30 anos (Padrão de mercado)
+                foraDoMCMV = true;
+                faixaMCMV = "SBPE/Mercado";
             }
 
             // 3. REGRA DE RESTRIÇÃO DE PERFIL (SBPE/SFH)
             // Se o usuário já possui um imóvel, ele perde os benefícios do MCMV
-            let foraDoMCMV = false;
-            let n = 420; // Prazo de 35 anos (MCMV)
 
             if (ePrimeiroImovel === false) {
                 taxaAnual = Math.max(taxaAnual, 0.0950); // Taxa mínima de mercado
                 tetoImovel = 1500000;
                 n = 360; // Redução de prazo p/ 30 anos (Padrão de mercado)
                 foraDoMCMV = true;
+                faixaMCMV = "SBPE/Mercado";
             }
 
             // Conversão da taxa anual para mensal (Juros Compostos)
@@ -97,14 +106,43 @@
             }
 
             // 6. PODER DE COMPRA TOTAL
-            // Soma de tudo o que o cliente tem p/ pagar o imóvel (incluindo o benefício do governo/estado)
+            // Soma bruta de todos os recursos do cliente
             let poderEstimado = (potencial + (fgts || 0) + (entrada || 0) + subsidio);
-            // Limitamos ao teto da faixa para não gerar falsa expectativa
-            const poder = Math.min(tetoImovel, Math.ceil(poderEstimado / 1000) * 1000);
+            const poderReal = Math.ceil(poderEstimado / 1000) * 1000;
+            // Poder MCMV: limitado ao teto da faixa
+            const poderMCMV = Math.min(tetoImovel, poderReal);
+            // Flag: recursos excedem o teto?
+            const excedeTeto = poderReal > tetoImovel && !foraDoMCMV;
+            // Poder exibido nos cards: usa o valor MCMV (com teto)
+            const poder = poderMCMV;
+
+            // 6.1 CENÁRIO ALTERNATIVO SBPE (Calculado quando fora do MCMV OU excede o teto)
+            let sbpe = null;
+            if (excedeTeto || foraDoMCMV) {
+                const taxaSBPE = 0.095; // Taxa média de mercado (9.5% a.a.)
+                const nSBPE = 360; // 30 anos
+                const taxaMensalSBPE = Math.pow(1 + taxaSBPE, 1 / 12) - 1;
+                const potencialSBPE = Math.floor(margem / ((1 / nSBPE) + taxaMensalSBPE));
+                // SBPE: sem subsídio do governo
+                const poderSBPE = Math.ceil((potencialSBPE + (fgts || 0) + (entrada || 0)) / 1000) * 1000;
+                // Parcela pós-chaves no SBPE
+                const saldoFinSBPE = Math.max(0, poderSBPE - (fgts || 0) - (entrada || 0));
+                const amortSBPE = saldoFinSBPE / nSBPE;
+                const jurosSBPE = saldoFinSBPE * taxaMensalSBPE;
+                sbpe = {
+                    poder: Math.round(poderSBPE),
+                    potencial: Math.round(potencialSBPE),
+                    parcela: Math.round(Math.max(0, amortSBPE + jurosSBPE)),
+                    taxa: taxaSBPE,
+                    prazo: nSBPE
+                };
+            }
 
             // 7. PLANEJAMENTO DE FLUXO DE OBRA (Padrão MT Parceiros)
             const mesesObra = 36;
-            const valorImovel = poder;
+            // G4: Usar valor efetivo conforme modalidade ativa
+            const eModoMercado = foraDoMCMV || excedeTeto;
+            const valorImovel = eModoMercado ? (sbpe ? sbpe.poder : poderReal) : poder;
             const entradaMinima = valorImovel * 0.20; // Banco exige no mínimo 20% de entrada
             const recursosProprios = (fgts || 0) + (entrada || 0);
 
@@ -119,6 +157,7 @@
 
             // Fórmula PMT p/ calcular parcela média corrigida
             let parcelaEntrada = (saldoMensais * taxaINCC) / (1 - Math.pow(1 + taxaINCC, -mesesObra));
+            if (isNaN(parcelaEntrada) || saldoMensais === 0) parcelaEntrada = 0;
 
             let saldoAnuais = saldoEntrada * 0.35; // 35% em reforços anuais
             const chaves = saldoEntrada * 0.30; // 30% na entrega das chaves
@@ -134,9 +173,14 @@
             const parcelaAnuais = saldoAnuais / 3;
 
             // 8. CÁLCULO DA PRESTAÇÃO BANCÁRIA (Pós-Chaves)
-            const saldoFinanciado = valorImovel - recursosProprios - subsidio;
-            const amortizacao = saldoFinanciado / n;
-            const jurosInicial = saldoFinanciado * taxaMensal;
+            // G4: Usar taxa e prazo efetivos conforme modalidade
+            const taxaEfetiva = eModoMercado ? 0.095 : taxaAnual;
+            const taxaMensalEfetiva = Math.pow(1 + taxaEfetiva, 1 / 12) - 1;
+            const nEfetivo = eModoMercado ? 360 : n;
+            const subsidioEfetivo = eModoMercado ? 0 : subsidio;
+            const saldoFinanciado = Math.max(0, valorImovel - recursosProprios - subsidioEfetivo);
+            const amortizacao = saldoFinanciado > 0 ? saldoFinanciado / nEfetivo : 0;
+            const jurosInicial = saldoFinanciado * taxaMensalEfetiva;
             const parcelaPeloBanco = Math.max(0, amortizacao + jurosInicial);
 
             // 9. IMPOSTOS MUNICIPAIS (ITBI São Paulo 2025)
@@ -157,6 +201,12 @@
                 potencial: Math.round(potencial),
                 subsidio: Math.round(subsidio),
                 poder: Math.round(poder),
+                poderReal: Math.round(poderReal),
+                tetoFaixa: tetoImovel,
+                excedeTeto: excedeTeto,
+                faixaMCMV: faixaMCMV,
+                sbpe: sbpe,
+                taxaAnualMCMV: taxaAnual,
                 mesesObra,
                 prazoFinanciamento: n,
                 valorImovel: Math.round(valorImovel),

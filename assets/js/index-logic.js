@@ -70,13 +70,85 @@ function initHomeSimulator() {
 
         const d = window.MT_Core.calculateMCMV(renda, dividas, fgts, entrada, temDependentes, clt3anos, ePrimeiroImovel);
 
-        document.getElementById('r-margem').textContent = fmt(d.margem) + '/mês';
-        document.getElementById('r-potencial').textContent = fmt(d.potencial);
-        document.getElementById('r-poder').textContent = fmt(d.poder);
+        const temRecursos = (fgts + entrada) > 0;
+        const eMercado = (d.excedeTeto || d.foraDoMCMV) && (renda > 0 || temRecursos);
+
+        // --- A) TÍTULO DINÂMICO COM TOOLTIP ---
+        const titulo = document.getElementById('sim-results-title');
+        if (titulo) {
+            if (eMercado) {
+                titulo.innerHTML = 'Resultados Estimados de Mercado <span class="sim-info-icon">ℹ️</span>';
+                titulo.title = 'Mercado (SBPE/SFH): Financiamento convencional sem os limites do MCMV. Taxas a partir de 9.5% a.a., prazo de 30 anos, sem subsídio governamental. Ideal para quem tem capital próprio elevado.';
+            } else {
+                titulo.innerHTML = 'Resultados Estimados MCMV <span class="sim-info-icon">ℹ️</span>';
+                titulo.title = 'Minha Casa Minha Vida: Programa habitacional do governo com taxas reduzidas e subsídios para famílias de renda até R$ 8.000.';
+            }
+        }
+
+        // --- B) VALORES DOS CARDS (MCMV ou Mercado) ---
+        if (eMercado) {
+            document.getElementById('r-margem').textContent = fmt(d.margem) + '/mês';
+            document.getElementById('r-potencial').textContent = fmt(d.sbpe.potencial);
+            document.getElementById('r-poder').textContent = fmt(d.sbpe.poder);
+        } else {
+            document.getElementById('r-margem').textContent = fmt(d.margem) + '/mês';
+            document.getElementById('r-potencial').textContent = fmt(d.potencial);
+            document.getElementById('r-poder').textContent = fmt(d.poder);
+        }
+
+        // --- C) DESCRIÇÕES CONTEXTUAIS ---
+        const descMargem = document.getElementById('desc-margem');
+        const descPotencial = document.getElementById('desc-potencial');
+        const descPoder = document.getElementById('desc-poder');
+        if (eMercado) {
+            if (descMargem) descMargem.innerHTML = '<strong>Margem de Segurança:</strong> 30% da sua renda bruta menos dívidas. Este cálculo vale para qualquer modalidade de financiamento (MCMV ou Mercado).';
+            if (descPotencial) descPotencial.innerHTML = '<strong>Capacidade Bancária (Mercado):</strong> Valor máximo que o banco financia pela modalidade SBPE/SFH, com taxa de 9.5% a.a. e prazo de 30 anos. Sem limite de teto governamental.';
+            if (descPoder) descPoder.innerHTML = '<strong>Poder de Compra (Mercado):</strong> Financiamento de mercado + FGTS + Entrada. Sem subsídio do governo, porém sem limite de valor do imóvel. Ideal para quem tem capital próprio elevado.';
+        } else {
+            if (descMargem) descMargem.innerHTML = '<strong>Margem de Segurança:</strong> Este valor representa 30% da sua renda mensal bruta, já subtraindo suas dívidas atuais. É o limite máximo que o banco permite comprometer para garantir que você tenha fôlego financeiro.';
+            if (descPotencial) descPotencial.innerHTML = '<strong>Capacidade Bancária MCMV:</strong> Valor máximo que o banco disponibiliza para você. Calculado via sistema SAC com taxa reduzida de ' + (d.taxaAnualMCMV * 100).toFixed(1) + '% a.a. no prazo de 35 anos pelo programa Minha Casa Minha Vida.';
+            if (descPoder) descPoder.innerHTML = '<strong>Poder de Compra MCMV:</strong> É a soma de tudo o que você tem para comprar o imóvel: Financiamento + FGTS + Entrada + Subsídio do Governo (' + fmt(d.subsidio) + '). Limitado ao teto da ' + d.faixaMCMV + '.';
+        }
 
         document.getElementById('h_margem').value = fmt(d.margem);
-        document.getElementById('h_potencial').value = fmt(d.potencial);
-        document.getElementById('h_poder').value = fmt(d.poder);
+        document.getElementById('h_potencial').value = eMercado ? fmt(d.sbpe.potencial) : fmt(d.potencial);
+        document.getElementById('h_poder').value = eMercado ? fmt(d.sbpe.poder) : fmt(d.poder);
+
+        // --- D) BOTÃO CTA — REPOSICIONAMENTO VIA DOM ---
+        const btnWrapper = document.getElementById('sim-btn-wrapper');
+        const grid = document.querySelector('.sim-results-grid');
+        const ctaArea = document.getElementById('sim-comp-cta-area');
+        if (btnWrapper && grid && ctaArea) {
+            if (eMercado && d.excedeTeto) {
+                // Move botão para depois do comparativo
+                ctaArea.appendChild(btnWrapper);
+            } else {
+                // Devolve ao grid
+                grid.appendChild(btnWrapper);
+            }
+            btnWrapper.style.display = 'flex';
+        }
+
+        // --- E) COMPARATIVO MCMV vs SBPE ---
+        // Só mostra quando excedeTeto (há duas opções reais: MCMV e SBPE)
+        // Quando foraDoMCMV sem excedeTeto, NÃO mostra (só SBPE existe)
+        const comparativo = document.getElementById('sim-comparativo');
+        if (comparativo) {
+            if (d.excedeTeto && (renda > 0 || temRecursos)) {
+                comparativo.style.display = 'block';
+                // Lado MCMV
+                document.getElementById('comp-mcmv-poder').textContent = fmt(d.poder);
+                document.getElementById('comp-mcmv-subsidio').textContent = fmt(d.subsidio);
+                document.getElementById('comp-mcmv-taxa').textContent = (d.taxaAnualMCMV * 100).toFixed(1) + '%';
+                document.getElementById('comp-mcmv-parcela').textContent = fmt(d.parcelaPosChaves);
+                // Lado SBPE
+                document.getElementById('comp-sbpe-poder').textContent = fmt(d.sbpe.poder);
+                document.getElementById('comp-sbpe-taxa').textContent = (d.sbpe.taxa * 100).toFixed(1) + '%';
+                document.getElementById('comp-sbpe-parcela').textContent = fmt(d.sbpe.parcela);
+            } else {
+                comparativo.style.display = 'none';
+            }
+        }
 
         const simData = {
             nome: document.getElementById('sim-name').value,
@@ -232,12 +304,62 @@ function initHomeSimulator() {
             const dashboard = document.getElementById('sim-dashboard');
             if (dashboard) dashboard.style.display = 'none';
 
-            recomendarImoveis(data.poder);
+            // G7: Usar poder correto para recomendações
+            const poderEfetivo = (data.foraDoMCMV || data.excedeTeto) ?
+                (data.sbpe ? data.sbpe.poder : data.poderReal) : data.poder;
+            recomendarImoveis(poderEfetivo);
 
-            // Preencher os novos cards de Evolução e Parcelas
-            document.getElementById('r-parcela-entrada').textContent = fmt(data.parcelaEntrada);
-            document.getElementById('r-evolucao').textContent = fmt(data.evolucaoMedia);
-            document.getElementById('r-pos-chaves').textContent = fmt(data.parcelaPosChaves);
+            // SUBTÍTULO: Mostra qual valor de imóvel está sendo detalhado
+            const planoSub = document.getElementById('plano-subtitulo');
+            if (planoSub) {
+                const modalidade = (data.foraDoMCMV || data.excedeTeto) ? 'Mercado (SBPE)' : 'MCMV';
+                planoSub.innerHTML = 'Para um imóvel de <strong>' + fmt(data.valorImovel) + '</strong> (' + modalidade + '), este é o fluxo estimado de pagamento:';
+            }
+
+            // G5+G6: Plano de Pagamento inteligente
+            const cardEntrada = document.getElementById('card-entrada');
+            const cardEvolucao = document.getElementById('card-evolucao');
+            const cardPosChaves = document.getElementById('card-pos-chaves');
+            const planoAvista = document.getElementById('plano-avista');
+            const planoTimeline = document.getElementById('plano-timeline');
+
+            if (data.parcelaPosChaves === 0 && data.parcelaEntrada === 0) {
+                // CENÁRIO: PAGAMENTO À VISTA
+                if (cardEntrada) cardEntrada.style.display = 'none';
+                if (cardEvolucao) cardEvolucao.style.display = 'none';
+                if (cardPosChaves) cardPosChaves.style.display = 'none';
+                if (planoTimeline) planoTimeline.style.display = 'none';
+                if (planoAvista) {
+                    planoAvista.style.display = 'block';
+                    const avistaMsg = document.getElementById('plano-avista-msg');
+                    if (avistaMsg) {
+                        avistaMsg.innerHTML = 'Seus recursos de <strong>' + fmt((data.fgts || 0) + (data.entrada || 0)) +
+                            '</strong> cobrem o valor total do imóvel de <strong>' + fmt(data.valorImovel) +
+                            '</strong>.<br>Sem financiamento bancário, sem juros, sem parcelas mensais.';
+                    }
+                }
+            } else {
+                if (planoAvista) planoAvista.style.display = 'none';
+                if (planoTimeline) planoTimeline.style.display = 'block';
+                // G5: Esconder card entrada se R$ 0
+                if (data.parcelaEntrada === 0) {
+                    if (cardEntrada) cardEntrada.style.display = 'none';
+                } else {
+                    if (cardEntrada) cardEntrada.style.display = '';
+                    document.getElementById('r-parcela-entrada').textContent = fmt(data.parcelaEntrada);
+                }
+                if (cardEvolucao) cardEvolucao.style.display = '';
+                if (cardPosChaves) cardPosChaves.style.display = '';
+                document.getElementById('r-evolucao').textContent = fmt(data.evolucaoMedia);
+                document.getElementById('r-pos-chaves').textContent = fmt(data.parcelaPosChaves);
+            }
+
+            // G8: Label prazo conforme modalidade
+            const labelPrazo = document.getElementById('label-prazo-pos');
+            if (labelPrazo) {
+                labelPrazo.textContent = (data.foraDoMCMV || data.excedeTeto) ?
+                    'Após receber as chaves (até 30 anos)' : 'Após receber as chaves (até 35 anos)';
+            }
 
             const step4 = document.getElementById('step-4');
             if (step4) {
