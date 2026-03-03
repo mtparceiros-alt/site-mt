@@ -63,91 +63,27 @@ function initHomeSimulator() {
         document.getElementById('label-fgts').textContent = fmt(fgts);
         document.getElementById('label-entrada').textContent = fmt(entrada);
 
-        const margem = Math.max(0, (renda * 0.30) - dividas);
+        // --- CHAMADA DA INTELIGÊNCIA CENTRALIZADA ---
+        // Aqui removemos a lógica matemática e deixamos o Core (que será ofuscado) processar.
+        const clt3anos = document.getElementById('clt3anos').checked;
+        const ePrimeiroImovel = document.getElementById('primeiroImovel').checked;
 
-        // --- ALGORITMO MINHA CASA MINHA VIDA (MCMV) ---
-        // 1. Fator de Financiamento (Progressivo de Acordo com a Taxa de Juros - Tabela Price/SAC)
-        // Rendas baixas possuem menor juros (maior fator). Rendas altas vão pro SBPE.
-        let fatorFinanc = 210;
-        if (renda <= 2640) fatorFinanc = 340;      // Faixa 1 (Taxa ~4.00%)
-        else if (renda <= 3200) fatorFinanc = 310;
-        else if (renda <= 4400) fatorFinanc = 270; // Faixa 2 (Taxa ~5.50%)
-        else if (renda <= 8000) fatorFinanc = 230; // Faixa 3 (Taxa ~7.66%)
+        const d = window.MT_Core.calculateMCMV(renda, dividas, fgts, entrada, temDependentes, clt3anos, ePrimeiroImovel);
 
-        const potencial = margem * fatorFinanc;
+        document.getElementById('r-margem').textContent = fmt(d.margem) + '/mês';
+        document.getElementById('r-potencial').textContent = fmt(d.potencial);
+        document.getElementById('r-poder').textContent = fmt(d.poder);
 
-        // 2. Subsídio Dinâmico SP (Benefício que o Governo injeta na entrada)
-        // Teto de R$ 55.000,00 para rendas mínimas. Zera em R$ 4.400,00.
-        let subsidio = 0;
-        if (renda > 0 && renda <= 4400) {
-            // Regra de três invertida simplificada da Caixa:
-            // Renda base limite inferior (ex: R$ 2000) pega quase O MÁXIMO (R$ 55.000). Renda R$ 4400 pega 0.
-            const diferencaAteOTeto = 4400 - Math.max(2000, renda); // Se a pessoa ganha 1500, o cálculo trava em 2000 pra dar o teto
-            // Cada real a menos que R$ 4400 gera aprox R$ 22.9 de subsídio (2400 * 22.9 = ~55000)
-            subsidio = diferencaAteOTeto * 22.91;
-
-            // REGRA PROFISSIONAL: Se não tem dependente, o subsídio cai drasticamente (~70% de redutor)
-            if (!temDependentes) {
-                subsidio = subsidio * 0.30;
-            }
-        }
-
-        const poder = Math.ceil((potencial + fgts + entrada + subsidio) / 1000) * 1000;
-
-        document.getElementById('r-margem').textContent = fmt(margem) + '/mês';
-        document.getElementById('r-potencial').textContent = fmt(potencial);
-        document.getElementById('r-poder').textContent = fmt(poder);
-
-        document.getElementById('h_margem').value = fmt(margem);
-        document.getElementById('h_potencial').value = fmt(potencial);
-        document.getElementById('h_poder').value = fmt(poder);
-
-        // --- NOVOS CÁLCULOS: OBRA E PÓS-CHAVES ---
-        const mesesObra = 36;
-        const prazoFinanciamento = 420; // 35 anos
-
-        const parcelaPosChaves = margem; // Parcela base do financiamento
-
-        // Entrada total exigida costuma ser 20% do imóvel
-        const valorImovel = poder;
-        const entradaMinima = valorImovel * 0.20;
-        const recursosProprios = fgts + entrada;
-        let saldoEntrada = entradaMinima - recursosProprios;
-        if (saldoEntrada < 0) saldoEntrada = 0;
-
-        // ESTRATÉGIA DE VENDAS: Fracionamento do Saldo de Entrada
-        // Para não assustar o cliente, usamos o padrão de mercado das construtoras:
-        // Ex: 35% do saldo em 36 mensais, 35% em 3 Balões Anuais, 30% na entrega das Chaves.
-        let saldoMensais = saldoEntrada * 0.35;
-        let parcelaEntrada = saldoMensais / mesesObra;
-
-        let saldoAnuais = saldoEntrada * 0.35;
-
-        const chaves = saldoEntrada * 0.30; // 30% no último mês (Chaves)
-
-        // REGRA DE NEGÓCIO: Mensais da entrada não podem ser menores que R$ 500,00 
-        // caso o cliente não tenha dado entrada em dinheiro ou não tenha usado FGTS.
-        if (recursosProprios === 0 && parcelaEntrada > 0 && parcelaEntrada < 500) {
-            parcelaEntrada = 500;
-            saldoMensais = parcelaEntrada * mesesObra;
-            // O que foi aumentado nas mensais, descontamos dos Balões Anuais pra equilibrar
-            saldoAnuais = saldoEntrada - saldoMensais - chaves;
-            if (saldoAnuais < 0) saldoAnuais = 0; // Travas preventivas
-        }
-
-        const parcelaAnuais = saldoAnuais / 3; // 3 balões (mês 12, 24 e 36)
-
-        // A evolução de obra (Juros de Obra da Caixa) é progressiva. 
-        // A média paga durante a obra costuma ser 50% da parcela cheia.
-        const evolucaoMedia = margem / 2;
+        document.getElementById('h_margem').value = fmt(d.margem);
+        document.getElementById('h_potencial').value = fmt(d.potencial);
+        document.getElementById('h_poder').value = fmt(d.poder);
 
         const simData = {
             nome: document.getElementById('sim-name').value,
             celular: document.getElementById('sim-celular').value,
             temDependentes,
-            renda, dividas, fgts, entrada, margem, potencial, subsidio, poder,
-            mesesObra, prazoFinanciamento, parcelaPosChaves, valorImovel, saldoEntrada,
-            parcelaEntrada, parcelaAnuais, chaves, evolucaoMedia
+            renda, dividas, fgts, entrada,
+            ...d // Mescla todos os resultados calculados pelo Core
         };
 
         window.mtSimData = simData;
@@ -211,7 +147,7 @@ function initHomeSimulator() {
         return simData;
     }
 
-    ['renda', 'dividas', 'fgts', 'entrada', 'sim-name', 'sim-celular', 'dependentes'].forEach(id => {
+    ['renda', 'dividas', 'fgts', 'entrada', 'sim-name', 'sim-celular', 'dependentes', 'clt3anos', 'primeiroImovel'].forEach(id => {
         const el = document.getElementById(id);
         if (el) el.addEventListener('input', updateSimResults);
     });
@@ -325,14 +261,31 @@ function initHomeSimulator() {
             const mascot = document.getElementById('sim-ia-mascot');
 
             if (isAprovado) {
-                if (badge) badge.style.display = 'flex';
-                // Força a barra a ficar verde, independentemente do "pct" preenchido
+                if (badge) {
+                    badge.style.display = 'flex';
+                    if (data.foraDoMCMV) {
+                        badge.style.background = 'rgba(0, 86, 179, 0.15)';
+                        badge.style.borderColor = 'rgba(0, 86, 179, 0.3)';
+                        badge.querySelector('span').style.color = '#0056b3';
+                        badge.querySelector('span').style.textShadow = '0 0 5px rgba(0, 86, 179, 0.4)';
+                        badge.querySelector('span').textContent = 'Análise Concluída: Perfil SBPE/Mercado 🏦';
+                    } else {
+                        badge.style.background = 'rgba(40, 167, 69, 0.15)';
+                        badge.style.borderColor = 'rgba(40, 167, 69, 0.3)';
+                        badge.querySelector('span').style.color = '#28a745';
+                        badge.querySelector('span').style.textShadow = '0 0 5px rgba(40, 167, 69, 0.4)';
+                        badge.querySelector('span').textContent = 'Análise Concluída: Crédito Pré-Aprovado ⭐';
+                    }
+                }
+
                 if (progressFill) {
-                    progressFill.style.background = 'linear-gradient(90deg, #28a745, #8ce09e)';
-                    progressFill.style.boxShadow = '0 0 15px rgba(40, 167, 69, 0.6)';
+                    progressFill.style.background = data.foraDoMCMV ? 'linear-gradient(90deg, #0056b3, #66b2ff)' : 'linear-gradient(90deg, #28a745, #8ce09e)';
+                    progressFill.style.boxShadow = data.foraDoMCMV ? '0 0 15px rgba(0, 86, 179, 0.6)' : '0 0 15px rgba(40, 167, 69, 0.6)';
                 }
                 if (mascot) {
-                    mascot.style.filter = 'drop-shadow(0 0 10px rgba(40, 167, 69, 0.6)) hue-rotate(115deg) brightness(0.9)'; // Tint verde escuro na IA
+                    mascot.style.filter = data.foraDoMCMV ?
+                        'drop-shadow(0 0 10px rgba(0, 86, 179, 0.6)) hue-rotate(200deg) brightness(0.9)' :
+                        'drop-shadow(0 0 10px rgba(40, 167, 69, 0.6)) hue-rotate(115deg) brightness(0.9)';
                 }
             } else {
                 if (badge) badge.style.display = 'none';
@@ -396,8 +349,8 @@ function initHomeSimulator() {
             btnDownload.disabled = true;
 
             try {
-                // 1. Fetch template pré-gerado pelo Python
-                const response = await fetch('assets/docs/template_mt_parceiros.xlsx');
+                // 1. Fetch template pré-gerado pelo Python (com cache-buster para evitar versões antigas)
+                const response = await fetch(`assets/docs/template_mt_parceiros.xlsx?v=${new Date().getTime()}`);
                 if (!response.ok) throw new Error("Template não encontrado no servidor.");
                 const arrayBuffer = await response.arrayBuffer();
 
@@ -405,20 +358,16 @@ function initHomeSimulator() {
                 const workbook = new ExcelJS.Workbook();
                 await workbook.xlsx.load(arrayBuffer);
 
-                // 3. Injetar dados na aba Início
+                // 3. Injetar dados na aba Início (Apenas o Nome, os cards usam fórmulas)
                 const wsInicio = workbook.getWorksheet('Início');
                 if (wsInicio) {
                     wsInicio.getCell('E23').value = d.nome || 'Cliente MT'; // inicio.nome
-                    wsInicio.getCell('C35').value = d.parcelaEntrada || 0; // inicio.m_entrada
-                    wsInicio.getCell('G35').value = d.evolucaoMedia || 0; // inicio.m_evolucao
-                    wsInicio.getCell('K35').value = d.parcelaPosChaves || 0; // inicio.m_parcela
+                    wsInicio.getCell('Z35').value = d.entrada || 0; // inicio.d_inicial (Sync Oculto)
+                    // REMOVIDO: Sobrescrever C35, G35, K35 com números quebra o recalculo no Excel.
                 }
 
-                // 3.5 Remover permanentemente 'System Data' contra leitores independentes (Google Sheets)
-                const wsSystem = workbook.getWorksheet('System Data');
-                if (wsSystem) {
-                    workbook.removeWorksheet(wsSystem.id);
-                }
+                // 3.5 MANTIDO: 'System Data' é essencial para as fórmulas de VLOOKUP e Validação
+                // Removido o comando de deletar para evitar erros #REF!
 
                 // 4. Injetar dados na aba Educação Financeira e Restaurar Dropdown
                 const wsSimul = workbook.getWorksheet('Educação Financeira');
@@ -426,31 +375,35 @@ function initHomeSimulator() {
                     wsSimul.getCell('D9').value = d.nome || 'Cliente MT';
                     wsSimul.getCell('E13').value = d.renda || 0;
                     wsSimul.getCell('E24').value = d.fgts || 0;
+
+                    // Injeta como valor numérico para permitir edição manual posterior no Excel
                     wsSimul.getCell('E14').value = d.entrada || 0;
+
                     wsSimul.getCell('E26').value = d.carteira ? 'SIM' : 'NÃO';
                     wsSimul.getCell('E17').value = d.dividas || 0;
 
                     // Restaura a formatação do Dropdown que o ExcelJS apaga durante a cópia da matriz
-                    wsSimul.getCell('H5').dataValidation = {
+                    // No novo layout o seletor fica em E36 e a lista em Z60:Z85
+                    wsSimul.getCell('E36').dataValidation = {
                         type: 'list',
                         allowBlank: true,
-                        formulae: ['"Educação Financeira"!$Z$2:$Z$25'],
+                        formulae: [`'Educação Financeira'!$Z$60:$Z$${60 + (typeof EMPREENDIMENTOS !== 'undefined' ? EMPREENDIMENTOS.length : 25)}`],
                         showErrorMessage: true,
                         errorTitle: 'Imóvel Inválido',
                         error: 'Por favor, selecione um imóvel da lista suspensa.'
                     };
                 }
 
-                // 4.5 Restaurar Dropdowns da aba Fluxo Mensal (ExcelJS pode perdê-los no load/save)
+                // 4.5 Restaurar Dropdowns da aba Fluxo Mensal (Offset corrigido para linha 16)
                 const wsFluxo = workbook.getWorksheet('Fluxo Mensal');
                 if (wsFluxo) {
-                    // Coluna B (Pago?), linhas 13 até 48 (36 meses)
-                    for (let i = 13; i <= 48; i++) {
+                    // Coluna B (Pago?), linhas 16 até 51 (36 meses)
+                    for (let i = 16; i <= 51; i++) {
                         const cell = wsFluxo.getCell(`B${i}`);
                         cell.dataValidation = {
                             type: 'list',
                             allowBlank: false,
-                            formulae: ['"Sim,Não"'], // Lista direta funciona melhor cross-platform no JS
+                            formulae: ['"Sim,Não"'],
                             showErrorMessage: true,
                             errorTitle: 'Valor Inválido',
                             error: 'Escolha Sim ou Não.'
@@ -472,7 +425,7 @@ function initHomeSimulator() {
                     let score = Math.round(Math.min(100, Math.max(0, p1 + p2 + p3 + p4)));
                     if (isNaN(score) || d.renda === 0) score = 0;
 
-                    wsLaudo.getCell('C30').value = score; // Posicionado no grande card de Score
+                    wsLaudo.getCell('C31').value = score; // Posicionado CORRETAMENTE no merge C31:E32
                 }
 
                 // 5. Gerar novo Buffer e Download
@@ -527,6 +480,25 @@ function initHomeSimulator() {
             }
         });
     });
+
+    // --- PROTEÇÃO DE INTERFACE (ANTI-COPY) ---
+    const simSection = document.getElementById('simulador');
+    if (simSection) {
+        // 1. Bloqueia Clique Direito apenas no simulador
+        simSection.addEventListener('contextmenu', e => e.preventDefault());
+
+        // 2. Bloqueia atalhos de inspeção (F12, Ctrl+Shift+I, Ctrl+U)
+        simSection.addEventListener('keydown', function (e) {
+            if (
+                e.keyCode === 123 || // F12
+                (e.ctrlKey && e.shiftKey && e.keyCode === 73) || // Ctrl+Shift+I
+                (e.ctrlKey && e.keyCode === 85) // Ctrl+U (Ver código fonte)
+            ) {
+                e.preventDefault();
+                return false;
+            }
+        });
+    }
 
     updateSimResults();
 }

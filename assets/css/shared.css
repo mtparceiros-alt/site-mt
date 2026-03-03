@@ -213,11 +213,12 @@
 }
 
 .sim-glow-card.active .sim-card-desc {
-    max-height: 150px;
+    max-height: 500px;
     opacity: 1;
     margin-top: 15px;
     padding-top: 15px;
     border-top: 1px dashed rgba(0, 0, 0, 0.1);
+    color: #444; /* Texto ligeiramente mais escuro para leitura */
 }
 
 /* Ajustes de cores para o estado ativo */
