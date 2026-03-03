@@ -7,7 +7,7 @@
 (function () {
     // --- TRAVA DE DOMÍNIO ---
     // Impede que o simulador seja clonado e usado em outros sites.
-    var allowed = ['mtparceiros.com.br', 'localhost', '127.0.0.1', 'marcos-m1.github.io'];
+    var allowed = ['mtparceiros.com.br', 'localhost', '127.0.0.1', 'marcos-m1.github.io', 'mtparceiros-alt.github.io'];
     var current = window.location.hostname;
     var isValid = allowed.some(function (domain) {
         return current.indexOf(domain) !== -1;
