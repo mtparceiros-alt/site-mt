@@ -97,7 +97,8 @@
                 if (renda <= 2850) {
                     subsidio = Math.max(20000, 55000 - (renda - 1412) * 15);
                 } else {
-                    subsidio = Math.max(0, 55000 - (renda - 2851) * 25);
+                    // Subsídio Faixa 2 decai a partir de 33.430 até zerar em 4.700
+                    subsidio = Math.max(0, 33430 - (renda - 2850) * (33430 / 1850));
                 }
 
                 // Subsídio Estadual (Bônus Casa Paulista)
@@ -118,7 +119,7 @@
 
             // 6.1 CENÁRIO ALTERNATIVO SBPE (Calculado quando fora do MCMV OU excede o teto)
             let sbpe = null;
-            if (excedeTeto || foraDoMCMV) {
+            if (excedeTeto || foraDoMCMV || faixaMCMV === "Faixa 4") {
                 const taxaSBPE = 0.095; // Taxa média de mercado (9.5% a.a.)
                 const nSBPE = 360; // 30 anos
                 const taxaMensalSBPE = Math.pow(1 + taxaSBPE, 1 / 12) - 1;

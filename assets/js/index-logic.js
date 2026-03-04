@@ -134,8 +134,17 @@ function initHomeSimulator() {
         // Quando foraDoMCMV sem excedeTeto, NÃO mostra (só SBPE existe)
         const comparativo = document.getElementById('sim-comparativo');
         if (comparativo) {
-            if (d.excedeTeto && (renda > 0 || temRecursos)) {
+            if ((d.excedeTeto || d.faixaMCMV === "Faixa 4") && (renda > 0 || temRecursos)) {
                 comparativo.style.display = 'block';
+
+                // --- AJUSTE DINÂMICO DE TÍTULO (Bug 2 Fix) ---
+                const tituloComp = document.querySelector('.sim-comparativo-titulo');
+                if (tituloComp) {
+                    tituloComp.innerHTML = d.excedeTeto ?
+                        '💡 Seus recursos superam o limite do MCMV. Veja suas opções:' :
+                        '💡 Há uma alternativa do Mercado (SBPE) com taxa menor. Compare:';
+                }
+
                 // Lado MCMV
                 document.getElementById('comp-mcmv-poder').textContent = fmt(d.poder);
                 document.getElementById('comp-mcmv-subsidio').textContent = fmt(d.subsidio);
@@ -542,7 +551,9 @@ function initHomeSimulator() {
                     const comprometimento = (d.parcelaPosChaves + (d.dividas || 0));
                     let p1 = Math.min(35, Math.max(0, 35 - ((comprometimento / (d.renda || 1)) - 0.30) * 200));
                     let p2 = Math.min(25, (d.fgts / 50000) * 25);
-                    let p3 = 20;
+                    const comprometimentoPct = (comprometimento / Math.max(1, d.renda)) * 100;
+                    // Se compromete até 25% = 20 pontos. Zera gradualmente até chegar aos 40% de comprometimento.
+                    let p3 = Math.max(0, Math.min(20, (1 - (comprometimentoPct - 25) / 15) * 20));
                     let p4 = Math.min(20, (d.entrada / 20000) * 20);
                     let score = Math.round(Math.min(100, Math.max(0, p1 + p2 + p3 + p4)));
                     if (isNaN(score) || d.renda === 0) score = 0;
