@@ -55,15 +55,9 @@
                 tetoImovel = 350000;
                 faixaMCMV = "Faixa 3";
             }
-            else if (renda <= 12000) {
-                // Faixa 4 (NOVA): Classe Média com recursos FGTS
-                taxaAnual = 0.1050;
-                tetoImovel = 500000;
-                faixaMCMV = "Faixa 4";
-            }
             else {
-                // SBPE/SFH: Imóveis acima de 500k ou rendas acima de 12k
-                taxaAnual = 0.1150;
+                // SBPE/SFH: Imóveis acima de 350k ou rendas acima de 8k
+                taxaAnual = 0.1099; // Taxa conservadora recomendada (10.99% a.a.)
                 tetoImovel = 1500000;
                 n = 360; // 30 anos (Padrão de mercado)
                 foraDoMCMV = true;
@@ -110,6 +104,8 @@
             // Soma bruta de todos os recursos do cliente
             let poderEstimado = (potencial + (fgts || 0) + (entrada || 0) + subsidio);
             const poderReal = Math.ceil(poderEstimado / 1000) * 1000;
+            const diferencaArredondamento = poderReal - poderEstimado; // O excedente do teto que o banco não paga, o cliente assume na entrada.
+
             // Poder MCMV: limitado ao teto da faixa
             const poderMCMV = Math.min(tetoImovel, poderReal);
             // Flag: recursos excedem o teto?
@@ -119,8 +115,8 @@
 
             // 6.1 CENÁRIO ALTERNATIVO SBPE (Calculado quando fora do MCMV OU excede o teto)
             let sbpe = null;
-            if (excedeTeto || foraDoMCMV || faixaMCMV === "Faixa 4") {
-                const taxaSBPE = 0.095; // Taxa média de mercado (9.5% a.a.)
+            if (excedeTeto || foraDoMCMV) {
+                const taxaSBPE = 0.1099; // Taxa média atualizada de mercado (10.99% a.a.)
                 const nSBPE = 360; // 30 anos
                 const taxaMensalSBPE = Math.pow(1 + taxaSBPE, 1 / 12) - 1;
                 const potencialSBPE = Math.floor(margem / ((1 / nSBPE) + taxaMensalSBPE));
@@ -148,8 +144,11 @@
             const recursosProprios = (fgts || 0) + (entrada || 0);
 
             // Saldo que precisa ser parcelado com a construtora
-            let saldoEntrada = entradaMinima - recursosProprios;
-            if (saldoEntrada < 0) saldoEntrada = 0;
+            // O cliente deve cobrir no mínimo a entrada exigida pelo banco.
+            // saldoEntrada: quanto o cliente ainda precisa parcelar com a construtora para cobrir a entrada mínima.
+            // diferencaArredondamento NÃO entra aqui — já é absorvida no saldoFinanciado (passo 8).
+            // Usar dif como piso criaria um "saldo fantasma" quando recursosProprios > entradaMinima.
+            let saldoEntrada = Math.max(0, entradaMinima - recursosProprios);
 
             // PROJEÇÃO DE INCC (Realismo Financeiro)
             // Usamos taxa de 0.55% a.m. para calcular uma parcela MÉDIA que já prevê a correção da obra
@@ -175,11 +174,19 @@
 
             // 8. CÁLCULO DA PRESTAÇÃO BANCÁRIA (Pós-Chaves)
             // G4: Usar taxa e prazo efetivos conforme modalidade
-            const taxaEfetiva = eModoMercado ? 0.095 : taxaAnual;
+            const taxaEfetiva = eModoMercado ? 0.1099 : taxaAnual; // Corrigido para a nova taxa base de mercado (10.99%)
             const taxaMensalEfetiva = Math.pow(1 + taxaEfetiva, 1 / 12) - 1;
             const nEfetivo = eModoMercado ? 360 : n;
             const subsidioEfetivo = eModoMercado ? 0 : subsidio;
-            const saldoFinanciado = Math.max(0, valorImovel - recursosProprios - subsidioEfetivo);
+
+            // saldoFinanciado é o que o banco efetivamente empresta.
+            // É limitado ao potencialEfetivo para garantir que parcelaPeloBanco <= margem (regra dos 30%),
+            // evitando estouro por arredondamento do poderReal ou corte de teto.
+            const potencialEfetivo = eModoMercado ? (sbpe ? sbpe.potencial : potencial) : potencial;
+            const saldoFinanciado = Math.min(
+                potencialEfetivo,
+                Math.max(0, valorImovel - recursosProprios - subsidioEfetivo)
+            );
             const amortizacao = saldoFinanciado > 0 ? saldoFinanciado / nEfetivo : 0;
             const jurosInicial = saldoFinanciado * taxaMensalEfetiva;
             const parcelaPeloBanco = Math.max(0, amortizacao + jurosInicial);
@@ -189,9 +196,19 @@
             const tetoItbiReduzido = 120968;
             let itbi = 0;
             if (saldoFinanciado > 0) {
-                const valorFinanciadoParaItbi = Math.min(saldoFinanciado, tetoItbiReduzido);
-                const valorNaoFinanciadoOuAcimaDoTeto = valorImovel - valorFinanciadoParaItbi;
-                itbi = (valorFinanciadoParaItbi * 0.005) + (valorNaoFinanciadoOuAcimaDoTeto * 0.03);
+                // Parcela do financiamento contemplada pela redução (0,5%)
+                const valorFinanciadoComReducao = Math.min(saldoFinanciado, tetoItbiReduzido);
+
+                // Parcela do financiamento que excede o teto de redução (3%)
+                const valorFinanciadoExcedente = Math.max(0, saldoFinanciado - tetoItbiReduzido);
+
+                // Parte do imóvel paga com recursos do comprador (Entrada, FGTS, Parcelamento direto da entrada) (3%)
+                const valorNaoFinanciado = Math.max(0, valorImovel - saldoFinanciado);
+
+                const itbiReduzido = valorFinanciadoComReducao * 0.005;
+                const itbiCheio = (valorFinanciadoExcedente + valorNaoFinanciado) * 0.03;
+
+                itbi = itbiReduzido + itbiCheio;
             } else {
                 itbi = valorImovel * 0.03;
             }
