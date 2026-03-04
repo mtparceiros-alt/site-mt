@@ -61,7 +61,8 @@ CONFIG = {
             'dividas': 'E17',
             'carteira': 'E26',
             'potencial': 'E29',
-            'subsidio': 'E30',
+            'subsidio_federal': 'E30',
+            'subsidio_estadual': 'G30', # Casa Paulista (SP Capital)
             'poder': 'E31',
             'parcela': 'E33'
         },
@@ -485,19 +486,22 @@ def build_landing_page(workbook, ws_start, formats):
     fmt_aviso = workbook.add_format({'font_name': f, 'font_size': 10, 'font_color': c['dark'], 'align': 'center', 'valign': 'vcenter'})
     ws_start.merge_range('C29:K29', '⚠️ Valores estimados para fins de consultoria. MT Parceiros | (11) 96036-4355', fmt_aviso)
 
-    # Card 1 (Inicia em C34) — Fórmula DENTRO do merge_range para não ser sobrescrita
+    # Card 1 (Inicia em C34) — merge vazio + write_formula separado para Google Sheets
     ws_start.merge_range('C34:E34', 'MENSAIS DA ENTRADA', fmt_card_orange_title)
-    ws_start.merge_range('C35:E35', "='Educação Financeira'!E33 * 0.5", fmt_card_orange_val)
+    ws_start.merge_range('C35:E35', '', fmt_card_orange_val)
+    ws_start.write_formula('C35', "='Educação Financeira'!E33 * 0.5", fmt_card_orange_val)
     ws_start.merge_range('C36:E36', '36x (Parcelas Fixas)', fmt_card_orange_sub)
     
-    # Card 2 (Inicia em G34) — Fórmula DENTRO do merge_range
+    # Card 2 (Inicia em G34) — merge vazio + write_formula separado
     ws_start.merge_range('G34:I34', 'EVOLUÇÃO OBRA', fmt_card_blue_title)
-    ws_start.merge_range('G35:I35', "='Educação Financeira'!E33 / 2", fmt_card_blue_val)
+    ws_start.merge_range('G35:I35', '', fmt_card_blue_val)
+    ws_start.write_formula('G35', "='Educação Financeira'!E33 / 2", fmt_card_blue_val)
     ws_start.merge_range('G36:I36', 'Média mensal (Obra)', fmt_card_blue_sub)
     
-    # Card 3 (Inicia em K34) — Fórmula DENTRO do merge_range
+    # Card 3 (Inicia em K34) — merge vazio + write_formula separado
     ws_start.merge_range('K34:L34', 'PARCELA FINANCIAMENTO', fmt_card_green_title)
-    ws_start.merge_range('K35:L35', "='Educação Financeira'!E33", fmt_card_green_val)
+    ws_start.merge_range('K35:L35', '', fmt_card_green_val)
+    ws_start.write_formula('K35', "='Educação Financeira'!E33", fmt_card_green_val)
     ws_start.merge_range('K36:L36', 'Após entrega (Parcela Base)', fmt_card_green_sub)
     
     # Célula Oculta para Dados do Simulador Web (Sync com Educação Financeira)
@@ -576,8 +580,7 @@ def build_laudo_credito(workbook, ws_laudo, formats):
     kpis = [
         (13, 2, 'RENDA FAMILIAR', f"='Educação Financeira'!${CONFIG['map']['simulador']['renda']}", False),
         (17, 2, 'CRÉDITO CAIXA MAX', f"='Educação Financeira'!${CONFIG['map']['simulador']['potencial']}", False),
-        (21, 2, 'SUBSÍDIO ESTIMADO', f"='Educação Financeira'!${CONFIG['map']['simulador']['subsidio']}", False),
-        (25, 2, 'SALDO FGTS', f"='Educação Financeira'!${CONFIG['map']['simulador']['fgts']}", False),
+        (21, 2, 'SALDO FGTS', f"='Educação Financeira'!${CONFIG['map']['simulador']['fgts']}", False),
         (13, 6, 'PODER DE COMPRA TOTAL', f"='Educação Financeira'!${CONFIG['map']['simulador']['poder']}", True),
         (17, 6, 'PARCELA PROJETADA', f"='Educação Financeira'!${CONFIG['map']['simulador']['parcela']}", True), 
         (21, 6, 'HISTÓRICO CARTEIRA TEXT', f"='Educação Financeira'!${CONFIG['map']['simulador']['carteira']}", True)
@@ -602,7 +605,43 @@ def build_laudo_credito(workbook, ws_laudo, formats):
              fmt_pct = workbook.add_format({'font_name': f, 'font_size': 18, 'bold': True, 'font_color': c['orange_cta'], 'bg_color': c['bg_card'], 'bottom': 1, 'right': 1, 'border_color': c['border'], 'num_format': '0%'})
              ws_laudo.write_formula(row+1, col, formula, fmt_pct)
 
-    # [NOVO FLUXO 2] Jornada e Score Lado a Lado (Deslocados para linha 30)
+    # ---------------------------------------------------------
+    # PARTE 2: FAIXA MCMV + SUBSÍDIOS (NOVA SEÇÃO)
+    # ---------------------------------------------------------
+    ws_laudo.set_row(25, 25)
+    ws_laudo.write('C26', '📋 ENQUADRAMENTO E SUBSÍDIOS', formats['subtitle'])
+    
+    # Formatos dos cards de subsídio
+    fmt_faixa_label = workbook.add_format({'font_name': f, 'font_size': 9, 'font_color': c['white'], 'bg_color': c['dark'], 'align': 'center', 'valign': 'vcenter', 'bold': True, 'top': 1, 'left': 1, 'right': 1, 'border_color': c['dark']})
+    fmt_faixa_value = workbook.add_format({'font_name': f, 'font_size': 14, 'bold': True, 'font_color': c['dark'], 'bg_color': c['bg_card'], 'align': 'center', 'valign': 'vcenter', 'bottom': 1, 'left': 1, 'right': 1, 'border_color': c['border']})
+    fmt_sub_fed_label = workbook.add_format({'font_name': f, 'font_size': 9, 'font_color': c['white'], 'bg_color': c['orange_cta'], 'align': 'center', 'valign': 'vcenter', 'bold': True, 'top': 1, 'left': 1, 'right': 1, 'border_color': c['orange_cta']})
+    fmt_sub_fed_value = workbook.add_format({'font_name': f, 'font_size': 14, 'bold': True, 'font_color': c['orange_cta'], 'bg_color': c['bg_card'], 'align': 'center', 'valign': 'vcenter', 'bottom': 1, 'left': 1, 'right': 1, 'border_color': c['border']})
+    fmt_sub_est_label = workbook.add_format({'font_name': f, 'font_size': 9, 'font_color': c['white'], 'bg_color': '#2980b9', 'align': 'center', 'valign': 'vcenter', 'bold': True, 'top': 1, 'left': 1, 'right': 1, 'border_color': '#2980b9'})
+    fmt_sub_est_value = workbook.add_format({'font_name': f, 'font_size': 14, 'bold': True, 'font_color': '#2980b9', 'bg_color': c['bg_card'], 'align': 'center', 'valign': 'vcenter', 'bottom': 1, 'left': 1, 'right': 1, 'border_color': c['border']})
+    fmt_total_label = workbook.add_format({'font_name': f, 'font_size': 9, 'font_color': c['white'], 'bg_color': c['success'], 'align': 'center', 'valign': 'vcenter', 'bold': True, 'top': 1, 'left': 1, 'right': 1, 'border_color': c['success']})
+    fmt_total_value = workbook.add_format({'font_name': f, 'font_size': 14, 'bold': True, 'font_color': c['success'], 'bg_color': c['bg_card'], 'align': 'center', 'valign': 'vcenter', 'bottom': 1, 'left': 1, 'right': 1, 'border_color': c['border'], 'num_format': 'R$ #,##0.00'})
+
+    # Card 1: FAIXA MCMV
+    ws_laudo.merge_range('C27:D27', 'FAIXA MCMV', fmt_faixa_label)
+    ws_laudo.merge_range('C28:D28', '', fmt_faixa_value)
+    ws_laudo.write_formula('C28', '=IF(\'Educação Financeira\'!E13<=2850, "FAIXA 1", IF(\'Educação Financeira\'!E13<=4700, "FAIXA 2", IF(\'Educação Financeira\'!E13<=8000, "FAIXA 3", "FORA DO MCMV")))', fmt_faixa_value)
+
+    # Card 2: SUBSÍDIO FEDERAL
+    ws_laudo.merge_range('E27:G27', 'SUBSÍDIO FEDERAL', fmt_sub_fed_label)
+    ws_laudo.merge_range('E28:G28', '', fmt_sub_fed_value)
+    ws_laudo.write_formula('E28', '=IF(\'Educação Financeira\'!E13<=2850, "R$ 55.000", IF(\'Educação Financeira\'!E13<=4700, "R$ 35.000", "Não se aplica"))', fmt_sub_fed_value)
+
+    # Card 3: SUBSÍDIO ESTADUAL (CASA PAULISTA)
+    ws_laudo.merge_range('H27:J27', 'CASA PAULISTA (SP)', fmt_sub_est_label)
+    ws_laudo.merge_range('H28:J28', '', fmt_sub_est_value)
+    ws_laudo.write_formula('H28', '=IF(\'Educação Financeira\'!E13<=4863, "✅ R$ 16.000", "❌ Não elegível")', fmt_sub_est_value)
+
+    # Card 4: TOTAL SUBSÍDIOS
+    ws_laudo.merge_range('K27:L27', 'TOTAL SUBSÍDIOS', fmt_total_label)
+    ws_laudo.merge_range('K28:L28', '', fmt_total_value)
+    ws_laudo.write_formula('K28', '=IF(\'Educação Financeira\'!E13<=2850, 55000, IF(\'Educação Financeira\'!E13<=4700, 35000, 0)) + IF(\'Educação Financeira\'!E13<=4863, 16000, 0)', fmt_total_value)
+
+    # [FLUXO 2] Jornada e Score Lado a Lado (Deslocados para linha 30)
     ws_laudo.merge_range('C30:E30', 'SEU SCORE MT PARCEIROS', formats['subtitle'])
     # Score: separadores unificados com vírgula (,) — padrão internacional do xlsxwriter
     formula_score = (
@@ -720,15 +759,19 @@ def build_educacao_financeira(workbook, ws_simul, formats, num_empreendimentos):
     formula_credito_real = '=ROUND(MAX(0, (E13*0.30 - E22) * IF(E26="SIM", 142, 132)), 0)'
     ws_simul.write_formula('E29', formula_credito_real, formats['tbl_money'])
 
-    ws_simul.write('C30', 'Subsídio MCMV Estimado:', formats['label'])
-    # Faixas 2025: F1 <= 2850 (55k), F2 <= 4700 (35k), F3 <= 8600 (0)
-    # Lógica progressiva simples:
+    ws_simul.write('C30', 'Subsídio Federal (MCMV):', formats['label'])
+    # Faixas 2025: F1 <= 2850 (55k), F2 <= 4700 (35k), F3+ = Não se aplica
     formula_subsidio = '=IF(E13<=2850, 55000, IF(E13<=4700, 35000, 0))'
     ws_simul.write_formula('E30', formula_subsidio, formats['tbl_money'])
+
+    ws_simul.write('G29', 'Subsídio Estadual (Casa Paulista):', formats['label'])
+    # Casa Paulista SP Capital: R$16k fixo para renda <= R$4.863 (3 salários mínimos)
+    formula_casa_paulista = '=IF(E13<=4863, 16000, 0)'
+    ws_simul.write_formula(CONFIG['map']['simulador']['subsidio_estadual'], formula_casa_paulista, formats['tbl_money'])
     
     ws_simul.write('C31', 'PODER DE COMPRA TOTAL:', formats['subtitle'])
-    # Soma: Financiamento (E29) + Subsídio (E30) + FGTS (E24) + Entrada (E14)
-    ws_simul.write_formula('E31', '=E29 + E30 + E24 + E14', formats['kpi_value_orange'])
+    # Soma: Financiamento (E29) + Sub.Federal (E30) + Sub.Estadual (G30) + FGTS (E24) + Entrada (E14)
+    ws_simul.write_formula('E31', '=E29 + E30 + G30 + E24 + E14', formats['kpi_value_orange'])
 
     ws_simul.write('C33', 'PARCELA PROJETADA (Fixa):', formats['label'])
     # Parcela real baseada na margem de comprometimento (30% da renda menos dívidas)
