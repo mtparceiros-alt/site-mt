@@ -264,7 +264,7 @@ function initHomeSimulator() {
         payload.append('mensagem', `Simulação MCMV Realizada. Renda: ${formatCurrencySafe(data.renda)} | Poder: ${formatCurrencySafe(data.poder)}`);
         payload.append('origem', 'Simulador MCMV (Site)');
 
-        fetch('https://script.google.com/macros/s/AKfycbwfQ59KIpjg0I0BTpT0Hy-YCnwxzCxzVRFe_RE_Kmb_Qt_32jYxuvYRCY8LiQtMKmu7eg/exec', {
+        fetch('https://script.google.com/macros/s/AKfycbzmtDgzbLghMsO0NFMt3CAUDS4lu1E2CjIHibGGSZP_PlWomYcRoYdVE3cIlYxVJDzNlg/exec', {
             method: 'POST',
             body: payload,
             mode: 'no-cors' // Impede bloqueios de CORS do Google Workspace no front-end

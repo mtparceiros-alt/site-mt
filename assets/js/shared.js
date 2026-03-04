@@ -301,7 +301,7 @@ function initSharedContactForm() {
         payload.append('mensagem', waMessage);
         payload.append('origem', 'Contato Direto (Site)');
 
-        fetch('https://script.google.com/macros/s/AKfycbwfQ59KIpjg0I0BTpT0Hy-YCnwxzCxzVRFe_RE_Kmb_Qt_32jYxuvYRCY8LiQtMKmu7eg/exec', {
+        fetch('https://script.google.com/macros/s/AKfycbzmtDgzbLghMsO0NFMt3CAUDS4lu1E2CjIHibGGSZP_PlWomYcRoYdVE3cIlYxVJDzNlg/exec', {
             method: 'POST',
             body: payload,
             mode: 'no-cors'
