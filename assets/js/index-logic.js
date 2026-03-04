@@ -603,6 +603,24 @@ function initHomeSimulator() {
         });
     });
 
+    // --- TOOLTIPS: TAP TOGGLE PARA MOBILE ---
+    document.querySelectorAll('.sim-label-hover').forEach(label => {
+        label.addEventListener('click', function (e) {
+            e.stopPropagation();
+            const wasActive = this.classList.contains('tooltip-active');
+            // Fecha todos os tooltips
+            document.querySelectorAll('.sim-label-hover').forEach(l => l.classList.remove('tooltip-active'));
+            // Abre o clicado (se não estava aberto)
+            if (!wasActive) {
+                this.classList.add('tooltip-active');
+            }
+        });
+    });
+    // Fechar tooltip ao tocar fora
+    document.addEventListener('click', function () {
+        document.querySelectorAll('.sim-label-hover').forEach(l => l.classList.remove('tooltip-active'));
+    });
+
     // --- PROTEÇÃO DE INTERFACE (ANTI-COPY) ---
     const simSection = document.getElementById('simulador');
     if (simSection) {

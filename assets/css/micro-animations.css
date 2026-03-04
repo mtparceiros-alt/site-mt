@@ -361,7 +361,7 @@ a.schedule-visit-link:hover {
   box-shadow: 0 10px 50px rgba(0, 0, 0, 0.08);
   padding: 40px 32px;
   position: relative;
-  overflow: hidden;
+  overflow: visible;
 }
 
 .sim-glass-container::before {
@@ -485,9 +485,7 @@ a.schedule-visit-link:hover {
 
 .sim-slider-header .sim-label {
   min-width: 0;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
+  overflow: visible;
 }
 
 .sim-value-display {
@@ -1935,16 +1933,37 @@ body.drawer-open {
     grid-row: 3 / 4;
   }
 
-  /* Ajuste Fino para Resultados (Cards Estreitos) */
+  /* ═══ OPÇÃO A: Poder de Compra Destacado no Mobile ═══ */
   .dash-engagement .sim-results-grid {
-    gap: 8px;
-    /* Gap reduzido */
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
     padding-top: 10px;
   }
 
+  /* Poder de Compra: primeiro e largura total */
+  .dash-engagement #card-poder {
+    order: -1;
+    grid-column: 1 / -1;
+    padding: 20px 12px;
+    min-height: auto;
+  }
+
+  .dash-engagement #card-poder .sim-glow-value {
+    font-size: 1.6rem !important;
+  }
+
+  /* Botão: largura total */
+  .dash-engagement .card-action {
+    grid-column: 1 / -1;
+  }
+
+  /* Card expandido (clicado) ocupa largura total */
+  .dash-engagement .sim-glow-card.active {
+    grid-column: 1 / -1;
+  }
+
   .dash-engagement .sim-glow-card {
-    padding: 12px 5px;
-    /* Padding interno mínimo */
+    padding: 12px 8px;
     min-height: 90px;
     border-radius: 12px;
   }
@@ -1957,19 +1976,24 @@ body.drawer-open {
   }
 
   .dash-engagement .sim-glow-label {
-    font-size: 0.6rem;
-    /* Fonte menor para caber "Financiamento" */
+    font-size: 0.65rem;
     letter-spacing: 0;
   }
 
   .dash-engagement .sim-glow-value {
     font-size: 1rem;
-    /* Valor mais compacto */
   }
 
   .dash-engagement .card-action button {
     font-size: 0.9rem !important;
     padding: 10px !important;
+  }
+
+  /* Tooltip: tap toggle no mobile */
+  .sim-label-hover.tooltip-active .sim-tooltip {
+    opacity: 1;
+    visibility: visible;
+    bottom: 110%;
   }
 }
 
@@ -2172,17 +2196,22 @@ body.drawer-open {
   display: flex;
   align-items: center;
   justify-content: center;
-  transform: translateX(-100%);
-  transition: transform 0.6s cubic-bezier(0.77, 0, 0.175, 1), opacity 0.4s ease;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity 0.5s ease, visibility 0.5s ease;
   border-radius: 20px;
 }
 
 .sim-loading-overlay.is-processing {
-  transform: translateX(0);
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
 }
 
 .sim-loading-overlay.is-hidden {
   opacity: 0;
+  visibility: hidden;
   pointer-events: none;
 }
 

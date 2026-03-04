@@ -160,7 +160,7 @@
             if (isNaN(parcelaEntrada) || saldoMensais === 0) parcelaEntrada = 0;
 
             let saldoAnuais = saldoEntrada * 0.35; // 35% em reforços anuais
-            const chaves = saldoEntrada * 0.30; // 30% na entrega das chaves
+            const chaves = saldoEntrada * 0.30; // 30% na entrega das chaves;
 
             // Trava de Viabilidade (MT não aprova parcela menor que R$ 500 se o cliente não tem nada de capital)
             if (recursosProprios === 0 && parcelaEntrada > 0 && parcelaEntrada < 500) {
