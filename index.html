@@ -315,34 +315,6 @@
               <h5 class="dash-title">Identificação</h5>
             </div>
             <p class="dash-subtitle">Preencha seus dados para iniciarmos a análise de crédito.</p>
-
-            <!-- VÍNCULO EMPREGATÍCIO -->
-            <div class="sim-vinculo-wrapper mt-3">
-              <label class="sim-label text-light" style="margin-bottom:8px; display:block;">🏢 Vínculo
-                Empregatício</label>
-              <div class="sim-vinculo-selector">
-                <label class="sim-vinculo-card active" data-vinculo="clt">
-                  <input type="radio" name="vinculo" value="clt" checked style="display:none;">
-                  <span class="sim-vinculo-icon">👔</span>
-                  <span class="sim-vinculo-text">CLT</span>
-                </label>
-                <label class="sim-vinculo-card" data-vinculo="autonomo">
-                  <input type="radio" name="vinculo" value="autonomo" style="display:none;">
-                  <span class="sim-vinculo-icon">📋</span>
-                  <span class="sim-vinculo-text">Autônomo</span>
-                </label>
-                <label class="sim-vinculo-card" data-vinculo="mei">
-                  <input type="radio" name="vinculo" value="mei" style="display:none;">
-                  <span class="sim-vinculo-icon">🏪</span>
-                  <span class="sim-vinculo-text">MEI</span>
-                </label>
-                <label class="sim-vinculo-card" data-vinculo="aposentado">
-                  <input type="radio" name="vinculo" value="aposentado" style="display:none;">
-                  <span class="sim-vinculo-icon">🏖️</span>
-                  <span class="sim-vinculo-text">Aposentado</span>
-                </label>
-              </div>
-            </div>
             <div class="sim-input-group mt-4">
               <label class="sim-label text-light">👤 Nome Completo</label>
               <div class="sim-input-wrap">
@@ -408,19 +380,6 @@
                 <input type="range" id="renda" name="renda" min="0" max="30000" step="100" value="0"
                   class="sim-modern-slider">
               </div>
-              <div class="sim-slider-group group-idade">
-                <div class="sim-slider-header">
-                  <label class="sim-label sim-label-hover">
-                    🎂 Idade do Titular
-                    <span class="sim-tooltip">Idade do comprador principal.
-                      Afeta o prazo máximo do financiamento e o custo do seguro obrigatório (MIP).</span>
-                  </label>
-                  <span id="label-idade" class="sim-value-display">30 anos</span>
-                </div>
-                <input type="range" id="idade" name="idade" min="18" max="75" step="1" value="30"
-                  class="sim-modern-slider">
-                <div id="badge-prazo" class="sim-badge-prazo">Prazo máximo: 35 anos</div>
-              </div>
               <div class="sim-slider-group group-dividas">
                 <div class="sim-slider-header">
                   <label class="sim-label sim-label-hover">
@@ -465,7 +424,7 @@
             <div class="dash-engagement-header">
               <i class="fas fa-chart-line" style="color:#f35525;"></i>
               <h5 id="sim-results-title" class="dash-title" style="color:#333; cursor:help;"
-                title="Minha Casa Minha Vida: Programa habitacional do governo com taxas reduzidas e subsídios para famílias de renda até R$ 12.000.">
+                title="Minha Casa Minha Vida: Programa habitacional do governo com taxas reduzidas e subsídios para famílias de renda até R$ 8.000.">
                 Resultados Estimados MCMV <span class="sim-info-icon">ℹ️</span>
               </h5>
             </div>
@@ -895,8 +854,8 @@
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
   <script src="empreendimentos.js"></script>
   <script src="assets/js/cms-renderer.js"></script>
-  <script src="assets/js/simulator-core.js?v=4.0"></script>
-  <script src="assets/js/index-logic.js?v=4.0"></script>
+  <script src="assets/js/simulator-core.min.js?v=3.8"></script>
+  <script src="assets/js/index-logic.js?v=3.8"></script>
 
 </body>
 
