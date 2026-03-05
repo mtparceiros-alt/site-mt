@@ -23,7 +23,22 @@
          * FUNÇÃO CENTRAL DE CÁLCULO - MT PARCEIROS v1.2 (Auditoria 2025)
          * Esta função processa as regras de banco (CAIXA) e de mercado (MT) simultaneamente.
          */
-        calculateMCMV: function (renda, dividas, fgts, entrada, temDependentes, clt3anos, ePrimeiroImovel) {
+        calculateMCMV: function (renda, dividas, fgts, entrada, temDependentes, clt3anos, ePrimeiroImovel, idade, vinculo) {
+
+            // 0. PARÂMETROS OPCIONAIS (Retrocompatibilidade)
+            idade = (typeof idade === 'number' && idade >= 18 && idade <= 80) ? idade : 30;
+            vinculo = (['clt', 'autonomo', 'mei', 'aposentado'].indexOf(vinculo) !== -1) ? vinculo : 'clt';
+
+            // 0.1 AJUSTE DE RENDA POR VÍNCULO
+            let rendaOriginal = renda;
+            if (vinculo === 'mei') {
+                // MEI: limita ao teto de R$ 6.750/mês e aplica fator 80% (dedução operacional)
+                renda = Math.min(renda, 6750) * 0.80;
+            }
+            // Não-CLT não pode ser cotista FGTS (3+ anos)
+            if (vinculo !== 'clt') {
+                clt3anos = false;
+            }
 
             // 1. MARGEM DE SEGURANÇA BANCÁRIA
             // O banco limita a parcela em 30% da renda bruta, subtraindo dívidas existentes (empréstimos, etc).
@@ -36,30 +51,41 @@
             let foraDoMCMV = false;
             let n = 420; // Prazo de 35 anos (MCMV)
 
+            // PRAZO MÁXIMO POR IDADE (Regra Caixa: Idade + Prazo ≤ 80 anos e 6 meses)
+            const prazoMaxIdade = Math.floor((80.5 * 12) - (idade * 12));
+            n = Math.min(n, Math.max(60, prazoMaxIdade)); // Mínimo 5 anos
+
             // Lógica por Faixas de Renda (Diferenciando Cotista CLT e Não-Cotista)
             if (renda <= 2850) {
                 // Faixa 1: Benefício máximo de juros reduzidos
                 taxaAnual = clt3anos ? 0.0425 : 0.0475;
-                tetoImovel = 190000;
+                tetoImovel = 275000;
                 faixaMCMV = "Faixa 1";
             }
             else if (renda <= 4700) {
                 // Faixa 2: Escalonamento moderado
                 taxaAnual = clt3anos ? 0.0650 : 0.0700;
-                tetoImovel = 264000;
+                tetoImovel = 275000;
                 faixaMCMV = "Faixa 2";
             }
-            else if (renda <= 8000) {
+            else if (renda <= 8600) {
                 // Faixa 3: Teto padrão MCMV SP
                 taxaAnual = clt3anos ? 0.0766 : 0.0816;
                 tetoImovel = 350000;
                 faixaMCMV = "Faixa 3";
             }
+            else if (renda <= 12000) {
+                // Faixa 4: Nova faixa MCMV (Portaria MCid 399/2025)
+                taxaAnual = clt3anos ? 0.1000 : 0.1050; // Taxa de 10% a 10.5% a.a.
+                tetoImovel = 500000;
+                faixaMCMV = "Faixa 4";
+                // n = 420 já é o padrão
+            }
             else {
-                // SBPE/SFH: Imóveis acima de 350k ou rendas acima de 8k
+                // SBPE/SFH: Imóveis acima de 500k ou rendas acima de 12k
                 taxaAnual = 0.1099; // Taxa conservadora recomendada (10.99% a.a.)
                 tetoImovel = 1500000;
-                n = 360; // 30 anos (Padrão de mercado)
+                n = Math.min(360, Math.max(60, prazoMaxIdade)); // 30 anos (Padrão de mercado), limitado por idade
                 foraDoMCMV = true;
                 faixaMCMV = "SBPE/Mercado";
             }
@@ -70,7 +96,7 @@
             if (ePrimeiroImovel === false) {
                 taxaAnual = Math.max(taxaAnual, 0.0950); // Taxa mínima de mercado
                 tetoImovel = 1500000;
-                n = 360; // Redução de prazo p/ 30 anos (Padrão de mercado)
+                n = Math.min(360, Math.max(60, prazoMaxIdade)); // 30 anos (Padrão de mercado), limitado por idade
                 foraDoMCMV = true;
                 faixaMCMV = "SBPE/Mercado";
             }
@@ -78,10 +104,29 @@
             // Conversão da taxa anual para mensal (Juros Compostos)
             const taxaMensal = Math.pow(1 + taxaAnual, 1 / 12) - 1;
 
-            // 4. POTENCIAL DE FINANCIAMENTO (Algoritmo SAC)
-            // No Sistema SAC, a primeira parcela (Amortização + Juros) é a maior.
-            // P = Margem / (1/n + i) -> Calcula quanto o banco empresta baseado na parcela que cabe no bolso.
-            const potencial = Math.floor(margem / ((1 / n) + taxaMensal));
+            // 3.5 SEGUROS OBRIGATÓRIOS (MIP + DFI)
+            // MIP: Morte e Invalidez Permanente — taxa varia por faixa etária (sobre saldo devedor)
+            let taxaMIP;
+            if (idade <= 30) taxaMIP = 0.00015;
+            else if (idade <= 40) taxaMIP = 0.00025;
+            else if (idade <= 50) taxaMIP = 0.00045;
+            else if (idade <= 60) taxaMIP = 0.00080;
+            else if (idade <= 70) taxaMIP = 0.00150;
+            else taxaMIP = 0.00250;
+
+            // DFI: Danos Físicos ao Imóvel — taxa fixa (sobre valor de avaliação do imóvel)
+            const taxaDFI = 0.000034; // 0.0034% ao mês
+
+            // 4. POTENCIAL DE FINANCIAMENTO (Algoritmo SAC com Seguros)
+            // Passo 1: Potencial bruto (sem seguros) para estimar o saldo devedor
+            const potencialBruto = Math.floor(margem / ((1 / n) + taxaMensal));
+            // Passo 2: Estimar custos de seguro sobre o potencial bruto
+            const custoMIP = potencialBruto * taxaMIP;
+            const custoDFI = tetoImovel * taxaDFI;
+            // Passo 3: Margem líquida (desconta seguros)
+            const margemLiquida = Math.max(0, margem - custoMIP - custoDFI);
+            // Passo 4: Potencial real (com seguros descontados da margem)
+            const potencial = Math.floor(margemLiquida / ((1 / n) + taxaMensal));
 
             // 5. SUBSÍDIOS (Benefícios do Governo e Estado - SP)
             let subsidio = 0;
@@ -95,9 +140,11 @@
                     subsidio = Math.max(0, 33430 - (renda - 2850) * (33430 / 1850));
                 }
 
-                // Subsídio Estadual (Bônus Casa Paulista)
-                // Cheque adicional de R$ 13.000 do Governo de SP para Capital/RMSA
-                subsidio += 13000;
+                // Subsídio Estadual (Bônus Casa Paulista — São Paulo Capital)
+                // Valor atualizado: R$ 16.000 (regulamento CCI vigente, renda até R$ 4.863)
+                if (renda <= 4863) {
+                    subsidio += 16000;
+                }
             }
 
             // 6. PODER DE COMPRA TOTAL
@@ -117,7 +164,7 @@
             let sbpe = null;
             if (excedeTeto || foraDoMCMV) {
                 const taxaSBPE = 0.1099; // Taxa média atualizada de mercado (10.99% a.a.)
-                const nSBPE = 360; // 30 anos
+                const nSBPE = Math.min(360, Math.max(60, prazoMaxIdade)); // 30 anos, limitado por idade
                 const taxaMensalSBPE = Math.pow(1 + taxaSBPE, 1 / 12) - 1;
                 const potencialSBPE = Math.floor(margem / ((1 / nSBPE) + taxaMensalSBPE));
                 // SBPE: sem subsídio do governo
@@ -216,6 +263,7 @@
             // RETORNO DE DADOS FORMATADOS
             return {
                 margem: Math.round(margem),
+                margemLiquida: Math.round(margemLiquida),
                 potencial: Math.round(potencial),
                 subsidio: Math.round(subsidio),
                 poder: Math.round(poder),
@@ -233,10 +281,19 @@
                 parcelaAnuais: Math.round(parcelaAnuais),
                 chaves: Math.round(chaves),
                 itbi: Math.round(itbi),
-                evolucaoMedia: Math.round(parcelaPeloBanco * 0.5), // Estimativa de taxa de obra média
+                evolucaoMedia: Math.round(parcelaPeloBanco * 0.5),
                 parcelaPosChaves: Math.round(parcelaPeloBanco),
                 foraDoMCMV: foraDoMCMV,
-                renda: renda
+                renda: renda,
+                // Novos campos v2.0
+                idade: idade,
+                vinculo: vinculo,
+                rendaOriginal: rendaOriginal,
+                rendaConsiderada: Math.round(renda),
+                prazoEfetivo: n,
+                custoMIP: Math.round(custoMIP),
+                custoDFI: Math.round(custoDFI),
+                taxaMIP: taxaMIP
             };
         }
     };

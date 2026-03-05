@@ -57,18 +57,61 @@ function initHomeSimulator() {
         const fgts = parseFloat(document.getElementById('fgts').value) || 0;
         const entrada = parseFloat(document.getElementById('entrada').value) || 0;
         const temDependentes = document.getElementById('dependentes').checked;
+        const idade = parseInt(document.getElementById('idade').value) || 30;
+        const vinculo = (document.querySelector('input[name="vinculo"]:checked') || {}).value || 'clt';
 
         document.getElementById('label-renda').textContent = fmt(renda);
         document.getElementById('label-dividas').textContent = fmt(dividas);
         document.getElementById('label-fgts').textContent = fmt(fgts);
         document.getElementById('label-entrada').textContent = fmt(entrada);
+        document.getElementById('label-idade').textContent = idade + ' anos';
+
+        // --- VÍNCULO: Condicional de campos ---
+        const cltWrap = document.getElementById('clt3anos').closest('.sim-input-wrap');
+        if (cltWrap) cltWrap.style.display = vinculo === 'clt' ? '' : 'none';
+
+        // Label dinâmico da renda conforme vínculo
+        const rendaLabel = document.querySelector('.group-renda .sim-label-hover');
+        const rendaSlider = document.getElementById('renda');
+        if (rendaLabel && rendaSlider) {
+            const labels = {
+                clt: '💰 Renda Bruta Familiar',
+                autonomo: '💰 Renda Média Mensal (6 meses)',
+                mei: '💰 Faturamento Mensal Médio',
+                aposentado: '💰 Benefício Mensal INSS'
+            };
+            const tooltip = rendaLabel.querySelector('.sim-tooltip');
+            const tooltipHTML = tooltip ? tooltip.outerHTML : '';
+            rendaLabel.innerHTML = (labels[vinculo] || labels.clt) + ' ' + tooltipHTML;
+
+            // MEI: limitar slider a R$ 6.750
+            if (vinculo === 'mei') {
+                rendaSlider.max = '6750';
+                if (parseFloat(rendaSlider.value) > 6750) rendaSlider.value = '6750';
+            } else {
+                rendaSlider.max = '30000';
+            }
+        }
+
+        // --- VÍNCULO: Cards visuais ---
+        document.querySelectorAll('.sim-vinculo-card').forEach(function (card) {
+            card.classList.toggle('active', card.dataset.vinculo === vinculo);
+        });
 
         // --- CHAMADA DA INTELIGÊNCIA CENTRALIZADA ---
-        // Aqui removemos a lógica matemática e deixamos o Core (que será ofuscado) processar.
         const clt3anos = document.getElementById('clt3anos').checked;
         const ePrimeiroImovel = document.getElementById('primeiroImovel').checked;
 
-        const d = window.MT_Core.calculateMCMV(renda, dividas, fgts, entrada, temDependentes, clt3anos, ePrimeiroImovel);
+        const d = window.MT_Core.calculateMCMV(renda, dividas, fgts, entrada, temDependentes, clt3anos, ePrimeiroImovel, idade, vinculo);
+
+        // --- BADGE DE PRAZO DINÂMICO ---
+        const badgePrazo = document.getElementById('badge-prazo');
+        if (badgePrazo) {
+            const prazoAnos = Math.floor(d.prazoEfetivo / 12);
+            const prazoMeses = d.prazoEfetivo % 12;
+            badgePrazo.textContent = 'Prazo máximo: ' + prazoAnos + ' anos' + (prazoMeses > 0 ? ' e ' + prazoMeses + ' meses' : '');
+            badgePrazo.style.color = prazoAnos < 25 ? '#ff6b6b' : (prazoAnos < 35 ? '#ffa502' : '#2ed573');
+        }
 
         const temRecursos = (fgts + entrada) > 0;
         const eMercado = (d.excedeTeto || d.foraDoMCMV) && (renda > 0 || temRecursos);
@@ -78,10 +121,10 @@ function initHomeSimulator() {
         if (titulo) {
             if (eMercado) {
                 titulo.innerHTML = 'Resultados Estimados de Mercado <span class="sim-info-icon">ℹ️</span>';
-                titulo.title = 'Mercado (SBPE/SFH): Financiamento convencional sem os limites do MCMV. Taxas a partir de 9.5% a.a., prazo de 30 anos, sem subsídio governamental. Ideal para quem tem capital próprio elevado.';
+                titulo.title = 'Mercado (SBPE/SFH): Financiamento convencional sem os limites do MCMV. Taxas a partir de 9.5% a.a., sem subsídio governamental. Ideal para quem tem capital próprio elevado.';
             } else {
                 titulo.innerHTML = 'Resultados Estimados MCMV <span class="sim-info-icon">ℹ️</span>';
-                titulo.title = 'Minha Casa Minha Vida: Programa habitacional do governo com taxas reduzidas e subsídios para famílias de renda até R$ 8.000.';
+                titulo.title = 'Minha Casa Minha Vida: Programa habitacional do governo com taxas reduzidas e subsídios para famílias de renda até R$ 12.000.';
             }
         }
 
@@ -105,9 +148,9 @@ function initHomeSimulator() {
             if (descPotencial) descPotencial.innerHTML = '<strong>Capacidade Bancária (Mercado):</strong> Valor máximo que o banco financia pela modalidade SBPE/SFH, com taxa de 9.5% a.a. e prazo de 30 anos. Sem limite de teto governamental.';
             if (descPoder) descPoder.innerHTML = '<strong>Poder de Compra (Mercado):</strong> Financiamento de mercado + FGTS + Entrada. Sem subsídio do governo, porém sem limite de valor do imóvel. Ideal para quem tem capital próprio elevado.';
         } else {
-            if (descMargem) descMargem.innerHTML = '<strong>Margem de Segurança:</strong> Este valor representa 30% da sua renda mensal bruta, já subtraindo suas dívidas atuais. É o limite máximo que o banco permite comprometer para garantir que você tenha fôlego financeiro.';
-            if (descPotencial) descPotencial.innerHTML = '<strong>Capacidade Bancária MCMV:</strong> Valor máximo que o banco disponibiliza para você. Calculado via sistema SAC com taxa reduzida de ' + (d.taxaAnualMCMV * 100).toFixed(1) + '% a.a. no prazo de 35 anos pelo programa Minha Casa Minha Vida.';
-            if (descPoder) descPoder.innerHTML = '<strong>Poder de Compra MCMV:</strong> É a soma de tudo o que você tem para comprar o imóvel: Financiamento + FGTS + Entrada + Subsídio do Governo (' + fmt(d.subsidio) + '). Limitado ao teto da ' + d.faixaMCMV + '.';
+            if (descMargem) descMargem.innerHTML = '<strong>Margem de Segurança:</strong> Este valor representa 30% da sua renda mensal bruta, já subtraindo suas dívidas atuais. É o limite máximo que o banco permite comprometer.' + (d.custoMIP > 0 ? ' <em>(Seguros MIP+DFI: ~' + fmt(d.custoMIP + d.custoDFI) + '/mês descontados)</em>' : '');
+            if (descPotencial) descPotencial.innerHTML = '<strong>Capacidade Bancária MCMV:</strong> Valor máximo que o banco disponibiliza. Calculado via sistema SAC com taxa de ' + (d.taxaAnualMCMV * 100).toFixed(1) + '% a.a. no prazo de ' + Math.floor(d.prazoEfetivo / 12) + ' anos pelo programa Minha Casa Minha Vida.' + (d.vinculo === 'mei' ? ' <em>(Renda considerada: ' + fmt(d.rendaConsiderada) + ')</em>' : '');
+            if (descPoder) descPoder.innerHTML = '<strong>Poder de Compra MCMV:</strong> É a soma de tudo: Financiamento + FGTS + Entrada + Subsídio (' + fmt(d.subsidio) + '). Limitado ao teto da ' + d.faixaMCMV + '.';
         }
 
         document.getElementById('h_margem').value = fmt(d.margem);
@@ -228,9 +271,14 @@ function initHomeSimulator() {
         return simData;
     }
 
-    ['renda', 'dividas', 'fgts', 'entrada', 'sim-name', 'sim-celular', 'dependentes', 'clt3anos', 'primeiroImovel'].forEach(id => {
+    ['renda', 'dividas', 'fgts', 'entrada', 'sim-name', 'sim-celular', 'dependentes', 'clt3anos', 'primeiroImovel', 'idade'].forEach(id => {
         const el = document.getElementById(id);
         if (el) el.addEventListener('input', updateSimResults);
+    });
+
+    // Listener para radio buttons de vínculo
+    document.querySelectorAll('input[name="vinculo"]').forEach(radio => {
+        radio.addEventListener('change', updateSimResults);
     });
 
     simForm.addEventListener('submit', function (e) {
@@ -366,8 +414,8 @@ function initHomeSimulator() {
             // G8: Label prazo conforme modalidade
             const labelPrazo = document.getElementById('label-prazo-pos');
             if (labelPrazo) {
-                labelPrazo.textContent = (data.foraDoMCMV || data.excedeTeto) ?
-                    'Após receber as chaves (até 30 anos)' : 'Após receber as chaves (até 35 anos)';
+                const prazoAnosPos = Math.floor(d.prazoEfetivo / 12);
+                labelPrazo.textContent = 'Após receber as chaves (até ' + prazoAnosPos + ' anos)';
             }
 
             const step4 = document.getElementById('step-4');
