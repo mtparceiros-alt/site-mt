@@ -515,7 +515,7 @@ def build_laudo_credito(workbook, ws_laudo, formats):
 
     ws_laudo.merge_range('C27:D27', 'FAIXA MCMV', fmt_faixa_label)
     ws_laudo.merge_range('C28:D28',
-        '=IF(\'Educação Financeira\'!E13<=2850,"FAIXA 1",IF(\'Educação Financeira\'!E13<=4700,"FAIXA 2",IF(\'Educação Financeira\'!E13<=8000,"FAIXA 3","FORA DO MCMV")))',
+        '=IF(\'Educação Financeira\'!E13<=2850,"FAIXA 1",IF(\'Educação Financeira\'!E13<=4700,"FAIXA 2",IF(\'Educação Financeira\'!E13<=8600,"FAIXA 3",IF(\'Educação Financeira\'!E13<=12000,"FAIXA 4","FORA DO MCMV"))))',
         fmt_faixa_value)
 
     ws_laudo.merge_range('E27:G27', 'SUBSÍDIO FEDERAL', fmt_sub_fed_label)
