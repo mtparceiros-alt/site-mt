@@ -294,6 +294,7 @@ function initSharedContactForm() {
         const waEmail = (form.querySelector('[name="email"]') || {}).value || '';
 
         const payload = new URLSearchParams();
+        payload.append('token', 'mtpc_seguro_2025'); // Token de Segurança Ativado
         payload.append('nome', (form.querySelector('[name="name"]') || {}).value || '');
         payload.append('email', waEmail);
         payload.append('whatsapp', unmaskedValue);

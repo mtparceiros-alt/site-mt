@@ -351,7 +351,7 @@ a.schedule-visit-link:hover {
 
 /* Container Principal Glassmorphism */
 .sim-glass-container {
-  max-width: 800px;
+  max-width: 1200px;
   margin: 0 auto;
   background: rgba(255, 255, 255, 0.7);
   backdrop-filter: blur(20px);
@@ -1488,7 +1488,7 @@ body.drawer-open {
   grid-template-columns: 1.35fr 2fr;
   grid-template-rows: auto auto;
   gap: 24px;
-  max-width: 1000px;
+  max-width: 100%;
   margin: 0 auto;
 }
 
@@ -2254,5 +2254,121 @@ body.drawer-open {
   100% {
     opacity: 0.5;
     transform: scale(0.98);
+  }
+}
+
+/* ══════════════════════════════════════════════════════
+   17. VÍNCULO EMPREGATÍCIO — Cards de Seleção
+   ══════════════════════════════════════════════════════ */
+
+.sim-vinculo-wrapper {
+  margin-bottom: 12px;
+}
+
+.sim-vinculo-selector {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 8px;
+}
+
+.sim-vinculo-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  padding: 12px 6px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 2px solid rgba(255, 255, 255, 0.15);
+  border-radius: 14px;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  text-align: center;
+}
+
+.sim-vinculo-card:hover {
+  background: rgba(255, 255, 255, 0.15);
+  transform: translateY(-2px);
+}
+
+.sim-vinculo-card.active {
+  background: rgba(243, 85, 37, 0.15);
+  border-color: #f35525;
+  box-shadow: 0 0 12px rgba(243, 85, 37, 0.3);
+  animation: vinculoPulse 2s ease infinite;
+}
+
+@keyframes vinculoPulse {
+
+  0%,
+  100% {
+    box-shadow: 0 0 8px rgba(243, 85, 37, 0.2);
+  }
+
+  50% {
+    box-shadow: 0 0 18px rgba(243, 85, 37, 0.45);
+  }
+}
+
+.sim-vinculo-icon {
+  font-size: 1.4rem;
+  line-height: 1;
+}
+
+.sim-vinculo-text {
+  font-size: 0.65rem;
+  font-weight: 700;
+  color: rgba(255, 255, 255, 0.7);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.sim-vinculo-card.active .sim-vinculo-text {
+  color: #f35525;
+}
+
+/* Badge de Prazo Dinâmico */
+.sim-badge-prazo {
+  margin-top: 8px;
+  padding: 5px 14px;
+  background: rgba(255, 255, 255, 0.25);
+  border-radius: 20px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-align: center;
+  color: #2ed573;
+  letter-spacing: 0.3px;
+  transition: color 0.3s ease;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+/* Disclaimer de Seguros */
+.sim-disclaimer {
+  font-size: 0.7rem;
+  color: #999;
+  text-align: center;
+  margin-top: 15px;
+  padding: 0 10px;
+  font-style: italic;
+  line-height: 1.4;
+}
+
+/* Mobile: Vínculo cards 2x2 */
+@media (max-width: 576px) {
+  .sim-vinculo-selector {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 6px;
+  }
+
+  .sim-vinculo-card {
+    padding: 10px 4px;
+  }
+
+  .sim-vinculo-icon {
+    font-size: 1.2rem;
+  }
+
+  .sim-vinculo-text {
+    font-size: 0.6rem;
   }
 }

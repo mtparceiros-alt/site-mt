@@ -32,6 +32,7 @@
   <link rel="stylesheet" href="assets/css/templatemo-villa-agency.css">
   <link rel="stylesheet" href="assets/css/owl.css">
   <link rel="stylesheet" href="assets/css/animate.css">
+  <link rel="stylesheet" href="assets/css/score.css">
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
     integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
   <link rel="stylesheet" href="assets/css/shared.css">
@@ -297,15 +298,7 @@
           Aguardando dados iniciais...</div>
       </div>
 
-      <!-- Badge Visual "Pré-Aprovado" (Inicia Oculto, Expande a 100%) -->
-      <div id="sim-approval-badge"
-        style="display: none; align-items: center; justify-content: center; margin-top: 5px; margin-bottom: 25px; padding: 10px; background: rgba(40, 167, 69, 0.15); border: 1px solid rgba(40, 167, 69, 0.3); border-radius: 12px; animation: heroFadeIn 0.8s ease forwards; width: 100%;">
-        <img src="assets/images/ia-aprovado.gif" alt="Aprovado IA"
-          style="width: 45px; height: 45px; border-radius: 50%; margin-right: 12px; box-shadow: 0 0 10px rgba(40, 167, 69, 0.5);">
-        <span
-          style="color: #28a745; font-weight: 700; font-size: 1.1rem; text-transform: uppercase; letter-spacing: 0.5px; text-shadow: 0 0 5px rgba(40, 167, 69, 0.4);">Análise
-          Concluída: Crédito Pré-Aprovado</span>
-      </div>
+      <div id="mt-score-container" class="mt-score-wrap"></div>
 
       <form id="simulator-form">
         <div id="sim-dashboard" class="sim-dashboard-grid">
@@ -315,6 +308,34 @@
               <h5 class="dash-title">Identificação</h5>
             </div>
             <p class="dash-subtitle">Preencha seus dados para iniciarmos a análise de crédito.</p>
+
+            <!-- VÍNCULO EMPREGATÍCIO -->
+            <div class="sim-vinculo-wrapper mt-3">
+              <label class="sim-label text-light" style="margin-bottom:8px; display:block;">🏢 Vínculo
+                Empregatício</label>
+              <div class="sim-vinculo-selector">
+                <label class="sim-vinculo-card active" data-vinculo="clt">
+                  <input type="radio" name="vinculo" value="clt" checked style="display:none;">
+                  <span class="sim-vinculo-icon">👔</span>
+                  <span class="sim-vinculo-text">CLT</span>
+                </label>
+                <label class="sim-vinculo-card" data-vinculo="autonomo">
+                  <input type="radio" name="vinculo" value="autonomo" style="display:none;">
+                  <span class="sim-vinculo-icon">📋</span>
+                  <span class="sim-vinculo-text">Autônomo</span>
+                </label>
+                <label class="sim-vinculo-card" data-vinculo="mei">
+                  <input type="radio" name="vinculo" value="mei" style="display:none;">
+                  <span class="sim-vinculo-icon">🏪</span>
+                  <span class="sim-vinculo-text">MEI</span>
+                </label>
+                <label class="sim-vinculo-card" data-vinculo="aposentado">
+                  <input type="radio" name="vinculo" value="aposentado" style="display:none;">
+                  <span class="sim-vinculo-icon">🏖️</span>
+                  <span class="sim-vinculo-text">Aposentado</span>
+                </label>
+              </div>
+            </div>
             <div class="sim-input-group mt-4">
               <label class="sim-label text-light">👤 Nome Completo</label>
               <div class="sim-input-wrap">
@@ -380,6 +401,19 @@
                 <input type="range" id="renda" name="renda" min="0" max="30000" step="100" value="0"
                   class="sim-modern-slider">
               </div>
+              <div class="sim-slider-group group-idade">
+                <div class="sim-slider-header">
+                  <label class="sim-label sim-label-hover">
+                    🎂 Idade do Titular
+                    <span class="sim-tooltip">Idade do comprador principal.
+                      Afeta o prazo máximo do financiamento e o custo do seguro obrigatório (MIP).</span>
+                  </label>
+                  <span id="label-idade" class="sim-value-display">30 anos</span>
+                </div>
+                <input type="range" id="idade" name="idade" min="18" max="75" step="1" value="30"
+                  class="sim-modern-slider">
+                <div id="badge-prazo" class="sim-badge-prazo">Prazo máximo: 35 anos</div>
+              </div>
               <div class="sim-slider-group group-dividas">
                 <div class="sim-slider-header">
                   <label class="sim-label sim-label-hover">
@@ -424,7 +458,7 @@
             <div class="dash-engagement-header">
               <i class="fas fa-chart-line" style="color:#f35525;"></i>
               <h5 id="sim-results-title" class="dash-title" style="color:#333; cursor:help;"
-                title="Minha Casa Minha Vida: Programa habitacional do governo com taxas reduzidas e subsídios para famílias de renda até R$ 8.000.">
+                title="Minha Casa Minha Vida: Programa habitacional do governo com taxas reduzidas e subsídios para famílias de renda até R$ 12.000.">
                 Resultados Estimados MCMV <span class="sim-info-icon">ℹ️</span>
               </h5>
             </div>
@@ -854,8 +888,9 @@
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
   <script src="empreendimentos.js"></script>
   <script src="assets/js/cms-renderer.js"></script>
-  <script src="assets/js/simulator-core.min.js?v=3.8"></script>
-  <script src="assets/js/index-logic.js?v=3.8"></script>
+  <script src="assets/js/simulator-core.min.js"></script>
+  <script src="assets/js/score-module.min.js"></script>
+  <script src="assets/js/index-logic.min.js"></script>
 
 </body>
 
