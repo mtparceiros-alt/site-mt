@@ -37,6 +37,7 @@ function renderHeader() {
         { name: 'Empreendimentos', link: 'properties.html' },
         { name: 'Simulador', link: 'simulador.html' },
         { name: 'Blog', link: 'blog.html' },
+        { name: 'Detalhes', link: 'property-details.html' },
         { name: 'Contato', link: 'contato.html' }
     ];
 
