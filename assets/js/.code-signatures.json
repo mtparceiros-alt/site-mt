@@ -1,0 +1,30 @@
+{
+  "simulator-core.min.js": {
+    "sha256": "a78edb53309b7dce063c2d7149c3cfa15bb9c0f6eb638457bcf16a4afefe625e",
+    "hmac": "536fd0dfe578398533618ef80a32958916759bee021419e5bc40834eaf7c3f7f",
+    "timestamp": "2026-03-23T15:28:30.117Z",
+    "tamanho": 54853,
+    "versao": "1.0"
+  },
+  "index-logic.min.js": {
+    "sha256": "954c0c954dd7d4eba3ac2be8687ba4eb26b30a7aef1ce8e5c79ac9d16310355d",
+    "hmac": "e5325caf3c450eeb10a5d962f0a312c65c0fb1defa53532a50de9a8561a0a4ea",
+    "timestamp": "2026-03-23T15:28:30.117Z",
+    "tamanho": 335728,
+    "versao": "1.0"
+  },
+  "score-module.min.js": {
+    "sha256": "b92c4142eddea0c3b61c5ff3c256386eff8425e4f1b3cc34c8e7b773ce77036b",
+    "hmac": "4f8a301ccdd7804873c84d95edc5121bb8c8037ec0a933f99f91bd15b38c3ca6",
+    "timestamp": "2026-03-23T15:28:30.117Z",
+    "tamanho": 225065,
+    "versao": "1.0"
+  },
+  "score-melhorias.min.js": {
+    "sha256": "7c3a0fd56be7e455c10b6a8e66f9c1cf9081797bcaa6bfe1c38d6aedfa3c9929",
+    "hmac": "41f51b729fd4c03dcb57ef8d8ee336be09c4a0cf641a5e71765c70b7a72e970d",
+    "timestamp": "2026-03-23T15:28:30.117Z",
+    "tamanho": 217960,
+    "versao": "1.0"
+  }
+}

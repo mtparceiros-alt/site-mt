@@ -1,0 +1,970 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <link rel="canonical" href="https://mtparceiros.github.io/site_mt/simulador.html" />
+  <meta property="og:url" content="https://mtparceiros.github.io/site_mt/simulador.html">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="pt_BR">
+  <meta property="og:title" content="MT Parceiros | Simulador Inteligente">
+  <meta property="og:description"
+    content="Simule seu financiamento Minha Casa Minha Vida com IA. Calcule poder de compra, subsídio do governo, FGTS e parcelas em tempo real. Tecnologia exclusiva MT Parceiros.">
+  <meta property="og:image" content="https://mtparceiros.github.io/site_mt/assets/images/LOGO_MT.jpg">
+  <meta name="description"
+    content="Simule seu financiamento Minha Casa Minha Vida com IA. Calcule poder de compra, subsídio do governo, FGTS e parcelas em tempo real. Tecnologia exclusiva MT Parceiros.">
+  <meta name="robots" content="index, follow">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap"
+    rel="stylesheet">
+
+  <title>MT Parceiros | Simulador</title>
+  <link rel="icon" type="image/jpeg" href="assets/images/LOGO_MT.jpg">
+  <link rel="stylesheet" href="vendor/bootstrap/css/bootstrap.min.css">
+  <link rel="stylesheet" href="assets/css/fontawesome.css">
+  <link rel="stylesheet" href="assets/css/templatemo-villa-agency.css">
+  <link rel="stylesheet" href="assets/css/owl.css">
+  <link rel="stylesheet" href="assets/css/animate.css">
+  <link rel="stylesheet" href="assets/css/score.css">
+  <link rel="stylesheet" href="assets/css/simulator.css?v=2.2">
+  <link rel="stylesheet" href="assets/css/simulator-results.css?v=2.2">
+  <link rel="stylesheet" href="assets/css/score-melhorias.css?v=2.2">
+  <link rel="stylesheet" href="assets/css/shared.css?v=2.2">
+  <link rel="stylesheet" href="assets/css/micro-animations.css">
+  <link rel="stylesheet" href="assets/css/new-results.css?v=2.2">
+  <link rel="stylesheet" href="assets/css/dash-ia.css?v=2.2">
+  <link rel="stylesheet" href="assets/css/dossie-dark.css">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/exceljs/4.3.0/exceljs.min.js"></script>
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+</head>
+
+<body>
+  <div id="js-preloader" class="js-preloader">
+    <div class="preloader-inner">
+      <span class="dot"></span>
+      <div class="dots">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+    </div>
+  </div>
+
+  <div class="sub-header"></div>
+
+  <header class="header-area header-sticky">
+    <div class="container">
+      <div class="row">
+        <div class="col-12">
+          <nav class="main-nav"></nav>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <div class="page-heading header-text">
+    <video class="page-heading-video" autoplay muted loop playsinline preload="auto" aria-hidden="true">
+      <source src="videos/videoplayback.mp4" type="video/mp4">
+    </video>
+    <div class="page-heading-overlay"></div>
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-12">
+          <span class="breadcrumb">Simulador</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- [SIMULADOR] INÍCIO: Seção Principal do Simulador -->
+  <div id="simulador" class="sim-section-bg">
+    <div class="sim-glass-container">
+      <h2 class="sim-title"><img src="assets/images/bola_laranja.gif" alt="IA" style="width:42px; height:42px; border-radius:50%; vertical-align:middle; margin-right:8px; margin-bottom:6px; box-shadow: 0 0 10px rgba(243,85,37,0.5);"> Simulador Inteligente MT Parceiros</h2>
+      <p class="sim-subtitle">A Inteligência que descobre exatamente quanto você pode financiar, antes de você escolher o imóvel errado.</p>
+
+      <!-- Overlay de Processamento IA (Cortina Deslizante) -->
+      <div id="sim-loading-overlay" class="sim-loading-overlay">
+        <div class="sim-loading-content">
+          <img src="assets/images/bola_laranja.gif" alt="Processando" style="width: 180px; height: 180px; margin-bottom: 25px; filter: drop-shadow(0 0 20px rgba(243, 85, 37, 0.4)); pointer-events: none; border-radius: 50%;">
+          <h3 class="sim-loading-text">Processando dados...</h3>
+        </div>
+      </div>
+
+      <form id="simulator-form">
+          <!-- 
+            ESTRUTURA v2.1 (Março 2026):
+            O Módulo de Resultados (MÓDULO A) foi movido para o topo do formulário.
+            Isso garante que ele seja renderizado e permaneça visível durante toda a simulação,
+            evitando o erro onde ele sumia após a animação da IA.
+          -->
+          <!-- ╔══════════════════════════════════════════════════════════════╗
+     ║  MÓDULO A — RESULTADOS GOLD v2.1 (Premium Dark)             ║
+     ║  Container: #container-resultados-gold                       ║
+     ║  Renderizado por: assets/js/new-results.js → NewResults.render(simData)
+     ║  Acionado em: index-logic.js → updateSimResults() → sempre que slider muda
+     ║                                                              ║
+     ║  REGIÕES INTERNAS:                                           ║
+     ║  [R1] Stacked Bar  → IDs: bar-sub, bar-fgts, bar-ent, bar-fin
+     ║  [R1] Legendas     → IDs: val-sub/fgts/ent/fin, pct-sub/fgts/ent/fin
+     ║  [R1] Total        → ID: total-value                         ║
+     ║  [R2] Perfil       → IDs: prof-renda, prof-taxa, prof-prazo, ║
+     ║                          prof-parcela, prof-imovel-max        ║
+     ║  [R2] Comparativo  → IDs: card-mcmv, card-sbpe, card-sbpe-pre║
+     ║       Dados MCMV   → comp-mcmv-faixa/taxa/valor              ║
+     ║       Dados SBPE   → comp-sbpe-taxa/valor, det-sbpe-parcela  ║
+     ║       Dados SBPEpre→ comp-sbpe-pre-taxa/valor                ║
+     ║                                                              ║
+     ║  DADOS RECEBIDOS (via simData de index-logic.js):            ║
+     ║  renda, subsidio, fgts, entrada, potencial, sbpe.potencial,  ║
+     ║  taxaAnualMCMV, sbpe.taxa, parcelaPosChaves, sbpe.parcela,   ║
+     ║  prazoEfetivo, faixaMCMV                                     ║
+     ║                                                              ║
+     ║  CSS: assets/css/new-results.css                             ║
+     ║  ATENÇÃO: Este módulo fica VISÍVEL o tempo todo (não some).  ║
+     ╚══════════════════════════════════════════════════════════════╝ -->
+          <div id="container-resultados-gold">
+    <div class="new-module-container">
+ 
+        <!-- [REGIÃO 1] CABEÇALHO E BARRA DE PODER DE COMPRA -->
+        <section class="stacked-bar-section">
+            <div class="total-header-row">
+                <span class="total-label">Seu Poder de Compra Total</span>
+                <!-- ID total-value: Recebe o somatório de todos os recursos (Poder Máximo) -->
+                <div class="total-value-bubble" id="total-value">R$ 0,00</div>
+            </div>
+ 
+            <!-- IDs bar-xxx: Controlados via JS style.width (%) -->
+            <div class="stacked-bar-outer">
+                <div class="bar-segment bar-subsidio" id="bar-sub"></div>
+                <div class="bar-segment bar-fgts" id="bar-fgts"></div>
+                <div class="bar-segment bar-entrada" id="bar-ent"></div>
+                <div class="bar-segment bar-entrada-parcelada" id="bar-ent-parcelado" style="background: #00bcd4; position: relative; cursor: pointer;">
+                    <span class="bar-text-overlay" style="position: absolute; width: 100%; text-align: center; color: #fff; font-size: 10px; font-weight: bold; top: 0; line-height: 20px;"></span>
+                    <span class="sim-tooltip">💡 Preencheremos este valor em parcelas de obra!</span>
+                </div>
+                <div class="bar-segment bar-banco" id="bar-fin"></div>
+            </div>
+ 
+            <!-- IDs val-xxx e pct-xxx: Legendas detalhadas da barra -->
+            <div class="bar-legend">
+                <div class="legend-item">
+                    <div class="legend-top"><div class="legend-dot" style="background: var(--color-green-neon);"></div>Subsídio</div>
+                    <div class="legend-val" id="val-sub">R$ 0,00</div>
+                    <div class="legend-pct" id="pct-sub">0%</div>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-top"><div class="legend-dot" style="background: var(--color-blue-neon);"></div>FGTS</div>
+                    <div class="legend-val" id="val-fgts">R$ 0,00</div>
+                    <div class="legend-pct" id="pct-fgts">0%</div>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-top"><div class="legend-dot" style="background: #00bcd4;"></div>Entrada</div>
+                    <div class="legend-val" id="val-ent">R$ 0,00</div>
+                    <div class="legend-pct" id="pct-ent">0%</div>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-top"><div class="legend-dot" style="background: #1e293b; border: 1px solid rgba(255,255,255,0.2);"></div>Banco</div>
+                    <div class="legend-val" id="val-fin">R$ 0,00</div>
+                    <div class="legend-pct" id="pct-fin">0%</div>
+                </div>
+            </div>
+        </section>
+ 
+        <!-- [REGIÃO 2] GRID HÍBRIDO -->
+        <div class="hybrid-grid">
+            <div class="card-dark profile-panel">
+                <div class="card-title-row"><span class="card-title">Seu Perfil</span></div>
+                <div class="profile-item">
+                    <div class="profile-icon">💰</div>
+                    <div class="profile-label-group"><span class="profile-label">Renda Familiar</span><span class="profile-text" id="prof-renda">R$ 0,00</span></div>
+                </div>
+                <div class="profile-item">
+                    <div class="profile-icon">📉</div>
+                    <div class="profile-label-group"><span class="profile-label">Taxa de Juros</span><span class="profile-text" id="prof-taxa">0% a.a.</span></div>
+                </div>
+                <div class="profile-item">
+                    <div class="profile-icon">🗓️</div>
+                    <div class="profile-item-split">
+                        <div class="profile-label-group">
+                            <span class="profile-label">Prazo Máximo</span>
+                            <span class="profile-text" id="prof-prazo">0 meses</span>
+                        </div>
+                        <div class="profile-split-divider"></div>
+                        <div class="profile-label-group">
+                            <span class="profile-label">Parcela Estimada</span>
+                            <span class="profile-text" id="prof-parcela">R$ 0,00</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="profile-item" style="border-bottom: none; background: rgba(79, 172, 254, 0.05); border-radius: 12px; padding: 15px;">
+                    <div class="profile-icon">🏠</div>
+                    <div class="profile-label-group"><span class="profile-label">Imóvel Sugerido até</span><span class="profile-text profile-val-highlight" id="prof-imovel-max">R$ 0,00</span></div>
+                </div>
+            </div>
+
+            <div class="card-dark market-panel">
+                <div class="card-title-row"><span class="card-title">Comparativo de Mercado</span></div>
+<!-- ESTÁTICO: #table-header — cabeçalho visual das colunas do comparativo de mercado.
+     Sem referência em JS. Texto fixo. Editar aqui se os rótulos mudarem.
+     CSS: new-results.css (.table-header-labels) -->
+                <div class="table-header-labels" id="table-header">
+                    <span>Modalidade</span><span>Juros (a.a.)</span><span>Prazo Máx.</span><span>Financ. %</span><span>Valor</span>
+                </div>
+                <div class="market-comparison-grid">
+                    <div class="modalidade-card" id="card-mcmv">
+                        <div class="card-main-info">
+                            <div class="mod-name-group"><span class="mod-name" style="color: var(--color-orange-neon);">MCMV</span><span class="mod-sub" id="comp-mcmv-faixa">(Faixa --)</span></div>
+                            <div class="mod-val mod-val-divider" id="comp-mcmv-taxa">-- %</div>
+                            <div class="mod-val mod-val-divider">420m</div>
+                            <div class="mod-fin mod-val-divider">Até 80%</div>
+                            <div class="mod-total" id="comp-mcmv-valor">R$ --</div>
+                        </div>
+                        <span class="expand-hint">Clique para detalhes</span>
+                        <div class="card-details-overlay">
+                            <div class="details-grid">
+                                <div class="detail-box"><span class="detail-label">Subsídio Federal</span><span class="detail-value" id="det-mcmv-subsidio">R$ --</span></div>
+                                <div class="detail-box"><span class="detail-label">Seguros (MIP/DFI)</span><span class="detail-value" id="det-mcmv-seguros">R$ --</span></div>
+                                <div class="detail-box"><span class="detail-label">Parcela Estimada</span><span class="detail-value" id="det-mcmv-parcela">R$ --</span></div>
+                                <div class="detail-box"><span class="detail-label">ITBI Estimado</span><span class="detail-value" id="det-mcmv-itbi">R$ --</span></div>
+                            </div>
+                            <button class="btn-back-comparison">← Voltar</button>
+                        </div>
+                    </div>
+                    <div class="modalidade-card" id="card-sbpe">
+                        <div class="card-main-info">
+                            <div class="mod-name-group"><span class="mod-name" style="color: #4facfe;">SBPE</span><span class="mod-sub">(C. Poupança)</span></div>
+                            <div class="mod-val mod-val-divider" id="comp-sbpe-taxa">-- %</div>
+                            <div class="mod-val mod-val-divider">360m</div>
+                            <div class="mod-fin mod-val-divider">Até 90%</div>
+                            <div class="mod-total" id="comp-sbpe-valor">R$ --</div>
+                        </div>
+                        <span class="expand-hint">Clique para detalhes</span>
+                        <div class="card-details-overlay">
+                            <div class="details-grid">
+                                <div class="detail-box"><span class="detail-label">Modalidade</span><span class="detail-value">Poupança Digital</span></div>
+<!-- ESTÁTICO: #det-sbpe-seguros — texto fixo "MIP + DFI", não populado por JS.
+     Atualizar diretamente no HTML se a nomenclatura dos seguros mudar. -->
+                                <div class="detail-box"><span class="detail-label">Seguros</span><span class="detail-value" id="det-sbpe-seguros">MIP + DFI</span></div>
+                                <div class="detail-box"><span class="detail-label">Parcela</span><span class="detail-value" id="det-sbpe-parcela">R$ --</span></div>
+                                <div class="detail-box"><span class="detail-label">ITBI</span><span class="detail-value">Não Incluso</span></div>
+                            </div>
+                            <button class="btn-back-comparison">← Voltar</button>
+                        </div>
+                    </div>
+
+                    <!-- CARD 3: SBPE (PRÉ) -->
+                    <div class="modalidade-card" id="card-sbpe-pre">
+                        <div class="card-main-info">
+                            <div class="mod-name-group">
+                                <span class="mod-name" style="color: #94a3b8;">SBPE</span>
+                                <span class="mod-sub">(PRÉ)</span>
+                            </div>
+                            <div class="mod-val mod-val-divider" id="comp-sbpe-pre-taxa">-- %</div>
+                            <div class="mod-val mod-val-divider">300m</div>
+                            <div class="mod-fin mod-val-divider">Até 85%</div>
+                            <div class="mod-total" id="comp-sbpe-pre-valor">R$ --</div>
+                        </div>
+                        <span class="expand-hint">Clique para detalhes</span>
+                        <div class="card-details-overlay">
+                            <div class="details-grid">
+                                <div class="detail-box">
+                                    <span class="detail-label">Modalidade Especial</span>
+                                    <span class="detail-value">Taxa Fixa PRÉ</span>
+                                </div>
+                                <div class="detail-box">
+                                    <span class="detail-label">Seguros (MIP/DFI)</span>
+                                    <span class="detail-value">Incluso</span>
+                                </div>
+                                <div class="detail-box">
+                                    <span class="detail-label">Parcela Estimada</span>
+                                    <span class="detail-value" id="det-sbpe-pre-parcela">R$ --</span>
+                                </div>
+                                <div class="detail-box">
+                                    <span class="detail-label">Vantagem</span>
+                                    <span class="detail-value">Sem correção</span>
+                                </div>
+                            </div>
+                            <button class="btn-back-comparison">← Voltar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Botão de Análise IA Superior -->
+        <div class="text-center mt-3">
+            <button type="submit" id="btn-upper-cta" class="sim-btn-wpp w-100" style="border: none; border-radius: 14px; background: #25D366; font-family: 'Poppins', sans-serif; display: flex; align-items: center; justify-content: center; transition: all 0.3s ease;">
+                <img src="assets/images/bola_laranja.gif" alt="IA" style="width:24px; height:24px; border-radius:50%; margin-right:8px; box-shadow: 0 0 8px rgba(0,0,0,0.2);">
+                Desbloquear Laudo Oficial
+            </button>
+        </div>
+    </div>
+            <!-- Elementos Legados para Teleport JS (Ocultos) -->
+            <div id="sim-comparativo" style="display:none;"></div>
+            <div id="sim-comparativo-modal" style="display:none;"></div>
+          </div> <!-- FIM MÓDULO A - v2.1 INTEGRADO -->
+
+          <!-- 
+            MÓDULO B: CAPTURA E DASHBOARD
+            Contém todos os seletores de perfil (Sliders e Checkboxes).
+            Em dispositivos móveis, este bloco é ocultado dinamicamente para focar nos resultados.
+          -->
+          <div id="sim-phase-input">
+
+          <!-- ╔══════════════════════════════════════════════════════════════╗
+     ║  MÓDULO B — CAPTURA DE DADOS (DASHBOARD DE ENTRADA)         ║
+     ║  Container: #sim-phase-input > #container-identificacao-perfil
+     ║  Visibilidade: ocultado (display:none) após submit do form   ║
+     ║  Restaurado por: resetSimulator() em index-logic.js         ║
+     ║                                                              ║
+     ║  SUB-MÓDULO B1 — IDENTIFICAÇÃO (.dash-performance)          ║
+     ║  Inputs: input[name="vinculo"] (radio: clt/autonomo/mei/aposentado)
+     ║          #sim-name (texto)                                   ║
+     ║          #sim-celular (tel)                                  ║
+     ║          #dependentes (checkbox)                             ║
+     ║          #clt3anos (checkbox — oculto se vinculo ≠ clt)      ║
+     ║          #primeiroImovel (checkbox)                          ║
+     ║  Efeitos do Vínculo:                                         ║
+     ║   • Muda label/max do slider #renda                          ║
+     ║   • Oculta/exibe #clt3anos                                   ║
+     ║   • Define bloco Coach em score-melhorias.js                 ║
+     ║   • MEI: aplica fator 0.80 e limita renda a R$6.750 no core  ║
+     ║                                                              ║
+     ║  SUB-MÓDULO B2 — PERFIL FINANCEIRO (.dash-activity)         ║
+     ║  Sliders: #renda (0–30k, ou 0–6.750 se MEI)                 ║
+     ║           #idade (18–75 → calcula prazoEfetivo)              ║
+     ║           #dividas (0–10k → define margem bancária)          ║
+     ║           #fgts (0–100k → compõe entrada + score)            ║
+     ║           #entrada (0–200k → compõe capital próprio)         ║
+     ║  Listeners registrados em: index-logic.js linha ~266         ║
+     ║  Labels ao vivo: #label-renda/dividas/fgts/entrada/idade      ║
+     ║  Badge dinâmico: #badge-prazo                                ║
+     ║                                                              ║
+     ║  CSS: assets/css/simulator.css                               ║
+     ╚══════════════════════════════════════════════════════════════╝ -->
+<!-- WRAPPER SEMÂNTICO: #container-identificacao-perfil
+     Sem referência direta em JS. Agrupa os blocos B1 e B2 para espaçamento visual.
+     Não manipular via getElementById. -->
+          <div id="container-identificacao-perfil" class="sim-module-spacer">
+            <!-- [FASE 1] INÍCIO: Captura de Dados (Dashboard) -->
+<!-- WRAPPER SEMÂNTICO: #sim-dashboard
+     Sem referência direta em JS. Grid CSS que posiciona B1 e B2 lado a lado.
+     Para ajustar o layout editar a classe .sim-dashboard-grid em simulator.css. -->
+            <div id="sim-dashboard" class="sim-dashboard-grid">
+              <div class="dash-block dash-performance">
+                <div class="dash-header">
+                  <i class="fas fa-user-circle"></i>
+                  <h5 class="dash-title">Identificação</h5>
+                </div>
+                <p class="dash-subtitle">Preencha seus dados para iniciarmos a análise de crédito.</p>
+
+                <!-- VÍNCULO EMPREGATÍCIO -->
+                <div class="sim-vinculo-wrapper mt-3">
+                  <label class="sim-label text-light" style="margin-bottom:8px; display:block;">🏢 Vínculo
+                    Empregatício</label>
+                  <div class="sim-vinculo-selector">
+                    <label class="sim-vinculo-card active" data-vinculo="clt">
+                      <input type="radio" name="vinculo" value="clt" checked style="display:none;">
+                      <span class="sim-vinculo-icon">👔</span>
+                      <span class="sim-vinculo-text">CLT</span>
+                    </label>
+                    <label class="sim-vinculo-card" data-vinculo="autonomo">
+                      <input type="radio" name="vinculo" value="autonomo" style="display:none;">
+                      <span class="sim-vinculo-icon">📋</span>
+                      <span class="sim-vinculo-text">Autônomo</span>
+                    </label>
+                    <label class="sim-vinculo-card" data-vinculo="mei">
+                      <input type="radio" name="vinculo" value="mei" style="display:none;">
+                      <span class="sim-vinculo-icon">🏪</span>
+                      <span class="sim-vinculo-text">MEI</span>
+                    </label>
+                    <label class="sim-vinculo-card" data-vinculo="aposentado">
+                      <input type="radio" name="vinculo" value="aposentado" style="display:none;">
+                      <span class="sim-vinculo-icon">🏖️</span>
+                      <span class="sim-vinculo-text">Aposentado</span>
+                    </label>
+                  </div>
+                </div>
+                <div class="sim-input-group mt-4">
+                  <label class="sim-label text-light">👤 Nome Completo</label>
+                  <div class="sim-input-wrap">
+                    <input type="text" id="sim-name" name="name" placeholder="Seu Nome..." required
+                      class="sim-input-control" style="padding-left: 18px;">
+                  </div>
+                </div>
+                <div class="sim-input-group mt-4">
+                  <label class="sim-label text-light">📱 WhatsApp / Celular</label>
+                  <div class="sim-input-wrap">
+                    <input type="tel" id="sim-celular" name="celular" placeholder="(11) 99999-9999" required
+                      class="sim-input-control" style="padding-left: 18px;">
+                  </div>
+                </div>
+
+                <div class="sim-input-group mt-4">
+                  <div class="sim-checkbox-wrap" style="margin-bottom: 10px;">
+                    <input type="checkbox" id="dependentes" name="dependentes" class="sim-checkbox-input">
+                    <label for="dependentes" class="sim-checkbox-label">Possuo dependentes (Filhos ou Cônjuge)</label>
+                  </div>
+
+                  <div class="sim-checkbox-wrap" style="margin-bottom: 10px;">
+                    <input type="checkbox" id="clt3anos" name="clt3anos" class="sim-checkbox-input">
+                    <label for="clt3anos" class="sim-checkbox-label">Trabalhei 3 anos ou mais (CLT/FGTS)</label>
+                  </div>
+
+                  <div class="sim-checkbox-wrap">
+                    <input type="checkbox" id="primeiroImovel" name="primeiroImovel" checked class="sim-checkbox-input">
+                    <label for="primeiroImovel" class="sim-checkbox-label">Este é meu primeiro imóvel</label>
+                  </div>
+                </div>
+              </div>
+
+              <div class="dash-block dash-activity">
+                <div class="dash-header" style="justify-content: space-between; width: 100%;">
+                  <div style="display: flex; align-items: center; gap: 10px;">
+                    <i class="fas fa-sliders-h" style="color:#007BFF; font-size:1.2rem;"></i>
+                    <h5 class="dash-title" style="color:#333;">Perfil Financeiro</h5>
+                  </div>
+                </div>
+                <div class="dash-sliders-wrapper">
+                  <div class="sim-slider-group group-renda">
+                    <div class="sim-slider-header">
+                      <label class="sim-label sim-label-hover">
+                        💰 Renda Bruta
+                        <span class="sim-tooltip">Você pode somar a renda de todos que vão comprar o imóvel com você
+                          (Ex:
+                          cônjuge, pais).</span>
+                      </label>
+                      <span id="label-renda" class="sim-value-display">R$ 0</span>
+                    </div>
+                    <input type="range" id="renda" name="renda" min="0" max="30000" step="100" value="0"
+                      class="sim-modern-slider">
+                  </div>
+                  <div class="sim-slider-group group-idade">
+                    <div class="sim-slider-header">
+                      <label class="sim-label sim-label-hover">
+                        🎂 Idade do Titular
+                        <span class="sim-tooltip">Idade do comprador principal.
+                          Afeta o prazo máximo do financiamento e o custo do seguro obrigatório (MIP).</span>
+                      </label>
+                      <span id="label-idade" class="sim-value-display">30 anos</span>
+                    </div>
+                    <input type="range" id="idade" name="idade" min="18" max="75" step="1" value="30"
+                      class="sim-modern-slider">
+                    <div id="badge-prazo" class="sim-badge-prazo">Prazo máximo: 35 anos</div>
+                  </div>
+                  <div class="sim-slider-group group-dividas">
+                    <div class="sim-slider-header">
+                      <label class="sim-label sim-label-hover">
+                        💳 Dívidas Mensais
+                        <span class="sim-tooltip">Informe a soma de parcelas de cartões de crédito, empréstimos ou
+                          financiamentos ativos.</span>
+                      </label>
+                      <span id="label-dividas" class="sim-value-display">R$ 0</span>
+                    </div>
+                    <input type="range" id="dividas" name="dividas" min="0" max="10000" step="50" value="0"
+                      class="sim-modern-slider">
+                  </div>
+                  <div class="sim-slider-group group-fgts">
+                    <div class="sim-slider-header">
+                      <label class="sim-label sim-label-hover">
+                        💼 Saldo FGTS
+                        <span class="sim-tooltip">O valor total em todas as suas contas do FGTS. <a
+                            href='https://www.caixa.gov.br/extrato-fgts' target='_blank'
+                            class='sim-hint-btn'>Consultar</a></span>
+                      </label>
+                      <span id="label-fgts" class="sim-value-display">R$ 0</span>
+                    </div>
+                    <input type="range" id="fgts" name="fgts" min="0" max="100000" step="500" value="0"
+                      class="sim-modern-slider">
+                  </div>
+                  <div class="sim-slider-group group-entrada mb-0">
+                    <div class="sim-slider-header">
+                      <label class="sim-label sim-label-hover">
+                        🏦 Entrada em Dinheiro
+                        <span class="sim-tooltip">O valor em dinheiro que você tem disponível agora para dar como sinal
+                          na
+                          compra.</span>
+                      </label>
+                      <span id="label-entrada" class="sim-value-display">R$ 0</span>
+                    </div>
+                    <input type="range" id="entrada" name="entrada" min="0" max="200000" step="1000" value="0"
+                      class="sim-modern-slider">
+                    <div id="badge-entrada" class="sim-badge-prazo" style="margin-top: 10px; transition: all 0.3s ease;">
+                      Aguardando simulação...
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div> <!-- FIM MÓDULO B -->
+
+          <!-- ╔══════════════════════════════════════════════════════════════╗
+     ║  MÓDULO C — INTELIGÊNCIA IA (SCORE + MELHORIAS)             ║
+     ║  Container: #container-inteligencia-score                    ║
+     ║  Sub-container score:    #mt-score-container (vazio no HTML) ║
+     ║  Sub-container melhorias:#mt-melhorias-live-container        ║
+     ║                          └─ #mt-melhorias-live               ║
+     ║                                                              ║
+     ║  MÓDULO C1 — SCORE IA (score-module.js → MT_Score)          ║
+     ║  Renderiza via: MT_Score.renderizar('mt-score-container', params)
+     ║  Atualiza via:  MT_Score.atualizar(params) — em tempo real   ║
+     ║  IDs gerados dinamicamente pelo _buildHTML():                ║
+     ║   #mt-score-card, #mt-score-header, #mt-score-num           ║
+     ║   #mt-score-concept, #mt-score-bar, #mt-score-pill          ║
+     ║   #mt-score-criteria-list, #mt-score-tip, #mt-score-chevron ║
+     ║   #sim-progress-fill, #sim-progress-pct                     ║
+     ║   #sim-ia-mascot, #sim-progress-msg                         ║
+     ║  Critérios (0-100): Renda(30)+Dívidas(20)+FGTS(15)          ║
+     ║                     +Capital(15)+Vínculo(12)+Idade(8)        ║
+     ║                                                              ║
+     ║  MÓDULO C2 — MELHORIAS IA (score-melhorias.js → MT_Melhorias)
+     ║  Intercepta MT_Score.atualizar via hook em initScoreMelhorias()
+     ║  Renderiza em: #mt-melhorias-live (tempo real)               ║
+     ║               #mt-melhorias-final (Step 4, via MutationObserver)
+     ║                                                              ║
+     ║  MOVIMENTO DOM: Após submit, o #global-ia-tray é movido de   ║
+     ║  #container-inteligencia-score → #mt-ia-results-placeholder  ║
+     ║  No reset (resetSimulator()), ele é devolvido ao container    ║
+     ║  original. Ver: index-logic.js → FIX Reset (Mar/2026)        ║
+     ║                                                              ║
+     ║  CSS: assets/css/score.css + score-melhorias.css             ║
+     ╚══════════════════════════════════════════════════════════════╝ -->
+          <div id="container-inteligencia-score" class="sim-module-spacer">
+            <!-- [FASE 1.1] RESULTADOS ESTÁTICOS (OCULTADOS NO FINAL) -->
+            <!-- BANDEJA CENTRAL DE INTELIGÊNCIA (Global - Pontuação IA) -->
+            <div id="global-ia-tray" class="mt-ia-tray" style="width: 100%; display: flex; flex-direction: column; gap: 20px; margin-bottom: 30px;">
+              
+              <!-- 🚀 NOVO DASHBOARD IA UNIFICADO (Fase 4 - Premium) -->
+              <div id="mt-dash-ia" class="dash-ia-container">
+                  <!-- NOVO CABEÇALHO PADRÃO "GOLD" -->
+                  <div class="total-header-row" style="margin-bottom: 25px; padding-bottom: 15px; border-bottom: 1px solid rgba(255,255,255,0.05);">
+                      <span class="total-label" style="color: #4facfe;">Laudo Oficial de Crédito IA</span>
+                      <img src="assets/images/bola_laranja.gif" alt="IA" style="width:24px; height:24px; border-radius:50%; box-shadow: 0 0 8px rgba(243,85,37,0.4);">
+                  </div>
+                  <!-- 1. Cabeçalho Fixo (Overview) -->
+                  <div class="dash-ia-header">
+                      <div class="score-gauge-container">
+                          <svg class="score-svg" viewBox="0 0 200 200">
+                              <defs>
+                                  <linearGradient id="score-grad" x1="0%" y1="100%" x2="100%" y2="0%">
+                                      <stop offset="0%" stop-color="#f25625" />
+                                      <stop offset="40%" stop-color="#f59c0b" />
+                                      <stop offset="100%" stop-color="#fcd250" />
+                                  </linearGradient>
+                                  
+                                  <!-- Filtro de Glow (Dual-Blur Especial do Preview) -->
+                                  <filter id="score-glow" x="-30%" y="-30%" width="160%" height="160%">
+                                      <feGaussianBlur stdDeviation="7" result="blur1" />
+                                      <feGaussianBlur in="SourceGraphic" stdDeviation="2" result="blur2" />
+                                      <feMerge>
+                                          <feMergeNode in="blur1" />
+                                          <feMergeNode in="blur2" />
+                                          <feMergeNode in="SourceGraphic" />
+                                      </feMerge>
+                                  </filter>
+                              </defs>
+
+                              <!-- 🎡 1. DIAL EXTERNO (Círculos Concentricos e Ticks) -->
+                              <circle cx="100" cy="100" r="92" fill="none" stroke="rgba(255,255,255,0.04)" stroke-width="1.2" />
+                              <circle cx="100" cy="100" r="88" fill="none" stroke="rgba(255,255,255,0.02)" stroke-width="0.5" />
+                              
+                              <g id="dash-ticks-group"></g>
+
+                              <!-- 🎡 2. TRILHO DE FUNDO -->
+                              <path d="M 43.4 156.6 A 80 80 0 1 1 156.6 156.6" fill="none" stroke="#10151f" stroke-width="10" stroke-linecap="round" />
+
+                              <!-- 🎡 3. BARRA DE PROGRESSO COM GLOW -->
+                              <path class="gauge-fill" id="gauge-fill-path" d="M 43.4 156.6 A 80 80 0 1 1 156.6 156.6" fill="none" stroke="url(#score-grad)" stroke-width="10" stroke-linecap="round" filter="url(#score-glow)" />
+
+                              <!-- 🎡 4. TRILHO INTERNO E DOT -->
+                              <path d="M 52 148 A 68 68 0 1 1 148 148" fill="none" stroke="rgba(255,255,255,0.03)" stroke-width="0.8" />
+                              <circle class="gauge-dot" id="gauge-dot" cx="148" cy="148" r="3.5" fill="#fcd250" filter="url(#score-glow)" />
+                          </svg>
+
+                          <!-- Conteúdo de Texto Central -->
+                          <div class="score-content">
+                              <div class="score-stars" id="score-stars">
+                                  <span>&#9733;</span>
+                                  <span>&#9733;</span>
+                                  <span>&#9733;</span>
+                              </div>
+                              <div class="score-number" id="dash-score-num">--</div>
+                              <div class="score-label">Pontos</div>
+                              <div class="score-status" id="dash-score-concept">Analisando...</div>
+                          </div>
+                      </div>
+                      
+                      <div class="dash-status-container">
+                          <div class="dash-status-top">
+                              <span>Análise de Status</span>
+                              <span id="dash-status-result" style="color: var(--dash-glow-gold);">Analisando...</span>
+                          </div>
+                          <div class="dash-ia-progress-wrap">
+                              <div class="dash-ia-progress-bar" id="dash-progress-fill" style="width: 0%">
+                                  <div class="dash-pct-bubble" id="dash-pct-text">0%</div>
+                              </div>
+                          </div>
+                          <div class="dash-status-scales">
+                              <span>Abaixo</span>
+                              <span>Média</span>
+                              <span>Bom</span>
+                              <span>Excelente</span>
+                          </div>
+                      </div>
+                  </div>
+                  
+                  <!-- 2. Accordions (Sanfonas) -->
+                  <div class="dash-ia-accordions">
+                      <div class="dash-ia-card" id="dash-card-details">
+                          <div class="dash-ia-card-head">
+                              <span class="card-title">📊 Detalhamento do Cálculo</span>
+                              <span class="chevron">▼</span>
+                          </div>
+                          <div class="dash-ia-card-body" id="dash-details-body">
+                              <p class="dash-placeholder">Calculando critérios...</p>
+                          </div>
+                      </div>
+                      <div class="dash-ia-card expanded" id="dash-card-tips">
+                          <div class="dash-ia-card-head">
+                              <span class="card-title">💡 Como Melhorar seu Score</span>
+                              <span class="chevron">▼</span>
+                          </div>
+                          <div class="dash-ia-card-body" id="dash-tips-body">
+                              <p class="dash-placeholder">Analisando melhorias...</p>
+                          </div>
+                      </div>
+                  </div>
+              </div> <!-- FIM MÓDULO DASHBOARD -->
+              
+              <!-- ELEMENTOS LEGADOS (Preservados para compatibilidade) -->
+              <div id="mt-score-container" class="mt-score-wrap" style="display:none;"></div>
+              
+            </div>
+          </div> <!-- FIM MÓDULO C -->
+        </div> <!-- FIM sim-phase-input -->
+
+
+        <!-- [FASE 2] INÍCIO: Overlay de Processamento (Animação IA) -->
+        <!-- Este bloco é controlado via index-logic.js -> overlay.classList.add('is-processing') -->
+
+        <input type="hidden" name="_captcha" value="false">
+        <input type="hidden" name="Parcelas Estimadas" id="h_margem">
+        <input type="hidden" name="Potencial de Financiamento" id="h_potencial">
+        <input type="hidden" name="Poder de Compra Total" id="h_poder">
+        <input type="hidden" name="_subject" value="🏠 Nova Simulação de Financiamento!">
+        
+        <!-- [ESTABILIZAÇÃO Mar/2026] Ocultando Badge, Botão e Disclaimer no Layout Flat contínuo -->
+        <div id="sim-approval-badge" style="display:none !important;"></div>
+        <button type="submit" id="btn-final-submit" style="display:none !important;"></button>
+        <p class="sim-disclaimer" style="display:none !important;"></p>
+      </form>
+      <!-- [FASE 3] INÍCIO: Detalhamento de Resultados (Step 4) -->
+      <div id="step-4" style="display:none;">
+
+        <!-- [LEGADO Ocultado] Bloco de resumo removido para evitar IDs duplicados com o Módulo v2.1 -->
+
+        <p id="plano-subtitulo" style="display:none;"></p>
+
+        <!-- Pagamento à vista (quando recursos cobrem tudo) -->
+        <div id="plano-avista" style="display:none;">
+          <div class="emoji">🎉</div>
+          <h5>Pagamento à Vista</h5>
+          <p id="plano-avista-msg"></p>
+        </div>
+
+        <!-- ============================================================
+             SANDBOX UNIFIED PANEL — Dossiê de Viabilidade IA (v13)
+             Módulo 1: Flip Cards de Fluxo
+             Módulo 2: Imóvel Ideal (Carrossel + Mapa)
+             Módulo 3: Documentação + CTA WhatsApp
+             Acionado por: SandboxConnector.init(data) em index-logic.js
+             ============================================================ -->
+        <div class="sandbox-unified-panel">
+          <!-- CABEÇALHO GERAL DO PAINEL DE VIABILIDADE -->
+          <div class="total-header-row" style="margin-bottom: 25px; padding-bottom: 15px; border-bottom: 1px solid rgba(255,255,255,0.05);">
+              <span class="total-label" style="color: #94a3b8;">Plano de Viabilidade Mapeado</span>
+          </div>
+          <div class="container-fluid p-0">
+            <div class="row g-3">
+
+              <!-- ==========================================
+                   === MÓDULO 1: PLANO DE FLUXO ORGANIZADO ===
+                   ========================================== -->
+              <div class="col-lg-7">
+                <div class="d-flex justify-content-between align-items-center mb-1">
+                  <h5 class="fw-bold mb-0" style="color: var(--text-primary);">1. Plano de Fluxo Organizado</h5>
+                </div>
+                <!-- Subtítulo dinâmico Live-Sync -->
+                <p class="sync-subtitle mb-3">
+                  <i class="fas fa-lightbulb text-warning me-1"></i>
+                  Simulação baseada no <strong id="nome-imovel-vinculo">carregando...</strong>. Altere o imóvel no Módulo 2 para recalcular.
+                </p>
+
+                <!-- 🏆 Novo: Aviso de Imóvel Pronto (Oculta cards) -->
+                <div id="sandbox-fluxo-pagamento-aviso" style="display:none; background: rgba(25,135,84,0.1); border: 1px solid #198754; border-radius: 12px; padding: 16px; text-align: center; margin-bottom: 8px;">
+                    <h6 style="color: #198754; font-weight: 700; margin-bottom:4px;">🏠 Imóvel Pronto para Morar</h6>
+                    <p style="font-size: 0.8rem; color: var(--text-secondary); margin-bottom: 8px;">Este imóvel não possui parcelas de obra. O financiamento bancário é imediato.</p>
+                    <div style="font-size: 0.95rem; font-weight: 800; color: var(--text-primary);" id="aviso-pronto-parcela">Financiado: R$ 0,00/mês</div>
+                </div>
+
+                <div id="sandbox-cards-fluxo">
+                <!-- Flip Card: Entrada -->
+                <div class="flip-card mb-2" onclick="toggleFlip(this)">
+                  <div class="flip-card-inner">
+                    <div class="flip-card-front glass-card fluxo-card laranja">
+                      <div class="d-flex justify-content-between">
+                        <div>
+                          <span class="text-uppercase fw-bold" style="font-size:0.75rem; color: var(--text-secondary);">Entrada Parcelada (Construtora)</span>
+                          <div class="card-value laranja" id="val-entrada">R$ 0,00</div>
+                          <span class="text-secondary small" id="lbl-prazo-entrada"><i class="fas fa-calendar-alt me-1"></i> Período: 36 meses</span>
+                        </div>
+                        <div class="icon-circle bg-light p-3 rounded-circle d-flex align-items-center justify-content-center" style="width:45px;height:45px;">
+                          <i class="fas fa-wallet" style="color:#f35525;font-size:1.1rem;"></i>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="flip-card-back">
+                      <div class="back-title laranja"><i class="fas fa-shield-alt me-1"></i> Sua Entrada Facilitada</div>
+                      <p>Pague diretamente para a construtora durante a fase de obras, sem juros bancários.</p>
+                      <div class="insight-box"><i class="fas fa-lightbulb text-warning me-1"></i> <strong>IA:</strong> Use seu FGTS para amortizar parte da entrada!</div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Flip Card: Evolução de Obra -->
+                <div class="flip-card mb-2" onclick="toggleFlip(this)">
+                  <div class="flip-card-inner">
+                    <div class="flip-card-front glass-card fluxo-card azul">
+                      <div class="d-flex justify-content-between">
+                        <div>
+                          <span class="text-uppercase fw-bold" style="font-size:0.75rem; color: var(--text-secondary);">Evolução de Obra (Média)</span>
+                          <div class="card-value azul" id="val-obra">R$ 350,00</div>
+                          <span class="text-secondary small" id="lbl-prazo-obra"><i class="fas fa-tools me-1"></i> Conforme a obra avança</span>
+                        </div>
+                        <div class="icon-circle bg-light p-3 rounded-circle d-flex align-items-center justify-content-center" style="width:45px;height:45px;">
+                          <i class="fas fa-tools" style="color:#4da3ff;font-size:1.1rem;"></i>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="flip-card-back">
+                      <div class="back-title azul"><i class="fas fa-building me-1"></i> Taxa de Evolução</div>
+                      <p>Pago à Caixa enquanto o prédio sobe. Garante a entrega no prazo!</p>
+                      <div class="insight-box"><i class="fas fa-lock text-warning me-1"></i> <strong>Seguro:</strong> Você paga proporcionalmente ao que foi construído.</div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Flip Card: Prestação Pós-Chaves -->
+                <div class="flip-card mb-2" onclick="toggleFlip(this)">
+                  <div class="flip-card-inner">
+                    <div class="flip-card-front glass-card fluxo-card verde">
+                      <div class="d-flex justify-content-between">
+                        <div>
+                          <span class="text-uppercase fw-bold" style="font-size:0.75rem; color: var(--text-secondary);">Prestação Mensal (Pós-Chaves)</span>
+                          <div class="card-value verde" id="val-prestacao">R$ 0,00</div>
+                          <span class="text-secondary small"><i class="fas fa-home me-1"></i> Financiamento definitivo</span>
+                        </div>
+                        <div class="icon-circle bg-light p-3 rounded-circle d-flex align-items-center justify-content-center" style="width:45px;height:45px;">
+                          <i class="fas fa-key" style="color:#3ddc84;font-size:1.1rem;"></i>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="flip-card-back">
+                      <div class="back-title verde"><i class="fas fa-home me-1"></i> Financiamento Caixa</div>
+                      <p>A parcela que você pagará apenas após receber as chaves do seu imóvel.</p>
+                      <div class="insight-box"><i class="fas fa-chevron-up text-warning me-1"></i> <strong>Dica IA:</strong> Amortize com FGTS a cada 2 anos para reduzir esta parcela!</div>
+                    </div>
+                  </div>
+                </div>
+                </div> <!-- FIM #sandbox-cards-fluxo -->
+              </div>
+
+              <!-- ==========================================
+                   === MÓDULO 2: IMÓVEL IDEAL ===
+                   ========================================== -->
+              <div class="col-lg-5">
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                  <h5 class="fw-bold mb-0" style="color: var(--text-primary);">2. Imóvel Ideal Para Você</h5>
+                </div>
+
+                <div class="mb-2">
+                  <select class="form-select form-select-sm shadow-sm" id="select-catalogo" onchange="SandboxConnector.selecionarImovelManual(this.value)">
+                    <option value="auto">🔥 Auto-Seleção Inteligente (IA)</option>
+                  </select>
+                </div>
+
+                <div class="glass-card p-0 position-relative mb-2" style="min-height:auto;overflow:hidden;">
+                  <div class="tabs-header">
+                    <button class="btn-tab active" id="tab-card" onclick="SandboxConnector.mudarAba('card')"><i class="fas fa-home me-1"></i> Card</button>
+                    <button class="btn-tab" id="tab-mapa" onclick="SandboxConnector.mudarAba('mapa')"><i class="fas fa-map-marked-alt me-1"></i> Mapa Real</button>
+                  </div>
+
+                  <div id="view-card">
+                    <div class="property-image" id="prop-img">
+                      <span class="match-badge" id="prop-match">0% Match</span>
+                    </div>
+                    <div class="p-2">
+                      <h6 class="fw-bold mb-1" id="prop-nome">Carregando...</h6>
+                      <p class="text-muted small mb-1"><i class="fas fa-map-marker-alt me-1"></i> <span id="prop-local">São Paulo</span></p>
+                      <hr class="my-1">
+                      <div class="d-flex justify-content-between align-items-center mt-1">
+                        <div>
+                            <span class="text-muted" style="font-size:0.7rem;">Valor do Imóvel</span>
+                            <div class="fw-bold" id="prop-preco" style="font-size:0.9rem;">R$ 0,00</div>
+                            <span id="prop-status-badge" style="display: none; padding: 2px 8px; border-radius: 12px; font-size: 0.65rem; font-weight: 700; color: #fff; margin-top: 4px;"></span>
+                        </div>
+                        <button class="btn btn-warning btn-sm text-white fw-bold py-1 px-2" style="font-size:0.7rem;" onclick="SandboxConnector.mudarAba('mapa')"><i class="fas fa-map me-1"></i> Ver no Mapa</button>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div id="view-mapa" class="d-none">
+                    <div id="map" style="height:280px;"></div>
+                  </div>
+                </div>
+
+                <div class="carousel-indicators-custom" id="carousel-dots"></div>
+                <div id="estrategia-painel" class="mt-2"></div>
+              </div>
+
+            </div><!-- fim row módulos 1 e 2 -->
+
+            <!-- ==========================================
+                 === MÓDULO 3: DOCUMENTAÇÃO E WHATSAPP ===
+                 ========================================== -->
+            <hr class="my-4" style="border-color: var(--border-glass);">
+            <div class="row">
+              <div class="col-12 text-center mb-3">
+                <h5 class="fw-bold" style="color: var(--text-primary);">3. Documentação Necessária</h5>
+                <p class="small" style="color: var(--text-secondary);">Clique nos itens que já possui separados.</p>
+              </div>
+            </div>
+            <div class="row" id="docs-grid"></div>
+
+            <!-- CTA WhatsApp Premium -->
+            <div class="text-center mt-4 mb-3">
+              <a href="#" id="whatsapp-btn" target="_blank" class="sim-btn-wpp" style="max-width:400px; margin:0 auto; border-radius:14px;">
+                <i class="fab fa-whatsapp" style="font-size:22px;"></i> Receber meu Laudo Aprovado no WhatsApp
+              </a>
+            </div>
+
+          </div><!-- fim container-fluid -->
+        </div><!-- fim sandbox-unified-panel -->
+
+        <!-- [SUB-ETAPA 4.2] INTELIGÊNCIA IA (SCORE E MELHORIAS) -->
+<!-- CONTAINER SEMÂNTICO: #step-4-ia-area
+     Sem referência direta em JS. O JS manipula apenas o filho #mt-ia-results-placeholder.
+     Mantido para estrutura visual e título "ANÁLISE DE CRÉDITO IA" do Step 4. -->
+        <div id="step-4-ia-area">
+          <h6>ANÁLISE DE CRÉDITO IA</h6>
+          <div id="mt-ia-results-placeholder"></div>
+        </div>
+        <br><br>
+        <div class="dossie-legacy-hide">
+        Como a obra ainda não começou, você tem o benefício máximo de parcelamento (36x), permitindo que a entrada
+        seja diluída de forma leve e sem juros bancários (apenas correção INCC).
+        <p style="margin-top:10px; font-weight:700; color:#f35525;">💡 Clique para fechar</p>
+        <!-- Timeline de fases -->
+        <div id="plano-timeline">
+          📋 <strong>Fase 1:</strong> Parcelas à construtora (36 meses de obra) → <strong>Fase 2:</strong> Recebe as
+          chaves → <strong>Fase 3:</strong> Prestação do financiamento
+        </div>
+
+        
+
+        <div style="display:flex; justify-content:center; margin-bottom: 40px;">
+          <button type="button" id="btn-download-planilha">
+            <i class="fas fa-file-excel"></i> Baixar Planilha de Controle de Valores
+          </button>
+        </div>
+
+        <h5 class="sim-step-title" style="text-align:center;">Opções para o seu Perfil</h5>
+        <div id="sim-match-container" class="sim-match-grid"></div>
+        <hr class="sim-divider" style="margin: 35px 0;">
+        <h5 class="sim-step-title" style="margin-bottom:15px; text-align:center;">Documentação Necessária</h5>
+        <p style="font-size:0.95rem; color:#666; margin-bottom:20px; text-align:center;">
+          Separe estes documentos para acelerar sua aprovação com a Caixa:
+        </p>
+        <div class="sim-docs-grid" style="margin-bottom:30px;">
+          <div class="doc-card-glass" onclick="this.classList.toggle('active')">
+            <div class="doc-card-main"><span class="doc-icon">🪪</span><span class="doc-name">RG e CPF</span></div>
+            <p class="doc-desc">Foto nítida frente e verso (RG ou CNH) ou arquivo PDF original do documento digital.</p>
+          </div>
+          <div class="doc-card-glass" onclick="this.classList.toggle('active')">
+            <div class="doc-card-main"><span class="doc-icon">📍</span><span class="doc-name">Residência</span></div>
+            <p class="doc-desc">Conta de consumo recente (luz, água ou internet) emitida nos últimos 60 dias.</p>
+          </div>
+          <div class="doc-card-glass" onclick="this.classList.toggle('active')">
+            <div class="doc-card-main"><span class="doc-icon">💍</span><span class="doc-name">Estado Civil</span></div>
+            <p class="doc-desc">Certidão de Nascimento (solteiros) ou Casamento (com averbação se houver).</p>
+          </div>
+          <div class="doc-card-glass" onclick="this.classList.toggle('active')">
+            <div class="doc-card-main"><span class="doc-icon">💼</span><span class="doc-name">Renda</span></div>
+            <p class="doc-desc">Últimos 3 holerites (CLT) ou Declaração de Imposto de Renda atualizada.</p>
+          </div>
+        </div>
+        <div id="wpp-box" style="display:none;">
+          <a id="btn-wpp-final" href="#" target="_blank" class="sim-btn-wpp sim-btn-wpp-results">
+            <i class="fab fa-whatsapp" style="font-size:24px;"></i> Iniciar Atendimento
+          </a>
+        </div>
+        <div class="sim-nav-buttons" style="justify-content:center; margin-top:20px;">
+          <button type="button" onclick="resetSimulator();"
+            style="background:transparent; color:#999; border:none; text-decoration:underline; cursor:pointer;">Refazer
+            simulação</button>
+        </div>
+        </div>
+      </div>
+    </div> <!-- FIM sim-glass-container -->
+
+
+  </div> <!-- FIM simulador -->
+
+
+
+  <footer>
+    <div class="container">
+      <p>
+        Copyright &copy; <span id="simulador-year">2026</span> MT Parceiros - Consultoria Imobiliaria e Solucoes
+        Inteligentes.
+      </p>
+    </div>
+  </footer>
+
+  <div id="calendar-modal" class="calendar-modal">
+    <div class="calendar-modal-content">
+      <span class="calendar-close-button">&times;</span>
+      <h4>Selecione uma data para a visita</h4>
+      <div id="calendar-container"></div>
+    </div>
+  </div>
+
+  <script src="vendor/jquery/jquery.min.js"></script>
+  <script src="vendor/bootstrap/js/bootstrap.min.js"></script>
+  <script src="assets/js/isotope.min.js"></script>
+  <script src="assets/js/owl-carousel.js"></script>
+  <script src="assets/js/counter.js"></script>
+  <script src="assets/js/components-renderer.min.js"></script>
+  <script src="assets/js/custom.js"></script>
+  <script src="assets/js/shared.js?v=13.1"></script>
+  <script src="assets/js/micro-animations.js"></script>
+  <script src="assets/js/property-drawer.js"></script>
+  <script src="empreendimentos.js"></script>
+  <script src="assets/js/sandbox-connector.min.js?v=13.1"></script><!-- Dossiê IA v13 -->
+  <script src="assets/js/cms-renderer.js"></script>
+  <!-- LÓGICA DO SIMULADOR v2.1 -->
+  <script src="assets/js/new-results.min.js"></script> <!-- Módulo de Renderização Premium -->
+  <script src="assets/js/simulator-core.min.js?v=2.2"></script> <!-- Motor de Cálculo (Regras 2025) -->
+  <script src="assets/js/score-module.min.js?v=2.2"></script> <!-- Inteligência de Score IA -->
+  <script src="assets/js/index-logic.min.js?v=2.2"></script> <!-- Orquestrador de Eventos e UI -->
+  <script src="assets/js/score-melhorias.min.js?v=2.2"></script>
+  <!-- Novo Módulo Dashboard IA (Sincronizador) -->
+  <script src="assets/js/dash-ia.min.js?v=2.2"></script>
+  <script src="assets/js/simulador-page.js"></script>
+</body>
+
+</html>
