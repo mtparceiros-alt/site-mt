@@ -97,16 +97,16 @@ function renderFooter() {
     if (!footerPlaceholder) return;
 
     footerPlaceholder.innerHTML = `
-        <div class="row footer-content-row">
-            <div class="col-lg-8">
-                <p>Copyright &copy; 2024 MT Parceiros - Consultoria Imobiliaria e Solucoes Inteligentes. Todos os direitos reservados.
-                <br>Design: <a rel="nofollow" href="https://templatemo.com" target="_blank">TemplateMo</a>
-                Distribuicao: <a href="https://themewagon.com">ThemeWagon</a></p>
-            </div>
-            <div class="col-lg-4">
-                <ul class="footer-social-links">
-                    <li><a href="https://www.facebook.com/profile.php?id=61587335061570&locale=pt_BR" target="_blank" rel="noopener noreferrer" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a></li>
-                    <li><a href="https://www.instagram.com/corretora.thainak/" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a></li>
+        <div class="row footer-content-row justify-content-center text-center">
+            <div class="col-lg-10">
+                <p style="margin-bottom: 10px;">Copyright &copy; 2024 MT Parceiros - Consultoria Imobiliária e Soluções Inteligentes. 
+                <br>CNPJ: 60.393.773/0001-07 | CRECI-J: 50809-J. Todos os direitos reservados.</p>
+                <p style="font-size: 0.8rem; opacity: 0.7;">Design: <a rel="nofollow" href="https://templatemo.com" target="_blank" style="color: inherit;">TemplateMo</a> | 
+                Distribuição: <a href="https://themewagon.com" style="color: inherit;">ThemeWagon</a></p>
+                
+                <ul class="footer-social-links" style="justify-content: center; margin-top: 15px; display: flex; list-style: none; padding: 0;">
+                    <li style="margin: 0 10px;"><a href="https://www.facebook.com/profile.php?id=61587335061570&locale=pt_BR" target="_blank" rel="noopener noreferrer" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a></li>
+                    <li style="margin: 0 10px;"><a href="https://www.instagram.com/corretora.thainak/" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a></li>
                 </ul>
             </div>
         </div>

@@ -8,6 +8,7 @@
  * Consumida por: calendar-system e formulário de contato.
  */
 window.lastClickedEmpNome = null;
+window.lastClickedWANumber = null; // Armazena o WhatsApp do corretor específico
 
 /**
  * @global {Object} MT_Utils - Módulo de utilitários globais.
@@ -83,7 +84,8 @@ window.MT_Utils = {
                 break;
         }
 
-        return `https://wa.me/${this.WHATSAPP_NUMBER}?text=${encodeURIComponent(msg)}`;
+        const numero = dados.waNumber || this.WHATSAPP_NUMBER;
+        return `https://wa.me/${numero}?text=${encodeURIComponent(msg)}`;
     },
 
     renderGenericCalendar: function (container, date, config) {
@@ -414,7 +416,8 @@ function initCalendarSystem() {
 
                     const whatsappUrl = window.MT_Utils.getWhatsAppLink('VISITA_SIMPLES', {
                         data: formattedDate,
-                        imovel: empNome
+                        imovel: empNome,
+                        waNumber: window.lastClickedWANumber // Usa o número capturado no clique
                     });
 
                     window.open(whatsappUrl, '_blank');
@@ -434,6 +437,9 @@ function initCalendarSystem() {
         if (link && !link.hasAttribute('data-emp-nome')) {
             e.preventDefault();
             window.lastClickedEmpNome = null;
+            // Captura o número do WhatsApp se presente no link
+            window.lastClickedWANumber = link.getAttribute('data-wa-number') || null; 
+            
             currentDate = new Date();
             renderCalendar(currentDate);
             modal.style.display = 'block';
