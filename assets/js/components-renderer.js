@@ -105,7 +105,7 @@ function renderFooter() {
             </div>
             <div class="col-lg-4">
                 <ul class="footer-social-links">
-                    <li><a href="https://www.facebook.com/profile.php?id=61587335061570" target="_blank" rel="noopener noreferrer" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a></li>
+                    <li><a href="https://www.facebook.com/profile.php?id=61587335061570&locale=pt_BR" target="_blank" rel="noopener noreferrer" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a></li>
                     <li><a href="https://www.instagram.com/corretora.thainak/" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a></li>
                 </ul>
             </div>

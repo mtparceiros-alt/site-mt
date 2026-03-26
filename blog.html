@@ -30,14 +30,24 @@
   <style>
     .instagram-section {
       padding: 80px 0;
-      background-color: #fff;
+      background-color: #f9f9f9;
     }
     .instagram-container {
-      background: #fafafa;
-      padding: 20px;
+      background: #fff;
+      padding: 30px;
       border-radius: 20px;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.05);
-      min-height: 400px;
+      box-shadow: 0 15px 35px rgba(0,0,0,0.08);
+      min-height: 500px;
+      margin-bottom: 30px;
+    }
+    .setup-helper {
+      margin-top: 2rem;
+      background: #fff3ed;
+      padding: 20px;
+      border-radius: 12px;
+      border: 1px dashed #f35525;
+      text-align: center;
+      font-size: 0.9rem;
     }
     .cta-blog {
       background: #1e1e1e;
@@ -114,25 +124,24 @@
       </div>
       
       <div class="row">
-        <div class="col-lg-12">
+        <div class="col-lg-6">
           <div class="instagram-container">
-            <!-- 📸 WIDGET DO INSTAGRAM (ELFSIGHT)
-                 Este bloco carrega as fotos automaticamente do Instagram.
-                 O script abaixo é o motor do widget. -->
+            <h5 class="text-center mb-4"><i class="fab fa-instagram"></i> Instagram</h5>
+            <!-- 📸 WIDGET DO INSTAGRAM (ELFSIGHT) -->
             <script src="https://static.elfsight.com/platform/platform.js" data-use-service-core defer></script>
+            <div class="elfsight-app-PLACEHOLDER-ID-IG" data-elfsight-app-lazy></div>
             
-            <!-- ⚠️ IMPORTANTE: 
-                 Substitua 'PLACEHOLDER-ID' pelo código que você pegar no painel da Elfsight.
-                 Exemplo: elfsight-app-73f6d7a4-84ba-46e3-8559-00f7b1968841 -->
-            <div class="elfsight-app-PLACEHOLDER-ID" data-elfsight-app-lazy></div>
-            
-            <!-- 🛠️ AJUDA PARA O USUÁRIO (Remova este bloco após configurar o ID real) -->
-            <div id="setup-helper" style="margin-top: 2rem; background: #fff3ed; padding: 25px; border-radius: 12px; border: 1px dashed #f35525; text-align: center;">
-                <h5 style="color: #f35525; margin-bottom: 10px;"><i class="fas fa-exclamation-triangle"></i> Quase Pronto!</h5>
-                <p style="font-size: 0.95rem; color: #555; margin-bottom: 0;">
-                    Para ver as fotos do Instagram aqui, crie seu widget na <a href="https://elfsight.com/instagram-feed-instashow/" target="_blank" style="font-weight: 700; color: #f35525;">Elfsight</a> e envie o <strong>ID do Widget</strong> para o chat.
-                </p>
+            <div id="setup-helper-ig" class="setup-helper">
+                <p>Aguardando ID do Instagram...</p>
             </div>
+          </div>
+        </div>
+        
+        <div class="col-lg-6">
+          <div class="instagram-container">
+            <h5 class="text-center mb-4"><i class="fab fa-facebook"></i> Facebook</h5>
+            <!-- 🌐 WIDGET DO FACEBOOK (ELFSIGHT) -->
+            <div class="elfsight-app-eaf51554-c1f9-4b75-83ab-50e21d6cbbc5" data-elfsight-app-lazy></div>
           </div>
         </div>
       </div>
