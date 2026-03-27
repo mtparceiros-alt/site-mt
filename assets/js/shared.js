@@ -16,7 +16,7 @@ window.lastClickedWANumber = null; // Armazena o WhatsApp do corretor específic
  * Consumida por: Toda a aplicação.
  */
 window.MT_Utils = {
-    WHATSAPP_NUMBER: '5511960364355',
+    WHATSAPP_NUMBER: '5511946211111',
 
     // 🏆 Novo: Retorna status (planta, breve, pronto) baseado no texto de entrega
     getStatusEntrega: function(entregaStr) {
@@ -68,7 +68,7 @@ window.MT_Utils = {
                 msg = `Olá! Me chamo *${dados.nome}*.\nMeu WhatsApp: ${dados.celular}.\nAssunto: ${dados.assunto}${dados.mensagem ? '\n\n' + dados.mensagem : ''}`;
                 break;
             case 'SIMULADOR':
-                msg = `🏠 *NOVA SIMULAÇÃO — MT Parceiros*\n━━━━━━━━━━━━━━━━━━━\n👤 Cliente: ${dados.nome}\n👨‍👩‍👧‍👦 Dependentes: ${dados.dependentes}\n💰 Renda: ${this.formatCurrency(dados.renda)}\n💳 Dívidas: ${this.formatCurrency(dados.dividas)}\n━━━━━━━━━━━━━━━━━━━\n📊 Parcela: ${this.formatCurrency(dados.margem)}/mês\n🏦 Financiamento: ${this.formatCurrency(dados.potencial)}\n🏡 Poder Total: ${this.formatCurrency(dados.poder)}\n━━━━━━━━━━━━━━━━━━━\nMT Parceiros | (11) 96036-4355`;
+                msg = `🏠 *NOVA SIMULAÇÃO — MT Parceiros*\n━━━━━━━━━━━━━━━━━━━\n👤 Cliente: ${dados.nome}\n👨‍👩‍👧‍👦 Dependentes: ${dados.dependentes}\n💰 Renda: ${this.formatCurrency(dados.renda)}\n💳 Dívidas: ${this.formatCurrency(dados.dividas)}\n━━━━━━━━━━━━━━━━━━━\n📊 Parcela: ${this.formatCurrency(dados.margem)}/mês\n🏦 Financiamento: ${this.formatCurrency(dados.potencial)}\n🏡 Poder Total: ${this.formatCurrency(dados.poder)}\n━━━━━━━━━━━━━━━━━━━\nMT Parceiros | (11) 94621-1111`;
                 break;
             case 'VISITA_IMOVEL':
                 msg = `Olá! Gostaria de agendar uma visita para o dia *${dados.data}* no empreendimento *${dados.imovel}*.\n`;
@@ -258,6 +258,7 @@ window.MT_Utils = {
 const initShared = function () {
     initCalendarSystem();
     initSharedContactForm();
+    initLeadCapture();
 };
 
 // Inicialização segura que lida com carregamento dinâmico/atrasado
@@ -437,7 +438,9 @@ function initCalendarSystem() {
         if (link && !link.hasAttribute('data-emp-nome')) {
             e.preventDefault();
             window.lastClickedEmpNome = null;
-            // Captura o número do WhatsApp se presente no link
+            // 📱 REGRA DE NEGÓCIO MT PARCEIROS:
+            // Captura o número do WhatsApp se presente no link para redirecionamento individual (Corretores)
+            // Se o link 'Agendar' tiver o atributo 'data-wa-number', o calendário usará esse número.
             window.lastClickedWANumber = link.getAttribute('data-wa-number') || null; 
             
             currentDate = new Date();
@@ -453,4 +456,125 @@ function initCalendarSystem() {
     window.addEventListener('click', function (event) {
         if (event.target == modal) { modal.style.display = 'none'; }
     });
+}
+
+/**
+ * Sistema de Intercepção e Captura de Leads (Controle de Corretores)
+ */
+function initLeadCapture() {
+    // 1. Criar e injetar o modal no body (apenas se não houver)
+    if (document.getElementById('mt-lead-modal')) return;
+
+    const modalHTML = `
+    <div id="mt-lead-modal" class="mt-lead-modal-overlay">
+        <div class="mt-lead-modal-content">
+            <span class="mt-lead-modal-close">&times;</span>
+            <div class="mt-lead-icon-container">
+                <video autoplay loop muted playsinline>
+                    <source src="assets/images/bola_laranja.webm" type="video/webm">
+                </video>
+            </div>
+            <h3>Falar com o Especialista</h3>
+            <p>Deixe seu contato para liberar o atendimento exclusivo.</p>
+            <form class="mt-lead-form" id="mt-lead-capture-form">
+                <input type="text" name="nome" class="mt-lead-input" placeholder="Seu nome completo" required>
+                <input type="tel" name="whatsapp" class="mt-lead-input" placeholder="Seu WhatsApp (com DDD)" required>
+                <button type="submit" class="mt-lead-submit">Liberar Atendimento</button>
+            </form>
+        </div>
+    </div>`;
+
+    document.body.insertAdjacentHTML('beforeend', modalHTML);
+
+    const modal = document.getElementById('mt-lead-modal');
+    const form = document.getElementById('mt-lead-capture-form');
+    const closeBtn = modal.querySelector('.mt-lead-modal-close');
+    let pendingRedirect = null;
+    let pendingBrokerName = '';
+
+    // 2. Interceptar cliques nos botões marcados
+    document.addEventListener('click', function(e) {
+        const trigger = e.target.closest('.js-lead-intercept');
+        if (!trigger) return;
+
+        // Bypassing: Se o clique foi gerado programaticamente (pelo sistema), 
+        // não interceptamos novamente para evitar loop infinito.
+        if (!e.isTrusted) return;
+
+        // Identificar o corretor (se estiver dentro de um card)
+        const teamCard = trigger.closest('.team-card');
+        const teamNameEl = teamCard ? teamCard.querySelector('.team-name') : null;
+        pendingBrokerName = teamNameEl ? teamNameEl.innerText.trim() : 'Especialista Geral';
+
+        // Se já capturamos o lead nesta sessão, preenchemos os campos automaticamente para facilitar
+        const savedNome = sessionStorage.getItem('mt_user_nome') || '';
+        const savedWA = sessionStorage.getItem('mt_user_wa') || '';
+        if (savedNome) form.nome.value = savedNome;
+        if (savedWA) form.whatsapp.value = savedWA;
+
+        e.preventDefault();
+        pendingRedirect = trigger; // Salva o link/botão clicado para agir depois
+        
+        modal.classList.add('active');
+        document.body.style.overflow = 'hidden';
+    });
+
+    // 3. Fechar modal
+    const closeModal = () => {
+        modal.classList.remove('active');
+        document.body.style.overflow = '';
+    };
+
+    closeBtn.onclick = closeModal;
+    window.onclick = (e) => { if (e.target === modal) closeModal(); };
+
+    // 4. Lógica de Envio
+    form.onsubmit = function(e) {
+        e.preventDefault();
+        
+        const submitBtn = form.querySelector('button');
+        const nome = form.nome.value;
+        const whatsapp = form.whatsapp.value.replace(/\D/g, '');
+
+        if (whatsapp.length < 10) {
+            alert('Por favor, insira um WhatsApp válido com DDD.');
+            return;
+        }
+
+        submitBtn.disabled = true;
+        submitBtn.textContent = 'Liberando...';
+
+        // 🎯 Envio de Dados com Rastreabilidade
+        const payload = new URLSearchParams();
+        payload.append('token', 'mtpc_seguro_2025');
+        payload.append('nome', nome);
+        payload.append('whatsapp', whatsapp);
+        
+        // Identificamos o contexto do contato para a coluna Observações da Planilha
+        const btnText = pendingRedirect ? pendingRedirect.innerText.trim() : 'Chat';
+        payload.append('origem', `Captura Corretor: ${pendingBrokerName} (${btnText})`);
+        payload.append('assunto', 'Interesse em contato direto');
+
+        fetch('https://script.google.com/macros/s/AKfycbzmtDgzbLghMsO0NFMt3CAUDS4lu1E2CjIHibGGSZP_PlWomYcRoYdVE3cIlYxVJDzNlg/exec', {
+            method: 'POST',
+            body: payload,
+            mode: 'no-cors'
+        }).finally(() => {
+            // Guardamos os dados localmente para pre-preenchimento futuro
+            sessionStorage.setItem('mt_lead_captured', 'true');
+            sessionStorage.setItem('mt_user_nome', nome);
+            sessionStorage.setItem('mt_user_wa', whatsapp);
+
+            // 🏁 Finalização e Redirecionamento
+            closeModal();
+            if (pendingRedirect) {
+                // Ao re-clicar no botão, o interceptor (isTrusted) deixará esta ação passar
+                if (pendingRedirect.tagName === 'A' && pendingRedirect.href && !pendingRedirect.href.includes('#!')) {
+                    window.open(pendingRedirect.href, '_blank');
+                } else {
+                    pendingRedirect.click();
+                }
+            }
+        });
+    };
 }

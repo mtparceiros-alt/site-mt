@@ -129,7 +129,7 @@
             }
 
             waMsg += '\nVi no site MT Parceiros.';
-            btnWhatsapp.href = 'https://wa.me/5511960364355?text=' + encodeURIComponent(waMsg);
+            btnWhatsapp.href = 'https://wa.me/5511946211111?text=' + encodeURIComponent(waMsg);
         }
 
         if (selectedDate) {

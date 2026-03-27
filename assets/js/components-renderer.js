@@ -118,7 +118,7 @@ function renderWhatsApp() {
     if (document.querySelector('.whatsapp-float')) return;
 
     const waHtml = `
-        <a href="https://wa.me/5511960364355" target="_blank" class="whatsapp-float">
+        <a href="https://wa.me/5511946211111" target="_blank" class="whatsapp-float">
             <img src="assets/images/bot-whatsapp.png" alt="Fale conosco pelo WhatsApp">
         </a>
     `;
