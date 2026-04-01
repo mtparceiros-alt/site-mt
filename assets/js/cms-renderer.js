@@ -143,24 +143,29 @@ function renderListaCompleta(containerId) {
  * comparável para fins de ordenação.
  */
 function getPrecoNumerico(precoStr) {
-    if (!precoStr) return Infinity;
+    if (!precoStr) return Infinity; // Sem preço vai para o fim
     
-    // Normalizar: remover "R$", pontos, espaços e vírgulas
-    var str = String(precoStr).toLowerCase()
-        .replace(/r\$/g, '')
+    var str = String(precoStr).toLowerCase();
+
+    // 🚀 REGRA DE PRIORIDADE MT PARCEIROS:
+    // Imóveis marcados como "Aguarde Lançamento" ou "Breve Lançamento"
+    // são extremamente importantes. Por isso, atribuímos valor 0 para 
+    // que eles subam ao topo da lista, independente do preço dos outros.
+    if (str.includes('aguard') || str.includes('breve')) {
+        return 0;
+    }
+
+    // Limpeza de caracteres não numéricos para conversão matemática
+    str = str.replace(/r\$/g, '')
         .replace(/\./g, '')
         .replace(/\s+/g, '')
-        .replace(/,/g, '.'); // converte vírgula decimal para ponto decimal
+        .replace(/,/g, '.');
 
-    // Casos de Milhões (Ex: "1.5milhões" ou "8milhões")
+    // Lógica para converter "Milhões" em numeração real (ex: 1.5 -> 1.500.000)
     if (str.includes('milh')) {
         var num = parseFloat(str.match(/[\d.]+/)[0]);
-        // Se tiver extra (ex: "1 milhão e 500mil" -> "1.500.000")
-        // Mas a planilha exporta como "8 milhões e 500mil" 
-        // Vamos tentar capturar o 'mil' se existir depois do milhão
         var extraMil = 0;
         if (str.includes('mil') && str.indexOf('milh') < str.indexOf('mil')) {
-             // Tenta pegar o que está entre o milhão e o mil
              var posMilhao = str.indexOf('milh');
              var posMil = str.indexOf('mil');
              var trechoExtra = str.substring(posMilhao + 6, posMil);
@@ -170,21 +175,20 @@ function getPrecoNumerico(precoStr) {
         return (num * 1000000) + extraMil;
     }
 
-    // Casos de Mil (Ex: "235mil")
+    // Lógica para converter "Mil" em numeração real (ex: 235 -> 235.000)
     if (str.includes('mil')) {
         var match = str.match(/[\d.]+/);
         return match ? parseFloat(match[0]) * 1000 : Infinity;
     }
 
-    // Apenas números puros na string
+    // Fallback: se for apenas um número puro na célula do Excel
     var apenasNumeros = str.match(/[\d.]+/);
     if (apenasNumeros) {
         var n = parseFloat(apenasNumeros[0]);
-        // Se for um número pequeno (ex: 235), assume que o usuário quis dizer 'mil'
         return n < 5000 ? n * 1000 : n;
     }
 
-    return Infinity; // "Sob Consulta", etc.
+    return Infinity; // Casos como "Sob Consulta" vão para o final
 }
 
 /**
