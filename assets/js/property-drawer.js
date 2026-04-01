@@ -258,7 +258,12 @@
                 attributionControl: false // Créditos do OpenStreetMap ocultos
             }).setView([emp.lat, emp.lng], 15);
 
-            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            /** 
+             * 🎨 PADRÃO VISUAL: CARTO VOYAGER (Light Premium)
+             * Estilo claro adotado para mini-mapas no Drawer de propriedades.
+             */
+            L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', {
+                attribution: '© OpenStreetMap © CartoDB',
                 maxZoom: 18
             }).addTo(drawerMap);
         }

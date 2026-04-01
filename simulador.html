@@ -713,6 +713,28 @@
                 </div>
 
                 <div id="sandbox-cards-fluxo">
+                <!-- Flip Card: Enquadramento Urbanístico -->
+                <div class="flip-card mb-2" onclick="toggleFlip(this)">
+                  <div class="flip-card-inner">
+                    <div class="flip-card-front glass-card fluxo-card roxo">
+                      <div class="d-flex justify-content-between">
+                        <div>
+                          <span class="text-uppercase fw-bold" style="font-size:0.75rem; color: var(--text-secondary);">Enquadramento (SP 2026)</span>
+                          <div class="card-value roxo" id="val-enquadramento">Analisando...</div>
+                          <span class="text-secondary small" id="lbl-enquadramento-sub"><i class="fas fa-rocket me-1"></i> Identificando benefícios...</span>
+                        </div>
+                        <div class="icon-circle bg-light p-3 rounded-circle d-flex align-items-center justify-content-center" style="width:45px;height:45px;">
+                          <i class="fas fa-rocket" style="color:#a29bfe;font-size:1.1rem;"></i>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="flip-card-back">
+                      <div class="back-title roxo"><i class="fas fa-certificate me-1"></i> Perfil de Interesse Social</div>
+                      <p id="txt-enquadramento-detalhe">Aguardando processamento do motor de cálculo para definir seu enquadramento legal.</p>
+                      <div class="insight-box"><i class="fas fa-check-circle text-warning me-1"></i> <strong>Padrão Elite:</strong> Análise baseada no Decreto 64.895/2026.</div>
+                    </div>
+                  </div>
+                </div>
                 <!-- Flip Card: Entrada -->
                 <div class="flip-card mb-2" onclick="toggleFlip(this)">
                   <div class="flip-card-inner">

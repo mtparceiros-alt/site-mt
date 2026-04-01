@@ -183,8 +183,12 @@ window.MT_Utils = {
 
         var map = L.map(containerId).setView([-23.55, -46.63], 11);
 
-        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+        /** 
+         * 🎨 PADRÃO GLOBAL: CARTO VOYAGER (Light Premium)
+         * Padronização em todo o site para maximizar a legibilidade.
+         */
+        L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', {
+            attribution: '© OpenStreetMap © CartoDB',
             maxZoom: 18
         }).addTo(map);
 
