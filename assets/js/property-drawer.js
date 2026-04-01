@@ -1,6 +1,11 @@
 /**
  * property-drawer.js — MT Parceiros
- * Lógica para gerenciar o Drawer de detalhes dos empreendimentos com calendário incorporado
+ * Lógica para gerenciar o Drawer de detalhes dos empreendimentos
+ * com calendário incorporado e mini mapa de localização.
+ *
+ * ATUALIZAÇÃO (Abr/2026):
+ *   - Mini Mapa Leaflet adicionado abaixo do calendário.
+ *   - Guard clause protege páginas sem Leaflet (ex: property-details.html).
  */
 
 (function () {
@@ -9,6 +14,10 @@
     var drawer, backdrop;
     var closeBtn, btnWhatsapp;
     var contentImg, contentBadge, contentTitle, contentPrice, contentSpecs, contentDesc, inlineCalendar;
+
+    // 🗺️ Mini Mapa — Instâncias reutilizáveis (evita vazamento de memória)
+    var drawerMap = null;
+    var drawerMarker = null;
 
     var currentProperty = null;
     var selectedDate = null;
@@ -67,6 +76,10 @@
             '      <div class="ma-drawer-calendar-wrap">' +
             '        <h4>Agende sua visita direto aqui:</h4>' +
             '        <div id="ma-drawer-inline-calendar"></div>' +
+            '      </div>' +
+            '      <div class="ma-drawer-map-wrap">' +
+            '        <h4>📍 Localização:</h4>' +
+            '        <div id="ma-drawer-map"></div>' +
             '      </div>' +
             '    </div>' +
             '  </div>' +
@@ -157,7 +170,11 @@
         contentImg.src = emp.imagem;
         contentImg.alt = emp.nome;
         contentTitle.textContent = emp.nome;
-        contentPrice.textContent = 'A partir de: R$ ' + emp.preco;
+        // Exibe o preço com tratamento inteligente:
+        // Valores como "Aguarde Lançamento" não recebem o prefixo "R$"
+        var precoLower = String(emp.preco).toLowerCase();
+        var ehTextoInformativo = precoLower.includes('aguard') || precoLower.includes('breve') || precoLower.includes('consult') || precoLower.includes('definir');
+        contentPrice.textContent = ehTextoInformativo ? emp.preco : 'A partir de: R$ ' + emp.preco;
         contentBadge.textContent = emp.entrega;
 
         contentSpecs.innerHTML =
@@ -169,8 +186,12 @@
         contentDesc.textContent = 'Este empreendimento em ' + emp.bairro + ' oferece ' + emp.diferenciais +
             '. Excelente localização com entrega em ' + emp.entrega + '.';
 
+        // Monta o calendário de agendamento de visitas
         renderCalendar(currentCalendarDate);
+        // Prepara o link do WhatsApp com os dados do imóvel
         updateWhatsAppLink();
+        // 🗺️ Renderiza o mini mapa de localização (abaixo do calendário)
+        updateDrawerMap(emp);
 
         document.body.classList.add('drawer-open');
         backdrop.classList.add('active');
@@ -181,6 +202,94 @@
         document.body.classList.remove('drawer-open');
         backdrop.classList.remove('active');
         drawer.classList.remove('active');
+    }
+
+    /**
+     * ══════════════════════════════════════════════════════════
+     * 🗺️ MINI MAPA DE LOCALIZAÇÃO (Leaflet) — Abr/2026
+     * ══════════════════════════════════════════════════════════
+     * 
+     * Exibe um mapa interativo com o pino do empreendimento
+     * logo abaixo do calendário de agendamento.
+     *
+     * SEGURANÇA (Guard Clause):
+     *   - Se a biblioteca Leaflet (L) não estiver carregada na
+     *     página (ex: property-details.html), o mapa NÃO aparece
+     *     e NENHUM erro é gerado no console.
+     *   - Se o imóvel não tiver lat/lng no empreendimentos.js,
+     *     o bloco do mapa é ocultado silenciosamente.
+     *
+     * PERFORMANCE:
+     *   - A instância do mapa (drawerMap) é criada uma única vez.
+     *   - Nas aberturas seguintes, apenas a posição é atualizada
+     *     via setView(), evitando vazamento de memória.
+     *
+     * RESPONSIVIDADE:
+     *   - Desktop: 200px de altura (definido em shared.css)
+     *   - Mobile (≤767px): 180px de altura
+     *
+     * DEPENDÊNCIAS:
+     *   - Leaflet 1.9.4 (CSS + JS via CDN)
+     *   - empreendimentos.js (campos lat e lng)
+     *   - shared.css (.ma-drawer-map-wrap, #ma-drawer-map)
+     */
+    function updateDrawerMap(emp) {
+        var mapEl = document.getElementById('ma-drawer-map');
+        var mapWrap = mapEl ? mapEl.parentElement : null;
+        if (!mapWrap) return;
+
+        // ── GUARD CLAUSE ─────────────────────────────────────
+        // Protege páginas que não carregam o Leaflet (ex: property-details.html)
+        // e imóveis que ainda não foram geocodificados.
+        if (typeof L === 'undefined' || !emp.lat || !emp.lng) {
+            mapWrap.style.display = 'none';
+            return;
+        }
+        mapWrap.style.display = 'block';
+
+        // ── INSTÂNCIA ÚNICA DO MAPA ──────────────────────────
+        // Se o mapa já foi criado antes, apenas movemos a câmera.
+        // Se é a primeira vez, criamos do zero com zoom nível 15.
+        if (drawerMap) {
+            drawerMap.setView([emp.lat, emp.lng], 15);
+        } else {
+            drawerMap = L.map('ma-drawer-map', {
+                zoomControl: true,       // Botões + e - habilitados
+                attributionControl: false // Créditos do OpenStreetMap ocultos
+            }).setView([emp.lat, emp.lng], 15);
+
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                maxZoom: 18
+            }).addTo(drawerMap);
+        }
+
+        // ── PINO CUSTOMIZADO (Estilo MT Parceiros) ───────────
+        // Remove o pino anterior antes de colocar o novo.
+        // O ícone usa o mesmo padrão visual do mapa principal (shared.js).
+        if (drawerMarker) drawerMap.removeLayer(drawerMarker);
+
+        var cor = '#f35525'; // Laranja MT Parceiros
+        var icone = L.divIcon({
+            className: '',
+            html: '<div style="background:' + cor + ';width:20px;height:20px;border-radius:50% 50% 50% 0;transform:rotate(-45deg);border:3px solid #fff;box-shadow:0 2px 8px rgba(0,0,0,0.35);"></div>',
+            iconSize: [20, 20],
+            iconAnchor: [10, 20],
+            popupAnchor: [0, -22]
+        });
+
+        drawerMarker = L.marker([emp.lat, emp.lng], { icon: icone })
+            .addTo(drawerMap)
+            .bindPopup('<strong style="font-family:Poppins,sans-serif;">' + emp.nome + '</strong>')
+            .openPopup();
+
+        // ── CORREÇÃO DE RENDERIZAÇÃO ─────────────────────────
+        // O Drawer abre com uma animação CSS de 450ms. Se o mapa
+        // calcular seu tamanho ANTES da animação terminar, ele
+        // aparece cinza/cortado. O invalidateSize() força o
+        // recálculo após a animação concluir.
+        setTimeout(function () {
+            drawerMap.invalidateSize();
+        }, 500);
     }
 
     if (document.readyState === 'loading') {

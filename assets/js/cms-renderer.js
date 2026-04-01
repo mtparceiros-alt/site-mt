@@ -27,7 +27,7 @@ function renderDestaques(containerId, limite) {
         html += '      <span class="view-details-tag"><i class="fas fa-search"></i> Ver Detalhes</span>';
         html += '    </a>';
         html += '    <span class="category">' + escapeHtml(emp.nome) + '</span>';
-        html += '    <h6>A partir de: R$ ' + escapeHtml(emp.preco) + '</h6>';
+        html += '    <h6>' + formatarPrecoLabel(emp.preco) + '</h6>';
         html += '    <ul class="text-start">';
         html += '      <li>Bairro: <span>' + escapeHtml(emp.bairro) + '</span></li>';
         html += '      <li>Quartos: <span>' + escapeHtml(emp.quartos) + '</span></li>';
@@ -71,7 +71,7 @@ function renderListaCompleta(containerId) {
         html += '      <span class="view-details-tag"><i class="fas fa-search"></i> Ver Detalhes</span>';
         html += '    </a>';
         html += '    <span class="category">' + escapeHtml(emp.nome) + '</span>';
-        html += '    <h6>A partir de: R$ ' + escapeHtml(emp.preco) + '</h6>';
+        html += '    <h6>' + formatarPrecoLabel(emp.preco) + '</h6>';
         html += '    <ul class="text-start">';
         html += '      <li>Bairro: <span>' + escapeHtml(emp.bairro) + '</span></li>';
         html += '      <li>Quartos: <span>' + escapeHtml(emp.quartos) + '</span></li>';
@@ -137,6 +137,21 @@ function renderListaCompleta(containerId) {
 }
 
 // ── Funções Auxiliares ───────────────────────────────────────
+
+/**
+ * Formata o rótulo de preço para exibição nos cards.
+ * Se o preço for numérico (ex: "235mil"), exibe "A partir de: R$ 235mil".
+ * Se for texto informativo (ex: "Aguarde Lançamento"), exibe apenas o texto.
+ */
+function formatarPrecoLabel(preco) {
+    if (!preco) return '';
+    var str = String(preco).toLowerCase();
+    // Palavras que indicam que NÃO é um valor monetário
+    if (str.includes('aguard') || str.includes('breve') || str.includes('consult') || str.includes('definir')) {
+        return escapeHtml(preco);
+    }
+    return 'A partir de: R$ ' + escapeHtml(preco);
+}
 
 /**
  * Converte o texto de preço (ex: "235mil" ou "1.5 milhões") em um número 
