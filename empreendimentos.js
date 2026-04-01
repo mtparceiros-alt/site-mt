@@ -415,8 +415,22 @@ var EMPREENDIMENTOS = [
     "lazer": "Linha Prime: Acabamento Superior e Lazer Completo",
     "preco": "Aguarde Lançamento",
     "entrega": "Jan/2029",
-    "imagem": "assets/images/empreendimentos/Em breve.png",
+    "imagem": "assets/images/empreendimentos/em-breve.png",
     "lat": -23.5177726,
     "lng": -46.7178455
+  },
+  {
+    "nome": "Grand Vivaz Lapa",
+    "bairro": "Lapa (Zona Oeste)",
+    "endereco": "Rua Marina Ciufuli Zanfelice, 163",
+    "area": "De 24m² a 39m²",
+    "quartos": "1 a 2",
+    "diferenciais": "Opção de varanda",
+    "lazer": "churrasqueira, salão de festas, playground, coworking, academia, lavanderia e muito mais. Tudo planejado para proporcionar conforto e qualidade de vida aos moradores.\nCom localização estratégica, o Vivaz está a poucos minutos da Estação Lapa, que conecta diferentes linhas do metrô e trem, facilitando o deslocamento pela cidade.",
+    "preco": "220mil",
+    "entrega": "Mar/2029",
+    "imagem": "assets/images/empreendimentos/Grand Vivaz Jardim Franca.jpg",
+    "lat": -23.5132033,
+    "lng": -46.707189
   }
 ];
