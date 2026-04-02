@@ -1,8 +1,3 @@
-// ============================================================
-//  empreendimentos.js — Banco de Dados de Imóveis (Gerado)
-//  Gerado via scripts/sync_cms.py — NÃO EDITE DIRETAMENTE
-//  Sincronizado em: 01 de Abril 2026
-// ============================================================
 var EMPREENDIMENTOS = [
   {
     "nome": "Vivaz Penha 2",
@@ -94,11 +89,6 @@ var EMPREENDIMENTOS = [
     "endereco": "Av. Maria Coelho Aguiar, 250",
     "area": "De 24m² a 38m²",
     "quartos": "1 a 2",
-    //    - Geocodificação v2.1: Prioridade Invertida (Bairro + Endereço) para evitar
-    //      erros de CEP e de ruas com nomes duplicados em bairros diferentes.
-    //    - [Abr/2026] Protocolo Anti-Espaço: Recomenda-se nomes sem espaços (ex: em-breve.png)
-    //      para garantir compatibilidade máxima em servidores web.
-    //
     "diferenciais": "Opção de vaga e varanda",
     "lazer": "Integração com áreas verdes e lazer completo.",
     "preco": "235mil",
@@ -321,11 +311,11 @@ var EMPREENDIMENTOS = [
     "nome": "Caminhos da Lapa-Nova Vivere",
     "bairro": "Lapa",
     "endereco": "Rua Fortunato Ferraz 625",
-    "area": "75m2",
+    "area": "73m2",
     "quartos": "2 suite",
     "diferenciais": "Suíte, Varanda e Vaga",
     "lazer": "Linha Prime: Acabamento Superior e Lazer Completo",
-    "preco": "891mil",
+    "preco": "892mil",
     "entrega": "Mai/2026",
     "imagem": "assets/images/empreendimentos/Caminhos da Lapa-Nova Vivere.png",
     "lat": -23.5177726,
