@@ -191,7 +191,7 @@ var EMPREENDIMENTOS = [
     "lazer": "Linha Prime: Acabamento Superior e Lazer Completo",
     "preco": "8 milhões e 500mil",
     "entrega": "Nov/2028",
-    "imagem": "assets/images/empreendimentos/CASAPIAUI.png",
+    "imagem": "assets/images/empreendimentos/CASAPIAUI.jpg",
     "lat": -23.5465355,
     "lng": -46.6548677
   },
@@ -205,7 +205,7 @@ var EMPREENDIMENTOS = [
     "lazer": "Linha Prime: Acabamento Superior e Lazer Completo",
     "preco": "12 milhões",
     "entrega": "Fev/2029",
-    "imagem": "assets/images/empreendimentos/HAVVA_Higienopolis.png",
+    "imagem": "assets/images/empreendimentos/HAVVA_Higienopolis.jpg",
     "lat": -23.5451366,
     "lng": -46.6597158
   },
@@ -219,7 +219,7 @@ var EMPREENDIMENTOS = [
     "lazer": "Linha Prime: Acabamento Superior e Lazer Completo",
     "preco": "389mil",
     "entrega": "Nov/2028",
-    "imagem": "assets/images/empreendimentos/COLLAGE BELA VISTA.png",
+    "imagem": "assets/images/empreendimentos/COLLAGE BELA VISTA.jpg",
     "lat": -23.5605441,
     "lng": -46.6433462
   },
@@ -233,7 +233,7 @@ var EMPREENDIMENTOS = [
     "lazer": "Linha Prime: Acabamento Superior e Lazer Completo",
     "preco": "509mil",
     "entrega": "Out/2027",
-    "imagem": "assets/images/empreendimentos/PATTEO VILA MARIANA.png",
+    "imagem": "assets/images/empreendimentos/PATTEO VILA MARIANA.jpg",
     "lat": -23.5785277,
     "lng": -46.6410318
   },
@@ -247,7 +247,7 @@ var EMPREENDIMENTOS = [
     "lazer": "Linha Prime: Acabamento Superior e Lazer Completo",
     "preco": "1 milhão e 75mil",
     "entrega": "Out/2027",
-    "imagem": "assets/images/empreendimentos/PATTEO VILA MARIANA.png",
+    "imagem": "assets/images/empreendimentos/PATTEO VILA MARIANA.jpg",
     "lat": -23.5876324,
     "lng": -46.6420424
   },
@@ -261,7 +261,7 @@ var EMPREENDIMENTOS = [
     "lazer": "Linha Prime: Acabamento Superior e Lazer Completo",
     "preco": "599mil",
     "entrega": "Jun/2027",
-    "imagem": "assets/images/empreendimentos/OPEN MIND.png",
+    "imagem": "assets/images/empreendimentos/OPEN MIND.jpg",
     "lat": -23.6288287,
     "lng": -46.6995339
   },
@@ -275,7 +275,7 @@ var EMPREENDIMENTOS = [
     "lazer": "Linha Prime: Acabamento Superior e Lazer Completo",
     "preco": "449mil",
     "entrega": "Jan/2027",
-    "imagem": "assets/images/empreendimentos/ROYA PERDIZES.png",
+    "imagem": "assets/images/empreendimentos/ROYA PERDIZES.jpg",
     "lat": -23.5362131,
     "lng": -46.6698045
   },
@@ -289,7 +289,7 @@ var EMPREENDIMENTOS = [
     "lazer": "Linha Prime: Acabamento Superior e Lazer Completo",
     "preco": "739mil",
     "entrega": "Set/2026",
-    "imagem": "assets/images/empreendimentos/METROPOLITAN.png",
+    "imagem": "assets/images/empreendimentos/METROPOLITAN.jpg",
     "lat": -23.5908681,
     "lng": -46.6677471
   },
@@ -303,7 +303,7 @@ var EMPREENDIMENTOS = [
     "lazer": "Linha Prime: Acabamento Superior e Lazer Completo",
     "preco": "1 milhão e 417mil",
     "entrega": "Mai/2026",
-    "imagem": "assets/images/empreendimentos/Caminhos da Lapa-Nova Vivere.png",
+    "imagem": "assets/images/empreendimentos/Caminhos da Lapa-Nova Vivere.jpg",
     "lat": -23.5177726,
     "lng": -46.7178455
   },
@@ -317,7 +317,7 @@ var EMPREENDIMENTOS = [
     "lazer": "Linha Prime: Acabamento Superior e Lazer Completo",
     "preco": "892mil",
     "entrega": "Mai/2026",
-    "imagem": "assets/images/empreendimentos/Caminhos da Lapa-Nova Vivere.png",
+    "imagem": "assets/images/empreendimentos/Caminhos da Lapa-Nova Vivere.jpg",
     "lat": -23.5177726,
     "lng": -46.7178455
   },
@@ -331,7 +331,7 @@ var EMPREENDIMENTOS = [
     "lazer": "Linha Prime: Acabamento Superior e Lazer Completo",
     "preco": "725mil",
     "entrega": "Ago/2026",
-    "imagem": "assets/images/empreendimentos/Caminhos da Lapa - Garden design.png",
+    "imagem": "assets/images/empreendimentos/Caminhos da Lapa - Garden design.jpg",
     "lat": -23.5177726,
     "lng": -46.7178455
   },
@@ -345,7 +345,7 @@ var EMPREENDIMENTOS = [
     "lazer": "Linha Prime: Acabamento Superior e Lazer Completo",
     "preco": "579mil",
     "entrega": "Dez/2028",
-    "imagem": "assets/images/empreendimentos/Signature.png",
+    "imagem": "assets/images/empreendimentos/Signature.jpg",
     "lat": -23.521034,
     "lng": -46.6728561
   },
@@ -359,7 +359,7 @@ var EMPREENDIMENTOS = [
     "lazer": "Linha Prime: Acabamento Superior e Lazer Completo",
     "preco": "338mil",
     "entrega": "Set/2028",
-    "imagem": "assets/images/empreendimentos/Concept Barra Funda.png",
+    "imagem": "assets/images/empreendimentos/Concept Barra Funda.jpg",
     "lat": -23.522686,
     "lng": -46.6726381
   },
@@ -373,7 +373,7 @@ var EMPREENDIMENTOS = [
     "lazer": "Linha Prime: Acabamento Superior e Lazer Completo",
     "preco": "288mil",
     "entrega": "Dez/2028",
-    "imagem": "assets/images/empreendimentos/Abyta Santo Amaro.png",
+    "imagem": "assets/images/empreendimentos/Abyta Santo Amaro.jpg",
     "lat": -23.6618586,
     "lng": -46.7016056
   },
@@ -387,7 +387,7 @@ var EMPREENDIMENTOS = [
     "lazer": "Linha Prime: Acabamento Superior e Lazer Completo",
     "preco": "350mil",
     "entrega": "Ago/2028",
-    "imagem": "assets/images/empreendimentos/Brooklin SKY.png",
+    "imagem": "assets/images/empreendimentos/Brooklin SKY.jpg",
     "lat": -23.6220072,
     "lng": -46.6827174
   },
@@ -401,7 +401,7 @@ var EMPREENDIMENTOS = [
     "lazer": "Linha Prime: Acabamento Superior e Lazer Completo",
     "preco": "570mil",
     "entrega": "Dez/2028",
-    "imagem": "assets/images/empreendimentos/011 Brooklin.png",
+    "imagem": "assets/images/empreendimentos/011 Brooklin.jpg",
     "lat": -23.6214999,
     "lng": -46.6922873
   },
@@ -415,7 +415,7 @@ var EMPREENDIMENTOS = [
     "lazer": "Linha Prime: Acabamento Superior e Lazer Completo",
     "preco": "Aguarde Lançamento",
     "entrega": "Jan/2029",
-    "imagem": "assets/images/empreendimentos/em-breve.png",
+    "imagem": "assets/images/empreendimentos/em-breve.jpg",
     "lat": -23.5177726,
     "lng": -46.7178455
   },
