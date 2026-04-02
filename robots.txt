@@ -1,3 +1,41 @@
+# ===========================================================
+# MT Parceiros - Robots.txt (Atualizado Abr/2026)
+# Otimizado para buscadores tradicionais E bots de IA
+# ===========================================================
+
+# Regra geral: permitir tudo para todos os crawlers
 User-agent: *
 Allow: /
 Sitemap: https://www.mtparceiros.com.br/sitemap.xml
+
+# -----------------------------------------------------------
+# Bots de IA — Acesso Total Garantido
+# Estes bots alimentam ChatGPT, Gemini, Copilot e Perplexity
+# -----------------------------------------------------------
+
+# OpenAI (ChatGPT)
+User-agent: GPTBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+# Google (Gemini / AI Overviews)
+User-agent: Google-Extended
+Allow: /
+
+# Microsoft (Copilot / Bing Chat)
+User-agent: Bingbot
+Allow: /
+
+# Anthropic (Claude)
+User-agent: anthropic-ai
+Allow: /
+
+# Perplexity
+User-agent: PerplexityBot
+Allow: /
+
+# Meta (Llama)
+User-agent: FacebookBot
+Allow: /
