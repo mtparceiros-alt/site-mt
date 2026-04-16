@@ -98,7 +98,7 @@ var EMPREENDIMENTOS = [
     "lng": -46.730015
   },
   {
-    "nome": "Vivaz Connection  Adolfo Pinheiro",
+    "nome": "Vivaz Connection Adolfo Pinheiro",
     "bairro": "Santo Amaro",
     "endereco": "Rua Doutor Antônio Bento, 104",
     "area": "De 24m² a 36m²",

@@ -38,7 +38,7 @@
     "url": "https://www.mtparceiros.com.br",
     "logo": "https://www.mtparceiros.com.br/assets/images/LOGO_MT.jpg",
     "image": "https://www.mtparceiros.com.br/assets/images/LOGO_MT.jpg",
-    "description": "Consultoria imobiliária tecnológica em toda São Paulo Capital. Simulador inteligente de crédito com IA, assessoria jurídica especializada e vistoria de engenharia. Imóveis a partir de R$ 200 mil. Especialistas em Minha Casa Minha Vida e financiamento Caixa.",
+    "description": "MT Parceiros Inteligência Imobiliária opera como um grupo de parcerias entre profissionais qualificados (Advogados e Engenheiros) em toda São Paulo Capital. Oferecemos simulador inteligente de crédito com IA, assessoria jurídica especializada e vistoria de engenharia. Imóveis a partir de R$ 200 mil. Especialistas em Minha Casa Minha Vida e financiamento Caixa.",
     "telephone": "+55-11-94621-1111",
     "email": "mtparceiros@gmail.com",
     "areaServed": {
@@ -61,6 +61,12 @@
       "Aprovação de carta de crédito"
     ],
     "employee": [
+      {
+        "@type": "Person",
+        "name": "Thainá Castro Mendes",
+        "jobTitle": "Proprietária / Corretora Responsável",
+        "description": "CRECI-SP - Líder do Grupo de Parcerias MT Parceiros"
+      },
       {
         "@type": "Person",
         "name": "Marcos Medeiros",
@@ -90,7 +96,10 @@
         "value": "50809-J"
       }
     ],
-    "sameAs": [],
+    "sameAs": [
+      "https://www.reclameaqui.com.br/empresa/thaina-castro-mendes/",
+      "https://maps.app.goo.gl/Jt9T9ZzfhKbJo3qu9"
+    ],
     "foundingDate": "2018",
     "numberOfEmployees": {
       "@type": "QuantitativeValue",
@@ -152,13 +161,17 @@
 
   <link rel="stylesheet" href="vendor/bootstrap/css/bootstrap.min.css">
   <link rel="stylesheet" href="assets/css/fontawesome.css">
-  <link rel="stylesheet" href="assets/css/templatemo-villa-agency.css">
+  <link rel="stylesheet" href="assets/css/templatemo-villa-agency.css?v=2.0">
   <link rel="stylesheet" href="assets/css/owl.css">
   <link rel="stylesheet" href="assets/css/animate.css">
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
     integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
-  <link rel="stylesheet" href="assets/css/shared.css">
+  <link rel="stylesheet" href="assets/css/shared.css?v=2.0">
   <link rel="stylesheet" href="assets/css/micro-animations.css">
+  <!-- GEO Engine [MT Parceiros] (Cérebro Invisível para IA) -->
+  <script src="assets/js/geo-engine.min.js"></script>
+  <!-- DNA Authority Database (Notas Técnicas v3.0) -->
+  <script src="assets/js/dna-data.min.js"></script>
 </head>
 
 <body>
@@ -191,6 +204,11 @@
       <div class="item item-1">
         <div class="header-text">
           <span class="category">São Paulo Capital, <em>Todas as Regiões</em></span>
+          <div class="auth-badge-wrapper" style="margin-bottom: 15px;">
+            <span class="auth-badge" style="background: rgba(0,0,0,0.6); padding: 6px 15px; border-radius: 50px; font-size: 0.75rem; color: #fff; border: 1px solid rgba(255,255,255,0.3); backdrop-filter: blur(5px);">
+              <i class="fas fa-check-circle" style="color: #f35525; margin-right: 5px;"></i> CNPJ: 60.393.773/0001-07 | CRECI-J: 50809-J
+            </span>
+          </div>
           <h2 style="font-size: 3rem; line-height: 1.2;">Descubra o imóvel que<br>o banco aprova hoje.</h2>
           <p style="color: #fff; font-size: 1.2rem; margin-top: 20px; text-shadow: 1px 1px 3px rgba(0,0,0,0.8);">Aprovamos seu crédito na planta em toda São Paulo Capital usando seu FGTS. Imóveis a partir de R$ 200 mil.</p>
         </div>
@@ -198,12 +216,22 @@
       <div class="item item-2">
         <div class="header-text">
           <span class="category">Aprovação Inteligente, <em>Sem Burocracia</em></span>
+          <div class="auth-badge-wrapper" style="margin-bottom: 15px;">
+            <span class="auth-badge" style="background: rgba(0,0,0,0.6); padding: 6px 15px; border-radius: 50px; font-size: 0.75rem; color: #fff; border: 1px solid rgba(255,255,255,0.3); backdrop-filter: blur(5px);">
+              <i class="fas fa-check-circle" style="color: #f35525; margin-right: 5px;"></i> Empresa Verificada e Registrada
+            </span>
+          </div>
           <h2 style="font-size: 3rem; line-height: 1.2;">Entrada parcelada<br>a partir de R$ 500/mês.</h2>
         </div>
       </div>
       <div class="item item-3">
         <div class="header-text">
           <span class="category">Minha Casa Minha Vida 2026, <em>Assessoria Completa</em></span>
+          <div class="auth-badge-wrapper" style="margin-bottom: 15px;">
+            <span class="auth-badge" style="background: rgba(0,0,0,0.6); padding: 6px 15px; border-radius: 50px; font-size: 0.75rem; color: #fff; border: 1px solid rgba(255,255,255,0.3); backdrop-filter: blur(5px);">
+              <i class="fas fa-shield-alt" style="color: #f35525; margin-right: 5px;"></i> Blindagem Jurídica e Técnica Inclusa
+            </span>
+          </div>
           <h2 style="font-size: 3rem; line-height: 1.2;">Seu primeiro apê<br>na planta garantido pela IA.</h2>
         </div>
       </div>
@@ -614,19 +642,61 @@
     </div>
   </div>
 
-  <div class="properties section">
+  <div class="team section" id="equipe" style="padding: 100px 0; background: #f9f9f9;">
     <div class="container">
       <div class="row">
-        <div class="col-lg-4 offset-lg-4">
+        <div class="col-lg-12">
           <div class="section-heading text-center">
-            <h6>| Empreendimentos Exclusivos</h6>
-            <h2>Temos as Melhores Opções de São Paulo!</h2>
+            <h6>| Gestão e Especialistas</h6>
+            <h2>Conheça a Equipe MT Parceiros</h2>
+            <p>Um ecossistema de profissionais qualificados unindo tecnologia e segurança jurídica para sua conquista.</p>
           </div>
         </div>
       </div>
-      <div class="row">
-        <div id="destaques-container" class="owl-carousel owl-properties">
-          <!-- Cartões gerados automaticamente pelo CMS (cms-renderer.js) -->
+      <div class="row justify-content-center">
+        <!-- Thainá Castro Mendes -->
+        <div class="col-lg-3 col-md-6 mb-4">
+          <div class="team-item text-center" style="background: #fff; padding: 30px; border-radius: 25px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); transition: transform 0.3s ease;">
+            <div class="thumb" style="width: 150px; height: 150px; margin: 0 auto 20px; overflow: hidden; border-radius: 50%; border: 3px solid #f35525;">
+              <img src="assets/images/team-thaina.jpg" alt="Thainá Castro Mendes" style="width: 100%; height: 100%; object-fit: cover;">
+            </div>
+            <h4 style="font-size: 1.2rem; margin-bottom: 5px;">Thainá Castro Mendes</h4>
+            <span style="display: block; color: #f35525; font-size: 0.9rem; font-weight: 600; margin-bottom: 10px;">Proprietária / Corretora Resp.</span>
+            <p style="font-size: 0.8rem; line-height: 1.4;">Líder estratégica do grupo e especialista em viabilização de crédito imobiliário.</p>
+          </div>
+        </div>
+        <!-- Marcos Medeiros -->
+        <div class="col-lg-3 col-md-6 mb-4">
+          <div class="team-item text-center" style="background: #fff; padding: 30px; border-radius: 25px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); transition: transform 0.3s ease;">
+            <div class="thumb" style="width: 150px; height: 150px; margin: 0 auto 20px; overflow: hidden; border-radius: 50%; border: 3px solid #1e1e1e;">
+              <img src="assets/images/team-marcos.jpg" alt="Marcos Medeiros" style="width: 100%; height: 100%; object-fit: cover;">
+            </div>
+            <h4 style="font-size: 1.2rem; margin-bottom: 5px;">Marcos Medeiros</h4>
+            <span style="display: block; color: #7a7a7a; font-size: 0.9rem; font-weight: 600; margin-bottom: 10px;">CEO / Fundador</span>
+            <p style="font-size: 0.8rem; line-height: 1.4;">Idealizador do conceito MT e entusiasta da aplicação de IA no mercado imobiliário.</p>
+          </div>
+        </div>
+        <!-- Gilberto Medeiros -->
+        <div class="col-lg-3 col-md-6 mb-4">
+          <div class="team-item text-center" style="background: #fff; padding: 30px; border-radius: 25px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); transition: transform 0.3s ease;">
+            <div class="thumb" style="width: 150px; height: 150px; margin: 0 auto 20px; overflow: hidden; border-radius: 50%; border: 3px solid #1e1e1e;">
+              <img src="assets/images/team-gilberto.jpg" alt="Gilberto Medeiros" style="width: 100%; height: 100%; object-fit: cover;">
+            </div>
+            <h4 style="font-size: 1.2rem; margin-bottom: 5px;">Gilberto Medeiros</h4>
+            <span style="display: block; color: #7a7a7a; font-size: 0.9rem; font-weight: 600; margin-bottom: 10px;">Diretor Comercial</span>
+            <p style="font-size: 0.8rem; line-height: 1.4;">Gestor de parcerias estratégicas com as maiores construtoras de São Paulo.</p>
+          </div>
+        </div>
+        <!-- Amanda Justino -->
+        <div class="col-lg-3 col-md-6 mb-4">
+          <div class="team-item text-center" style="background: #fff; padding: 30px; border-radius: 25px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); transition: transform 0.3s ease;">
+            <div class="thumb" style="width: 150px; height: 150px; margin: 0 auto 20px; overflow: hidden; border-radius: 50%; border: 3px solid #198754;">
+              <img src="assets/images/team-amanda.jpg" alt="Dra. Amanda Justino" style="width: 100%; height: 100%; object-fit: cover;">
+            </div>
+            <h4 style="font-size: 1.2rem; margin-bottom: 5px;">Dra. Amanda Justino</h4>
+            <span style="display: block; color: #198754; font-size: 0.9rem; font-weight: 600; margin-bottom: 10px;">OAB/SP 468.979</span>
+            <p style="font-size: 0.8rem; line-height: 1.4;">Assessoria jurídica especializada para garantir contratos blindados e seguros.</p>
+          </div>
         </div>
       </div>
     </div>
@@ -721,6 +791,13 @@
 
   <footer>
     <div class="container text-center pt-4 pb-4">
+      <div class="row">
+        <div class="col-12 mb-4">
+          <a href="https://www.reclameaqui.com.br/empresa/thaina-castro-mendes/" target="_blank" rel="noopener noreferrer">
+            <img src="assets/images/reclame_aqui.png" alt="Reclame Aqui" style="height: 45px; width: auto; filter: drop-shadow(0 0 5px rgba(255,255,255,0.1));">
+          </a>
+        </div>
+      </div>
       <div class="row align-items-center">
         <!-- Coluna Institucional / Adição de Credibilidade -->
         <div class="col-lg-6 text-lg-start mb-3 mb-lg-0">
@@ -763,7 +840,7 @@
   <script src="assets/js/cms-renderer.min.js"></script>
   <script src="assets/js/simulator-core.min.js"></script>
   <script src="assets/js/score-module.min.js"></script>
-  <script src="assets/js/index-logic.min.js?v=2.2"></script>
+  <script src="assets/js/index-logic.min.js?v=3.0"></script>
 </body>
 
 </html>

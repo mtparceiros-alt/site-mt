@@ -34,14 +34,14 @@
   <link rel="apple-touch-icon" href="assets/images/LOGO_MT.jpg">
   <link rel="stylesheet" href="vendor/bootstrap/css/bootstrap.min.css">
   <link rel="stylesheet" href="assets/css/fontawesome.css">
-  <link rel="stylesheet" href="assets/css/templatemo-villa-agency.css">
+  <link rel="stylesheet" href="assets/css/templatemo-villa-agency.css?v=2.0">
   <link rel="stylesheet" href="assets/css/owl.css">
   <link rel="stylesheet" href="assets/css/animate.css">
   <link rel="stylesheet" href="assets/css/score.css">
   <link rel="stylesheet" href="assets/css/simulator.css?v=2.2">
   <link rel="stylesheet" href="assets/css/simulator-results.css?v=2.2">
   <link rel="stylesheet" href="assets/css/score-melhorias.css?v=2.2">
-  <link rel="stylesheet" href="assets/css/shared.css?v=2.2">
+  <link rel="stylesheet" href="assets/css/shared.css?v=2.0?v=2.2">
   <link rel="stylesheet" href="assets/css/micro-animations.css">
   <link rel="stylesheet" href="assets/css/new-results.css?v=2.2">
   <link rel="stylesheet" href="assets/css/dash-ia.css?v=2.2">
@@ -877,8 +877,16 @@
             </div>
             <div class="row" id="docs-grid"></div>
 
+            <!-- Botão de Download do Laudo Técnico (Inovação v3.0) -->
+            <div class="text-center mt-4 mb-2">
+                <button type="button" id="btn-download-laudo-premium" class="sim-btn-download-premium">
+                    <i class="fas fa-file-excel"></i> Baixar meu Laudo Técnico de Fluxo de Caixa (Excel)
+                </button>
+                <p class="small text-muted mt-1"><i class="fas fa-info-circle"></i> Ferramenta exclusiva MT Parceiros para controle de investimento.</p>
+            </div>
+
             <!-- CTA WhatsApp Premium -->
-            <div class="text-center mt-4 mb-3">
+            <div class="text-center mt-2 mb-3">
               <a href="#" id="whatsapp-btn" target="_blank" class="sim-btn-wpp" style="max-width:400px; margin:0 auto; border-radius:14px;">
                 <i class="fab fa-whatsapp" style="font-size:22px;"></i> Receber meu Laudo Aprovado no WhatsApp
               </a>
@@ -960,6 +968,11 @@
 
   <footer>
     <div class="container">
+      <div style="margin-bottom: 25px;">
+        <a href="https://www.reclameaqui.com.br/empresa/thaina-castro-mendes/" target="_blank" rel="noopener noreferrer">
+          <img src="assets/images/reclame_aqui.png" alt="Reclame Aqui" style="height: 45px; width: auto; filter: drop-shadow(0 0 5px rgba(255,255,255,0.1));">
+        </a>
+      </div>
       <p>
         Copyright &copy; <span id="simulador-year">2026</span> MT Parceiros - Consultoria Imobiliária e Soluções Inteligentes. CNPJ: 60.393.773/0001-07 | CRECI-J: 50809-J. <br>
         Tecnologia de Cálculo de Viabilidade ® - Todos os direitos reservados à MT Parceiros. Processo de Registro de Software e Algoritmo junto ao INPI.
@@ -986,13 +999,15 @@
   <script src="assets/js/micro-animations.min.js"></script>
   <script src="assets/js/property-drawer.min.js"></script>
   <script src="empreendimentos.js"></script>
-  <script src="assets/js/sandbox-connector.min.js?v=13.1"></script><!-- Dossiê IA v13 -->
+  <script src="assets/js/sandbox-connector.min.js?v=14.0"></script><!-- Dossiê IA v14 -->
+  <script src="assets/js/geo-engine.min.js"></script>
+  <script src="assets/js/dna-data.min.js"></script>
   <script src="assets/js/cms-renderer.min.js"></script>
   <!-- LÓGICA DO SIMULADOR v2.1 -->
   <script src="assets/js/new-results.min.js"></script> <!-- Módulo de Renderização Premium -->
   <script src="assets/js/simulator-core.min.js?v=2.2"></script> <!-- Motor de Cálculo (Regras 2025) -->
   <script src="assets/js/score-module.min.js?v=2.2"></script> <!-- Inteligência de Score IA -->
-  <script src="assets/js/index-logic.min.js?v=2.2"></script> <!-- Orquestrador de Eventos e UI -->
+  <script src="assets/js/index-logic.min.js?v=3.0"></script> <!-- Orquestrador de Eventos e UI -->
   <script src="assets/js/score-melhorias.min.js?v=2.2"></script>
   <!-- Novo Módulo Dashboard IA (Sincronizador) -->
   <script src="assets/js/dash-ia.min.js?v=2.2"></script>
@@ -1000,3 +1015,4 @@
 </body>
 
 </html>
+
