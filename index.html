@@ -192,6 +192,44 @@
   <script src="assets/js/geo-engine.min.js"></script>
   <!-- DNA Authority Database (Notas Técnicas v3.0) -->
   <script src="assets/js/dna-data.min.js"></script>
+
+  <!-- [JORNADA] Dependências Tecnológicas (Premium UI) -->
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <script>
+    tailwind.config = {
+      prefix: 'j-',
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            "primary": "#f35525", // Ajustado para Laranja MT
+            "primary-container": "#d43f0e",
+            "surface": "#fcf9f8",
+            "on-surface": "#1b1b1c",
+            "on-surface-variant": "#5b4139",
+            "surface-container": "#f0eded",
+            "surface-container-low": "#f6f3f2",
+            "surface-container-lowest": "#ffffff",
+            "surface-container-high": "#eae7e7",
+            "surface-container-highest": "#e5e2e1",
+            "on-primary": "#ffffff",
+            "outline-variant": "#e3beb5"
+          },
+          fontFamily: {
+            "headline": ["Plus Jakarta Sans", "sans-serif"],
+            "body": ["Inter", "sans-serif"]
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    .material-symbols-outlined {
+        font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24;
+    }
+  </style>
 </head>
 
 <body>
@@ -312,12 +350,12 @@
           </div>
 
           <!-- Imagem exclusiva para Mobile (entre título e acordeão) -->
-          <div class="left-image d-block d-lg-none mb-5" style="margin-bottom: 60px !important;">
+          <div class="left-image d-block d-lg-none mb-5" style="margin-bottom: 60px !important; position: relative;">
             <img src="assets/images/featured.jpg" alt="Fachada de um empreendimento MT Parceiros"
               style="padding-left: 0;">
             <a href="property-details.html"
-              style="bottom: -40px; width: 80px; height: 80px; line-height: 80px; left: 20px;">
-              <img src="assets/images/featured-icon.png" alt="Ícone de detalhes" style="max-width: 40px; padding: 0px;">
+              style="bottom: -30px; width: 65px; height: 65px; left: 50%; transform: translateX(-50%); position: absolute; display: flex !important; align-items: center; justify-content: center;">
+              <img src="assets/images/featured-icon.png" alt="Ícone de detalhes" style="max-width: 32px; padding: 0px;">
             </a>
           </div>
 
@@ -376,14 +414,15 @@
           </div>
         </div>
         <div class="col-lg-3 order-lg-1 d-none d-lg-block">
-          <div class="left-image">
-            <img src="assets/images/featured.jpg" alt="Fachada de um empreendimento MT Parceiros">
-            <a href="property-details.html"><img src="assets/images/featured-icon.png" alt="Ícone de detalhes"
-                style="max-width: 60px; padding: 0px;"></a>
+          <div class="left-image" style="position: relative;">
+            <img src="assets/images/featured.jpg" alt="Fachada de um empreendimento MT Parceiros" style="padding-left: 0;">
+            <a href="property-details.html" style="position: absolute; left: 50%; transform: translateX(-50%); bottom: -55px;">
+              <img src="assets/images/featured-icon.png" alt="Ícone de detalhes" style="max-width: 60px; padding: 0px;">
+            </a>
           </div>
         </div>
         <div class="col-lg-4 order-lg-3 col-12">
-          <div class="info-table info-table-collapsible">
+          <div class="info-table info-table-collapsible" style="margin-bottom: 80px;">
             <ul>
               <li>
                 <div class="info-toggle">
@@ -472,7 +511,129 @@
     </div>
   </div>
 
-  <div class="video section">
+  <!-- ==========================================
+       🚀 JORNADA DE COMPRA INTELIGENTE (Stitch UI)
+       ========================================== -->
+  <section class="j-py-24 j-bg-surface">
+    <div class="j-max-w-7xl j-mx-auto j-px-8">
+      <div class="j-flex j-flex-col md:j-flex-row md:j-items-end j-justify-between j-gap-6 j-mb-16">
+        <div class="j-max-w-2xl">
+          <span class="j-inline-block j-px-4 j-py-1.5 j-rounded-full j-bg-primary/10 j-text-primary j-font-headline j-font-bold j-text-xs j-tracking-widest j-uppercase j-mb-4">Metodologia Exclusiva</span>
+          <h2 class="j-font-headline j-text-4xl md:j-text-5xl j-font-extrabold j-text-on-surface j-tracking-tighter">Sua Jornada com a MT Parceiros</h2>
+        </div>
+        <div class="j-h-px j-flex-grow j-bg-surface-container j-mx-8 j-mb-6 j-hidden md:j-block"></div>
+      </div>
+
+      <!-- Journey Flow Container -->
+      <div class="j-relative">
+        <!-- Connecting Path (Visual Only) -->
+        <div class="j-absolute j-top-1/2 j-left-0 j-w-full j-h-1 j-bg-surface-container -j-translate-y-1/2 j-hidden lg:j-block j-z-0 j-opacity-50"></div>
+        
+        <!-- Bento Grid / Asymmetric Flow -->
+        <div class="j-grid j-grid-cols-1 md:j-grid-cols-2 lg:j-grid-cols-3 j-gap-8 j-relative j-z-10">
+          
+          <!-- Step 1: Simulação -->
+          <div class="j-group j-bg-surface-container-lowest j-p-8 j-rounded-xl j-shadow-black/5 j-shadow-sm hover:j-shadow-xl j-transition-all j-duration-500 j-border-l-4 j-border-primary">
+            <div class="j-flex j-items-start j-justify-between j-mb-6">
+              <div class="j-w-16 j-h-16 j-rounded-xl j-bg-surface-container j-flex j-items-center j-justify-center j-text-primary group-hover:j-bg-primary group-hover:j-text-on-primary j-transition-colors j-duration-300">
+                <span class="material-symbols-outlined" data-icon="calculate" data-weight="fill" style="font-variation-settings: 'FILL' 1;">calculate</span>
+              </div>
+              <span class="j-font-headline j-font-black j-text-4xl j-text-surface-container-highest group-hover:j-text-primary/20 j-transition-colors">01</span>
+            </div>
+            <h3 class="j-font-headline j-text-xl j-font-extrabold j-text-on-surface j-mb-3 j-tracking-tight">Simulação</h3>
+            <p class="j-text-on-surface-variant j-text-sm j-leading-relaxed">
+              Simulador realista sem taxas ocultas. Nossa plataforma processa dados em tempo real para oferecer o cenário mais preciso do mercado.
+            </p>
+          </div>
+
+          <!-- Step 2: Poder de Compra -->
+          <div class="j-group j-bg-surface-container-low j-p-8 j-rounded-xl j-shadow-black/5 j-shadow-sm hover:j-shadow-xl j-transition-all j-duration-500 j-mt-0 lg:j-mt-8">
+            <div class="j-flex j-items-start j-justify-between j-mb-6">
+              <div class="j-w-16 j-h-16 j-rounded-xl j-bg-surface-container-highest j-flex j-items-center j-justify-center j-text-on-surface group-hover:j-bg-on-surface group-hover:j-text-surface j-transition-colors j-duration-300">
+                <span class="material-symbols-outlined" data-icon="analytics">analytics</span>
+              </div>
+              <span class="j-font-headline j-font-black j-text-4xl j-text-surface-container-highest group-hover:j-text-on-surface/10 j-transition-colors">02</span>
+            </div>
+            <h3 class="j-font-headline j-text-xl j-font-extrabold j-text-on-surface j-mb-3 j-tracking-tight">Poder de Compra</h3>
+            <p class="j-text-on-surface-variant j-text-sm j-leading-relaxed">
+              Página de resposta com laudo técnico e transparência financeira durante e após a obra. Dados claros para decisões seguras.
+            </p>
+          </div>
+
+          <!-- Step 3: Curadoria Especializada -->
+          <div class="j-group j-bg-surface-container-lowest j-p-8 j-rounded-xl j-shadow-black/5 j-shadow-sm hover:j-shadow-xl j-transition-all j-duration-500 j-border-t-4 j-border-primary">
+            <div class="j-flex j-items-start j-justify-between j-mb-6">
+              <div class="j-w-16 j-h-16 j-rounded-xl j-bg-surface-container j-flex j-items-center j-justify-center j-text-primary group-hover:j-bg-primary group-hover:j-text-on-primary j-transition-colors j-duration-300">
+                <span class="material-symbols-outlined" data-icon="domain">domain</span>
+              </div>
+              <span class="j-font-headline j-font-black j-text-4xl j-text-surface-container-highest group-hover:j-text-primary/20 j-transition-colors">03</span>
+            </div>
+            <h3 class="j-font-headline j-text-xl j-font-extrabold j-text-on-surface j-mb-3 j-tracking-tight">Curadoria Especializada</h3>
+            <p class="j-text-on-surface-variant j-text-sm j-leading-relaxed">
+              Apresentação de imóveis no seu perfil, com garantia de preço de tabela da construtora (sem acréscimo de taxas ou comissões).
+            </p>
+          </div>
+
+          <!-- Step 4: Visita e Fechamento -->
+          <div class="j-group j-bg-surface-container-low j-p-8 j-rounded-xl j-shadow-black/5 j-shadow-sm hover:j-shadow-xl j-transition-all j-duration-500">
+            <div class="j-flex j-items-start j-justify-between j-mb-6">
+              <div class="j-w-16 j-h-16 j-rounded-xl j-bg-surface-container-highest j-flex j-items-center j-justify-center j-text-on-surface group-hover:j-bg-on-surface group-hover:j-text-surface j-transition-colors j-duration-300">
+                <span class="material-symbols-outlined" data-icon="gavel">gavel</span>
+              </div>
+              <span class="j-font-headline j-font-black j-text-4xl j-text-surface-container-highest group-hover:j-text-on-surface/10 j-transition-colors">04</span>
+            </div>
+            <h3 class="j-font-headline j-text-xl j-font-extrabold j-text-on-surface j-mb-3 j-tracking-tight">Visita e Fechamento</h3>
+            <p class="j-text-on-surface-variant j-text-sm j-leading-relaxed">
+              Assessoria jurídica gratuita para análise de contrato, garantindo que não existam taxas abusivas em sua negociação.
+            </p>
+          </div>
+
+          <!-- Step 5: Acompanhamento de Obra -->
+          <div class="j-group j-bg-surface-container-lowest j-p-8 j-rounded-xl j-shadow-black/5 j-shadow-sm hover:j-shadow-xl j-transition-all j-duration-500 j-mt-0 lg:j-mt-8 j-border-b-4 j-border-primary">
+            <div class="j-flex j-items-start j-justify-between j-mb-6">
+              <div class="j-w-16 j-h-16 j-rounded-xl j-bg-surface-container j-flex j-items-center j-justify-center j-text-primary group-hover:j-bg-primary group-hover:j-text-on-primary j-transition-colors j-duration-300">
+                <span class="material-symbols-outlined" data-icon="construction">construction</span>
+              </div>
+              <span class="j-font-headline j-font-black j-text-4xl j-text-surface-container-highest group-hover:j-text-primary/20 j-transition-colors">05</span>
+            </div>
+            <h3 class="j-font-headline j-text-xl j-font-extrabold j-text-on-surface j-mb-3 j-tracking-tight">Acompanhamento de Obra</h3>
+            <p class="j-text-on-surface-variant j-text-sm j-leading-relaxed">
+              Assessoria contínua durante todo o período de construção. Relatórios periódicos para sua tranquilidade total.
+            </p>
+          </div>
+
+          <!-- Step 6: Entrega das Chaves -->
+          <div class="j-group j-bg-on-surface j-p-8 j-rounded-xl j-shadow-black/20 j-shadow-lg hover:j-shadow-2xl j-transition-all j-duration-500">
+            <div class="j-flex j-items-start j-justify-between j-mb-6">
+              <div class="j-w-16 j-h-16 j-rounded-xl j-bg-primary j-flex j-items-center j-justify-center j-text-on-primary">
+                <span class="material-symbols-outlined" data-icon="key" data-weight="fill" style="font-variation-settings: 'FILL' 1;">key</span>
+              </div>
+              <span class="j-font-headline j-font-black j-text-4xl j-text-surface/10">06</span>
+            </div>
+            <h3 class="j-font-headline j-text-xl j-font-extrabold j-text-surface j-mb-3 j-tracking-tight">Entrega das Chaves</h3>
+            <p class="j-text-outline-variant j-text-sm j-leading-relaxed">
+              Laudo técnico com ART na entrega, garantindo qualidade e valorização do seu imóvel desde o primeiro dia.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Call to Action -->
+      <div class="j-mt-20 j-p-1 j-bg-gradient-to-r j-from-primary j-to-primary-container j-rounded-2xl">
+        <div class="j-bg-surface j-rounded-[calc(1rem-2px)] j-p-10 md:j-p-16 j-flex j-flex-col md:j-flex-row j-items-center j-justify-between j-gap-8 j-text-center md:j-text-left">
+          <div>
+            <h4 class="j-font-headline j-text-2xl md:j-text-3xl j-font-extrabold j-text-on-surface j-tracking-tight j-mb-2">Pronto para começar sua jornada?</h4>
+            <p class="j-text-on-surface-variant">Inicie agora sua simulação e descubra o imóvel ideal para seu perfil.</p>
+          </div>
+          <a href="https://wa.me/5511946211111" target="_blank" class="j-whitespace-nowrap j-bg-on-surface j-text-surface hover:j-bg-primary j-px-10 j-py-5 j-rounded-xl j-font-headline j-font-bold j-transition-all j-duration-300 hover:j-scale-105 active:j-scale-95 j-text-center" style="text-decoration: none;">
+            Falar com um Consultor
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="video section video-no-gap-top">
     <div class="container">
       <div class="row">
         <div class="col-lg-4 offset-lg-4">
@@ -508,7 +669,7 @@
             <div class="row gx-lg-5">
               <div class="col-lg-4">
                 <div class="counter">
-                  <h2 class="timer count-title count-number" data-to="22" data-speed="1000"></h2>
+                  <h2 id="count-empreendimentos" class="timer count-title count-number" data-to="22" data-speed="1000"></h2>
                   <p class="count-text ">Empreendimentos</p>
                 </div>
               </div>
@@ -520,7 +681,7 @@
               </div>
               <div class="col-lg-4">
                 <div class="counter">
-                  <h2 class="timer count-title count-number" data-to="1300" data-speed="1000"></h2>
+                  <h2 class="timer count-title count-number" data-to="103" data-speed="1000"></h2>
                   <p class="count-text ">Unidades<br>Vendidas 2025</p>
                 </div>
               </div>
@@ -531,25 +692,7 @@
     </div>
   </div>
 
-  <div class="section" id="simulador">
-    <div class="container">
-      <div class="row">
-        <div class="col-lg-8 offset-lg-2 text-center">
-          <div class="section-heading" style="margin-bottom: 30px;">
-            <h6>| Simulador</h6>
-            <h2>Simulador em Página Dedicada</h2>
-          </div>
-          <p style="margin-bottom: 20px;">
-            O simulador completo da MT Parceiros foi movido para uma página exclusiva, com melhor desempenho e
-            navegação.
-          </p>
-          <div class="main-button">
-            <a href="simulador.html">Fazer meu Diagnóstico Gratuito</a>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
+
   <div class="section best-deal">
     <div class="container">
       <div class="row">
@@ -740,14 +883,13 @@
             style="height:500px; border-radius:10px; box-shadow:0 0 15px rgba(0,0,0,0.15); position:relative; z-index:2;">
           </div>
           <div class="row">
-            <div class="col-lg-6">
+            <div class="col-lg-12">
               <div class="item phone">
                 <img src="assets/images/phone-icon.png" alt="Ícone de telefone" style="max-width: 52px;">
-                <h6><a href="https://wa.me/5511946211111" target="_blank">(11) 94621-1111</a><br><span>Número de
-                    Telefone</span></h6>
+                <h6><a href="tel:5511946211111">(11) 94621-1111</a><br><span>Número de Telefone</span></h6>
               </div>
             </div>
-            <div class="col-lg-6">
+            <div class="col-lg-12">
               <div class="item email">
                 <img src="assets/images/email-icon.png" alt="Ícone de e-mail" style="max-width: 52px;">
                 <h6><a href="contato.html#contact-form">mtparceiros@gmail.com</a><br><span>E-mail Profissional</span>
@@ -810,7 +952,7 @@
     </div>
   </div>
 
-  <footer>
+  <footer class="footer-no-gap">
     <div class="container text-center pt-4 pb-4">
       <div class="row">
         <div class="col-12 mb-4">
