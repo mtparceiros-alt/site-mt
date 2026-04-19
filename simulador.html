@@ -185,15 +185,15 @@
 </div>
 </div>
 <!-- [SECTION 1: HEADER & NAVIGATION] -->
-<header class="bg-white sticky top-0 z-50 border-b border-gray-100 shadow-sm h-[95px] flex items-center">
-  <nav class="flex justify-between items-center w-full px-8 max-w-screen-2xl mx-auto h-full">
+<header class="bg-white sticky top-0 z-50 border-b border-gray-100 shadow-sm h-20 flex items-center">
+  <nav class="flex justify-between items-center w-full px-4 max-w-[1320px] mx-auto h-full">
     <!-- Marca MTPARCEIROS -->
-    <div class="text-[22px] font-black text-black tracking-[0.15em] font-headline uppercase leading-none">
+    <div class="text-[28px] font-bold text-black tracking-[0.1em] font-headline uppercase leading-none">
       MTParceiros
     </div>
 
     <!-- Menu de Navegação -->
-    <div class="hidden md:flex items-center gap-8 h-full font-headline text-[14px] font-bold tracking-tight">
+    <div class="hidden md:flex items-center gap-6 h-full font-headline text-[15px] font-medium tracking-tight">
       <a class="relative flex items-center text-gray-800 hover:text-[#f35525] transition-colors group py-2" href="index.html">
         Início
         <span class="absolute bottom-[-4px] left-0 w-full h-[3px] bg-[#f35525] origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-300"></span>
@@ -219,20 +219,63 @@
         <span class="absolute bottom-[-4px] left-0 w-full h-[3px] bg-[#f35525] origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-300"></span>
       </a>
     </div>
+    
+    <!-- Gatilho do Menu Mobile (v3 Fidelity) -->
+    <button id="mobile-menu-trigger" class="md:hidden flex flex-col justify-center items-center w-10 h-10 gap-1.5 focus:outline-none z-[60] relative">
+        <span class="w-7 h-[2px] bg-black transition-all duration-300 transform origin-center" id="line1"></span>
+        <span class="w-7 h-[2px] bg-black transition-all duration-300" id="line2"></span>
+        <span class="w-7 h-[2px] bg-black transition-all duration-300 transform origin-center" id="line3"></span>
+    </button>
 
 
-    <!-- Botão Agendar (Restaurado com Ícone) -->
-    <div class="flex items-center">
-      <a class="bg-[#1e1e1e] text-white pl-1 pr-7 py-1 rounded-full font-bold text-[12px] uppercase tracking-wide flex items-center gap-3 hover:bg-black transition-all shadow-lg shadow-black/10 group" href="https://wa.me/5511946211111" target="_blank">
-        <div class="w-11 h-11 bg-[#f35525] rounded-full flex items-center justify-center transition-transform group-hover:scale-105">
-           <span class="material-symbols-outlined text-white text-[18px] font-bold">calendar_today</span>
-        </div>
-        AGENDE UMA VISITA
-      </a>
-    </div>
+
+    <!-- Botão Agendar Removido (v3 Cleanup) -->
 
 
   </nav>
+
+  <!-- Overlay do Menu Mobile (Villa Agency Style Fidelity) -->
+  <div id="mobile-menu" class="fixed top-20 left-0 w-full bg-white shadow-2xl border-t border-gray-100 transform -translate-y-full opacity-0 pointer-events-none transition-all duration-300 z-40">
+      <ul class="flex flex-col font-headline font-bold text-[14px]">
+          <li class="border-b border-gray-100"><a href="index.html" class="block px-8 py-5 text-gray-800 hover:bg-gray-50">Início</a></li>
+          <li class="border-b border-gray-100"><a href="properties.html" class="block px-8 py-5 text-gray-800 hover:bg-gray-50">Empreendimentos</a></li>
+          <li class="border-b border-gray-100"><a href="simulador.html" class="block px-8 py-5 text-primary bg-gray-50/50">Simulador</a></li>
+          <li class="border-b border-gray-100"><a href="blog.html" class="block px-8 py-5 text-gray-800 hover:bg-gray-50">Blog</a></li>
+          <li class="border-b border-gray-100"><a href="property-details.html" class="block px-8 py-5 text-gray-800 hover:bg-gray-50">Detalhes</a></li>
+          <li class="border-b border-gray-100"><a href="contato.html" class="block px-8 py-5 text-gray-800 hover:bg-gray-50">Contato</a></li>
+          <li><a href="https://wa.me/5511946211111" target="_blank" class="block px-8 py-6 text-[#f35525] font-black uppercase text-xs tracking-widest"><i class="fa fa-calendar mr-2"></i> Agende uma Visita</a></li>
+      </ul>
+  </div>
+
+  <!-- [SECTION 1.1: STICKY POWER BAR - EXCLUSIVE V3] -->
+  <!-- MT_LOG (04/2026): Balão flutuante para feedback em tempo real com Índice Minimalista de Paridade -->
+  <div id="sticky-power-bar" class="fixed top-20 left-0 w-full z-30 transform -translate-y-full opacity-0 transition-all duration-500 pointer-events-none">
+      <div class="max-w-screen-2xl mx-auto px-4 md:px-8 py-3">
+          <div class="bg-white/85 backdrop-blur-md border border-white/20 rounded-2xl shadow-2xl px-6 py-4 flex items-center justify-between gap-6 border-b-2 border-primary/10">
+              <div class="flex flex-col shrink-0">
+                  <span class="text-[9px] font-black uppercase text-gray-400 tracking-widest leading-none mb-1">Poder de Compra</span>
+                  <span class="text-xl font-bold text-slate-900" id="sticky-total-val">R$ 0</span>
+              </div>
+              <div class="flex-1 flex flex-col gap-2">
+                  <div class="h-3 flex rounded-full overflow-hidden bg-slate-100/50 shadow-inner">
+                      <div id="sticky-bar-sub" class="h-full bg-tertiary-fixed-dim transition-all duration-500" style="width: 0%"></div>
+                      <div id="sticky-bar-fgts" class="h-full transition-all duration-500" style="width: 0%; background-color: #38bdf8 !important;"></div>
+                      <div id="sticky-bar-ent" class="h-full bg-cyan-400 transition-all duration-500" style="width: 0%"></div>
+                      <div id="sticky-bar-ent-p" class="h-full bg-amber-400 transition-all duration-500" style="width: 0%"></div>
+                      <div id="sticky-bar-fin" class="h-full transition-all duration-500" style="width: 0%; background-color: #f1f5f9 !important;"></div>
+                  </div>
+                  <!-- ÍNDICE MINIMALISTA (v3 Fidelity) -->
+                  <div class="flex flex-wrap gap-x-4 gap-y-1">
+                      <div class="flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-tertiary-fixed-dim"></span><span class="text-[8px] font-black text-gray-500 uppercase tracking-tighter">Sub.</span></div>
+                      <div class="flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-[#38bdf8]"></span><span class="text-[8px] font-black text-gray-500 uppercase tracking-tighter">FGTS</span></div>
+                      <div class="flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-cyan-400"></span><span class="text-[8px] font-black text-gray-500 uppercase tracking-tighter">Entrada</span></div>
+                      <div class="flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-amber-400"></span><span class="text-[8px] font-black text-gray-500 uppercase tracking-tighter">Parc.</span></div>
+                      <div class="flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-[#f1f5f9] border border-gray-200"></span><span class="text-[8px] font-black text-gray-500 uppercase tracking-tighter">Financ.</span></div>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
 </header>
 
 <!-- Hero Section -->
@@ -272,66 +315,66 @@
 <!-- Simulation Main Content -->
 <main class="max-w-screen-2xl mx-auto px-8 -mt-16 relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-8 mb-24">
 <!-- Left Column: Identification -->
-<div class="lg:col-span-5 flex flex-col gap-8">
-<section class="bg-surface-container-lowest p-10 rounded-xxl shadow-xl shadow-primary/5">
-<h3 class="text-2xl font-bold font-headline mb-8 flex items-center gap-3">
+<div class="lg:col-span-5 flex flex-col gap-6 md:gap-8">
+<section class="bg-surface-container-lowest p-6 md:p-10 rounded-xxl shadow-xl shadow-primary/5">
+<h3 class="text-2xl font-bold font-headline mb-6 md:mb-8 flex items-center gap-3">
 <span class="material-symbols-outlined text-secondary" data-icon="person">person</span>
                     Identificação Profissional
                 </h3>
-<div class="space-y-8">
+<div class="space-y-6 md:space-y-8">
 <div>
-<label class="block text-sm font-bold text-on-surface-variant uppercase tracking-wider mb-4">Vínculo Empregatício</label>
+<label class="block text-sm font-bold text-on-surface-variant uppercase tracking-wider mb-2 md:mb-4">Vínculo Empregatício</label>
 <div class="grid grid-cols-2 gap-4">
-<button class="flex items-center justify-between p-4 rounded-xl bg-primary text-white font-semibold" data-vinculo="clt" type="button">
+<button class="flex items-center justify-between p-3.5 md:p-4 rounded-xl bg-primary text-white font-semibold" data-vinculo="clt" type="button">
                                 CLT
                                 <span class="material-symbols-outlined text-sm" data-icon="check_circle" data-weight="fill" style="font-variation-settings: 'FILL' 1;">check_circle</span>
 </button>
 <input checked="" name="vinculo" style="display:none;" type="radio" value="clt"/>
-<button class="flex items-center justify-between p-4 rounded-xl bg-surface-container-low text-on-surface font-semibold hover:bg-surface-container-high transition-colors" data-vinculo="mei" type="button">
+<button class="flex items-center justify-between p-3.5 md:p-4 rounded-xl bg-surface-container-low text-on-surface font-semibold hover:bg-surface-container-high transition-colors" data-vinculo="mei" type="button">
                                 MEI
                             </button>
 <input name="vinculo" style="display:none;" type="radio" value="mei"/>
-<button class="flex items-center justify-between p-4 rounded-xl bg-surface-container-low text-on-surface font-semibold hover:bg-surface-container-high transition-colors" data-vinculo="autonomo" type="button">
+<button class="flex items-center justify-between p-3.5 md:p-4 rounded-xl bg-surface-container-low text-on-surface font-semibold hover:bg-surface-container-high transition-colors" data-vinculo="autonomo" type="button">
                                 Autônomo
                             </button>
 <input name="vinculo" style="display:none;" type="radio" value="autonomo"/>
-<button class="flex items-center justify-between p-4 rounded-xl bg-surface-container-low text-on-surface font-semibold hover:bg-surface-container-high transition-colors" data-vinculo="publico" type="button">
+<button class="flex items-center justify-between p-3.5 md:p-4 rounded-xl bg-surface-container-low text-on-surface font-semibold hover:bg-surface-container-high transition-colors" data-vinculo="publico" type="button">
                                 Funcionário Público
                             </button>
 <input name="vinculo" style="display:none;" type="radio" value="publico"/>
 </div>
 </div>
-<div class="space-y-6">
+<div class="space-y-4 md:space-y-6">
 <div class="group">
 <label class="block text-xs font-bold text-on-surface-variant uppercase mb-2">Nome Completo</label>
-<input class="w-full bg-surface-container-low p-4 rounded-md plinth-input font-medium text-on-surface" id="nome" name="nome" placeholder="Ex: Rodrigo Moraes" type="text"/>
+<input class="w-full bg-surface-container-low p-3.5 md:p-4 rounded-md plinth-input font-medium text-on-surface" id="nome" name="nome" placeholder="Ex: Rodrigo Moraes" type="text"/>
 </div>
 <div class="group">
 <label class="block text-xs font-bold text-on-surface-variant uppercase mb-2">Telefone de Contato</label>
-<input class="w-full bg-surface-container-low p-4 rounded-md plinth-input font-medium text-on-surface" id="celular" name="celular" placeholder="(00) 00000-0000" type="tel"/>
+<input class="w-full bg-surface-container-low p-3.5 md:p-4 rounded-md plinth-input font-medium text-on-surface" id="celular" name="celular" placeholder="(00) 00000-0000" type="tel"/>
 </div>
 </div>
 </div>
 </section>
 <!-- Results Preview / Power Index -->
-<section class="bg-primary text-white p-10 rounded-xxl overflow-hidden relative">
+<section class="bg-primary text-white p-6 md:p-10 rounded-xxl overflow-hidden relative" id="main-results-card">
 <div class="absolute top-0 right-0 p-4">
 <img src="./assets/images/bola_laranja.gif" class="w-20 h-20 object-contain" alt="IA Pulsing">
 </div>
 <h3 class="text-xl font-bold font-headline mb-2">Poder de Compra Total</h3>
-<div class="text-5xl font-extrabold font-headline text-white mb-6" id="total-value">
-                    R$ 485.000<span class="text-lg font-normal text-on-primary-container">,00</span>
+<div class="text-[32px] sm:text-4xl md:text-5xl font-extrabold font-headline text-white mb-6 whitespace-nowrap" id="total-value">
+                    R$ 0<span class="text-lg font-normal text-on-primary-container">,00</span>
 </div>
 <div class="relative pt-4">
 <!-- Component 4: 5º Segmento na Barra de Composição -->
     <div class="h-[26px] w-full bg-primary-container rounded-full overflow-hidden flex shadow-inner">
-        <div class="h-full bg-tertiary-fixed-dim transition-all duration-300" id="bar-sub" style="width: 11%"></div>
-        <div class="h-full transition-all duration-300" id="bar-fgts" style="width: 4%; background-color: #38bdf8 !important;"></div>
+        <div class="h-full bg-tertiary-fixed-dim transition-all duration-300" id="bar-sub" style="width: 0%"></div>
+        <div class="h-full transition-all duration-300" id="bar-fgts" style="width: 0%; background-color: #38bdf8 !important;"></div>
         <div class="h-full bg-cyan-400 transition-all duration-300" id="bar-ent" style="width: 0%"></div>
-        <div class="h-full bg-amber-400 relative flex items-center justify-center transition-all duration-300" id="bar-ent-parcelado" style="width: 9%">
-            <span class="absolute text-[10px] font-black text-primary pointer-events-none">36x</span>
+        <div class="h-full bg-amber-400 relative flex items-center justify-center transition-all duration-300 overflow-hidden" id="bar-ent-parcelado" style="width: 0%">
+            <span id="label-36x" class="absolute text-[10px] font-black text-primary pointer-events-none transition-opacity duration-300 opacity-0">36x</span>
         </div>
-        <div class="h-full transition-all duration-300" id="bar-fin" style="width: 76%; background-color: #f1f5f9 !important;"></div>
+        <div class="h-full transition-all duration-300" id="bar-fin" style="width: 0%; background-color: #f1f5f9 !important;"></div>
     </div>
 <!-- Legend Grid -->
     <div class="grid grid-cols-2 gap-y-6 mt-8">
@@ -340,16 +383,16 @@
                 <span class="w-2 h-2 rounded-sm bg-tertiary-fixed-dim"></span>
                 <span class="text-[10px] font-bold text-on-primary-container uppercase tracking-wider">Subsídio</span>
             </div>
-            <div class="text-lg font-black" id="val-sub">R$ 55.000</div>
-            <div class="text-[10px] font-bold text-on-primary-container" id="pct-sub">11%</div>
+            <div class="text-lg font-black" id="val-sub">R$ 0</div>
+            <div class="text-[10px] font-bold text-on-primary-container" id="pct-sub">0%</div>
         </div>
         <div class="space-y-1">
             <div class="flex items-center gap-2">
                 <span class="w-2 h-2 rounded-sm" style="background-color: #38bdf8 !important;"></span>
                 <span class="text-[10px] font-black uppercase tracking-wider" style="color: #d8e3fb !important;">FGTS</span>
             </div>
-            <div class="text-lg font-black" style="color: #ffffff !important;" id="val-fgts">R$ 18.200</div>
-            <div class="text-[10px] font-bold" style="color: #d8e3fb !important;" id="pct-fgts">4%</div>
+            <div class="text-lg font-black" style="color: #ffffff !important;" id="val-fgts">R$ 0</div>
+            <div class="text-[10px] font-bold" style="color: #d8e3fb !important;" id="pct-fgts">0%</div>
         </div>
         <div class="space-y-1">
             <div class="flex items-center gap-2">
@@ -364,45 +407,45 @@
                 <span class="w-2 h-2 rounded-sm bg-amber-400"></span>
                 <span class="text-[10px] font-black uppercase tracking-wider" style="color: #d8e3fb !important;">Entrada 36x</span>
             </div>
-            <div class="text-lg font-black text-white" id="val-ent-parcelado">R$ 45.000</div>
-            <div class="text-[10px] font-bold" style="color: #d8e3fb !important;" id="pct-ent-parcelado">9%</div>
+            <div class="text-lg font-black text-white" id="val-ent-parcelado">R$ 0</div>
+            <div class="text-[10px] font-bold" style="color: #d8e3fb !important;" id="pct-ent-parcelado">0%</div>
         </div>
         <div class="space-y-1">
             <div class="flex items-center gap-2">
                 <span class="w-2 h-2 rounded-sm" style="background-color: #f1f5f9 !important;"></span>
                 <span class="text-[10px] font-black uppercase tracking-wider" style="color: #d8e3fb !important;">Financiamento</span>
             </div>
-            <div class="text-lg font-black" style="color: #ffffff !important;" id="val-fin">R$ 366.800</div>
-            <div class="text-[10px] font-bold" style="color: #d8e3fb !important;" id="pct-fin">76%</div>
+            <div class="text-lg font-black" style="color: #ffffff !important;" id="val-fin">R$ 0</div>
+            <div class="text-[10px] font-bold" style="color: #d8e3fb !important;" id="pct-fin">0%</div>
         </div>
     </div>
 </div>
 </section>
 </div>
 <!-- [SECTION 2: FINANCIAL INPUTS & SLIDERS] -->
-<div class="lg:col-span-7 bg-surface-container-lowest p-10 rounded-xxl shadow-xl shadow-primary/5">
-<h3 class="text-2xl font-bold font-headline mb-10 flex items-center gap-3">
+<div class="lg:col-span-7 bg-surface-container-lowest p-6 md:p-10 rounded-xxl shadow-xl shadow-primary/5">
+<h3 class="text-2xl font-bold font-headline mb-6 md:mb-10 flex items-center gap-3">
 <span class="material-symbols-outlined text-secondary" data-icon="account_balance_wallet">account_balance_wallet</span>
                 Perfil Financeiro Detalhado
             </h3>
-<div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+<div class="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12">
 <!-- Renda Bruta -->
-<div class="space-y-6">
+<div class="space-y-4 md:space-y-6">
 <div class="flex justify-between items-end">
 <label class="text-sm font-bold text-on-surface-variant uppercase tracking-wider" id="label-renda-title">Renda Familiar Bruta</label>
-<span class="text-xl font-extrabold text-primary" id="label-renda">R$ 6.500</span>
+<span class="text-xl font-extrabold text-primary" id="label-renda">R$ 0</span>
 </div>
-<input class="w-full h-1.5 bg-surface-container-highest rounded-lg appearance-none cursor-pointer accent-secondary" id="renda" max="30000" min="0" name="renda" step="100" type="range" value="6500"/>
-<p class="text-xs text-slate-500">Soma de todos os proponentes do financiamento.</p>
+<input class="w-full h-1.5 bg-surface-container-highest rounded-lg appearance-none cursor-pointer accent-secondary" id="renda" max="30000" min="0" name="renda" step="100" type="range" value="0"/>
+<p class="text-xs text-slate-500 hidden md:block">Soma de todos os proponentes do financiamento.</p>
 </div>
 <!-- Idade -->
-<div class="space-y-6">
+<div class="space-y-4 md:space-y-6">
 <div class="flex justify-between items-end">
 <label class="text-sm font-bold text-on-surface-variant uppercase tracking-wider">Idade do Proponente</label>
-<span class="text-xl font-extrabold text-primary" id="label-idade">25 anos</span>
+<span class="text-xl font-extrabold text-primary" id="label-idade">18 anos</span>
 </div>
-<input class="w-full h-1.5 bg-surface-container-highest rounded-lg appearance-none cursor-pointer accent-secondary" id="idade" max="80" min="18" name="idade" type="range" value="25"/>
-<p class="text-xs text-slate-500">Influencia diretamente no prazo máximo de parcelamento.</p>
+<input class="w-full h-1.5 bg-surface-container-highest rounded-lg appearance-none cursor-pointer accent-secondary" id="idade" max="80" min="18" name="idade" type="range" value="18"/>
+<p class="text-xs text-slate-500 hidden md:block">Influencia diretamente no prazo máximo de parcelamento.</p>
 <!-- Component 2: Badge de Prazo Dinâmico -->
 <div class="mt-2 text-xs font-bold text-emerald-600 bg-emerald-50 px-3 py-1.5 rounded-full w-fit flex items-center gap-1.5 border border-emerald-100" id="badge-prazo">
     <span class="material-symbols-outlined text-sm" data-icon="calendar_month">calendar_month</span>
@@ -410,57 +453,60 @@
 </div>
 </div>
 <!-- Dívidas Mensais -->
-<div class="space-y-6">
+<div class="space-y-4 md:space-y-6">
 <div class="flex justify-between items-end">
 <label class="text-sm font-bold text-on-surface-variant uppercase tracking-wider">Dívidas Mensais</label>
-<span class="text-xl font-extrabold text-primary" id="label-dividas">R$ 450</span>
+<span class="text-xl font-extrabold text-primary" id="label-dividas">R$ 0</span>
 </div>
-<input class="w-full h-1.5 bg-surface-container-highest rounded-lg appearance-none cursor-pointer accent-secondary" id="dividas" max="5000" min="0" name="dividas" step="50" type="range"/>
-<p class="text-xs text-slate-500">Empréstimos, cartões ou outros financiamentos ativos.</p>
+<input class="w-full h-1.5 bg-surface-container-highest rounded-lg appearance-none cursor-pointer accent-secondary" id="dividas" max="5000" min="0" name="dividas" step="50" type="range" value="0"/>
+<p class="text-xs text-slate-500 hidden md:block">Empréstimos, cartões ou outros financiamentos ativos.</p>
 </div>
 <!-- Saldo FGTS -->
-<div class="space-y-6">
+<div class="space-y-4 md:space-y-6">
 <div class="flex justify-between items-end">
 <label class="text-sm font-bold text-on-surface-variant uppercase tracking-wider">Saldo FGTS</label>
-<span class="text-xl font-extrabold text-primary" id="label-fgts">R$ 15.000</span>
+<span class="text-xl font-extrabold text-primary" id="label-fgts">R$ 0</span>
 </div>
-<input class="w-full h-1.5 bg-surface-container-highest rounded-lg appearance-none cursor-pointer accent-secondary" id="fgts" max="200000" min="0" name="fgts" step="100" type="range" value="15000"/>
-<p class="text-xs text-slate-500">Pode ser usado para abater o valor da entrada.</p>
+<input class="w-full h-1.5 bg-surface-container-highest rounded-lg appearance-none cursor-pointer accent-secondary" id="fgts" max="200000" min="0" name="fgts" step="100" type="range" value="0"/>
+<p class="text-xs text-slate-500 hidden md:block">Pode ser usado para abater o valor da entrada.</p>
 </div>
 <!-- Entrada Adicional -->
 <div class="md:col-span-2 space-y-6 pt-6 border-t border-surface-container-low">
 <div class="flex justify-between items-end">
 <label class="text-sm font-bold text-on-surface-variant uppercase tracking-wider">Valor de Entrada Adicional</label>
-<span class="text-2xl font-black text-secondary" id="label-entrada">R$ 20.000</span>
+<span class="text-2xl font-black text-secondary" id="label-entrada">R$ 0</span>
 </div>
-<input class="w-full h-2 bg-surface-container-highest rounded-lg appearance-none cursor-pointer accent-secondary" id="entrada" max="500000" min="0" name="entrada" step="500" type="range" value="20000"/>
+<input class="w-full h-2 bg-surface-container-highest rounded-lg appearance-none cursor-pointer accent-secondary" id="entrada" max="500000" min="0" name="entrada" step="500" type="range" value="0"/>
 <div class="flex justify-between px-2">
 <span class="text-[10px] font-bold text-slate-400">R$ 0</span>
 <span class="text-[10px] font-bold text-slate-400">R$ 500k</span>
 </div>
-<!-- Component 3: Estratégia de Entrada Facilitada (Estilo V2 Premium) -->
-<div class="mt-4 p-6 rounded-2xl bg-surface-container-low border border-surface-container-high transition-all duration-500" id="badge-entrada">
-    <div class="flex gap-4 items-start">
-        <div class="w-12 h-12 rounded-full bg-secondary/10 flex items-center justify-center shrink-0">
-            <span class="material-symbols-outlined text-secondary" data-icon="build">build</span>
+<!-- Component 3: Estratégia de Entrada Facilitada (Estilo V2 Premium - Optimized) -->
+<div class="mt-4 p-5 rounded-2xl bg-surface-container-low border border-surface-container-high transition-all duration-500" id="badge-entrada">
+    <div class="flex gap-4 items-start mb-3">
+        <div class="w-10 h-10 rounded-full bg-secondary/10 flex items-center justify-center shrink-0">
+            <span class="material-symbols-outlined text-secondary text-xl" data-icon="build">build</span>
         </div>
-        <div class="flex-1 space-y-1">
-            <h4 class="font-bold text-on-surface text-base">Estratégia de Entrada Facilitada</h4>
-            <p class="text-xs text-on-surface-variant leading-relaxed">
-                Seu saldo de entrada pode ser parcelado diretamente com a construtora durante o período de obras, sem juros bancários.
+        <div class="flex-1 space-y-0.5">
+            <h4 class="font-bold text-on-surface text-sm sm:text-base">Estratégia de Entrada Facilitada</h4>
+            <p class="text-[11px] text-on-surface-variant leading-relaxed">
+                Parcelamento direto com a construtora durante as obras, sem juros bancários.
             </p>
-            
-            <!-- Projection Result Box -->
-            <div class="mt-4 bg-tertiary-fixed/10 p-3.5 rounded-xl flex justify-between items-center border border-tertiary-fixed/20 shadow-sm">
-                <span class="text-[10px] font-black text-on-surface-variant uppercase tracking-widest opacity-70">Projeção:</span>
-                <span class="text-sm font-black text-tertiary" id="val-parcela-entrada">36x de R$ 500</span>
-            </div>
         </div>
+    </div>
+    
+    <!-- Projection Full Width Dashboard Style -->
+    <div class="bg-emerald-500/5 border border-emerald-500/10 p-3 rounded-xl flex justify-between items-center shadow-sm">
+        <div class="flex items-center gap-2">
+            <span class="material-symbols-outlined text-emerald-600 text-base" data-icon="analytics">analytics</span>
+            <span class="text-[9px] font-black text-emerald-800/60 uppercase tracking-widest">Projeção Mensal</span>
+        </div>
+        <span class="text-sm font-black text-emerald-700" id="val-parcela-entrada">36x de R$ 500</span>
     </div>
 </div>
 </div>
 <!-- Component 1: Checkboxes de Qualificação -->
-<div class="md:col-span-2 space-y-4 pt-8 mt-8 border-t border-surface-container-low">
+<div class="md:col-span-2 space-y-4 pt-6 md:pt-8 mt-6 md:mt-8 border-t border-surface-container-low">
 <p class="text-xs font-bold text-on-surface-variant uppercase tracking-wider mb-4">Qualificação Adicional</p>
 <label class="flex items-center gap-3 cursor-pointer group">
 <input class="w-5 h-5 rounded-md border-2 border-outline-variant accent-secondary cursor-pointer" id="dependentes" name="dependentes" type="checkbox"/>
@@ -502,8 +548,11 @@
 <input id="h_poder" name="Poder de Compra Total" type="hidden"/>
 <input name="_subject" type="hidden" value="🏠 Nova Simulação de Financiamento!"/>
 </form>
-<!-- [SECTION 3: RESULTS DASHBOARD - BENTO GRID] -->
-<section class="max-w-screen-2xl mx-auto px-8 mb-24">
+<!-- =================================================================
+     📊 SEÇÃO 03: RESULTS DASHBOARD (Bento Grid)
+     ================================================================= -->
+<!-- MT_LOG (04/2026): Oculto no mobile para otimizar LCP e reduzir scroll técnico -->
+<section class="max-w-screen-2xl mx-auto px-8 mb-24 hidden md:block">
 <div class="flex flex-col md:flex-row justify-between items-end mb-12 gap-6">
 <div>
 <h2 class="text-4xl font-extrabold font-headline mb-4">Análise Detalhada</h2>
@@ -521,7 +570,7 @@
 <div>
 <span class="material-symbols-outlined text-tertiary-fixed-dim text-4xl mb-6" data-icon="request_quote">request_quote</span>
         <p class="text-xs font-bold text-on-surface-variant uppercase tracking-widest mb-1">Subsídio Federal</p>
-        <h4 class="text-3xl font-black font-headline text-primary" id="bento-sub-val">R$ 55.000</h4>
+        <h4 class="text-3xl font-black font-headline text-primary" id="bento-sub-val">R$ 0</h4>
       </div>
       <div class="mt-8 text-xs text-on-tertiary-fixed-variant bg-tertiary-fixed/30 px-3 py-1 rounded-full w-fit">Minha Casa Minha Vida</div>
     </div>
@@ -530,7 +579,7 @@
       <div>
         <span class="material-symbols-outlined text-primary text-4xl mb-6" data-icon="savings">savings</span>
         <p class="text-xs font-bold text-on-surface-variant uppercase tracking-widest mb-1">Uso do FGTS</p>
-        <h4 class="text-3xl font-black font-headline text-primary" id="bento-fgts-val">R$ 18.200</h4>
+        <h4 class="text-3xl font-black font-headline text-primary" id="bento-fgts-val">R$ 0</h4>
       </div>
       <div class="mt-8 text-xs text-on-primary-fixed-variant bg-primary-fixed px-3 py-1 rounded-full w-fit">Saldo Disponível</div>
     </div>
@@ -539,7 +588,7 @@
       <div>
         <span class="material-symbols-outlined text-secondary text-4xl mb-6" data-icon="payments">payments</span>
         <p class="text-xs font-bold text-on-surface-variant uppercase tracking-widest mb-1">Entrada Própria</p>
-        <h4 class="text-3xl font-black font-headline text-primary" id="bento-ent-val">R$ 45.000</h4>
+        <h4 class="text-3xl font-black font-headline text-primary" id="bento-ent-val">R$ 0</h4>
       </div>
       <div class="mt-8 text-xs text-on-secondary-fixed-variant bg-secondary-fixed px-3 py-1 rounded-full w-fit">Recurso do Proponente</div>
     </div>
@@ -548,7 +597,7 @@
       <div>
         <span class="material-symbols-outlined text-secondary-fixed-dim text-4xl mb-6" data-icon="account_balance">account_balance</span>
         <p class="text-xs font-bold text-on-primary-container uppercase tracking-widest mb-1">Financiamento</p>
-        <h4 class="text-3xl font-black font-headline" id="bento-fin-val">R$ 366.800</h4>
+        <h4 class="text-3xl font-black font-headline" id="bento-fin-val">R$ 0</h4>
       </div>
 <div class="mt-8 text-xs text-secondary-fixed-dim border border-secondary-fixed-dim/30 px-3 py-1 rounded-full w-fit">Taxa Bancária Aplicada</div>
 </div>
@@ -577,8 +626,11 @@
 </div>
 </div>
 </section>
-<!-- [SECTION 4: MODALITY COMPARISON TABLE] -->
-<section class="max-w-screen-2xl mx-auto px-8 mb-24">
+<!-- =================================================================
+     ⚖️ SEÇÃO 04: MODALITY COMPARISON (Tabela Técnica)
+     ================================================================= -->
+<!-- MT_LOG (04/2026): Oculto no mobile para focar na conversão direta do Score IA -->
+<section class="max-w-screen-2xl mx-auto px-8 mb-24 hidden md:block">
 <div class="bg-surface-container-lowest rounded-xxl overflow-hidden shadow-2xl shadow-primary/5">
 <div class="p-10 border-b border-surface-container-low">
 <h3 class="text-2xl font-extrabold font-headline">Comparativo de Modalidades</h3>
@@ -708,7 +760,9 @@
 </div>
 </div>
 </section>
-<!-- [SECTION 5: OFFICIAL IA CREDIT REPORT & GAUGE] -->
+<!-- =================================================================
+     🛡️ SEÇÃO 05: IA CREDIT REPORT (Gauge & Score)
+     ================================================================= -->
 <section class="max-w-screen-2xl mx-auto px-8 mb-8">
 <div class="bg-[#091426] rounded-xxl p-12 md:p-20 relative overflow-hidden flex flex-col md:flex-row gap-16 items-center">
 <!-- Background Decoration -->
@@ -815,7 +869,9 @@
 </div>
 </div>
 </section>
-<!-- Component 10: Dicas de Melhoria IA -->
+<!-- =================================================================
+     🧠 SEÇÃO 10: IA COACH TIPS (Dicas de Melhoria)
+     ================================================================= -->
 <section class="max-w-screen-2xl mx-auto px-8 mb-24">
 <div class="bg-surface-container-low rounded-xxl overflow-hidden">
 <button class="w-full p-8 flex justify-between items-center hover:bg-surface-container-high transition-colors" id="toggle-dicas-ia" onclick="this.nextElementSibling.classList.toggle('hidden'); this.querySelector('.chevron-icon').classList.toggle('rotate-180')">
@@ -887,4 +943,42 @@
             window.requestAnimationFrame(animateScore);
         }, 500);
     </script>
-</body></html>
+<script>
+    // --- LÓGICA DE MENU MOBILE (v3 FIDELITY) ---
+    document.addEventListener('DOMContentLoaded', () => {
+        const trigger = document.getElementById('mobile-menu-trigger');
+        const menu = document.getElementById('mobile-menu');
+        const line1 = document.getElementById('line1');
+        const line2 = document.getElementById('line2');
+        const line3 = document.getElementById('line3');
+        let isOpen = false;
+
+        if (trigger && menu) {
+            trigger.addEventListener('click', () => {
+                isOpen = !isOpen;
+                
+                if (isOpen) {
+                    // Abrir Menu
+                    menu.classList.remove('-translate-y-full', 'opacity-0', 'pointer-events-none');
+                    menu.classList.add('translate-y-0', 'opacity-100');
+                    
+                    // Transformar Hambúrguer em X
+                    line1.style.transform = 'translateY(8px) rotate(45deg)';
+                    line2.style.opacity = '0';
+                    line3.style.transform = 'translateY(-8px) rotate(-45deg)';
+                } else {
+                    // Fechar Menu
+                    menu.classList.add('-translate-y-full', 'opacity-0', 'pointer-events-none');
+                    menu.classList.remove('translate-y-0', 'opacity-100');
+                    
+                    // Voltar Hambúrguer ao normal
+                    line1.style.transform = 'none';
+                    line2.style.opacity = '1';
+                    line3.style.transform = 'none';
+                }
+            });
+        }
+    });
+</script>
+</body>
+</html>
