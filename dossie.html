@@ -1,0 +1,1711 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="pt-BR"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>MT Parceiros IA - Dossiê do Investidor</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;family=Manrope:wght@400;500;600;700&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="empreendimentos.js"></script>
+<script src="assets/js/dna-data.min.js"></script>
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-tint": "#ffb5a0",
+                        "surface-container": "#152032",
+                        "primary-fixed-dim": "#ffb5a0",
+                        "primary-container": "#2e0600",
+                        "tertiary-container": "#001907",
+                        "outline-variant": "#45474c",
+                        "on-secondary-container": "#efa793",
+                        "secondary-container": "#6f3b2c",
+                        "surface-container-high": "#202a3d",
+                        "inverse-on-surface": "#263144",
+                        "tertiary-fixed-dim": "#40e17e",
+                        "on-error-container": "#ffdad6",
+                        "on-secondary": "#512315",
+                        "primary-fixed": "#ffdbd1",
+                        "on-tertiary": "#003919",
+                        "on-error": "#690005",
+                        "surface-container-low": "#111c2e",
+                        "error-container": "#93000a",
+                        "inverse-primary": "#b02e00",
+                        "on-primary": "#601500",
+                        "on-primary-container": "#de4e23",
+                        "on-surface": "#d8e2fc",
+                        "surface-dim": "#081325",
+                        "surface-container-highest": "#2b3548",
+                        "tertiary": "#40e17e",
+                        "secondary-fixed": "#ffdbd1",
+                        "on-tertiary-fixed-variant": "#005226",
+                        "secondary": "#ffb5a0",
+                        "on-background": "#d8e2fc",
+                        "surface": "#081325",
+                        "secondary-fixed-dim": "#ffb5a0",
+                        "primary": "#ffb5a0",
+                        "surface-bright": "#2f394d",
+                        "tertiary-fixed": "#63ff97",
+                        "on-secondary-fixed": "#360f04",
+                        "error": "#ffb4ab",
+                        "surface-container-lowest": "#040e20",
+                        "on-primary-fixed-variant": "#872100",
+                        "outline": "#8f9097",
+                        "on-tertiary-fixed": "#00210c",
+                        "inverse-surface": "#d8e2fc",
+                        "on-tertiary-container": "#009249",
+                        "background": "#081325",
+                        "surface-variant": "#2b3548",
+                        "on-primary-fixed": "#3b0900",
+                        "on-secondary-fixed-variant": "#6c3929",
+                        "on-surface-variant": "#c5c6cd"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "1rem",
+                        "lg": "2rem",
+                        "xl": "3rem",
+                        "full": "9999px"
+                    },
+                    "fontFamily": {
+                        "headline": ["Plus Jakarta Sans"],
+                        "body": ["Manrope"],
+                        "label": ["Inter"]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        body { font-family: 'Manrope', sans-serif; background-color: #081325; scroll-behavior: smooth; }
+        h1, h2, h3, .font-headline { font-family: 'Plus Jakarta Sans', sans-serif; }
+        .font-label { font-family: 'Inter', sans-serif; }
+        .glass-card {
+            background: rgba(21, 32, 50, 0.6);
+            backdrop-filter: blur(24px);
+            border: 1px solid rgba(69, 71, 76, 0.15);
+        }
+        /* Custom Leaflet overrides */
+        .leaflet-container { background: #081325 !important; }
+        .leaflet-bar { border: none !important; box-shadow: 0 4px 12px rgba(0,0,0,0.3) !important; }
+        .leaflet-control-zoom a { background-color: rgba(30, 41, 59, 0.8) !important; color: white !important; border-bottom: 1px solid rgba(255,255,255,0.1) !important; }
+        .leaflet-control-attribution { background: rgba(0,0,0,0.4) !important; color: rgba(255,255,255,0.5) !important; font-size: 8px !important; }
+        @keyframes pulse-soft {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.7; transform: scale(0.98); }
+        }
+        .pulse-badge {
+            animation: pulse-soft 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+        }
+        /* 
+           MT_LOG (04/2026): Ajuste do Gauge de Score IA. 
+           Circunferência exata para R=110 (2 * PI * 110 = 691.15).
+        */
+        .gauge-ring {
+            stroke-dasharray: 691;
+            transition: stroke-dashoffset 2s ease-out;
+        }
+        .fade-in-section {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+        .fade-in-section.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        details summary::-webkit-details-marker { display: none; }
+        .neon-green { color: #40e17e; }
+        .bg-neon-green { background-color: #40e17e; }
+
+        /* Flip Card Logic */
+        .perspective { perspective: 1000px; }
+        .flip-card-inner {
+            transition: transform 0.6s;
+            transform-style: preserve-3d;
+        }
+        .flip-card:hover .flip-card-inner {
+            transform: rotateY(180deg);
+        }
+        .flip-card-front, .flip-card-back {
+            backface-visibility: hidden;
+        }
+        .flip-card-back {
+            transform: rotateY(180deg);
+        }
+        @keyframes scale-in-center {
+            0% { transform: scale(0); opacity: 0; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+        .scale-in-center {
+            animation: scale-in-center 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+        }
+        /* Lead Modal CSS */
+        .mt-lead-modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.75);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            z-index: 9999;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        .mt-lead-modal-overlay.active {
+            display: flex;
+            opacity: 1;
+        }
+        .mt-lead-modal-content {
+            background: rgba(30, 30, 30, 0.85);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            width: 90%;
+            max-width: 420px;
+            padding: 40px 30px;
+            text-align: center;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+            position: relative;
+            transform: translateY(20px);
+            transition: transform 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+        .mt-lead-modal-overlay.active .mt-lead-modal-content {
+            transform: translateY(0);
+        }
+        .mt-lead-modal-close {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            color: rgba(255, 255, 255, 0.5);
+            font-size: 24px;
+            cursor: pointer;
+            transition: color 0.2s;
+        }
+        .mt-lead-modal-close:hover { color: #fff; }
+        .mt-lead-icon-container { margin-bottom: 25px; }
+        .mt-lead-icon-container video {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            box-shadow: 0 0 20px rgba(243, 85, 37, 0.4);
+        }
+        .mt-lead-modal-content h3 { color: #fff; font-size: 1.5rem; font-weight: 700; margin-bottom: 10px; }
+        .mt-lead-modal-content p { color: rgba(255, 255, 255, 0.7); font-size: 0.95rem; margin-bottom: 30px; }
+        .mt-lead-form { display: flex; flex-direction: column; gap: 15px; }
+        .mt-lead-input {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            padding: 14px 20px;
+            color: #fff;
+            font-size: 0.95rem;
+            transition: all 0.2s;
+        }
+        .mt-lead-input:focus { outline: none; border-color: #f35525; background: rgba(255, 255, 255, 0.1); }
+        .mt-lead-submit {
+            background: #f35525;
+            color: #fff;
+            border: none;
+            border-radius: 12px;
+            padding: 15px;
+            font-weight: 700;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-top: 10px;
+        }
+        .mt-lead-submit:hover { background: #e04a1d; transform: translateY(-2px); box-shadow: 0 5px 15px rgba(243, 85, 37, 0.4); }
+        /* WhatsApp Floating Button CSS */
+        @keyframes heartbeat {
+            0% { transform: scale(1); }
+            14% { transform: scale(1.12); }
+            28% { transform: scale(1); }
+            42% { transform: scale(1.07); }
+            56% { transform: scale(1); }
+            100% { transform: scale(1); }
+        }
+        .whatsapp-float {
+            position: fixed;
+            width: 180px;
+            bottom: 40px;
+            right: 40px;
+            z-index: 1000;
+            transition: transform .2s ease-in-out, filter 0.3s ease;
+            animation: heartbeat 2.4s ease-in-out infinite;
+        }
+        .whatsapp-float:hover {
+            animation: none;
+            transform: scale(1.15);
+            filter: drop-shadow(0 6px 16px rgba(37,211,102,0.55));
+        }
+        .whatsapp-float img {
+            width: 100%;
+            height: auto;
+        }
+        @media (max-width: 768px) {
+            .whatsapp-float {
+                width: 140px;
+                bottom: 20px;
+                right: 20px;
+            }
+        }
+    </style>
+</head>
+<body class="text-on-surface selection:bg-primary/30">
+<!-- [SECTION 1: HEADER & NAVIGATION] -->
+<header class="bg-white sticky top-0 z-50 border-b border-gray-100 shadow-sm h-[95px] flex items-center">
+  <nav class="flex justify-between items-center w-full px-8 max-w-screen-2xl mx-auto h-full">
+    <!-- Marca MTPARCEIROS -->
+    <div class="text-[22px] font-black text-black tracking-[0.15em] font-headline uppercase leading-none">
+      MTParceiros
+    </div>
+
+    <!-- Menu de Navegação -->
+    <div class="hidden md:flex items-center gap-8 h-full font-headline text-[14px] font-bold tracking-tight">
+      <a class="relative flex items-center text-gray-800 hover:text-[#f35525] transition-colors group py-2" href="index.html">
+        Início
+        <span class="absolute bottom-[-4px] left-0 w-full h-[3px] bg-[#f35525] origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-300"></span>
+      </a>
+      <a class="relative flex items-center text-gray-800 hover:text-[#f35525] transition-colors group py-2" href="properties.html">
+        Empreendimentos
+        <span class="absolute bottom-[-4px] left-0 w-full h-[3px] bg-[#f35525] origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-300"></span>
+      </a>
+      <a class="relative flex items-center text-[#f35525] py-2" href="simulador.html">
+        Simulador
+        <span class="absolute bottom-[-4px] left-0 w-full h-[3px] bg-[#f35525]"></span>
+      </a>
+      <a class="relative flex items-center text-gray-800 hover:text-[#f35525] transition-colors group py-2" href="blog.html">
+        Blog
+        <span class="absolute bottom-[-4px] left-0 w-full h-[3px] bg-[#f35525] origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-300"></span>
+      </a>
+      <a class="relative flex items-center text-gray-800 hover:text-[#f35525] transition-colors group py-2" href="property-details.html">
+        Detalhes
+        <span class="absolute bottom-[-4px] left-0 w-full h-[3px] bg-[#f35525] origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-300"></span>
+      </a>
+      <a class="relative flex items-center text-gray-800 hover:text-[#f35525] transition-colors group py-2" href="contato.html">
+        Contato
+        <span class="absolute bottom-[-4px] left-0 w-full h-[3px] bg-[#f35525] origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-300"></span>
+      </a>
+    </div>
+
+
+    <!-- Botão Agendar (Restaurado com Ícone) -->
+    <div class="flex items-center">
+      <a class="bg-[#1e1e1e] text-white pl-1 pr-7 py-1 rounded-full font-bold text-[12px] uppercase tracking-wide flex items-center gap-3 hover:bg-black transition-all shadow-lg shadow-black/10 group" href="https://wa.me/5511946211111" target="_blank">
+        <div class="w-11 h-11 bg-[#f35525] rounded-full flex items-center justify-center transition-transform group-hover:scale-105">
+           <span class="material-symbols-outlined text-white text-[18px] font-bold">calendar_today</span>
+        </div>
+        AGENDE UMA VISITA
+      </a>
+    </div>
+
+
+  </nav>
+</header>
+<main class="max-w-screen-2xl mx-auto px-6 py-12 grid grid-cols-1 lg:grid-cols-12 gap-12 relative z-10">
+    <!-- Sidebar Integrada (Padrão Documento) -->
+    <aside class="lg:col-span-3 bg-slate-950/40 backdrop-blur-3xl rounded-[2rem] p-8 h-fit sticky top-32 border border-white/5 shadow-2xl">
+        <div class="mb-10">
+            <h2 class="text-xl font-black text-slate-50 font-headline">MT Parceiros</h2>
+            <p class="text-xs text-slate-400 font-label tracking-wider uppercase">Inteligência Imobiliária</p>
+        </div>
+        <div class="space-y-8">
+    <!-- Título da Seção -->
+    <div>
+        <h2 class="text-sm font-bold tracking-[0.2em] uppercase text-slate-100 mb-6">Viabilidade Mapeada</h2>
+        
+        <!-- Bloco 1: Próximos Passos -->
+        <div class="mb-8">
+            <h3 class="text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-4 flex items-center gap-2">
+                <span class="material-symbols-outlined text-[14px]">stairs</span> Próximos Passos
+            </h3>
+            <div class="space-y-4">
+                <div class="flex items-center gap-3">
+                    <div class="w-6 h-6 rounded-full bg-primary flex items-center justify-center text-[10px] font-bold text-on-primary shadow-[0_0_15px_rgba(255,181,160,0.3)]">1</div>
+                    <p class="text-xs text-slate-100 font-medium">Validação Documental</p>
+                </div>
+                <div class="flex items-center gap-3 opacity-40 transition-all duration-500" id="sidebar-step-2">
+                    <div class="w-6 h-6 rounded-full bg-slate-800 flex items-center justify-center text-[10px] font-bold text-slate-400 transition-colors" id="sidebar-step-2-dot">2</div>
+                    <p class="text-xs text-slate-400 font-medium whitespace-nowrap" id="sidebar-step-2-text">Aprovação Bancária</p>
+                </div>
+                <div class="flex items-center gap-3 opacity-40 transition-all duration-500" id="sidebar-step-3">
+                    <div class="w-6 h-6 rounded-full bg-slate-800 flex items-center justify-center text-[10px] font-bold text-slate-400 transition-colors" id="sidebar-step-3-dot">3</div>
+                    <p class="text-xs text-slate-400 font-medium whitespace-nowrap" id="sidebar-step-3-text">Escolha da Unidade</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Bloco 2: Matching de Imóvel -->
+        <div class="mb-8">
+            <h3 class="text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-4 flex items-center gap-2">
+                <span class="material-symbols-outlined text-[14px]">location_city</span> Matching de Imóvel
+            </h3>
+            <div class="bg-surface-container-low p-4 rounded-2xl border border-white/5 space-y-3 transition-all duration-500" id="match-card-sidebar">
+                <p class="text-[9px] text-primary font-bold uppercase tracking-tighter" id="match-sidebar-subtitle">Perfil Recomendado</p>
+                <h4 class="text-sm font-bold text-slate-100" id="match-property-sidebar">Apto 2 Dorms</h4>
+                <div class="space-y-1" id="match-sidebar-features">
+                    <div class="flex items-center gap-1.5 text-tertiary">
+                        <span class="material-symbols-outlined text-[12px]">check_circle</span>
+                        <span class="text-[10px] font-medium">Lazer completo</span>
+                    </div>
+                </div>
+
+                <!-- Drawer de Portfólio (Expandível) -->
+                <div id="portfolio-drawer" class="hidden flex-col gap-4 border-t border-white/5 pt-4">
+                    <p class="text-[8px] text-slate-500 uppercase font-bold">Sugestões de Patrimônio:</p>
+                    <div id="portfolio-grid" class="grid grid-cols-1 gap-3">
+                        <!-- Gerado dinamicamente via JS (initMatchIA) -->
+                    </div>
+                </div>
+
+                <button id="btn-portfolio" onclick="togglePortfolio()" class="w-full bg-slate-800 text-slate-500 text-[9px] font-bold py-2 rounded-lg transition-all uppercase tracking-wider cursor-not-allowed" disabled>Ver Portfólio</button>
+            </div>
+        </div>
+
+        <!-- Bloco 3: Checklist -->
+        <div>
+            <h3 class="text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-4 flex items-center gap-2">
+                <span class="material-symbols-outlined text-[14px]">fact_check</span> Checklist
+            </h3>
+            <div class="space-y-3">
+                <div class="flex items-center justify-between group" id="side-item-id">
+                    <p class="text-[11px] text-slate-400 transition-colors">RG/CPF ou CNH</p>
+                    <div class="w-2.5 h-2.5 rounded-full border border-primary/50 transition-all" id="side-check-id"></div>
+                </div>
+                <div class="flex items-center justify-between group" id="side-item-residencia">
+                    <p class="text-[11px] text-slate-400 transition-colors">Residência</p>
+                    <div class="w-2.5 h-2.5 rounded-full border border-primary/50 transition-all" id="side-check-residencia"></div>
+                </div>
+                <div class="flex items-center justify-between group" id="side-item-civil">
+                    <p class="text-[11px] text-slate-400 transition-colors">Estado Civil</p>
+                    <div class="w-2.5 h-2.5 rounded-full border border-primary/50 transition-all" id="side-check-civil"></div>
+                </div>
+                <div class="flex items-center justify-between group" id="side-item-renda">
+                    <p class="text-[11px] text-slate-400 transition-colors">Holerites/Renda</p>
+                    <div class="w-2.5 h-2.5 rounded-full border border-primary/50 transition-all" id="side-check-renda"></div>
+                </div>
+                <!-- Botão Aprovar Dinâmico -->
+                <div id="sidebar-approve-container" class="pt-4 hidden">
+                    <button onclick="aprovarDossie('limpo')" class="w-full bg-tertiary text-on-tertiary text-[10px] font-bold py-3 rounded-xl hover:shadow-[0_0_20px_rgba(64,225,126,0.3)] transition-all animate-bounce">
+                        APROVAR AGORA
+                    </button>
+                </div>
+            </div>
+        </div>
+    </aside>
+
+    <!-- Conteúdo Principal Dinâmico -->
+    <div class="lg:col-span-9 space-y-12">
+<!-- Header Section (Step 1) -->
+<section class="flex flex-col md:flex-row justify-between items-end gap-6 border-b border-outline-variant/10 pb-8 fade-in-section visible" id="header-section">
+<div class="space-y-4">
+<div class="flex items-center gap-3">
+<span class="pulse-badge bg-tertiary/10 text-tertiary border border-tertiary/30 px-4 py-1 rounded-full text-[11px] font-bold tracking-widest uppercase font-label flex items-center gap-2 shadow-[0_0_15px_rgba(64,225,126,0.1)]">
+                        <span class="material-symbols-outlined text-[14px]" style="font-variation-settings: 'FILL' 1;">verified</span>
+                        Dossiê do Investidor
+                    </span>
+</div>
+<h1 class="text-4xl md:text-5xl font-extrabold tracking-tight text-on-surface leading-tight max-w-2xl">
+                    Análise Detalhada: <span class="text-primary italic">Diagnóstico IA</span>
+</h1>
+<p class="text-on-surface-variant font-body max-w-lg">Engenharia de crédito estruturada para máxima performance e aprovação bancária.</p>
+</div>
+<!-- Bloco de Identificação: Posicionado no topo direito com branding animado -->
+<div class="flex flex-col items-end">
+    <div class="flex flex-col items-center text-center">
+        <!-- BOLA LARANJA (Branding IA): Tamanho ampliado para dominar a largura do texto ID -->
+        <img src="assets/images/bola_laranja.gif" class="w-28 h-28 mb-1 opacity-95" alt="MT IA">
+        <p class="text-xs text-outline font-label uppercase tracking-[0.2em] mb-1">ID da Simulação</p>
+        <p class="text-xl font-bold font-headline" id="simulation-id">#MT-2024-850X</p>
+    </div>
+</div>
+</section>
+<!-- Bento Grid: Composição da Compra (Step 2) -->
+<section class="fade-in-section visible" id="composition-grid">
+<div class="flex items-center justify-between mb-8">
+<h2 class="text-2xl font-bold font-headline flex items-center gap-3">
+<span class="w-1.5 h-6 bg-primary rounded-full"></span>
+                    Composição da Compra
+                </h2>
+<span class="text-on-surface-variant text-sm font-label" id="bento-vgv-top">VGV: R$ 0,00</span>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-4 gap-6">
+<!-- Green Card: Subsídio -->
+<div class="glass-card p-8 rounded-xl border-l-4 border-l-tertiary group hover:shadow-[0_0_30px_rgba(64,225,126,0.1)] transition-all">
+<div class="flex flex-col h-full justify-between gap-8">
+<span class="material-symbols-outlined text-tertiary text-4xl">account_balance_wallet</span>
+<div>
+<p class="text-sm text-on-surface-variant font-label mb-1">Subsídio Federal</p>
+<p class="text-2xl font-bold font-headline text-tertiary" id="bento-sub-val">R$ 55.000</p>
+</div>
+</div>
+</div>
+<!-- Blue Card: FGTS -->
+<div class="glass-card p-8 rounded-xl border-l-4 border-l-blue-400 group hover:shadow-[0_0_30px_rgba(96,165,250,0.1)] transition-all">
+<div class="flex flex-col h-full justify-between gap-8">
+<span class="material-symbols-outlined text-blue-400 text-4xl">savings</span>
+<div>
+<p class="text-sm text-on-surface-variant font-label mb-1">FGTS</p>
+<p class="text-2xl font-bold font-headline text-blue-400" id="bento-fgts-val">R$ 42.500</p>
+</div>
+</div>
+</div>
+<!-- Orange Card: Entrada -->
+<div class="glass-card p-8 rounded-xl border-l-4 border-l-primary group hover:shadow-[0_0_30px_rgba(255,181,160,0.1)] transition-all">
+<div class="flex flex-col h-full justify-between gap-8">
+<span class="material-symbols-outlined text-primary text-4xl">payments</span>
+<div>
+<p class="text-sm text-on-surface-variant font-label mb-1">Entrada Própria</p>
+<p class="text-2xl font-bold font-headline text-primary" id="bento-ent-val">R$ 12.500</p>
+</div>
+</div>
+</div>
+<!-- Dark Navy Card: Financiamento -->
+<div class="bg-surface-container-highest/60 p-8 rounded-xl border-l-4 border-l-slate-400 group transition-all">
+<div class="flex flex-col h-full justify-between gap-8">
+<span class="material-symbols-outlined text-slate-100 text-4xl">domain</span>
+<div>
+<p class="text-sm text-on-surface-variant font-label mb-1">Financiamento</p>
+<p class="text-2xl font-bold font-headline text-slate-100" id="bento-fin-val">R$ 340.000</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Financial Profile Ruler (Step 3) -->
+<section class="fade-in-section visible" id="profile-ruler">
+<div class="bg-surface-container-lowest/80 border border-outline-variant/20 rounded-2xl overflow-hidden shadow-2xl">
+<div class="grid grid-cols-2 md:grid-cols-5 divide-x divide-outline-variant/10">
+<div class="p-6 text-center">
+<p class="text-[10px] uppercase tracking-widest text-outline mb-2">Renda Familiar</p>
+<p class="text-lg font-bold" id="prof-renda">R$ 8.500,00</p>
+</div>
+<div class="p-6 text-center">
+<p class="text-[10px] uppercase tracking-widest text-outline mb-2">Taxa de Juros</p>
+<p class="text-lg font-bold text-tertiary" id="prof-taxa">9.2% a.a.</p>
+</div>
+<div class="p-6 text-center">
+<p class="text-[10px] uppercase tracking-widest text-outline mb-2">Prazo Máximo</p>
+<p class="text-lg font-bold" id="prof-prazo">420 meses</p>
+</div>
+<div class="p-6 text-center bg-primary/5">
+<p class="text-[10px] uppercase tracking-widest text-primary mb-2">Parcela Est.</p>
+<p class="text-lg font-bold text-primary" id="prof-parcela">R$ 2.450,00</p>
+</div>
+<div class="p-6 text-center bg-tertiary/5 col-span-2 md:col-span-1">
+<p class="text-[10px] uppercase tracking-widest text-tertiary mb-2">Imóvel Sugerido</p>
+<p class="text-lg font-bold text-tertiary" id="prof-imovel-max">R$ 510.000,00</p>
+</div>
+</div>
+</div>
+</section>
+<!-- IA Score Intelligence (Step 5) -->
+<section class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-center fade-in-section visible" id="ia-score-section">
+<!-- Confidence Gauge -->
+<div class="lg:col-span-5 glass-card p-10 rounded-xl flex flex-col items-center justify-center relative min-h-[400px]">
+<div class="relative w-64 h-64 flex items-center justify-center">
+<svg class="w-full h-full transform -rotate-90">
+<circle class="text-surface-container-highest" cx="128" cy="128" fill="transparent" r="110" stroke="currentColor" stroke-width="8"></circle>
+<circle class="text-primary gauge-ring" cx="128" cy="128" fill="transparent" id="score-gauge" r="110" stroke="currentColor" stroke-linecap="round" stroke-width="12" style="stroke-dashoffset: 691;"></circle>
+</svg>
+<div class="absolute inset-0 flex flex-col items-center justify-center">
+<span class="text-6xl font-black font-headline text-on-surface" id="score-value">000</span>
+<span class="text-[10px] uppercase tracking-[0.3em] text-primary font-bold">Credit Score IA</span>
+</div>
+<div class="absolute w-48 h-48 bg-primary/10 blur-[60px] rounded-full -z-10"></div>
+</div>
+<p class="mt-8 text-sm font-bold font-label text-tertiary uppercase tracking-widest" id="profile-status">Perfil de Alta Conversão</p>
+</div>
+<!-- IA Recommendation Card -->
+<div class="lg:col-span-7 glass-card p-10 rounded-xl flex flex-col justify-center h-full border-l-4 border-l-primary shadow-2xl">
+<div class="flex items-start gap-6">
+<div class="w-16 h-16 rounded-2xl bg-primary/10 flex items-center justify-center flex-shrink-0">
+<span class="material-symbols-outlined text-primary text-3xl">psychology</span>
+</div>
+<div class="space-y-4">
+<h3 class="text-2xl font-bold font-headline">Recomendação do Arquiteto IA</h3>
+<p class="text-on-surface-variant leading-relaxed text-lg" id="ia-recommendation-text">
+                            "Com base no perfil analisado, identificamos um <strong class="text-on-surface">potencial de aprovação de 94%</strong> no SBPE. Recomendamos a utilização do FGTS para amortização das primeiras 12 parcelas, otimizando o fluxo de caixa inicial em até 35%."
+                        </p>
+<div class="flex gap-4 pt-4">
+                        <button class="bg-inverse-primary text-on-primary font-bold py-4 px-10 rounded-full text-sm uppercase tracking-widest hover:brightness-110 transition-all shadow-lg" id="cta-request-emission">Solicitar Emissão</button>
+                        <button class="bg-surface-bright/10 backdrop-blur-md text-on-surface font-semibold py-4 px-8 rounded-full text-sm border border-outline-variant/30 hover:bg-white/5 transition-all" id="cta-download-pdf" onclick="window.print()">Baixar PDF</button>
+                    </div>
+</div>
+</div>
+</div>
+</section>
+<!-- NEW SECTION: PLANO DE VIABILIDADE MAPEADO -->
+<section class="space-y-12 fade-in-section visible" id="viability-plan">
+<div class="flex items-center gap-4 mb-2">
+<span class="h-px flex-1 bg-outline-variant/20"></span>
+<h2 class="text-sm font-bold tracking-[0.4em] uppercase text-outline">Plano de Viabilidade Mapeado</h2>
+<span class="h-px flex-1 bg-outline-variant/20"></span>
+</div>
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-10">
+<!-- 1. Plano de Fluxo Organizado -->
+<div class="space-y-6">
+<h3 class="text-xl font-bold font-headline flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">account_tree</span>
+                        1. Plano de Fluxo Organizado
+                    </h3>
+<div class="grid grid-cols-1 gap-4">
+<!-- Enquadramento Card -->
+<div class="glass-card p-6 rounded-2xl relative overflow-hidden group">
+<div class="flex justify-between items-start">
+<div>
+<p class="text-[10px] uppercase tracking-widest text-outline mb-1">Enquadramento (SP 2026)</p>
+<h4 class="text-2xl font-bold font-headline text-slate-100" id="viability-enquadramento">HIS-1 / Econômico</h4>
+</div>
+<span class="bg-tertiary text-on-tertiary text-[10px] font-bold px-3 py-1 rounded-full flex items-center gap-1 shadow-[0_0_15px_rgba(64,225,126,0.4)]" id="viability-itbi-status">
+<span class="material-symbols-outlined text-xs">verified</span>
+                                    ITBI GRÁTIS
+                                </span>
+</div>
+<p class="text-xs text-on-surface-variant mt-2">Inteligência legal confirmada para este perfil.</p>
+<div class="absolute -right-4 -bottom-4 opacity-5 group-hover:opacity-10 transition-opacity">
+<span class="material-symbols-outlined text-8xl">gavel</span>
+</div>
+</div>
+<!-- Flip Cards Container -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-4 h-48">
+<!-- Flip Card 1 -->
+<div class="flip-card h-full perspective">
+<div class="flip-card-inner relative w-full h-full text-center">
+<div class="flip-card-front glass-card absolute inset-0 w-full h-full rounded-2xl p-6 flex flex-col items-center justify-center gap-2">
+<span class="material-symbols-outlined text-primary text-3xl">event_repeat</span>
+<p class="text-xs font-bold font-label uppercase">Parcela de Entrada</p>
+</div>
+<div class="flip-card-back bg-primary absolute inset-0 w-full h-full rounded-2xl p-6 flex flex-col items-center justify-center text-on-primary">
+<p class="text-[10px] uppercase font-bold opacity-80">Mensal (Obra)</p>
+<p class="text-xl font-black" id="val-parcela-entrada">R$ 0.000</p>
+<p class="text-[10px] mt-1 italic">Até a entrega</p>
+</div>
+</div>
+</div>
+<!-- Flip Card 2 -->
+<div class="flip-card h-full perspective">
+<div class="flip-card-inner relative w-full h-full text-center">
+<div class="flip-card-front glass-card absolute inset-0 w-full h-full rounded-2xl p-6 flex flex-col items-center justify-center gap-2">
+<span class="material-symbols-outlined text-blue-400 text-3xl">construction</span>
+<p class="text-xs font-bold font-label uppercase">Evolução de Obra</p>
+</div>
+<div class="flip-card-back bg-blue-500 absolute inset-0 w-full h-full rounded-2xl p-6 flex flex-col items-center justify-center text-white">
+<p class="text-[10px] uppercase font-bold opacity-80">Custo Médio</p>
+<p class="text-xl font-black" id="val-evolucao-obra">R$ 000</p>
+<p class="text-[10px] mt-1 italic">Seguro incluso</p>
+</div>
+</div>
+</div>
+<!-- Flip Card 3 -->
+<div class="flip-card h-full perspective">
+<div class="flip-card-inner relative w-full h-full text-center">
+<div class="flip-card-front glass-card absolute inset-0 w-full h-full rounded-2xl p-6 flex flex-col items-center justify-center gap-2">
+<span class="material-symbols-outlined text-tertiary text-3xl">vpn_key</span>
+<p class="text-xs font-bold font-label uppercase">Pós-Chaves</p>
+</div>
+<div class="flip-card-back bg-tertiary absolute inset-0 w-full h-full rounded-2xl p-6 flex flex-col items-center justify-center text-on-tertiary">
+<p class="text-[10px] uppercase font-bold opacity-80">Parcela Bancária</p>
+<p class="text-xl font-black" id="val-pos-chaves">R$ 0.000</p>
+<p class="text-[10px] mt-1 italic">Saldo devedor</p>
+</div>
+</div>
+</div>
+</div>
+<!-- 
+    CARD DE FLUXO DE PAGAMENTO (PASSO 1)
+    Explicativo sobre o comportamento das parcelas durante a obra vs pós-chaves.
+    Deve permanecer no corpo principal (Passo 1) e não na Sidebar.
+-->
+<div class="glass-card p-6 rounded-xl relative overflow-hidden group border border-primary/10 shadow-lg mt-4 w-full">
+<div class="flex items-start gap-4">
+<div class="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center text-primary shrink-0">
+<span class="material-symbols-outlined text-3xl">timeline</span>
+</div>
+<div class="space-y-1">
+<p class="text-[10px] uppercase tracking-widest text-outline font-bold">Cronograma de Investimento</p>
+<h4 class="text-xl font-bold text-slate-100">Fluxo de Pagamento</h4>
+<p class="text-[11px] text-on-surface-variant leading-relaxed text-slate-400">
+                                    Durante a <span class="text-primary font-bold">Obra</span>, você paga apenas a Entrada Parcelada e a Evolução. O pagamento do <span class="text-tertiary font-bold">Financiamento Bancário</span> só começa após a entrega das chaves.
+                                </p>
+</div>
+</div>
+<div class="absolute -right-4 -bottom-4 opacity-5 group-hover:opacity-10 transition-opacity">
+<span class="material-symbols-outlined text-8xl">info</span>
+</div>
+</div>
+</div>
+</div>
+            <!-- 2. Imóvel Ideal Para Você -->
+<div class="space-y-6">
+<div class="flex justify-between items-center">
+<h3 class="text-xl font-bold font-headline flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">apartment</span>
+                            2. Imóvel Ideal Para Você
+                        </h3>
+<span class="bg-tertiary/10 text-tertiary text-[10px] font-bold px-3 py-1 rounded border border-tertiary/30 flex items-center gap-1">
+                            MATCH ALTO <span class="material-symbols-outlined text-[12px]">verified</span>
+                        </span>
+</div>
+<!-- Card Principal (Aumentado e Totalmente Redesenhado) -->
+<div class="glass-card rounded-xl overflow-hidden flex flex-col md:flex-row shadow-2xl group transition-all duration-500 border border-white/5 h-[500px]" id="main-match-card">
+<!-- Lado Esquerdo: Imagem + Título (Fica no Topo no Mobile) -->
+<div class="md:w-2/5 relative h-1/2 md:h-full border-r border-white/5">
+<img id="main-match-img" alt="Property" class="w-full h-full object-cover transition-all duration-700" src="https://lh3.googleusercontent.com/aida/ADBb0uh83jEpd69ItFrOKa0bC6sCQOFdwUHLNh4Kak91lNhqo-D-MaYidkKqMtfCqBWc9YWwGBnKHtq9uB0SzRFjg0e2LdLFHvKy-h_g3lAPClntsdOj25f-JcdShtGSNjIqNktNNl2ryZFZzv5LYt0bg5k71Kt7tBRi5JIey0UkWDaecKnulERzFiXQyA3Nc4OaVUlubpXV0_kxIM4kZfBxgCwrnjlmrBZeFBpRxYriI6idpFsv4Q8uQVh5mZq03ZUdjPfkSaIHzoRTGg"/>
+<div class="absolute bottom-4 left-4 right-4">
+<div class="bg-white/5 backdrop-blur-sm p-4 rounded-lg border border-white/20 shadow-2xl">
+<p class="text-[10px] uppercase tracking-widest text-primary font-black mb-1 drop-shadow-md">Recomendação IA</p>
+<h4 class="text-xl font-bold text-white mb-1 drop-shadow-md" id="main-match-title">Vivaz Connection Adolfo Pinheiro</h4>
+<p class="text-xs text-white flex items-center gap-1 drop-shadow-md" id="main-match-location">
+<span class="material-symbols-outlined text-[14px]">location_on</span> Santo Amaro, São Paulo
+                                    </p>
+</div>
+</div>
+</div>
+<!-- Lado Direito: Mapa + Barra Base -->
+<div class="md:w-3/5 relative flex flex-col h-1/2 md:h-full bg-surface-container/30">
+<!-- Mapa Superior -->
+<div class="flex-grow relative overflow-hidden" id="match-map-container">
+<div id="real-map" class="w-full h-full z-0"></div> <!-- Mapa Leaflet Real -->
+<div class="absolute top-3 right-3 z-[1000] bg-black/80 p-2 rounded-lg border border-white/10 text-white shadow-xl">
+<p class="text-[8px] uppercase opacity-60 mb-0.5">Valor de Avaliação</p>
+<p class="text-sm font-black text-primary" id="main-match-price">R$ 244mil</p>
+</div>
+</div>
+<!-- Barra de Inteligência (A Base do Quadro) -->
+<div class="bg-black/40 backdrop-blur-md p-4 border-t border-white/10 flex items-center justify-start gap-8">
+<div class="flex flex-col">
+<p class="text-[8px] uppercase text-outline font-bold tracking-widest">Valorização</p>
+<p class="text-sm font-black text-tertiary" id="main-match-valorizacao">+30% Proj.</p>
+</div>
+<div class="flex flex-col border-l border-white/10 pl-8">
+<p class="text-[8px] uppercase text-outline font-bold tracking-widest">Status / Entrega</p>
+<p class="text-sm font-black text-white" id="main-match-status">Nov/2026</p>
+</div>
+</div>
+</div>
+</div>
+                    <!-- Indicadores do Carrossel (Dots) -->
+                    <div class="flex justify-center gap-3 py-3" id="match-carousel-dots">
+                        <button onclick="selectPropertyByIndex(0)" class="w-2 h-2 rounded-full bg-primary shadow-[0_0_8px_rgba(255,181,160,0.5)] transition-all duration-300" aria-label="Imóvel 1"></button>
+                        <button onclick="selectPropertyByIndex(1)" class="w-2 h-2 rounded-full bg-white/20 hover:bg-white/40 transition-all duration-300" aria-label="Imóvel 2"></button>
+                        <button onclick="selectPropertyByIndex(2)" class="w-2 h-2 rounded-full bg-white/20 hover:bg-white/40 transition-all duration-300" aria-label="Imóvel 3"></button>
+                        <button onclick="selectPropertyByIndex(3)" class="w-2 h-2 rounded-full bg-white/20 hover:bg-white/40 transition-all duration-300" aria-label="Imóvel 4"></button>
+                    </div>
+
+                    <!-- Painel de Ajuste IA (Agora fora e abaixo do quadro) -->
+<div class="flex flex-col md:flex-row items-center justify-center gap-4 py-2">
+<span class="text-[10px] uppercase font-black text-primary tracking-[0.2em] opacity-80">Ajuste de Estratégia IA:</span>
+<div class="flex gap-2">
+<button class="bg-surface-bright/10 hover:bg-primary/20 hover:text-primary text-[10px] font-bold px-6 py-2.5 rounded-full border border-white/10 transition-all uppercase tracking-widest text-slate-300">Composição de Renda</button>
+<button class="bg-surface-bright/10 hover:bg-primary/20 hover:text-primary text-[10px] font-bold px-6 py-2.5 rounded-full border border-white/10 transition-all uppercase tracking-widest text-slate-300">Ajuste de Entrada</button>
+</div>
+</div>
+</div>
+</div>
+<!-- 3. Documentação Necessária -->
+<div class="space-y-8">
+<div class="text-center space-y-2">
+<h3 class="text-2xl font-bold font-headline">3. Documentação Necessária</h3>
+<p class="text-on-surface-variant text-sm">Checklist inteligente para agilizar seu processo de aprovação.</p>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6" id="docs-checklist">
+<!-- Doc 1 -->
+<div id="card-doc-id" class="doc-card glass-card p-6 rounded-2xl border-t-2 border-t-transparent hover:border-t-primary transition-all cursor-pointer group" onclick="toggleDoc('id')">
+<div class="flex justify-between items-start mb-6">
+<div class="icon-box w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center text-primary transition-colors">
+<span class="material-symbols-outlined">id_card</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="status-text text-[10px] font-bold uppercase text-outline">Pendente</span>
+<div class="status-dot w-2 h-2 rounded-full bg-outline transition-all"></div>
+</div>
+</div>
+<h4 class="font-bold text-sm mb-1">RG e CPF</h4>
+<p class="text-[10px] text-on-surface-variant leading-relaxed">Frente e verso (ou CNH Digital) de todos os proponentes.</p>
+</div>
+<!-- Doc 2 -->
+<div id="card-doc-residencia" class="doc-card glass-card p-6 rounded-2xl border-t-2 border-t-transparent hover:border-t-primary transition-all cursor-pointer group" onclick="toggleDoc('residencia')">
+<div class="flex justify-between items-start mb-6">
+<div class="icon-box w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center text-primary transition-colors">
+<span class="material-symbols-outlined">home_pin</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="status-text text-[10px] font-bold uppercase text-outline">Pendente</span>
+<div class="status-dot w-2 h-2 rounded-full bg-outline transition-all"></div>
+</div>
+</div>
+<h4 class="font-bold text-sm mb-1">Residência</h4>
+<p class="text-[10px] text-on-surface-variant leading-relaxed">Conta de luz ou água emitida nos últimos 60 dias.</p>
+</div>
+<!-- Doc 3 -->
+<div id="card-doc-civil" class="doc-card glass-card p-6 rounded-2xl border-t-2 border-t-transparent hover:border-t-primary transition-all cursor-pointer group" onclick="toggleDoc('civil')">
+<div class="flex justify-between items-start mb-6">
+<div class="icon-box w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center text-primary transition-colors">
+<span class="material-symbols-outlined">diversity_3</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="status-text text-[10px] font-bold uppercase text-outline">Pendente</span>
+<div class="status-dot w-2 h-2 rounded-full bg-outline transition-all"></div>
+</div>
+</div>
+<h4 class="font-bold text-sm mb-1">Estado Civil</h4>
+<p class="text-[10px] text-on-surface-variant leading-relaxed">Certidão de nascimento ou casamento atualizada.</p>
+</div>
+<!-- Doc 4 -->
+<div id="card-doc-renda" class="doc-card glass-card p-6 rounded-2xl border-t-2 border-t-transparent hover:border-t-primary transition-all cursor-pointer group" onclick="toggleDoc('renda')">
+<div class="flex justify-between items-start mb-6">
+<div class="icon-box w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center text-primary transition-colors">
+<span class="material-symbols-outlined">payments</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="status-text text-[10px] font-bold uppercase text-outline">Pendente</span>
+<div class="status-dot w-2 h-2 rounded-full bg-outline transition-all"></div>
+</div>
+</div>
+<h4 class="font-bold text-sm mb-1">Holerites</h4>
+<p class="text-[10px] text-on-surface-variant leading-relaxed">3 últimos comprovantes de renda ou Declaração de IR.</p>
+</div>
+</div>
+</div>
+<!-- 4. WhatsApp Final CTA -->
+<div class="flex justify-center pt-8">
+<button id="btn-whatsapp-final" class="bg-[#25D366] text-white hover:brightness-110 px-12 py-6 rounded-full font-black text-lg md:text-xl flex items-center gap-4 shadow-[0_20px_40px_rgba(37,211,102,0.3)] transition-all hover:scale-[1.02] active:scale-95 group">
+<svg class="w-8 h-8 group-hover:animate-pulse" fill="currentColor" viewbox="0 0 448 512" xmlns="http://www.w3.org/2000/svg"><path d="M380.9 97.1C339 55.1 283.2 32 223.9 32c-122.4 0-222 99.6-222 222 0 39.1 10.2 77.3 29.6 111L0 480l117.7-30.9c32.7 17.9 69.4 27.3 106.2 27.3 122.4 0 222-99.6 222-222 0-59.3-23.1-115.1-65.1-157.1zM223.9 445.3c-33.2 0-65.7-8.9-94.1-25.7l-6.7-4-69.8 18.3 18.7-68.1-4.4-7c-18.5-29.4-28.2-63.3-28.2-98.2 0-101.7 82.8-184.5 184.5-184.5 49.3 0 95.6 19.2 130.4 54.1 34.8 34.9 54.1 81.2 54.1 130.5 0 101.7-82.8 184.5-184.5 184.5zm101.2-138.2c-5.5-2.8-32.8-16.2-37.9-18-5.1-1.9-8.8-2.8-12.5 2.8-3.7 5.6-14.3 18-17.6 21.8-3.2 3.7-6.5 4.2-12 1.4-5.5-2.8-23.2-8.5-44.2-27.1-16.4-14.6-27.4-32.7-30.6-38.2-3.2-5.5-.3-8.5 2.4-11.3 2.5-2.4 5.5-6.5 8.3-9.7 2.8-3.2 3.7-5.5 5.5-9.2 1.8-3.7.9-6.9-.5-9.7-1.4-2.8-12.5-30.1-17.1-41.2-4.5-10.8-9.1-9.3-12.5-9.5-3.2-.2-6.9-.2-10.6-.2-3.7 0-9.7 1.4-14.8 6.9-5.1 5.6-19.4 19-19.4 46.3 0 27.3 19.9 53.7 22.6 57.4 2.8 3.7 39.1 59.7 94.8 83.8 13.3 5.7 23.7 9.1 31.7 11.7 13.3 4.2 25.4 3.6 35 2.2 10.7-1.6 32.8-13.4 37.4-26.4 4.6-13 4.6-24.1 3.2-26.4-1.3-2.5-5-3.9-10.5-6.6z"></path></svg>
+                    Receber meu Laudo Aprovado no WhatsApp
+                </button>
+</div>
+</section>
+<!-- Score Breakdown: 6 mini bars (Step 6) -->
+<section class="glass-card p-10 rounded-xl fade-in-section visible" id="score-breakdown">
+<h2 class="text-2xl font-bold font-headline mb-10">Análise de Variáveis Críticas</h2>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-12 gap-y-10">
+<!-- Variable 1: Renda -->
+<div class="space-y-3">
+<div class="flex justify-between items-center font-label">
+<span class="text-sm font-semibold">Renda Familiar</span>
+<span class="text-xs text-tertiary" id="score-c1-pts">30% de peso</span>
+</div>
+<div class="h-2 w-full bg-surface-container-highest rounded-full overflow-hidden">
+<div class="h-full bg-tertiary w-[85%] rounded-full shadow-[0_0_10px_rgba(64,225,126,0.4)] transition-all duration-1000" id="bar-renda"></div>
+</div>
+<p class="text-[10px] text-on-surface-variant uppercase tracking-widest" id="bar-renda-status">Capacidade Plena</p>
+</div>
+<!-- Variable 2: Comprometimento -->
+<div class="space-y-3">
+<div class="flex justify-between items-center font-label">
+<span class="text-sm font-semibold">Comprometimento</span>
+<span class="text-xs text-primary" id="score-c2-pts">20% de peso</span>
+</div>
+<div class="h-2 w-full bg-surface-container-highest rounded-full overflow-hidden">
+<div class="h-full bg-primary w-[28%] rounded-full transition-all duration-1000" id="bar-comprometimento"></div>
+</div>
+<p class="text-[10px] text-on-surface-variant uppercase tracking-widest" id="bar-comp-status">Dentro do limite BACEN</p>
+</div>
+<!-- Variable 3: Histórico -->
+<div class="space-y-3">
+<div class="flex justify-between items-center font-label">
+<span class="text-sm font-semibold">Histórico de Crédito</span>
+<span class="text-xs text-on-surface-variant" id="score-c3-pts">12% de peso</span>
+</div>
+<div class="h-2 w-full bg-surface-container-highest rounded-full overflow-hidden">
+<div class="h-full bg-on-surface w-[92%] rounded-full opacity-60 transition-all duration-1000" id="bar-historico"></div>
+</div>
+<p class="text-[10px] text-on-surface-variant uppercase tracking-widest" id="bar-hist-status">Excelente histórico</p>
+</div>
+<!-- Variable 4: Entrada -->
+<div class="space-y-3">
+<div class="flex justify-between items-center font-label">
+<span class="text-sm font-semibold">Entrada Própria</span>
+<span class="text-xs text-on-surface-variant" id="score-c4-pts">15% de peso</span>
+</div>
+<div class="h-2 w-full bg-surface-container-highest rounded-full overflow-hidden">
+<div class="h-full bg-on-surface w-[45%] rounded-full opacity-60 transition-all duration-1000" id="bar-entrada"></div>
+</div>
+<p class="text-[10px] text-on-surface-variant uppercase tracking-widest" id="bar-ent-status">Mínimo sugerido atingido</p>
+</div>
+<!-- Variable 5: FGTS -->
+<div class="space-y-3">
+<div class="flex justify-between items-center font-label">
+<span class="text-sm font-semibold">Saldo de FGTS</span>
+<span class="text-xs text-on-surface-variant" id="score-c5-pts">15% de peso</span>
+</div>
+<div class="h-2 w-full bg-surface-container-highest rounded-full overflow-hidden">
+<div class="h-full bg-on-surface w-[70%] rounded-full opacity-60 transition-all duration-1000" id="bar-fgts"></div>
+</div>
+<p class="text-[10px] text-on-surface-variant uppercase tracking-widest" id="bar-fgts-status">Saldo disponível</p>
+</div>
+<!-- Variable 6: Idade -->
+<div class="space-y-3">
+<div class="flex justify-between items-center font-label">
+<span class="text-sm font-semibold">Fator Idade</span>
+<span class="text-xs text-on-surface-variant" id="score-c6-pts">8% de peso</span>
+</div>
+<div class="h-2 w-full bg-surface-container-highest rounded-full overflow-hidden">
+<div class="h-full bg-on-surface w-[100%] rounded-full opacity-60 transition-all duration-1000" id="bar-idade"></div>
+</div>
+<p class="text-[10px] text-on-surface-variant uppercase tracking-widest" id="bar-idade-status">Prazo máximo permitido</p>
+</div>
+</div>
+</section>
+<!-- Interactive Table: Accordion Style (Step 4) -->
+<section class="overflow-hidden fade-in-section visible" id="comparative-modalities">
+<h2 class="text-2xl font-bold font-headline mb-8">Comparativo de Modalidades</h2>
+<div class="glass-card rounded-xl overflow-hidden">
+<div class="w-full text-left font-label">
+<!-- Table Header -->
+<div class="grid grid-cols-6 bg-surface-container-highest/50 p-6 text-[10px] uppercase tracking-widest font-bold">
+<div class="col-span-2">Modalidade</div>
+<div class="hidden md:block">Taxa Base</div>
+<div class="hidden md:block">1ª Parcela</div>
+<div class="hidden md:block text-center">Ações</div>
+<div class="md:hidden col-span-4 text-right">Resumo</div>
+</div>
+<div class="divide-y divide-outline-variant/10">
+<!-- MCMV Row -->
+<details class="group" id="row-mcmv">
+<summary class="grid grid-cols-6 items-center p-6 cursor-pointer hover:bg-white/5 transition-colors list-none">
+<div class="col-span-2 font-bold text-on-surface flex items-center gap-2" id="title-mcmv">Minha Casa Minha Vida</div>
+<div class="hidden md:block text-tertiary" id="comp-mcmv-taxa">4.5% a 7.0%</div>
+<div class="hidden md:block" id="comp-mcmv-par">R$ 1.850,00</div>
+<div class="col-span-3 md:col-span-2 text-right md:text-center">
+<span class="material-symbols-outlined text-primary transition-transform group-open:rotate-180">expand_more</span>
+</div>
+</summary>
+<div class="px-6 pb-6 pt-2 bg-white/5 grid grid-cols-1 md:grid-cols-3 gap-6 text-sm">
+<div class="space-y-1">
+<p class="text-xs text-outline uppercase">Seguros (MIP/DFI)</p>
+<p>Incluso na modalidade</p>
+</div>
+<div class="space-y-1">
+<p class="text-xs text-outline uppercase">ITBI/Escritura</p>
+<p class="text-tertiary">Isento / Subsidiado</p>
+</div>
+<div class="space-y-1">
+<p class="text-xs text-outline uppercase">Amortização</p>
+<p id="det-mcmv-parcela">Price / SAC (Opcional)</p>
+</div>
+</div>
+</details>
+<!-- SBPE Flex Row -->
+<details class="group" id="row-sbpe">
+<summary class="grid grid-cols-6 items-center p-6 cursor-pointer hover:bg-white/5 transition-colors list-none">
+<div class="col-span-2 font-bold text-on-surface flex items-center gap-2" id="title-sbpe">
+                                    SBPE Flex
+</div>
+<div class="hidden md:block text-tertiary font-bold" id="comp-sbpe-taxa">9.2% + TR</div>
+<div class="hidden md:block font-bold" id="comp-sbpe-par">R$ 2.450,00</div>
+<div class="col-span-3 md:col-span-2 text-right md:text-center">
+<span class="material-symbols-outlined text-primary transition-transform group-open:rotate-180">expand_more</span>
+</div>
+</summary>
+<div class="px-6 pb-6 pt-2 bg-primary/5 border-t border-primary/10 grid grid-cols-1 md:grid-cols-3 gap-6 text-sm">
+<div class="space-y-1">
+<p class="text-xs text-outline uppercase">Seguros (MIP/DFI)</p>
+<p>R$ 145,00/mês (Estimado)</p>
+</div>
+<div class="space-y-1">
+<p class="text-xs text-outline uppercase">ITBI/Escritura</p>
+<p>R$ 12.000,00 (Pode parcelar)</p>
+</div>
+<div class="space-y-1">
+<p class="text-xs text-outline uppercase">Amortização</p>
+<p class="font-bold" id="det-sbpe-parcela">Sistema SAC</p>
+</div>
+</div>
+</details>
+<!-- SBPE Pré Row -->
+<details class="group">
+<summary class="grid grid-cols-6 items-center p-6 cursor-pointer hover:bg-white/5 transition-colors list-none">
+<div class="col-span-2 font-bold text-on-surface">SBPE Pré-fixado</div>
+<div class="hidden md:block text-tertiary" id="comp-sbpe-pre-taxa">11.5% Fixo</div>
+<div class="hidden md:block" id="comp-sbpe-pre-par">R$ 3.120,00</div>
+<div class="col-span-3 md:col-span-2 text-right md:text-center">
+<span class="material-symbols-outlined text-primary transition-transform group-open:rotate-180">expand_more</span>
+</div>
+</summary>
+<div class="px-6 pb-6 pt-2 bg-white/5 grid grid-cols-1 md:grid-cols-3 gap-6 text-sm">
+<div class="space-y-1">
+<p class="text-xs text-outline uppercase">Seguros (MIP/DFI)</p>
+<p>R$ 180,00/mês</p>
+</div>
+<div class="space-y-1">
+<p class="text-xs text-outline uppercase">ITBI/Escritura</p>
+<p>R$ 12.000,00</p>
+</div>
+<div class="space-y-1">
+<p class="text-xs text-outline uppercase">Amortização</p>
+<p id="det-sbpe-pre-parcela">Sistema Price</p>
+</div>
+</div>
+</details>
+</div>
+</div>
+</div>
+</section>
+    </div>
+</main>
+<footer class="bg-slate-950/80 w-full flex flex-col items-center gap-4 px-8 py-12">
+<div class="flex gap-8 font-label text-xs uppercase tracking-widest text-slate-500">
+<a class="hover:text-orange-200 transition-colors" href="#">Termos de Uso</a>
+<a class="hover:text-orange-200 transition-colors" href="#">Privacidade</a>
+<a class="hover:text-orange-200 transition-colors" href="#">Suporte Técnico</a>
+</div>
+<p class="text-xs text-slate-400 uppercase tracking-widest font-label text-center">
+            © 2024 MT Parceiros IA - Inteligência em Crédito Imobiliário
+        </p>
+</footer>
+    <!-- Bibliotecas e Componentes MT Parceiros -->
+    <script src="assets/js/shared.min.js"></script>
+    <script src="assets/js/cms-renderer.min.js"></script>
+    <script src="assets/js/components-renderer.min.js"></script>
+
+    <script id="animations-js">
+        // --- 1. HIDRATAÇÃO DE DADOS (Engenharia de Ponte com o Simulador) ---
+        /**
+         * Esta função é o coração do Dossiê. Ela busca o objeto 'mt_sim_data' no 
+         * localStorage, que foi gravado pelo simulador.html, e distribui os
+         * valores formatados para os elementos HTML correspondentes.
+         */
+        let finalScoreValue = 0; // Global para animação
+
+        /**
+         * MOTOR DE INTELIGÊNCIA DINÂMICA (Smart recommendation)
+         * Analisa o objeto de resultados e gera um diagnóstico personalizado.
+         */
+        function parsePreco(s) {
+            if (!s) return Infinity;
+            if (typeof s === 'number') return s;
+            let num = parseInt(s.replace(/[^\d]/g, ''), 10);
+            if (s.toLowerCase().includes('mil')) num *= 1000;
+            return num || Infinity;
+        }
+
+        function generateDynamicRecommendation(res, data, formatCurrency) {
+            const fr = res.fullResults;
+            const pts = res.scorePoints || {};
+            
+            // 1. Gatilho de Dívidas (Comprometimento alto)
+            if (fr.dividas > (fr.renda * 0.15)) {
+                return `"Detectamos que o seu **comprometimento de dívidas** (${formatCurrency(fr.dividas)}) está acima do ideal. Reduzir cartões de crédito ou empréstimos ativos pode liberar até **R$ 45.000 extras** no seu potencial de financiamento imediato."`;
+            }
+
+            // 2. Gatilho de Idade (Prazo reduzido)
+            if (fr.prazoEfetivo < 420 && fr.idade > 45) {
+                return `"O prazo de financiamento foi ajustado para **${fr.prazoEfetivo} meses** devido ao fator idade. Recomendamos incluir um **co-proponente mais jovem** (filho ou cônjuge) para estender o prazo para 420 meses e reduzir sua parcela em aproximadamente 18%."`;
+            }
+
+            // 3. Gatilho de Isenção HIS-1 (Economia de ITBI)
+            if (fr.perfilEnquadramento === 'HIS-1') {
+                return `"Excelente notícia! Seu perfil se enquadra como **HIS-1**, o que garante **Isenção Total de ITBI** em São Paulo. Isso representa uma economia direta de aproximadamente **${formatCurrency(fr.valorImovel * 0.03)}** no ato da sua escritura."`;
+            }
+
+            // 4. Gatilho de Entrada Alta (Fluxo Parcelado)
+            if (fr.saldoEntrada > (fr.valorImovel * 0.12)) {
+                return `"Para viabilizar sua compra, estruturamos um plano onde a entrada de ${formatCurrency(fr.saldoEntrada)} é **parcelada em 36 meses** pela construtora. Isso permite que você mantenha sua reserva de emergência rendendo enquanto garante sua unidade."`;
+            }
+
+            // 5. Gatilho SBPE (Investimento)
+            if (fr.foraDoMCMV) {
+                return `"Com base no seu perfil de alta renda, identificamos uma oportunidade de **valorização patrimonial via SBPE**. Com a entrega prevista para ${fr.mesesObra} meses, a projeção de valorização do imóvel supera o custo do financiamento, sendo um excelente match de investimento."`;
+            }
+
+            // 6. Default MCMV
+            return `"Seu perfil se enquadra com excelência no programa **Minha Casa Minha Vida**. Com subsídio de ${formatCurrency(fr.subsidio)}, a estratégia recomendada é focar no uso do FGTS para reduzir o saldo devedor e garantir as menores taxas do mercado."`;
+        }
+
+        function hydrateFromCache() {
+            const rawData = localStorage.getItem('mt_sim_data');
+            if (!rawData) return;
+
+            const data = JSON.parse(rawData);
+            const res = data.results;
+
+            console.log("Dossiê: Hidratando com dados de " + data.timestamp);
+
+            const formatCurrency = (val) => {
+                return new Intl.NumberFormat('pt-BR', {
+                    style: 'currency',
+                    currency: 'BRL',
+                    maximumFractionDigits: 0
+                }).format(val || 0);
+            };
+
+            // Injeção nos IDs Mapeados
+            const mappings = {
+                'bento-sub-val': formatCurrency(res.subsidio),
+                'bento-fgts-val': formatCurrency(res.fgtsTotal),
+                'bento-ent-val': formatCurrency(res.entradaTotal),
+                'bento-fin-val': formatCurrency(res.financiamento),
+                'prof-renda': formatCurrency(data.raw.renda),
+                'prof-taxa': (res.taxa * 100).toFixed(2) + '% a.a.',
+                'prof-prazo': res.prazo + ' meses',
+                'prof-parcela': formatCurrency(res.parcela),
+                'prof-imovel-max': formatCurrency(res.valorImovel),
+                'bento-vgv-top': 'VGV: ' + formatCurrency(res.valorImovel),
+                'score-value': '000', // Será animado
+                'simulation-id': res.id,
+                'val-parcela-entrada': res.fullResults.parcelaEntrada > 0 ? `36x de ${formatCurrency(res.fullResults.parcelaEntrada)}` : "100% Coberta",
+                'val-evolucao-obra': formatCurrency(res.parcela * 0.3), // Estimativa técnica (30% da parcela)
+                'val-pos-chaves': formatCurrency(res.parcela),
+                'viability-enquadramento': res.fullResults.foraDoMCMV ? "SBPE / Mercado" : (res.fullResults.faixaMCMV + " / Econômico")
+            };
+            
+            // Lógica Especial para ITBI
+            const itbiEl = document.getElementById('viability-itbi-status');
+            if (itbiEl) {
+                if (res.fullResults.itbi === 0) {
+                    itbiEl.innerHTML = '<span class="material-symbols-outlined text-xs">verified</span> ITBI GRÁTIS';
+                    itbiEl.className = "bg-tertiary text-on-tertiary text-[10px] font-bold px-3 py-1 rounded-full flex items-center gap-1 shadow-[0_0_15px_rgba(64,225,126,0.4)]";
+                } else {
+                    itbiEl.innerHTML = `<span class="material-symbols-outlined text-xs">payments</span> ITBI: ${formatCurrency(res.fullResults.itbi)}`;
+                    itbiEl.className = "bg-primary text-on-primary text-[10px] font-bold px-3 py-1 rounded-full flex items-center gap-1 shadow-lg";
+                }
+            }
+
+            for (const [id, value] of Object.entries(mappings)) {
+                const el = document.getElementById(id);
+                if (el) el.innerText = value;
+            }
+
+            // --- NOVO: Sincronização das Barras de Score (Variáveis Críticas) ---
+            const pts = res.scorePoints || {};
+            const barMappings = {
+                'bar-renda': { p: (pts.c1 / 30 * 100), label: 'score-c1-pts', txt: `${pts.c1 || 0}/30 pts`, status: 'bar-renda-status', stTxt: pts.c1 >= 25 ? 'Capacidade Plena' : 'Capacidade Moderada' },
+                'bar-comprometimento': { p: (pts.c2 / 20 * 100), label: 'score-c2-pts', txt: `${pts.c2 || 0}/20 pts`, status: 'bar-comp-status', stTxt: pts.c2 >= 15 ? 'Dentro do Limite' : 'Alerta de Margem' },
+                'bar-fgts': { p: (pts.c3 / 15 * 100), label: 'score-c5-pts', txt: `${pts.c3 || 0}/15 pts`, status: 'bar-fgts-status', stTxt: pts.c3 >= 10 ? 'Saldo Disponível' : 'Saldo Reduzido' },
+                'bar-entrada': { p: (pts.c4 / 15 * 100), label: 'score-c4-pts', txt: `${pts.c4 || 0}/15 pts`, status: 'bar-ent-status', stTxt: pts.c4 >= 10 ? 'Aporte Estratégico' : 'Aporte Mínimo' },
+                'bar-historico': { p: (pts.c5 / 12 * 100), label: 'score-c3-pts', txt: `${pts.c5 || 0}/12 pts`, status: 'bar-hist-status', stTxt: pts.c5 >= 10 ? 'Vínculo Estável' : 'Vínculo Recente' },
+                'bar-idade': { p: (pts.c6 / 8 * 100), label: 'score-c6-pts', txt: `${pts.c6 || 0}/8 pts`, status: 'bar-idade-status', stTxt: pts.c6 >= 6 ? 'Prazo Máximo OK' : 'Prazo Reduzido' }
+            };
+
+            for (const [id, config] of Object.entries(barMappings)) {
+                const bar = document.getElementById(id);
+                const lbl = document.getElementById(config.label);
+                const st = document.getElementById(config.status);
+                if (bar) bar.style.width = (config.p || 0) + '%';
+                if (lbl) lbl.innerText = config.txt;
+                if (st) st.innerText = config.stTxt;
+            }
+
+            // --- NOVO: Recomendação Dinâmica da IA (Upgrade Smart) ---
+            const recEl = document.getElementById('ia-recommendation-text');
+            if (recEl) {
+                recEl.innerHTML = generateDynamicRecommendation(res, data, formatCurrency);
+            }
+
+            // Atualizar o Gauge Circle
+            const gauge = document.getElementById('score-gauge');
+            if (gauge) {
+                gauge.style.strokeDasharray = "691";
+                gauge.style.transition = "stroke-dashoffset 2s ease-out";
+                const dashOffset = 691 - (691 * res.score / 100);
+                setTimeout(() => {
+                    gauge.style.strokeDashoffset = dashOffset;
+                }, 100);
+            }
+
+            // Atualizar Status do Perfil
+            const statusLabel = document.getElementById('profile-status');
+            if (statusLabel) {
+                if (res.score >= 80) statusLabel.innerText = "Perfil de Alta Conversão";
+                else if (res.score >= 50) statusLabel.innerText = "Perfil Qualificável";
+                else statusLabel.innerText = "Perfil em Evolução";
+            }
+
+            finalScoreValue = res.score; 
+            
+            // Iniciar animação do Score Texto imediatamente após hidratar
+            setTimeout(() => {
+                window.requestAnimationFrame(animateScore);
+                // Revelar os cards do Passo 1 (Efeito de carregamento)
+                document.querySelectorAll('.flip-card-inner').forEach((el, i) => {
+                    setTimeout(() => {
+                        el.style.transform = 'rotateY(180deg)';
+                        setTimeout(() => el.style.transform = '', 1500); // Mostra por 1.5s e volta
+                    }, 800 + (i * 200));
+                });
+            }, 300);
+            const isMcmv = !res.fullResults.foraDoMCMV;
+            
+            // 1. MCMV
+            const mcmvTaxaEl = document.getElementById('comp-mcmv-taxa');
+            const mcmvParEl = document.getElementById('comp-mcmv-par');
+            const detMcmvPar = document.getElementById('det-mcmv-parcela');
+            if (mcmvTaxaEl) mcmvTaxaEl.innerText = (res.fullResults.taxaAnualMCMV * 100).toFixed(2) + "% + TR";
+            if (mcmvParEl) mcmvParEl.innerText = formatCurrency(res.parcela);
+            if (detMcmvPar) detMcmvPar.innerText = "Price / SAC (Indicado)";
+
+            // 2. SBPE Flex
+            const sbpeData = res.fullResults.sbpe || { 
+                taxa: 0.1099, 
+                prazo: Math.min(360, res.prazo), 
+                parcela: Math.round(res.parcela * 1.35) 
+            };
+            const sbpeTaxaEl = document.getElementById('comp-sbpe-taxa');
+            const sbpeParEl = document.getElementById('comp-sbpe-par');
+            const detSbpePar = document.getElementById('det-sbpe-parcela');
+            if (sbpeTaxaEl) sbpeTaxaEl.innerText = (sbpeData.taxa * 100).toFixed(2) + "% + TR";
+            if (sbpeParEl) sbpeParEl.innerText = formatCurrency(sbpeData.parcela);
+            if (detSbpePar) detSbpePar.innerText = "Sistema SAC (Bento Grid)";
+
+            // 3. SBPE Pré-Fixado
+            const preParEl = document.getElementById('comp-sbpe-pre-par');
+            if (preParEl) {
+                const taxaPre = 0.1150;
+                const prazoPre = 300;
+                const potencialFin = res.fullResults.potencial;
+                const pPre = Math.round((potencialFin / prazoPre) + (potencialFin * (taxaPre/12)));
+                preParEl.innerText = formatCurrency(pPre);
+            }
+
+            // --- NOVO: Link de WhatsApp Personalizado (Passo 5) ---
+            const waBtn = document.getElementById('btn-whatsapp-final');
+            const ctaEmission = document.getElementById('cta-request-emission');
+            const phone = "5511946211111";
+
+            if (waBtn) {
+                waBtn.setAttribute('onclick', `aprovarDossie('tech')`);
+            }
+
+            if (ctaEmission) {
+                ctaEmission.setAttribute('onclick', `aprovarDossie('tech')`);
+            }
+
+            // --- NOVO: Automação de Recomendação (Passo 4) ---
+            const badgeHtml = `<span class="bg-primary text-on-primary text-[10px] px-2 py-0.5 rounded-full uppercase scale-in-center">Indicado</span>`;
+            const rowMcmv = document.getElementById('row-mcmv');
+            const rowSbpe = document.getElementById('row-sbpe');
+            const titleMcmv = document.getElementById('title-mcmv');
+            const titleSbpe = document.getElementById('title-sbpe');
+
+            if (res.fullResults.foraDoMCMV) {
+                if (rowSbpe) rowSbpe.setAttribute('open', '');
+                if (titleSbpe) titleSbpe.insertAdjacentHTML('beforeend', badgeHtml);
+                if (rowSbpe) rowSbpe.querySelector('summary').classList.add('bg-primary/5');
+            } else {
+                if (rowMcmv) rowMcmv.setAttribute('open', '');
+                if (titleMcmv) titleMcmv.insertAdjacentHTML('beforeend', badgeHtml);
+                if (rowMcmv) rowMcmv.querySelector('summary').classList.add('bg-primary/5');
+            }
+
+            // --- NOVO: Inicialização do Motor de Match (Passo 2) ---
+            if (typeof initMatchIA === 'function') {
+                initMatchIA(res.valorImovel);
+            }
+        }
+
+        // Chamar hidratação IMEDIATAMENTE antes das outras lógicas
+        document.addEventListener('DOMContentLoaded', () => {
+            hydrateFromCache();
+        });
+
+        // Simple intersection observer for scroll reveal
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.fade-in-section').forEach(section => {
+            observer.observe(section);
+        });
+
+        // Score Counter Animation
+        const scoreElement = document.getElementById('score-value');
+        const startScore = 0;
+        const duration = 2000;
+        let startTime = null;
+
+        function animateScore(timestamp) {
+            if (!startTime) startTime = timestamp;
+            const progress = Math.min((timestamp - startTime) / duration, 1);
+            const currentScore = Math.floor(progress * (finalScoreValue - startScore) + startScore);
+            if (scoreElement) scoreElement.textContent = currentScore;
+            if (progress < 1) {
+                window.requestAnimationFrame(animateScore);
+            }
+        }
+
+        // O gatilho de animateScore agora é chamado dentro de hydrateFromCache()
+        // para garantir que finalScoreValue já foi lido do cache.
+
+        // --- LÓGICA DE GAMIFICAÇÃO (CHECKLIST INTERATIVO) ---
+        const docState = {
+            id: false,
+            residencia: false,
+            civil: false,
+            renda: false
+        };
+
+        const propertyData = {
+            'Vivaz Penha': {
+                price: 'R$ 205.000',
+                location: 'Penha, São Paulo',
+                img: 'https://lh3.googleusercontent.com/aida/ADBb0uh83jEpd69ItFrOKa0bC6sCQOFdwUHLNh4Kak91lNhqo-D-MaYidkKqMtfCqBWc9YWwGBnKHtq9uB0SzRFjg0e2LdLFHvKy-h_g3lAPClntsdOj25f-JcdShtGSNjIqNktNNl2ryZFZzv5LYt0bg5k71Kt7tBRi5JIey0UkWDaecKnulERzFiXQyA3Nc4OaVUlubpXV0_kxIM4kZfBxgCwrnjlmrBZeFBpRxYriI6idpFsv4Q8uQVh5mZq03ZUdjPfkSaIHzoRTGg'
+            },
+            'Vivaz Estação Lapa': {
+                price: 'R$ 235.000',
+                location: 'Lapa, São Paulo',
+                img: 'https://lh3.googleusercontent.com/aida/ADBb0uhL_uApt3l-7A8sY9z7E7w-FpI6v_Yx6i5H-Z3f2I-oM8S2nS9r4R1p7W5t_uR9y2l-8C7wY-5t_uR9y2l-8C7wY-A' // Imagem representativa
+            },
+            'Vivaz Estação Itaquera': {
+                price: 'R$ 195.000',
+                location: 'Itaquera, São Paulo',
+                img: 'https://lh3.googleusercontent.com/aida/ADBb0ui7E7w-FpI6v_Yx6i5H-Z3f2I-oM8S2nS9r4R1p7W5t_uR9y2l-8C7wY-5t_uR9y2l-8C7wY-A' // Imagem representativa
+            },
+            'Vivaz Belém': {
+                price: 'R$ 265.000',
+                location: 'Belém, São Paulo',
+                img: 'https://lh3.googleusercontent.com/aida/ADBb0uj9_I7w-FpI6v_Yx6i5H-Z3f2I-oM8S2nS9r4R1p7W5t_uR9y2l-8C7wY-5t_uR9y2l-8C7wY-A' // Imagem representativa
+            }
+        };
+
+        window.toggleDoc = function(type) {
+            // 1. Alternar estado
+            docState[type] = !docState[type];
+            
+            // 2. Elementos Principais
+            const card = document.getElementById(`card-doc-${type}`);
+            const dot = card.querySelector('.status-dot');
+            const text = card.querySelector('.status-text');
+            const iconBox = card.querySelector('.icon-box');
+
+            // 3. Elementos Sidebar
+            const sideItem = document.getElementById(`side-item-${type}`);
+            const sideCheck = document.getElementById(`side-check-${type}`);
+            const sideText = sideItem.querySelector('p');
+
+            if (docState[type]) {
+                // Ativar (Main)
+                card.classList.add('bg-primary/10', 'border-t-primary');
+                dot.classList.replace('bg-outline', 'bg-tertiary');
+                text.textContent = 'Pronto';
+                text.classList.replace('text-outline', 'text-tertiary');
+                iconBox.classList.replace('bg-primary/10', 'bg-tertiary/20');
+                iconBox.classList.replace('text-primary', 'text-tertiary');
+
+                // Ativar (Sidebar)
+                sideCheck.classList.replace('border-slate-700', 'bg-tertiary');
+                sideCheck.classList.add('border-tertiary', 'shadow-[0_0_10px_rgba(64,225,126,0.3)]');
+                sideCheck.innerHTML = '<span class="material-symbols-outlined text-[8px] text-on-tertiary font-bold">check</span>';
+                sideText.classList.replace('text-slate-400', 'text-slate-100');
+            } else {
+                // Desativar (Main)
+                card.classList.remove('bg-primary/10', 'border-t-primary');
+                dot.classList.replace('bg-tertiary', 'bg-outline');
+                text.textContent = 'Pendente';
+                text.classList.replace('text-tertiary', 'text-outline');
+                iconBox.classList.replace('bg-tertiary/20', 'bg-primary/10');
+                iconBox.classList.replace('text-tertiary', 'text-primary');
+
+                // Desativar (Sidebar)
+                sideCheck.classList.replace('bg-tertiary', 'border-slate-700');
+                sideCheck.classList.remove('border-tertiary', 'shadow-[0_0_10px_rgba(64,225,126,0.3)]');
+                sideCheck.innerHTML = '';
+                sideText.classList.replace('text-slate-100', 'text-slate-400');
+            }
+
+            // 4. Verificar se completou tudo (Gatilho de Gamificação)
+            checkCompletion();
+        };
+
+        /**
+         * MONITOR DE CONCLUSÃO: Verifica se os 4 documentos foram validados.
+         * Desbloqueia o Passo 2 (Portfólio) e prepara a sidebar para a fase final.
+         */
+        function checkCompletion() {
+            const allDone = Object.values(docState).every(val => val === true);
+            const step2 = document.getElementById('sidebar-step-2');
+            const step2Dot = document.getElementById('sidebar-step-2-dot');
+            const step2Text = document.getElementById('sidebar-step-2-text');
+            const approveBtn = document.getElementById('sidebar-approve-container');
+            
+            // Novos elementos do Portfólio
+            const btnPortfolio = document.getElementById('btn-portfolio');
+            const matchTitle = document.getElementById('match-property-sidebar');
+            const matchSubtitle = document.getElementById('match-sidebar-subtitle');
+
+            if (allDone) {
+                // Desbloquear Próximo Passo
+                step2.classList.replace('opacity-40', 'opacity-100');
+                step2Dot.classList.replace('bg-slate-800', 'bg-primary');
+                step2Dot.classList.replace('text-slate-400', 'text-on-primary');
+                step2Dot.classList.add('shadow-[0_0_15px_rgba(255,181,160,0.3)]');
+                step2Text.classList.replace('text-slate-400', 'text-slate-100');
+
+                // Ativar Portfólio
+                btnPortfolio.classList.replace('bg-slate-800', 'bg-tertiary');
+                btnPortfolio.classList.replace('text-slate-500', 'text-on-tertiary');
+                btnPortfolio.classList.add('hover:brightness-110');
+                btnPortfolio.disabled = false;
+                btnPortfolio.classList.remove('cursor-not-allowed');
+
+                if (matchTitle.textContent === 'Apto 2 Dorms') {
+                    matchTitle.textContent = 'Selecione um empreendimento';
+                    matchSubtitle.textContent = 'Aguardando Escolha';
+                    matchSubtitle.classList.replace('text-primary', 'text-tertiary');
+                }
+            } else {
+                // Bloquear novamente
+                step2.classList.replace('opacity-100', 'opacity-40');
+                step2Dot.classList.replace('bg-primary', 'bg-slate-800');
+                step2Dot.classList.replace('text-on-primary', 'text-slate-400');
+                step2Dot.classList.remove('shadow-[0_0_15px_rgba(255,181,160,0.3)]');
+                step2Text.classList.replace('text-slate-100', 'text-slate-400');
+                
+                // Esconder botão aprovar caso desmarque algo
+                approveBtn.classList.add('hidden');
+
+                // Desativar Portfólio (Fallback de desmarcação)
+                btnPortfolio.classList.replace('bg-tertiary', 'bg-slate-800');
+                btnPortfolio.classList.replace('text-on-tertiary', 'text-slate-500');
+                btnPortfolio.disabled = true;
+                btnPortfolio.classList.add('cursor-not-allowed');
+            }
+        }
+
+        /**
+         * MENU DE PORTFÓLIO: Abre/Fecha a gaveta de empreendimentos compatíveis.
+         */
+        // --- SISTEMA DE MAPA INTERATIVO (Upgrade) ---
+        let dossierMap = null;
+        let mapMarker = null;
+
+        function initInteractiveMap(lat, lng, name) {
+            const mapContainer = document.getElementById('real-map');
+            if (!mapContainer || typeof L === 'undefined') return;
+
+            try {
+                if (!dossierMap) {
+                    dossierMap = L.map('real-map', {
+                        zoomControl: true,
+                        scrollWheelZoom: false
+                    }).setView([lat, lng], 15);
+
+                    L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', {
+                        attribution: '© OpenStreetMap © CartoDB',
+                        maxZoom: 18
+                    }).addTo(dossierMap);
+                } else {
+                    dossierMap.setView([lat, lng], 15);
+                }
+
+                if (mapMarker) {
+                    mapMarker.setLatLng([lat, lng]).setPopupContent(`<b style="color:#081325">${name}</b>`).openPopup();
+                } else {
+                    mapMarker = L.marker([lat, lng]).addTo(dossierMap)
+                        .bindPopup(`<b style="color:#081325">${name}</b>`)
+                        .openPopup();
+                }
+                
+                // Forçar redimensionamento após 200ms para evitar bugs de tiles não carregados
+                setTimeout(() => dossierMap.invalidateSize(), 200);
+            } catch (err) {
+                console.error("Erro ao iniciar mapa:", err);
+            }
+        }
+
+        /**
+         * MOTOR DE MATCH IA (V3)
+         * Seleciona os 4 melhores imóveis ou os 4 mais baratos.
+         */
+        let currentMatches = [];
+        let slideIndex = 0;
+        let slideshowTimer = null;
+        let slideshowPaused = false;
+
+        function initMatchIA(poderCompra) {
+            if (typeof EMPREENDIMENTOS === 'undefined') {
+                console.error("Match IA: Banco de dados EMPREENDIMENTOS não carregado.");
+                return;
+            }
+
+            // Fallback for MT_Utils if shared.js failed to load
+            const utils = window.MT_Utils || { 
+                formatCurrency: (v) => 'R$ ' + v.toLocaleString('pt-BR')
+            };
+
+            // 1. Filtrar e Ordenar usando o novo parsePreco
+            const sorted = [...EMPREENDIMENTOS].sort((a, b) => {
+                return parsePreco(a.preco) - parsePreco(b.preco);
+            });
+
+            // Tenta encontrar 4 que cabem no bolso
+            let matches = sorted.filter(emp => {
+                return parsePreco(emp.preco) <= (poderCompra + 10000); // Margem de 10k
+            });
+
+            // Se não houver 4, pega os 4 mais baratos da base
+            if (matches.length < 4) {
+                matches = sorted.slice(0, 4);
+            } else {
+                // Pega os 4 mais próximos do teto (fim da lista filtrada e ordenada)
+                matches = matches.slice(-4).reverse();
+            }
+
+            currentMatches = matches;
+            renderPortfolioDrawer();
+            
+            // Inicia com o Top 1
+            if (currentMatches.length > 0) {
+                selectProperty(currentMatches[0].nome, true);
+                startSlideshow();
+            }
+        }
+
+        function startSlideshow() {
+            if (slideshowTimer) clearInterval(slideshowTimer);
+            slideshowTimer = setInterval(() => {
+                if (!slideshowPaused) {
+                    slideIndex = (slideIndex + 1) % Math.min(4, currentMatches.length);
+                    selectProperty(currentMatches[slideIndex].nome, true);
+                }
+            }, 5000);
+        }
+
+        window.stopSlideshow = function() { 
+            slideshowPaused = true; 
+            if (slideshowTimer) clearInterval(slideshowTimer);
+            console.log("Slideshow interrompido pelo usuário.");
+        }
+        window.resumeSlideshow = function() { 
+            if (!slideshowPaused) return; // Se ja estiver rodando
+            slideshowPaused = false; 
+            startSlideshow();
+        }
+
+        // Função auxiliar para selecionar por índice (usada pelos dots)
+        window.selectPropertyByIndex = function(index) {
+            if (currentMatches[index]) {
+                stopSlideshow(); // Para o carrossel ao interagir manualmente
+                selectProperty(currentMatches[index].nome);
+            }
+        }
+
+        /**
+         * RENDERIZAÇÃO DO PORTFÓLIO (4+1)
+         */
+        function renderPortfolioDrawer(filterQuery = "") {
+            const container = document.getElementById('portfolio-grid');
+            if (!container) return;
+
+            let html = "";
+            const query = filterQuery.toLowerCase();
+            
+            // Filtrar base completa para o buscador
+            const displayList = filterQuery 
+                ? EMPREENDIMENTOS.filter(e => e.nome.toLowerCase().includes(query) || e.bairro.toLowerCase().includes(query)).slice(0, 4)
+                : currentMatches;
+
+            displayList.forEach((emp, idx) => {
+                const dna = window.getPropertyDNA ? window.getPropertyDNA(emp.nome) : { valor: 9.2 };
+                const projection = window.MT_Utils && window.MT_Utils.calculateFutureValue ? window.MT_Utils.calculateFutureValue(emp.nome, dna.valor) : { lucroFmt: "Consultar" };
+                const isTop1 = !filterQuery && idx === 0;
+
+                const priceFmt = (window.MT_Utils && window.MT_Utils.formatCurrency) 
+                    ? window.MT_Utils.formatCurrency(parsePreco(emp.preco))
+                    : "R$ " + emp.preco;
+
+                html += `
+                <div class="glass-card p-4 rounded-xl cursor-pointer hover:border-primary/50 transition-all group relative" onclick="selectProperty('${emp.nome.replace(/'/g, "\\'")}')">
+                    ${isTop1 ? '<span class="absolute -top-2 -left-2 bg-primary text-on-primary text-[8px] font-bold px-2 py-1 rounded-md z-10 shadow-lg">RECOMENDAÇÃO MASTER</span>' : ''}
+                    <img src="${emp.imagem}" class="w-full h-24 object-cover rounded-lg mb-3 grayscale group-hover:grayscale-0 transition-all">
+                    <h5 class="text-xs font-bold truncate">${emp.nome}</h5>
+                    <p class="text-[10px] text-outline mb-2">${emp.bairro}</p>
+                    <div class="flex justify-between items-center border-t border-white/5 pt-2">
+                        <span class="text-[10px] text-tertiary font-bold">${priceFmt}</span>
+                        <span class="text-[9px] text-primary">+ ${projection.lucroFmt} Lucro</span>
+                    </div>
+                </div>`;
+            });
+
+            // 5º Elemento: Buscador / Ver Mais
+            html += `
+            <div class="glass-card p-4 rounded-xl flex flex-col items-center justify-center gap-3 border-2 border-dashed border-outline-variant/30 hover:border-primary/50 transition-all group">
+                <span class="material-symbols-outlined text-primary text-3xl group-hover:scale-110 transition-transform">search_check</span>
+                <div class="text-center">
+                    <p class="text-[10px] font-bold uppercase">Personalizar Match</p>
+                    <input type="text" placeholder="Buscar Bairro..." oninput="renderPortfolioDrawer(this.value)" 
+                           class="mt-2 w-full bg-surface-container border border-outline-variant/30 rounded-lg text-[10px] p-2 focus:border-primary outline-none">
+                </div>
+            </div>`;
+
+            container.innerHTML = html;
+        }
+
+        window.selectProperty = function(name, isSlideshow = false) {
+            const emp = EMPREENDIMENTOS.find(e => e.nome === name);
+            if (!emp) return;
+
+            if (!isSlideshow) {
+                slideshowPaused = true;
+                if (slideshowTimer) clearInterval(slideshowTimer);
+            }
+
+            const dna = window.getPropertyDNA ? window.getPropertyDNA(emp.nome) : { valor: 9.2 };
+            const projection = (window.MT_Utils && window.MT_Utils.calculateFutureValue) 
+                ? window.MT_Utils.calculateFutureValue(emp.nome, dna.valor) 
+                : { rendimentoPerc: "30" };
+
+            // Atualizar UI Cabeçalho/Imagem
+            const mainImg = document.getElementById('main-match-img');
+            const mainTitle = document.getElementById('main-match-title');
+            const mainPrice = document.getElementById('main-match-price');
+            const mainLoc = document.getElementById('main-match-location');
+            
+            if (mainImg) mainImg.src = emp.imagem;
+            if (mainTitle) mainTitle.textContent = emp.nome;
+            if (mainPrice) {
+                const priceValue = parsePreco(emp.preco);
+                mainPrice.textContent = (window.MT_Utils && window.MT_Utils.formatCurrency) 
+                    ? window.MT_Utils.formatCurrency(priceValue).replace(",00", "") 
+                    : 'R$ ' + emp.preco;
+            }
+            if (mainLoc) mainLoc.innerHTML = `<span class="material-symbols-outlined text-[14px]">location_on</span> ${emp.bairro}`;
+
+            // Ativar/Atualizar Mapa Real
+            if (emp.lat && emp.lng) {
+                initInteractiveMap(emp.lat, emp.lng, emp.nome);
+            }
+
+            // Atualizar Barra de Inteligência (A Base do Quadro)
+            const valEl = document.getElementById('main-match-valorizacao');
+            const stEl = document.getElementById('main-match-status');
+            if (valEl) valEl.textContent = `+${projection.rendimentoPerc}% Proj.`;
+            if (stEl) stEl.textContent = emp.entrega;
+
+            // Atualizar os Dots do Carrossel
+            const dots = document.querySelectorAll('#match-carousel-dots button');
+            dots.forEach((dot, idx) => {
+                const isSelected = currentMatches[idx] && currentMatches[idx].nome === name;
+                if (isSelected) {
+                    dot.classList.remove('bg-white/20', 'bg-white/40');
+                    dot.classList.add('bg-primary', 'shadow-[0_0_8px_rgba(255,181,160,0.5)]', 'w-4');
+                } else {
+                    dot.classList.remove('bg-primary', 'shadow-[0_0_8px_rgba(255,181,160,0.5)]', 'w-4');
+                    dot.classList.add('bg-white/20');
+                }
+            });
+
+            // Atualizar Sidebar: Nome do imóvel selecionado
+            const sbTitle = document.getElementById('match-property-sidebar');
+            if (sbTitle) sbTitle.textContent = emp.nome;
+
+            /* 
+               MT_LOG (04/2026): LÓGICA DE PROGRESSÃO E UX DA SIDEBAR.
+               1. Ativação do Passo 3 e Botão de Conversão protegida por guard (!isSlideshow).
+               2. Auto-retração do Drawer de portfólio após seleção manual.
+            */
+            if (!isSlideshow) {
+                // Ativar visualmente o Passo 3 na Sidebar
+                const step3 = document.getElementById('sidebar-step-3');
+                const step3Dot = document.getElementById('sidebar-step-3-dot');
+                const step3Text = document.getElementById('sidebar-step-3-text');
+                if (step3 && step3Dot && step3Text) {
+                    step3.classList.remove('opacity-40');
+                    step3.classList.add('opacity-100');
+                    step3Dot.classList.remove('bg-slate-800', 'text-slate-400');
+                    step3Dot.classList.add('bg-tertiary', 'text-on-tertiary', 'shadow-[0_0_15px_rgba(64,225,126,0.2)]');
+                    step3Text.classList.remove('text-slate-400');
+                    step3Text.classList.add('text-slate-100');
+                }
+
+                // Revelar Botão de Conversão Final
+                const approveBtn = document.getElementById('sidebar-approve-container');
+                if (approveBtn) {
+                    approveBtn.classList.remove('hidden');
+                    approveBtn.classList.add('fade-in-section', 'visible');
+                }
+
+                // Auto-retrair Portfolio Drawer após seleção para foco total
+                const drawer = document.getElementById('portfolio-drawer');
+                if (drawer && !drawer.classList.contains('hidden')) {
+                    window.togglePortfolio();
+                }
+            }
+        };
+
+        window.togglePortfolio = function() {
+            const drawer = document.getElementById('portfolio-drawer');
+            if (drawer.classList.contains('hidden')) {
+                drawer.classList.remove('hidden');
+                drawer.classList.add('flex', 'fade-in-section', 'visible');
+            } else {
+                drawer.classList.add('hidden');
+                drawer.classList.remove('flex', 'fade-in-section', 'visible');
+            }
+        }
+
+        /* MT_LOG (04/2026): SINCRONIZAÇÃO DE LEADS (FASE 2 - DOSSIÊ) 
+           Envia o Relatório Técnico completo antes do redirecionamento. */
+        async function sendDossieLeadToGoogleSheets() {
+            const rawData = localStorage.getItem('mt_sim_data');
+            if (!rawData) return;
+
+            const data = JSON.parse(rawData);
+            const selectedProperty = document.getElementById('match-property-sidebar')?.innerText || 'Nenhum Selecionado';
+            const scoreVal = document.getElementById('score-value')?.innerText || '---';
+
+            const techReport = `
+Dossiê de Viabilidade - Relatório Técnico:
+- Imóvel Selecionado: ${selectedProperty}
+- Score de Crédito IA: ${scoreVal}
+- Poder de Compra Total: ${document.getElementById('bento-vgv-top')?.innerText || 'N/A'}
+- Renda Declarada: ${document.getElementById('prof-renda')?.innerText || 'N/A'}
+- Entrada em Dinheiro: ${document.getElementById('bento-ent-val')?.innerText || 'N/A'}
+- FGTS Aplicado: ${document.getElementById('bento-fgts-val')?.innerText || 'N/A'}
+- Subsídio Calculado: ${document.getElementById('bento-sub-val')?.innerText || 'N/A'}
+- Financiamento: ${document.getElementById('bento-fin-val')?.innerText || 'N/A'}
+- Plano de Fluxo: ${document.getElementById('val-parcela-entrada')?.innerText || 'N/A'}
+- ID da Simulação: ${document.getElementById('simulation-id')?.innerText || 'N/A'}
+`.trim();
+
+            const payload = new URLSearchParams();
+            payload.append('token', 'mtpc_seguro_2025');
+            payload.append('nome', data.raw?.nome || 'Lead Dossiê');
+            payload.append('whatsapp', data.raw?.celular ? data.raw.celular.replace(/\D/g, '') : '');
+            payload.append('assunto', `APROVAÇÃO DIRETA: ${selectedProperty}`);
+            payload.append('mensagem', techReport);
+            payload.append('origem', 'Dossiê do Investidor (Fase 2)');
+
+            try {
+                fetch('https://script.google.com/macros/s/AKfycbzmtDgzbLghMsO0NFMt3CAUDS4lu1E2CjIHibGGSZP_PlWomYcRoYdVE3cIlYxVJDzNlg/exec', {
+                    method: 'POST',
+                    body: payload,
+                    mode: 'no-cors'
+                });
+                console.log("MT Logic: Lead Fase 2 (Dossiê) sincronizado.");
+            } catch (err) {
+                console.error("MT Logic: Erro no Fase 2 sync:", err);
+            }
+        }
+
+        window.aprovarDossie = function(tipo) {
+            sendDossieLeadToGoogleSheets();
+            
+            const selectedProperty = document.getElementById('match-property-sidebar')?.innerText || 'imóvel selecionado';
+            let customMsg = "";
+            
+            if (tipo === 'limpo') {
+                 customMsg = `Olá! Acabei de finalizar meu Dossiê do Investidor e selecionei o imóvel ${selectedProperty}. Gostaria de seguir com a aprovação oficial de crédito.`;
+            } else {
+                 customMsg = `Olá, finalizei meu Dossiê IA MT Parceiros.\n\n📌 Imóvel: ${selectedProperty}\n📌 Score IA: ${document.getElementById('score-value')?.innerText || '--'}/100\n\nGostaria de validar os próximos passos!`;
+            }
+            
+            window.open(`https://wa.me/5511946211111?text=${encodeURIComponent(customMsg)}`, '_blank');
+        };
+
+    </script>
+</body></html>
