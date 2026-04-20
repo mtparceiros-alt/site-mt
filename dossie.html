@@ -137,13 +137,64 @@
         .flip-card-back {
             transform: rotateY(180deg);
         }
-        @keyframes scale-in-center {
-            0% { transform: scale(0); opacity: 0; }
-            100% { transform: scale(1); opacity: 1; }
+        
+        /* IA Super Card Specific Responsive Logic */
+        @media (max-width: 768px) {
+            .ia-super-card-inner {
+                transform-style: preserve-3d;
+                transition: transform 0.7s;
+            }
+            .ia-super-card-container:hover .ia-super-card-inner,
+            .ia-super-card-container:active .ia-super-card-inner {
+                transform: rotateY(180deg);
+            }
+            .ia-super-card-front, .ia-super-card-back {
+                backface-visibility: hidden;
+                position: absolute;
+                inset: 0;
+            }
+            .ia-super-card-back {
+                transform: rotateY(180deg);
+            }
+        }
+        @media (min-width: 769px) {
+            .ia-super-card-container {
+                perspective: none;
+            }
+            .ia-super-card-inner {
+                transform: none !important;
+                display: grid;
+                grid-template-columns: repeat(12, minmax(0, 1fr));
+                gap: 1.5rem;
+            }
+            .ia-super-card-front, .ia-super-card-back {
+                position: relative !important;
+                transform: none !important;
+                backface-visibility: visible !important;
+                width: auto !important;
+                height: auto !important;
+            }
         }
         .scale-in-center {
             animation: scale-in-center 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
         }
+
+        /* NEW: Button Shimmer & Pulse Animations */
+        @keyframes shimmer {
+            0% { background-position: -200% 0; }
+            100% { background-position: 200% 0; }
+        }
+        .animate-shimmer {
+            background: linear-gradient(90deg, #25D366 25%, #4ade80 50%, #25D366 75%);
+            background-size: 200% 100%;
+            animation: shimmer 3s infinite linear;
+        }
+        @keyframes pulse-wa {
+            0% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.6); }
+            70% { box-shadow: 0 0 0 15px rgba(37, 211, 102, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0); }
+        }
+        .btn-pulse { animation: pulse-wa 2s infinite; }
         /* Lead Modal CSS */
         .mt-lead-modal-overlay {
             position: fixed;
@@ -258,11 +309,106 @@
                 right: 20px;
             }
         }
+
+        /* 
+           MT_LOG (04/2026): ESTILOS DO CO-PILOTO IA (MOBILE BALLOON)
+           Design minimalista com suporte a expansão "Cascata".
+        */
+        #mt-mobile-pilot {
+            position: fixed;
+            top: 105px;
+            left: 50%;
+            transform: translateX(-50%) translateY(-150%);
+            width: 90%;
+            max-width: 400px;
+            z-index: 40;
+            background: rgba(15, 23, 42, 0.7);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 181, 160, 0.2);
+            border-radius: 24px;
+            padding: 12px 16px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.4);
+            transition: all 0.5s cubic-bezier(0.19, 1, 0.22, 1);
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            overflow: hidden;
+            pointer-events: auto;
+        }
+        #mt-mobile-pilot.visible {
+            transform: translateX(-50%) translateY(0);
+        }
+        #mt-mobile-pilot.expanded {
+            max-height: 80vh;
+            border-color: rgba(255, 181, 160, 0.5);
+        }
+        .pilot-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            width: 100%;
+            cursor: pointer;
+        }
+        .pilot-icon-pulse {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: #ffb5a0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 0 15px rgba(255,181,160,0.4);
+        }
+        .pilot-icon-pulse img {
+            width: 24px;
+            height: 24px;
+            object-fit: contain;
+        }
+        .pilot-content {
+            flex: 1;
+        }
+        .pilot-title {
+            font-size: 10px;
+            font-weight: 800;
+            text-transform: uppercase;
+            color: #ffb5a0;
+            letter-spacing: 0.1em;
+            margin-bottom: 2px;
+        }
+        .pilot-msg {
+            font-size: 12px;
+            font-weight: 600;
+            color: #fff;
+        }
+        .pilot-action-btn {
+            background: #ffb5a0;
+            color: #3b0900;
+            padding: 6px 12px;
+            border-radius: 12px;
+            font-size: 10px;
+            font-weight: 800;
+            text-transform: uppercase;
+        }
+        .pilot-cascade-container {
+            max-height: 0;
+            overflow-y: auto;
+            transition: max-height 0.5s ease;
+            scrollbar-width: thin;
+        }
+        .expanded .pilot-cascade-container {
+            max-height: 60vh;
+            padding-top: 12px;
+            border-top: 1px solid rgba(255,255,255,0.05);
+        }
+        @media (min-width: 769px) {
+            #mt-mobile-pilot { display: none !important; }
+        }
     </style>
 </head>
 <body class="text-on-surface selection:bg-primary/30">
 <!-- [SECTION 1: HEADER & NAVIGATION] -->
-<header class="bg-white sticky top-0 z-50 border-b border-gray-100 shadow-sm h-[95px] flex items-center">
+<header id="mt-main-header" class="bg-white sticky top-0 z-50 border-b border-gray-100 shadow-sm h-[95px] flex items-center">
   <nav class="flex justify-between items-center w-full px-8 max-w-screen-2xl mx-auto h-full">
     <!-- Marca MTPARCEIROS -->
     <div class="text-[22px] font-black text-black tracking-[0.15em] font-headline uppercase leading-none">
@@ -311,9 +457,9 @@
 
   </nav>
 </header>
-<main class="max-w-screen-2xl mx-auto px-6 py-12 grid grid-cols-1 lg:grid-cols-12 gap-12 relative z-10">
-    <!-- Sidebar Integrada (Padrão Documento) -->
-    <aside class="lg:col-span-3 bg-slate-950/40 backdrop-blur-3xl rounded-[2rem] p-8 h-fit sticky top-32 border border-white/5 shadow-2xl">
+<main class="max-w-screen-2xl mx-auto px-6 py-12 grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-12 relative z-10">
+    <!-- Sidebar Integrada (Padrão Documento) - MT_LOG (04/2026): Agora no final no mobile -->
+    <aside class="order-2 lg:order-1 lg:col-span-3 bg-slate-950/40 backdrop-blur-3xl rounded-[2rem] p-8 h-fit lg:sticky lg:top-32 border border-white/5 shadow-2xl">
         <div class="mb-10">
             <h2 class="text-xl font-black text-slate-50 font-headline">MT Parceiros</h2>
             <p class="text-xs text-slate-400 font-label tracking-wider uppercase">Inteligência Imobiliária</p>
@@ -403,31 +549,31 @@
         </div>
     </aside>
 
-    <!-- Conteúdo Principal Dinâmico -->
-    <div class="lg:col-span-9 space-y-12">
+    <!-- Conteúdo Principal Dinâmico - MT_LOG (04/2026): Primeiro no mobile -->
+    <div class="order-1 lg:order-2 lg:col-span-9 space-y-8 lg:space-y-12">
 <!-- Header Section (Step 1) -->
-<section class="flex flex-col md:flex-row justify-between items-end gap-6 border-b border-outline-variant/10 pb-8 fade-in-section visible" id="header-section">
-<div class="space-y-4">
-<div class="flex items-center gap-3">
-<span class="pulse-badge bg-tertiary/10 text-tertiary border border-tertiary/30 px-4 py-1 rounded-full text-[11px] font-bold tracking-widest uppercase font-label flex items-center gap-2 shadow-[0_0_15px_rgba(64,225,126,0.1)]">
-                        <span class="material-symbols-outlined text-[14px]" style="font-variation-settings: 'FILL' 1;">verified</span>
-                        Dossiê do Investidor
-                    </span>
-</div>
-<h1 class="text-4xl md:text-5xl font-extrabold tracking-tight text-on-surface leading-tight max-w-2xl">
-                    Análise Detalhada: <span class="text-primary italic">Diagnóstico IA</span>
-</h1>
-<p class="text-on-surface-variant font-body max-w-lg">Engenharia de crédito estruturada para máxima performance e aprovação bancária.</p>
-</div>
-<!-- Bloco de Identificação: Posicionado no topo direito com branding animado -->
-<div class="flex flex-col items-end">
-    <div class="flex flex-col items-center text-center">
-        <!-- BOLA LARANJA (Branding IA): Tamanho ampliado para dominar a largura do texto ID -->
-        <img src="assets/images/bola_laranja.gif" class="w-28 h-28 mb-1 opacity-95" alt="MT IA">
-        <p class="text-xs text-outline font-label uppercase tracking-[0.2em] mb-1">ID da Simulação</p>
-        <p class="text-xl font-bold font-headline" id="simulation-id">#MT-2024-850X</p>
+<section class="flex flex-col md:flex-row justify-between items-center md:items-end gap-6 border-b border-outline-variant/10 pb-8 fade-in-section visible" id="header-section">
+    <div class="space-y-4 text-center md:text-left">
+        <div class="flex items-center justify-center md:justify-start gap-3">
+            <span class="pulse-badge bg-tertiary/10 text-tertiary border border-tertiary/30 px-4 py-1 rounded-full text-[11px] font-bold tracking-widest uppercase font-label flex items-center gap-2 shadow-[0_0_15px_rgba(64,225,126,0.1)]">
+                <span class="material-symbols-outlined text-[14px]" style="font-variation-settings: 'FILL' 1;">verified</span>
+                Dossiê do Investidor
+            </span>
+        </div>
+        <h1 class="text-4xl md:text-5xl font-extrabold tracking-tight text-on-surface leading-tight max-w-2xl">
+            Análise Detalhada: <span class="text-primary italic">Diagnóstico IA</span>
+        </h1>
+        <p class="text-on-surface-variant font-body max-w-lg mx-auto md:mx-0">Engenharia de crédito estruturada para máxima performance e aprovação bancária.</p>
     </div>
-</div>
+    <!-- Bloco de Identificação: Posicionado no topo direito com branding animado -->
+    <div class="flex flex-col items-center md:items-end w-full md:w-auto">
+        <div class="flex flex-col items-center text-center">
+            <!-- BOLA LARANJA (Branding IA): Tamanho ampliado para dominar a largura do texto ID -->
+            <img src="assets/images/bola_laranja.gif" class="w-28 h-28 mb-1 opacity-95" alt="MT IA">
+            <p class="text-xs text-outline font-label uppercase tracking-[0.2em] mb-1">ID da Simulação</p>
+            <p class="text-xl font-bold font-headline" id="simulation-id">#MT-2024-850X</p>
+        </div>
+    </div>
 </section>
 <!-- Bento Grid: Composição da Compra (Step 2) -->
 <section class="fade-in-section visible" id="composition-grid">
@@ -438,44 +584,44 @@
                 </h2>
 <span class="text-on-surface-variant text-sm font-label" id="bento-vgv-top">VGV: R$ 0,00</span>
 </div>
-<div class="grid grid-cols-1 md:grid-cols-4 gap-6">
+<div class="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-6">
 <!-- Green Card: Subsídio -->
-<div class="glass-card p-8 rounded-xl border-l-4 border-l-tertiary group hover:shadow-[0_0_30px_rgba(64,225,126,0.1)] transition-all">
-<div class="flex flex-col h-full justify-between gap-8">
-<span class="material-symbols-outlined text-tertiary text-4xl">account_balance_wallet</span>
+<div class="glass-card p-4 md:p-8 rounded-xl border-l-4 border-l-tertiary group hover:shadow-[0_0_30px_rgba(64,225,126,0.1)] transition-all">
+<div class="flex flex-col h-full justify-between gap-4 md:gap-8">
+<span class="material-symbols-outlined text-tertiary text-2xl md:text-4xl">account_balance_wallet</span>
 <div>
-<p class="text-sm text-on-surface-variant font-label mb-1">Subsídio Federal</p>
-<p class="text-2xl font-bold font-headline text-tertiary" id="bento-sub-val">R$ 55.000</p>
+<p class="text-[10px] md:text-sm text-on-surface-variant font-label mb-1">Subsídio Federal</p>
+<p class="text-base md:text-2xl font-bold font-headline text-tertiary" id="bento-sub-val">R$ 55.000</p>
 </div>
 </div>
 </div>
 <!-- Blue Card: FGTS -->
-<div class="glass-card p-8 rounded-xl border-l-4 border-l-blue-400 group hover:shadow-[0_0_30px_rgba(96,165,250,0.1)] transition-all">
-<div class="flex flex-col h-full justify-between gap-8">
-<span class="material-symbols-outlined text-blue-400 text-4xl">savings</span>
+<div class="glass-card p-4 md:p-8 rounded-xl border-l-4 border-l-blue-400 group hover:shadow-[0_0_30px_rgba(96,165,250,0.1)] transition-all">
+<div class="flex flex-col h-full justify-between gap-4 md:gap-8">
+<span class="material-symbols-outlined text-blue-400 text-2xl md:text-4xl">savings</span>
 <div>
-<p class="text-sm text-on-surface-variant font-label mb-1">FGTS</p>
-<p class="text-2xl font-bold font-headline text-blue-400" id="bento-fgts-val">R$ 42.500</p>
+<p class="text-[10px] md:text-sm text-on-surface-variant font-label mb-1">FGTS</p>
+<p class="text-base md:text-2xl font-bold font-headline text-blue-400" id="bento-fgts-val">R$ 42.500</p>
 </div>
 </div>
 </div>
 <!-- Orange Card: Entrada -->
-<div class="glass-card p-8 rounded-xl border-l-4 border-l-primary group hover:shadow-[0_0_30px_rgba(255,181,160,0.1)] transition-all">
-<div class="flex flex-col h-full justify-between gap-8">
-<span class="material-symbols-outlined text-primary text-4xl">payments</span>
+<div class="glass-card p-4 md:p-8 rounded-xl border-l-4 border-l-primary group hover:shadow-[0_0_30px_rgba(255,181,160,0.1)] transition-all">
+<div class="flex flex-col h-full justify-between gap-4 md:gap-8">
+<span class="material-symbols-outlined text-primary text-2xl md:text-4xl">payments</span>
 <div>
-<p class="text-sm text-on-surface-variant font-label mb-1">Entrada Própria</p>
-<p class="text-2xl font-bold font-headline text-primary" id="bento-ent-val">R$ 12.500</p>
+<p class="text-[10px] md:text-sm text-on-surface-variant font-label mb-1">Entrada Própria</p>
+<p class="text-base md:text-2xl font-bold font-headline text-primary" id="bento-ent-val">R$ 12.500</p>
 </div>
 </div>
 </div>
 <!-- Dark Navy Card: Financiamento -->
-<div class="bg-surface-container-highest/60 p-8 rounded-xl border-l-4 border-l-slate-400 group transition-all">
-<div class="flex flex-col h-full justify-between gap-8">
-<span class="material-symbols-outlined text-slate-100 text-4xl">domain</span>
+<div class="bg-surface-container-highest/60 p-4 md:p-8 rounded-xl border-l-4 border-l-slate-400 group transition-all">
+<div class="flex flex-col h-full justify-between gap-4 md:gap-8">
+<span class="material-symbols-outlined text-slate-100 text-2xl md:text-4xl">domain</span>
 <div>
-<p class="text-sm text-on-surface-variant font-label mb-1">Financiamento</p>
-<p class="text-2xl font-bold font-headline text-slate-100" id="bento-fin-val">R$ 340.000</p>
+<p class="text-[10px] md:text-sm text-on-surface-variant font-label mb-1">Financiamento</p>
+<p class="text-base md:text-2xl font-bold font-headline text-slate-100" id="bento-fin-val">R$ 340.000</p>
 </div>
 </div>
 </div>
@@ -508,41 +654,48 @@
 </div>
 </div>
 </section>
-<!-- IA Score Intelligence (Step 5) -->
-<section class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-center fade-in-section visible" id="ia-score-section">
-<!-- Confidence Gauge -->
-<div class="lg:col-span-5 glass-card p-10 rounded-xl flex flex-col items-center justify-center relative min-h-[400px]">
-<div class="relative w-64 h-64 flex items-center justify-center">
-<svg class="w-full h-full transform -rotate-90">
-<circle class="text-surface-container-highest" cx="128" cy="128" fill="transparent" r="110" stroke="currentColor" stroke-width="8"></circle>
-<circle class="text-primary gauge-ring" cx="128" cy="128" fill="transparent" id="score-gauge" r="110" stroke="currentColor" stroke-linecap="round" stroke-width="12" style="stroke-dashoffset: 691;"></circle>
-</svg>
-<div class="absolute inset-0 flex flex-col items-center justify-center">
-<span class="text-6xl font-black font-headline text-on-surface" id="score-value">000</span>
-<span class="text-[10px] uppercase tracking-[0.3em] text-primary font-bold">Credit Score IA</span>
-</div>
-<div class="absolute w-48 h-48 bg-primary/10 blur-[60px] rounded-full -z-10"></div>
-</div>
-<p class="mt-8 text-sm font-bold font-label text-tertiary uppercase tracking-widest" id="profile-status">Perfil de Alta Conversão</p>
-</div>
-<!-- IA Recommendation Card -->
-<div class="lg:col-span-7 glass-card p-10 rounded-xl flex flex-col justify-center h-full border-l-4 border-l-primary shadow-2xl">
-<div class="flex items-start gap-6">
-<div class="w-16 h-16 rounded-2xl bg-primary/10 flex items-center justify-center flex-shrink-0">
-<span class="material-symbols-outlined text-primary text-3xl">psychology</span>
-</div>
-<div class="space-y-4">
-<h3 class="text-2xl font-bold font-headline">Recomendação do Arquiteto IA</h3>
-<p class="text-on-surface-variant leading-relaxed text-lg" id="ia-recommendation-text">
-                            "Com base no perfil analisado, identificamos um <strong class="text-on-surface">potencial de aprovação de 94%</strong> no SBPE. Recomendamos a utilização do FGTS para amortização das primeiras 12 parcelas, otimizando o fluxo de caixa inicial em até 35%."
-                        </p>
-<div class="flex gap-4 pt-4">
-                        <button class="bg-inverse-primary text-on-primary font-bold py-4 px-10 rounded-full text-sm uppercase tracking-widest hover:brightness-110 transition-all shadow-lg" id="cta-request-emission">Solicitar Emissão</button>
-                        <button class="bg-surface-bright/10 backdrop-blur-md text-on-surface font-semibold py-4 px-8 rounded-full text-sm border border-outline-variant/30 hover:bg-white/5 transition-all" id="cta-download-pdf" onclick="window.print()">Baixar PDF</button>
+<!-- IA Score Intelligence (Step 5) (RESPONSIVE: FLIP ON MOBILE, SPLIT ON DESKTOP) -->
+<section class="max-w-7xl mx-auto py-4 px-4 fade-in-section visible">
+    <!-- WRAPPER: No Mobile funciona como Flip, no Desktop vira Grid Container -->
+    <div class="ia-super-card-container h-[480px] md:h-auto perspective mx-auto group">
+        <div class="ia-super-card-inner relative w-full h-full transition-all duration-700">
+            
+            <div class="ia-super-card-front glass-card w-full h-full md:col-span-12 lg:col-span-5 rounded-3xl p-6 md:p-10 flex flex-col items-center justify-center border border-white/10 shadow-2xl">
+                <div class="relative w-56 h-56 md:w-64 md:h-64 flex items-center justify-center">
+                    <svg class="w-full h-full transform -rotate-90" viewBox="0 0 256 256">
+                        <circle class="text-surface-container-highest" cx="128" cy="128" fill="transparent" r="110" stroke="currentColor" stroke-width="8"></circle>
+                        <circle class="text-primary gauge-ring" cx="128" cy="128" fill="transparent" id="score-gauge" r="110" stroke="currentColor" stroke-linecap="round" stroke-width="12" style="stroke-dashoffset: 691;"></circle>
+                    </svg>
+                    <div class="absolute inset-0 flex flex-col items-center justify-center">
+                        <span class="text-5xl md:text-6xl font-black font-headline text-on-surface" id="score-value">000</span>
+                        <span class="text-[10px] uppercase tracking-[0.3em] text-primary font-bold">Credit Score IA</span>
                     </div>
-</div>
-</div>
-</div>
+                    <div class="absolute w-40 h-40 bg-primary/10 blur-[60px] rounded-full -z-10"></div>
+                </div>
+                <p class="mt-8 text-xs md:text-sm font-bold font-label text-tertiary uppercase tracking-widest" id="profile-status">Analisando Perfil...</p>
+                <div class="mt-4 flex items-center gap-2 text-[10px] text-white/40 uppercase tracking-tighter md:hidden">
+                    <span class="material-symbols-outlined text-[14px]">info</span>
+                    Toque para ver a recomendação
+                </div>
+            </div>
+
+            <!-- FACE B: RECOMENDAÇÃO DO ARQUITETO IA (Verso no Mobile / Col-7 no Desktop) -->
+            <div class="ia-super-card-back bg-surface-container-highest/40 md:bg-transparent md:glass-card w-full h-full md:col-span-7 rounded-3xl p-6 md:p-10 flex flex-col items-center md:items-start justify-center text-on-surface border border-primary/20 md:border-l-4 md:border-l-primary shadow-[0_0_50px_rgba(255,181,160,0.15)]">
+                <div class="w-12 h-12 md:w-16 md:h-16 rounded-2xl bg-primary/10 flex items-center justify-center mb-6">
+                    <span class="material-symbols-outlined text-primary text-2xl md:text-3xl">psychology</span>
+                </div>
+                <h3 class="text-lg md:text-2xl font-bold font-headline mb-4 text-center md:text-left">Recomendação do Arquiteto IA</h3>
+                <p class="text-on-surface-variant leading-relaxed text-xs md:text-base text-center md:text-left mb-8 italic" id="ia-recommendation-text">
+                    "Processando dados da sua simulação para gerar a melhor estratégia de investimento..."
+                </p>
+                <div class="flex flex-col md:flex-row gap-3 w-full max-w-md">
+                    <button class="flex-1 bg-primary text-on-primary font-bold py-3 px-6 rounded-full text-[10px] md:text-xs uppercase tracking-widest hover:brightness-110 transition-all shadow-lg" id="cta-request-emission" onclick="window.aprovarDossie('ia')">Solicitar Emissão</button>
+                    <button class="flex-1 bg-white/5 backdrop-blur-md text-on-surface font-semibold py-3 px-6 rounded-full text-[10px] md:text-xs border border-outline-variant/30 hover:bg-white/10 transition-all" id="cta-download-pdf" onclick="window.print()">Baixar PDF</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
 </section>
 <!-- NEW SECTION: PLANO DE VIABILIDADE MAPEADO -->
 <section class="space-y-12 fade-in-section visible" id="viability-plan">
@@ -572,20 +725,20 @@
                                 </span>
 </div>
 <p class="text-xs text-on-surface-variant mt-2">Inteligência legal confirmada para este perfil.</p>
-<div class="absolute -right-4 -bottom-4 opacity-5 group-hover:opacity-10 transition-opacity">
+                <div class="absolute -right-4 -bottom-4 opacity-5 group-hover:opacity-10 transition-opacity">
 <span class="material-symbols-outlined text-8xl">gavel</span>
 </div>
 </div>
-<!-- Flip Cards Container -->
-<div class="grid grid-cols-1 md:grid-cols-3 gap-4 h-48">
+<!-- Flip Cards Container: 3 colunas no mobile e desktop conforme solicitado -->
+<div class="grid grid-cols-3 md:grid-cols-3 gap-2 md:gap-4 lg:gap-6 mb-2">
 <!-- Flip Card 1 -->
-<div class="flip-card h-full perspective">
+<div class="flip-card h-40 md:h-48 perspective">
 <div class="flip-card-inner relative w-full h-full text-center">
-<div class="flip-card-front glass-card absolute inset-0 w-full h-full rounded-2xl p-6 flex flex-col items-center justify-center gap-2">
-<span class="material-symbols-outlined text-primary text-3xl">event_repeat</span>
-<p class="text-xs font-bold font-label uppercase">Parcela de Entrada</p>
+<div class="flip-card-front glass-card absolute inset-0 w-full h-full rounded-2xl p-2 md:p-6 flex flex-col items-center justify-center gap-1 md:gap-2">
+<span class="material-symbols-outlined text-primary text-lg md:text-3xl">event_repeat</span>
+<p class="text-[8px] md:text-xs font-bold font-label uppercase text-center">Parcela de Entrada</p>
 </div>
-<div class="flip-card-back bg-primary absolute inset-0 w-full h-full rounded-2xl p-6 flex flex-col items-center justify-center text-on-primary">
+<div class="flip-card-back bg-primary absolute inset-0 w-full h-full rounded-2xl p-2 md:p-6 flex flex-col items-center justify-center text-on-primary">
 <p class="text-[10px] uppercase font-bold opacity-80">Mensal (Obra)</p>
 <p class="text-xl font-black" id="val-parcela-entrada">R$ 0.000</p>
 <p class="text-[10px] mt-1 italic">Até a entrega</p>
@@ -593,13 +746,13 @@
 </div>
 </div>
 <!-- Flip Card 2 -->
-<div class="flip-card h-full perspective">
+<div class="flip-card h-40 md:h-48 perspective">
 <div class="flip-card-inner relative w-full h-full text-center">
-<div class="flip-card-front glass-card absolute inset-0 w-full h-full rounded-2xl p-6 flex flex-col items-center justify-center gap-2">
-<span class="material-symbols-outlined text-blue-400 text-3xl">construction</span>
-<p class="text-xs font-bold font-label uppercase">Evolução de Obra</p>
+<div class="flip-card-front glass-card absolute inset-0 w-full h-full rounded-2xl p-2 md:p-6 flex flex-col items-center justify-center gap-1 md:gap-2">
+<span class="material-symbols-outlined text-blue-400 text-lg md:text-3xl">construction</span>
+<p class="text-[8px] md:text-xs font-bold font-label uppercase text-center">Evolução de Obra</p>
 </div>
-<div class="flip-card-back bg-blue-500 absolute inset-0 w-full h-full rounded-2xl p-6 flex flex-col items-center justify-center text-white">
+<div class="flip-card-back bg-blue-500 absolute inset-0 w-full h-full rounded-2xl p-2 md:p-6 flex flex-col items-center justify-center text-white">
 <p class="text-[10px] uppercase font-bold opacity-80">Custo Médio</p>
 <p class="text-xl font-black" id="val-evolucao-obra">R$ 000</p>
 <p class="text-[10px] mt-1 italic">Seguro incluso</p>
@@ -607,13 +760,13 @@
 </div>
 </div>
 <!-- Flip Card 3 -->
-<div class="flip-card h-full perspective">
+<div class="flip-card h-40 md:h-48 perspective">
 <div class="flip-card-inner relative w-full h-full text-center">
-<div class="flip-card-front glass-card absolute inset-0 w-full h-full rounded-2xl p-6 flex flex-col items-center justify-center gap-2">
-<span class="material-symbols-outlined text-tertiary text-3xl">vpn_key</span>
-<p class="text-xs font-bold font-label uppercase">Pós-Chaves</p>
+<div class="flip-card-front glass-card absolute inset-0 w-full h-full rounded-2xl p-2 md:p-6 flex flex-col items-center justify-center gap-1 md:gap-2">
+<span class="material-symbols-outlined text-tertiary text-lg md:text-3xl">vpn_key</span>
+<p class="text-[8px] md:text-xs font-bold font-label uppercase text-center">Pós-Chaves</p>
 </div>
-<div class="flip-card-back bg-tertiary absolute inset-0 w-full h-full rounded-2xl p-6 flex flex-col items-center justify-center text-on-tertiary">
+<div class="flip-card-back bg-tertiary absolute inset-0 w-full h-full rounded-2xl p-2 md:p-6 flex flex-col items-center justify-center text-on-tertiary">
 <p class="text-[10px] uppercase font-bold opacity-80">Parcela Bancária</p>
 <p class="text-xl font-black" id="val-pos-chaves">R$ 0.000</p>
 <p class="text-[10px] mt-1 italic">Saldo devedor</p>
@@ -626,7 +779,7 @@
     Explicativo sobre o comportamento das parcelas durante a obra vs pós-chaves.
     Deve permanecer no corpo principal (Passo 1) e não na Sidebar.
 -->
-<div class="glass-card p-6 rounded-xl relative overflow-hidden group border border-primary/10 shadow-lg mt-4 w-full">
+<div class="glass-card p-6 rounded-xl relative overflow-hidden group border border-primary/10 shadow-lg mt-2 w-full">
 <div class="flex items-start gap-4">
 <div class="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center text-primary shrink-0">
 <span class="material-symbols-outlined text-3xl">timeline</span>
@@ -645,6 +798,7 @@
 </div>
 </div>
 </div>
+
             <!-- 2. Imóvel Ideal Para Você -->
 <div class="space-y-6">
 <div class="flex justify-between items-center">
@@ -660,7 +814,7 @@
 <div class="glass-card rounded-xl overflow-hidden flex flex-col md:flex-row shadow-2xl group transition-all duration-500 border border-white/5 h-[500px]" id="main-match-card">
 <!-- Lado Esquerdo: Imagem + Título (Fica no Topo no Mobile) -->
 <div class="md:w-2/5 relative h-1/2 md:h-full border-r border-white/5">
-<img id="main-match-img" alt="Property" class="w-full h-full object-cover transition-all duration-700" src="https://lh3.googleusercontent.com/aida/ADBb0uh83jEpd69ItFrOKa0bC6sCQOFdwUHLNh4Kak91lNhqo-D-MaYidkKqMtfCqBWc9YWwGBnKHtq9uB0SzRFjg0e2LdLFHvKy-h_g3lAPClntsdOj25f-JcdShtGSNjIqNktNNl2ryZFZzv5LYt0bg5k71Kt7tBRi5JIey0UkWDaecKnulERzFiXQyA3Nc4OaVUlubpXV0_kxIM4kZfBxgCwrnjlmrBZeFBpRxYriI6idpFsv4Q8uQVh5mZq03ZUdjPfkSaIHzoRTGg"/>
+<img id="main-match-img" alt="Property" class="w-full h-full object-cover transition-all duration-700" src="https://images.unsplash.com/photo-1568605114967-8130f3a36994?q=80&w=2070&auto=format&fit=crop" onerror="this.src='https://images.unsplash.com/photo-1582407947304-fd86f028f716?q=80&w=2070&auto=format&fit=crop'"/>
 <div class="absolute bottom-4 left-4 right-4">
 <div class="bg-white/5 backdrop-blur-sm p-4 rounded-lg border border-white/20 shadow-2xl">
 <p class="text-[10px] uppercase tracking-widest text-primary font-black mb-1 drop-shadow-md">Recomendação IA</p>
@@ -718,7 +872,7 @@
 <h3 class="text-2xl font-bold font-headline">3. Documentação Necessária</h3>
 <p class="text-on-surface-variant text-sm">Checklist inteligente para agilizar seu processo de aprovação.</p>
 </div>
-<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6" id="docs-checklist">
+<div class="grid grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-6" id="docs-checklist">
 <!-- Doc 1 -->
 <div id="card-doc-id" class="doc-card glass-card p-6 rounded-2xl border-t-2 border-t-transparent hover:border-t-primary transition-all cursor-pointer group" onclick="toggleDoc('id')">
 <div class="flex justify-between items-start mb-6">
@@ -778,15 +932,19 @@
 </div>
 </div>
 <!-- 4. WhatsApp Final CTA -->
-<div class="flex justify-center pt-8">
-<button id="btn-whatsapp-final" class="bg-[#25D366] text-white hover:brightness-110 px-12 py-6 rounded-full font-black text-lg md:text-xl flex items-center gap-4 shadow-[0_20px_40px_rgba(37,211,102,0.3)] transition-all hover:scale-[1.02] active:scale-95 group">
+            <div class="flex flex-col items-center justify-center pt-2 md:pt-10 pb-8 px-4">
+                <button id="btn-whatsapp-final" class="animate-shimmer btn-pulse w-full md:w-auto min-w-[320px] text-white px-8 md:px-12 py-5 md:py-6 rounded-2xl md:rounded-full font-black text-lg md:text-xl flex items-center justify-center gap-4 shadow-[0_20px_40px_rgba(37,211,102,0.25)] transition-all hover:scale-[1.02] active:scale-95 group relative overflow-hidden">
 <svg class="w-8 h-8 group-hover:animate-pulse" fill="currentColor" viewbox="0 0 448 512" xmlns="http://www.w3.org/2000/svg"><path d="M380.9 97.1C339 55.1 283.2 32 223.9 32c-122.4 0-222 99.6-222 222 0 39.1 10.2 77.3 29.6 111L0 480l117.7-30.9c32.7 17.9 69.4 27.3 106.2 27.3 122.4 0 222-99.6 222-222 0-59.3-23.1-115.1-65.1-157.1zM223.9 445.3c-33.2 0-65.7-8.9-94.1-25.7l-6.7-4-69.8 18.3 18.7-68.1-4.4-7c-18.5-29.4-28.2-63.3-28.2-98.2 0-101.7 82.8-184.5 184.5-184.5 49.3 0 95.6 19.2 130.4 54.1 34.8 34.9 54.1 81.2 54.1 130.5 0 101.7-82.8 184.5-184.5 184.5zm101.2-138.2c-5.5-2.8-32.8-16.2-37.9-18-5.1-1.9-8.8-2.8-12.5 2.8-3.7 5.6-14.3 18-17.6 21.8-3.2 3.7-6.5 4.2-12 1.4-5.5-2.8-23.2-8.5-44.2-27.1-16.4-14.6-27.4-32.7-30.6-38.2-3.2-5.5-.3-8.5 2.4-11.3 2.5-2.4 5.5-6.5 8.3-9.7 2.8-3.2 3.7-5.5 5.5-9.2 1.8-3.7.9-6.9-.5-9.7-1.4-2.8-12.5-30.1-17.1-41.2-4.5-10.8-9.1-9.3-12.5-9.5-3.2-.2-6.9-.2-10.6-.2-3.7 0-9.7 1.4-14.8 6.9-5.1 5.6-19.4 19-19.4 46.3 0 27.3 19.9 53.7 22.6 57.4 2.8 3.7 39.1 59.7 94.8 83.8 13.3 5.7 23.7 9.1 31.7 11.7 13.3 4.2 25.4 3.6 35 2.2 10.7-1.6 32.8-13.4 37.4-26.4 4.6-13 4.6-24.1 3.2-26.4-1.3-2.5-5-3.9-10.5-6.6z"></path></svg>
-                    Receber meu Laudo Aprovado no WhatsApp
-                </button>
+<span>Receber meu Laudo Aprovado no WhatsApp</span>
+</button>
+<div class="mt-4 flex items-center gap-2 text-[10px] uppercase tracking-[0.2em] text-white/40 font-bold">
+<span class="material-symbols-outlined text-[14px] text-tertiary">check_circle</span>
+                    Emissão técnica imediata em PDF
+                </div>
 </div>
 </section>
-<!-- Score Breakdown: 6 mini bars (Step 6) -->
-<section class="glass-card p-10 rounded-xl fade-in-section visible" id="score-breakdown">
+<!-- Score Breakdown: 6 mini bars (Step 6) - HIDDEN ON MOBILE BY REQUEST -->
+<section class="hidden md:block glass-card p-10 rounded-xl fade-in-section visible" id="score-breakdown">
 <h2 class="text-2xl font-bold font-headline mb-10">Análise de Variáveis Críticas</h2>
 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-12 gap-y-10">
 <!-- Variable 1: Renda -->
@@ -863,7 +1021,7 @@
 <div class="glass-card rounded-xl overflow-hidden">
 <div class="w-full text-left font-label">
 <!-- Table Header -->
-<div class="grid grid-cols-6 bg-surface-container-highest/50 p-6 text-[10px] uppercase tracking-widest font-bold">
+<div class="hidden md:grid grid-cols-6 bg-surface-container-highest/50 p-6 text-[10px] uppercase tracking-widest font-bold">
 <div class="col-span-2">Modalidade</div>
 <div class="hidden md:block">Taxa Base</div>
 <div class="hidden md:block">1ª Parcela</div>
@@ -873,14 +1031,30 @@
 <div class="divide-y divide-outline-variant/10">
 <!-- MCMV Row -->
 <details class="group" id="row-mcmv">
-<summary class="grid grid-cols-6 items-center p-6 cursor-pointer hover:bg-white/5 transition-colors list-none">
-<div class="col-span-2 font-bold text-on-surface flex items-center gap-2" id="title-mcmv">Minha Casa Minha Vida</div>
-<div class="hidden md:block text-tertiary" id="comp-mcmv-taxa">4.5% a 7.0%</div>
-<div class="hidden md:block" id="comp-mcmv-par">R$ 1.850,00</div>
-<div class="col-span-3 md:col-span-2 text-right md:text-center">
-<span class="material-symbols-outlined text-primary transition-transform group-open:rotate-180">expand_more</span>
-</div>
-</summary>
+                    <summary class="flex flex-col md:grid md:grid-cols-6 items-start md:items-center p-6 cursor-pointer hover:bg-white/5 transition-colors list-none relative">
+                        <!-- Título -->
+                        <div class="col-span-2 font-bold text-on-surface flex items-center gap-2 text-lg md:text-base mb-2 md:mb-0" id="title-mcmv">Minha Casa Minha Vida</div>
+                        
+                        <!-- Info Mobile -->
+                        <div class="flex md:hidden w-full gap-3 mb-4">
+                            <div class="flex-1 bg-white/5 p-3 rounded-xl border border-white/5">
+                                <p class="text-[8px] uppercase text-outline font-bold mb-1">Taxa Base</p>
+                                <p class="text-[11px] font-bold text-tertiary" id="comp-mcmv-taxa-mobile">4.5% a 7.0%</p>
+                            </div>
+                            <div class="flex-1 bg-white/5 p-3 rounded-xl border border-white/5">
+                                <p class="text-[8px] uppercase text-outline font-bold mb-1">1ª Parcela</p>
+                                <p class="text-[11px] font-bold text-white" id="comp-mcmv-par-mobile">R$ 1.850,00</p>
+                            </div>
+                        </div>
+
+                        <!-- Info Desktop -->
+                        <div class="hidden md:block text-tertiary" id="comp-mcmv-taxa">4.5% a 7.0%</div>
+                        <div class="hidden md:block" id="comp-mcmv-par">R$ 1.850,00</div>
+                        
+                        <div class="absolute right-6 top-6 md:static col-span-3 md:col-span-2 text-right md:text-center">
+                            <span class="material-symbols-outlined text-primary transition-transform group-open:rotate-180">expand_more</span>
+                        </div>
+                    </summary>
 <div class="px-6 pb-6 pt-2 bg-white/5 grid grid-cols-1 md:grid-cols-3 gap-6 text-sm">
 <div class="space-y-1">
 <p class="text-xs text-outline uppercase">Seguros (MIP/DFI)</p>
@@ -898,16 +1072,32 @@
 </details>
 <!-- SBPE Flex Row -->
 <details class="group" id="row-sbpe">
-<summary class="grid grid-cols-6 items-center p-6 cursor-pointer hover:bg-white/5 transition-colors list-none">
-<div class="col-span-2 font-bold text-on-surface flex items-center gap-2" id="title-sbpe">
-                                    SBPE Flex
-</div>
-<div class="hidden md:block text-tertiary font-bold" id="comp-sbpe-taxa">9.2% + TR</div>
-<div class="hidden md:block font-bold" id="comp-sbpe-par">R$ 2.450,00</div>
-<div class="col-span-3 md:col-span-2 text-right md:text-center">
-<span class="material-symbols-outlined text-primary transition-transform group-open:rotate-180">expand_more</span>
-</div>
-</summary>
+                    <summary class="flex flex-col md:grid md:grid-cols-6 items-start md:items-center p-6 cursor-pointer hover:bg-white/5 transition-colors list-none relative">
+                        <!-- Título -->
+                        <div class="col-span-2 font-bold text-on-surface flex items-center gap-2 text-lg md:text-base mb-2 md:mb-0" id="title-sbpe">
+                            SBPE Flex
+                        </div>
+
+                        <!-- Info Mobile -->
+                        <div class="flex md:hidden w-full gap-3 mb-4">
+                            <div class="flex-1 bg-white/5 p-3 rounded-xl border border-white/5">
+                                <p class="text-[8px] uppercase text-outline font-bold mb-1">Taxa Base</p>
+                                <p class="text-[11px] font-bold text-tertiary" id="comp-sbpe-taxa-mobile">9.2% + TR</p>
+                            </div>
+                            <div class="flex-1 bg-white/5 p-3 rounded-xl border border-white/5">
+                                <p class="text-[8px] uppercase text-outline font-bold mb-1">1ª Parcela</p>
+                                <p class="text-[11px] font-bold text-white" id="comp-sbpe-par-mobile">R$ 2.450,00</p>
+                            </div>
+                        </div>
+
+                        <!-- Info Desktop -->
+                        <div class="hidden md:block text-tertiary font-bold" id="comp-sbpe-taxa">9.2% + TR</div>
+                        <div class="hidden md:block font-bold" id="comp-sbpe-par">R$ 2.450,00</div>
+                        
+                        <div class="absolute right-6 top-6 md:static col-span-3 md:col-span-2 text-right md:text-center">
+                            <span class="material-symbols-outlined text-primary transition-transform group-open:rotate-180">expand_more</span>
+                        </div>
+                    </summary>
 <div class="px-6 pb-6 pt-2 bg-primary/5 border-t border-primary/10 grid grid-cols-1 md:grid-cols-3 gap-6 text-sm">
 <div class="space-y-1">
 <p class="text-xs text-outline uppercase">Seguros (MIP/DFI)</p>
@@ -925,14 +1115,30 @@
 </details>
 <!-- SBPE Pré Row -->
 <details class="group">
-<summary class="grid grid-cols-6 items-center p-6 cursor-pointer hover:bg-white/5 transition-colors list-none">
-<div class="col-span-2 font-bold text-on-surface">SBPE Pré-fixado</div>
-<div class="hidden md:block text-tertiary" id="comp-sbpe-pre-taxa">11.5% Fixo</div>
-<div class="hidden md:block" id="comp-sbpe-pre-par">R$ 3.120,00</div>
-<div class="col-span-3 md:col-span-2 text-right md:text-center">
-<span class="material-symbols-outlined text-primary transition-transform group-open:rotate-180">expand_more</span>
-</div>
-</summary>
+                    <summary class="flex flex-col md:grid md:grid-cols-6 items-start md:items-center p-6 cursor-pointer hover:bg-white/5 transition-colors list-none relative">
+                        <!-- Título -->
+                        <div class="col-span-2 font-bold text-on-surface text-lg md:text-base mb-2 md:mb-0">SBPE Pré-fixado</div>
+                        
+                        <!-- Info Mobile -->
+                        <div class="flex md:hidden w-full gap-3 mb-4">
+                            <div class="flex-1 bg-white/5 p-3 rounded-xl border border-white/5">
+                                <p class="text-[8px] uppercase text-outline font-bold mb-1">Taxa Base</p>
+                                <p class="text-[11px] font-bold text-tertiary" id="comp-sbpe-pre-taxa-mobile">11.5% Fixo</p>
+                            </div>
+                            <div class="flex-1 bg-white/5 p-3 rounded-xl border border-white/5">
+                                <p class="text-[8px] uppercase text-outline font-bold mb-1">1ª Parcela</p>
+                                <p class="text-[11px] font-bold text-white" id="comp-sbpe-pre-par-mobile">R$ 3.120,00</p>
+                            </div>
+                        </div>
+
+                        <!-- Info Desktop -->
+                        <div class="hidden md:block text-tertiary" id="comp-sbpe-pre-taxa">11.5% Fixo</div>
+                        <div class="hidden md:block" id="comp-sbpe-pre-par">R$ 3.120,00</div>
+                        
+                        <div class="absolute right-6 top-6 md:static col-span-3 md:col-span-2 text-right md:text-center">
+                            <span class="material-symbols-outlined text-primary transition-transform group-open:rotate-180">expand_more</span>
+                        </div>
+                    </summary>
 <div class="px-6 pb-6 pt-2 bg-white/5 grid grid-cols-1 md:grid-cols-3 gap-6 text-sm">
 <div class="space-y-1">
 <p class="text-xs text-outline uppercase">Seguros (MIP/DFI)</p>
@@ -1122,8 +1328,13 @@
                 else statusLabel.innerText = "Perfil em Evolução";
             }
 
-            finalScoreValue = res.score; 
-            
+            // Iniciar Score IA (Animação)
+            finalScoreValue = res.score;
+            animateScore(0, res.score);
+
+            // MT_LOG (04/2026): Sincronizar Co-piloto IA com dados carregados
+            if (window.syncSmartFloater) window.syncSmartFloater();
+
             // Iniciar animação do Score Texto imediatamente após hidratar
             setTimeout(() => {
                 window.requestAnimationFrame(animateScore);
@@ -1139,10 +1350,18 @@
             
             // 1. MCMV
             const mcmvTaxaEl = document.getElementById('comp-mcmv-taxa');
+            const mcmvTaxaMobile = document.getElementById('comp-mcmv-taxa-mobile');
             const mcmvParEl = document.getElementById('comp-mcmv-par');
+            const mcmvParMobile = document.getElementById('comp-mcmv-par-mobile');
             const detMcmvPar = document.getElementById('det-mcmv-parcela');
-            if (mcmvTaxaEl) mcmvTaxaEl.innerText = (res.fullResults.taxaAnualMCMV * 100).toFixed(2) + "% + TR";
-            if (mcmvParEl) mcmvParEl.innerText = formatCurrency(res.parcela);
+            
+            const taxaMcmvTxt = (res.fullResults.taxaAnualMCMV * 100).toFixed(2) + "% + TR";
+            const parMcmvTxt = formatCurrency(res.parcela);
+
+            if (mcmvTaxaEl) mcmvTaxaEl.innerText = taxaMcmvTxt;
+            if (mcmvTaxaMobile) mcmvTaxaMobile.innerText = taxaMcmvTxt;
+            if (mcmvParEl) mcmvParEl.innerText = parMcmvTxt;
+            if (mcmvParMobile) mcmvParMobile.innerText = parMcmvTxt;
             if (detMcmvPar) detMcmvPar.innerText = "Price / SAC (Indicado)";
 
             // 2. SBPE Flex
@@ -1152,20 +1371,30 @@
                 parcela: Math.round(res.parcela * 1.35) 
             };
             const sbpeTaxaEl = document.getElementById('comp-sbpe-taxa');
+            const sbpeTaxaMobile = document.getElementById('comp-sbpe-taxa-mobile');
             const sbpeParEl = document.getElementById('comp-sbpe-par');
+            const sbpeParMobile = document.getElementById('comp-sbpe-par-mobile');
             const detSbpePar = document.getElementById('det-sbpe-parcela');
-            if (sbpeTaxaEl) sbpeTaxaEl.innerText = (sbpeData.taxa * 100).toFixed(2) + "% + TR";
-            if (sbpeParEl) sbpeParEl.innerText = formatCurrency(sbpeData.parcela);
+
+            const taxaSbpeTxt = (sbpeData.taxa * 100).toFixed(2) + "% + TR";
+            const parSbpeTxt = formatCurrency(sbpeData.parcela);
+
+            if (sbpeTaxaEl) sbpeTaxaEl.innerText = taxaSbpeTxt;
+            if (sbpeTaxaMobile) sbpeTaxaMobile.innerText = taxaSbpeTxt;
+            if (sbpeParEl) sbpeParEl.innerText = parSbpeTxt;
+            if (sbpeParMobile) sbpeParMobile.innerText = parSbpeTxt;
             if (detSbpePar) detSbpePar.innerText = "Sistema SAC (Bento Grid)";
 
             // 3. SBPE Pré-Fixado
             const preParEl = document.getElementById('comp-sbpe-pre-par');
+            const preParMobile = document.getElementById('comp-sbpe-pre-par-mobile');
             if (preParEl) {
                 const taxaPre = 0.1150;
                 const prazoPre = 300;
                 const potencialFin = res.fullResults.potencial;
                 const pPre = Math.round((potencialFin / prazoPre) + (potencialFin * (taxaPre/12)));
                 preParEl.innerText = formatCurrency(pPre);
+                if (preParMobile) preParMobile.innerText = formatCurrency(pPre);
             }
 
             // --- NOVO: Link de WhatsApp Personalizado (Passo 5) ---
@@ -1197,7 +1426,6 @@
                 if (titleMcmv) titleMcmv.insertAdjacentHTML('beforeend', badgeHtml);
                 if (rowMcmv) rowMcmv.querySelector('summary').classList.add('bg-primary/5');
             }
-
             // --- NOVO: Inicialização do Motor de Match (Passo 2) ---
             if (typeof initMatchIA === 'function') {
                 initMatchIA(res.valorImovel);
@@ -1241,8 +1469,14 @@
         // O gatilho de animateScore agora é chamado dentro de hydrateFromCache()
         // para garantir que finalScoreValue já foi lido do cache.
 
+        /* 
+           MT_LOG (04/2026): GESTÃO DE ESTADOS DO DOSSIÊ
+           Utilizamos window.docState para garantir que o checklist de documentos
+           possa ser lido globalmente pelo Co-Piloto Mobile (Pilot), 
+           permitindo transições de passos em tempo real sem recarga de página.
+        */
         // --- LÓGICA DE GAMIFICAÇÃO (CHECKLIST INTERATIVO) ---
-        const docState = {
+        window.docState = {
             id: false,
             residencia: false,
             civil: false,
@@ -1374,6 +1608,8 @@
                 btnPortfolio.disabled = true;
                 btnPortfolio.classList.add('cursor-not-allowed');
             }
+            // Sincronizar Balão Mobile
+            if (window.syncSmartFloater) window.syncSmartFloater();
         }
 
         /**
@@ -1565,7 +1801,10 @@
             const mainPrice = document.getElementById('main-match-price');
             const mainLoc = document.getElementById('main-match-location');
             
-            if (mainImg) mainImg.src = emp.imagem;
+            if (mainImg) {
+                mainImg.src = emp.imagem;
+                mainImg.onerror = () => { mainImg.src = 'https://images.unsplash.com/photo-1568605114967-8130f3a36994?q=80&w=2070&auto=format&fit=crop'; };
+            }
             if (mainTitle) mainTitle.textContent = emp.nome;
             if (mainPrice) {
                 const priceValue = parsePreco(emp.preco);
@@ -1648,7 +1887,7 @@
             }
         }
 
-        /* MT_LOG (04/2026): SINCRONIZAÇÃO DE LEADS (FASE 2 - DOSSIÊ) 
+        /* MT_LOG (04/2026): SINCRONIZAÇÃO DE LEADS (FAVE 2 - DOSSIÊ) 
            Envia o Relatório Técnico completo antes do redirecionamento. */
         async function sendDossieLeadToGoogleSheets() {
             const rawData = localStorage.getItem('mt_sim_data');
@@ -1706,6 +1945,165 @@ Dossiê de Viabilidade - Relatório Técnico:
             
             window.open(`https://wa.me/5511946211111?text=${encodeURIComponent(customMsg)}`, '_blank');
         };
+    </script>
 
+    <!-- [COMPONENT: MT MOBILE PILOT (BALLOON)] - MT_LOG (04/2026) -->
+    <div id="mt-mobile-pilot" class="md:hidden">
+        <div class="pilot-header" onclick="handlePilotInteraction()">
+            <div class="pilot-icon-pulse">
+                <img src="assets/images/bola_laranja.gif" alt="IA">
+            </div>
+            <div class="pilot-content">
+                <p class="pilot-title" id="pilot-step-label">Passo 1: Checklist</p>
+                <p class="pilot-msg" id="pilot-step-msg">Valide seus documentos</p>
+            </div>
+            <button class="pilot-action-btn" id="pilot-btn-label">Ver</button>
+        </div>
+        <div id="pilot-cascade" class="pilot-cascade-container">
+             <div id="pilot-portfolio-grid" class="grid grid-cols-1 gap-4"></div>
+        </div>
+    </div>
+
+    <script>
+        /* 
+           MT_LOG (04/2026): LÓGICA DO CO-PILOTO MOBILE (MODO PREMIUM)
+           Arquitetura de Jornada em 3 Estágios:
+           1. Passo 1 (Checklist): Focado na organização de documentos (window.docState).
+           2. Passo 2 (Matching): Ativado via checkCompletion(), permite a escolha do imóvel.
+           3. Passo 3 (Aprovação): Ativado após seleção real na sidebar, libera o CTA pulsante.
+        */
+        let currentStep = 1;
+        
+        function syncSmartFloater() {
+            const floater = document.getElementById('mt-mobile-pilot');
+            if (!floater) return;
+
+            const ds = window.docState || {};
+            const allChecked = ds.id && ds.residencia && ds.civil && ds.renda;
+            
+            const currentProperty = document.getElementById('match-property-sidebar')?.innerText || '';
+            const propertySelected = currentProperty !== 'Apto 2 Dorms' && 
+                                   currentProperty !== 'Escolha um Imóvel' && 
+                                   currentProperty !== 'Selecione um empreendimento' &&
+                                   currentProperty.trim() !== '';
+            
+            const label = document.getElementById('pilot-step-label');
+            const msg = document.getElementById('pilot-step-msg');
+            const btn = document.getElementById('pilot-btn-label');
+
+            if (!allChecked) {
+                currentStep = 1;
+                if (label) label.innerText = "Passo 1: Viabilidade de Crédito";
+                if (msg) msg.innerText = "Você tem todos os documentos necessários?";
+                if (btn) { 
+                    btn.innerText = "Checklist"; 
+                    btn.classList.remove('animate-bounce'); 
+                    btn.classList.add('bg-primary', 'text-on-primary');
+                }
+                floater.classList.remove('expanded');
+            } else if (!propertySelected || document.getElementById('match-property-sidebar')?.innerText === 'Apto 2 Dorms') {
+                currentStep = 2;
+                if (label) label.innerText = "Passo 2: Selecione o Imóvel";
+                if (msg) msg.innerText = "Não encontrou? Clique em Outro";
+                if (btn) { 
+                    btn.innerText = "Expandir"; 
+                    btn.classList.remove('animate-bounce');
+                    btn.classList.add('bg-tertiary', 'text-on-tertiary');
+                }
+            } else {
+                currentStep = 3;
+                if (label) label.innerText = "Passo 3: Aprovação Profissional";
+                if (msg) msg.innerText = "Solicite sua aprovação agora!";
+                if (btn) { 
+                    btn.innerText = "Aprovar agora"; 
+                    btn.classList.add('animate-bounce'); 
+                    btn.classList.add('bg-tertiary', 'text-on-tertiary');
+                }
+                floater.classList.remove('expanded');
+            }
+        }
+
+        window.handlePilotInteraction = function() {
+            const floater = document.getElementById('mt-mobile-pilot');
+            if (currentStep === 1) {
+                const checkEl = document.getElementById('docs-checklist');
+                if (checkEl) checkEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            } else if (currentStep === 2) {
+                floater.classList.toggle('expanded');
+                if (floater.classList.contains('expanded')) {
+                    renderPilotPortfolio();
+                }
+            } else if (currentStep === 3) {
+                window.aprovarDossie('ia');
+            }
+        }
+
+        function renderPilotPortfolio() {
+            const pilotGrid = document.getElementById('pilot-portfolio-grid');
+            if (!pilotGrid) return;
+            let html = "";
+            const list = window.currentMatches || [];
+            
+            list.slice(0, 4).forEach(emp => {
+                html += `
+                <div class="bg-white/5 p-4 rounded-xl flex items-center gap-4 active:scale-95 transition-transform" onclick="selectProperty('${emp.nome.replace(/'/g, "\\'")}'); document.getElementById('mt-mobile-pilot').classList.remove('expanded');">
+                    <img src="${emp.imagem}" class="w-14 h-14 object-cover rounded-lg" onerror="this.src='https://images.unsplash.com/photo-1568605114967-8130f3a36994?q=80&w=2070&auto=format&fit=crop'">
+                    <div class="flex-1 overflow-hidden">
+                        <h6 class="text-[11px] font-bold text-white truncate">${emp.nome}</h6>
+                        <p class="text-[9px] text-gray-400">${emp.bairro}</p>
+                    </div>
+                    <span class="material-symbols-outlined text-[14px] text-primary">arrow_forward_ios</span>
+                </div>`;
+            });
+
+            // Opção "Outro" solicitada pelo usuário
+            html += `
+            <div class="bg-primary/10 p-4 rounded-xl flex items-center gap-4 active:scale-95 transition-transform border border-primary/30" onclick="window.aprovarDossie('ia'); document.getElementById('mt-mobile-pilot').classList.remove('expanded');">
+                <div class="w-14 h-14 bg-primary/20 rounded-lg flex items-center justify-center text-primary">
+                    <span class="material-symbols-outlined text-2xl">add_circle</span>
+                </div>
+                <div class="flex-1 overflow-hidden">
+                    <h6 class="text-[11px] font-bold text-white">Outro Empreendimento</h6>
+                    <p class="text-[9px] text-gray-400">Clique para falar com um consultor</p>
+                </div>
+                <span class="material-symbols-outlined text-[14px] text-primary">whatsapp</span>
+            </div>`;
+
+            pilotGrid.innerHTML = html;
+        }
+
+        // Observer para controle de visibilidade do Balão Mobile
+        document.addEventListener('DOMContentLoaded', () => {
+            const floater = document.getElementById('mt-mobile-pilot');
+            const hSection = document.getElementById('header-section');
+            if (floater && hSection) {
+                const observer = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        // Quando o header principal começar a sumir (scroll para baixo)
+                        if (!entry.isIntersecting) {
+                             floater.classList.add('visible');
+                        } else {
+                             floater.classList.remove('visible', 'expanded');
+                        }
+                    });
+                }, { threshold: 0.1 });
+                observer.observe(hSection);
+            }
+            // Sincronia inicial após pequeno delay para garantir hidratação total
+            setTimeout(syncSmartFloater, 1500);
+        });
+
+        // Hooks para sincronização em tempo real
+        const originalToggleDoc = window.toggleDoc;
+        window.toggleDoc = function(id) {
+            if (originalToggleDoc) originalToggleDoc(id);
+            syncSmartFloater();
+        };
+
+        const originalSelectProperty = window.selectProperty;
+        window.selectProperty = function(name, isSlideshow) {
+            if (originalSelectProperty) originalSelectProperty(name, isSlideshow);
+            syncSmartFloater();
+        };
     </script>
 </body></html>
