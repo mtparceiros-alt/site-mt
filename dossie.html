@@ -350,19 +350,21 @@
             width: 100%;
             cursor: pointer;
         }
+        /* 
+           MT_LOG (04/2026): LIMPEZA DE ÍCONE CO-PILOTO 
+           Removido fundo sólido e sombra para destacar apenas o GIF animado (32px), 
+           criando um efeito de "esfera flutuante" mais profissional.
+        */
         .pilot-icon-pulse {
             width: 32px;
             height: 32px;
-            border-radius: 50%;
-            background: #ffb5a0;
             display: flex;
             align-items: center;
             justify-content: center;
-            box-shadow: 0 0 15px rgba(255,181,160,0.4);
         }
         .pilot-icon-pulse img {
-            width: 24px;
-            height: 24px;
+            width: 32px;
+            height: 32px;
             object-fit: contain;
         }
         .pilot-content {
@@ -395,6 +397,22 @@
             overflow-y: auto;
             transition: max-height 0.5s ease;
             scrollbar-width: thin;
+            scrollbar-color: #ffb5a0 transparent;
+            padding-right: 4px; /* Espaço para a barra não colar no card */
+        }
+        /* Custom Scrollbar Premium (The Floating Pill) */
+        .pilot-cascade-container::-webkit-scrollbar {
+            width: 4px;
+        }
+        .pilot-cascade-container::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            margin: 8px 0;
+        }
+        .pilot-cascade-container::-webkit-scrollbar-thumb {
+            background: linear-gradient(180deg, #ffb5a0, #40e17e);
+            border-radius: 20px;
+            box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
         }
         .expanded .pilot-cascade-container {
             max-height: 60vh;
@@ -404,19 +422,32 @@
         @media (min-width: 769px) {
             #mt-mobile-pilot { display: none !important; }
         }
+
+        /* 
+           MT_LOG (04/2026): OTIMIZAÇÃO HEADER MOBILE 
+           Ajusta o espaçamento para evitar quebra de layout em telas < 480px.
+        */
+        @media (max-width: 480px) {
+            #mt-main-header { height: 80px !important; }
+            #mt-main-header nav { padding-left: 1rem !important; padding-right: 1rem !important; }
+            #mt-main-header .text-[22px] { font-size: 18px !important; letter-spacing: 0.05em !important; }
+            #mt-main-header .bg-[#1e1e1e] { padding-right: 1rem !important; font-size: 10px !important; gap: 8px !important; }
+            #mt-main-header .w-11 { width: 32px !important; height: 32px !important; }
+            #mt-main-header .material-symbols-outlined { font-size: 16px !important; }
+        }
     </style>
 </head>
 <body class="text-on-surface selection:bg-primary/30">
 <!-- [SECTION 1: HEADER & NAVIGATION] -->
-<header id="mt-main-header" class="bg-white sticky top-0 z-50 border-b border-gray-100 shadow-sm h-[95px] flex items-center">
-  <nav class="flex justify-between items-center w-full px-8 max-w-screen-2xl mx-auto h-full">
+<header id="mt-main-header" class="bg-white sticky top-0 z-50 border-b border-gray-100 shadow-sm h-20 flex items-center">
+  <nav class="flex justify-between items-center w-full px-4 max-w-[1320px] mx-auto h-full">
     <!-- Marca MTPARCEIROS -->
-    <div class="text-[22px] font-black text-black tracking-[0.15em] font-headline uppercase leading-none">
+    <div class="text-[28px] font-bold text-black tracking-[0.1em] font-headline uppercase leading-none">
       MTParceiros
     </div>
 
     <!-- Menu de Navegação -->
-    <div class="hidden md:flex items-center gap-8 h-full font-headline text-[14px] font-bold tracking-tight">
+    <div class="hidden md:flex items-center gap-6 h-full font-headline text-[15px] font-medium tracking-tight">
       <a class="relative flex items-center text-gray-800 hover:text-[#f35525] transition-colors group py-2" href="index.html">
         Início
         <span class="absolute bottom-[-4px] left-0 w-full h-[3px] bg-[#f35525] origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-300"></span>
@@ -442,24 +473,33 @@
         <span class="absolute bottom-[-4px] left-0 w-full h-[3px] bg-[#f35525] origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-300"></span>
       </a>
     </div>
-
-
-    <!-- Botão Agendar (Restaurado com Ícone) -->
-    <div class="flex items-center">
-      <a class="bg-[#1e1e1e] text-white pl-1 pr-7 py-1 rounded-full font-bold text-[12px] uppercase tracking-wide flex items-center gap-3 hover:bg-black transition-all shadow-lg shadow-black/10 group" href="https://wa.me/5511946211111" target="_blank">
-        <div class="w-11 h-11 bg-[#f35525] rounded-full flex items-center justify-center transition-transform group-hover:scale-105">
-           <span class="material-symbols-outlined text-white text-[18px] font-bold">calendar_today</span>
-        </div>
-        AGENDE UMA VISITA
-      </a>
-    </div>
-
-
+    
+    <!-- Gatilho do Menu Mobile (v3 Fidelity) -->
+    <button id="mobile-menu-trigger" class="md:hidden flex flex-col justify-center items-center w-10 h-10 gap-1.5 focus:outline-none z-[60] relative">
+        <span class="w-7 h-[2px] bg-black transition-all duration-300 transform origin-center" id="line1"></span>
+        <span class="w-7 h-[2px] bg-black transition-all duration-300" id="line2"></span>
+        <span class="w-7 h-[2px] bg-black transition-all duration-300 transform origin-center" id="line3"></span>
+    </button>
   </nav>
+
+  <!-- Overlay do Menu Mobile (Villa Agency Style Fidelity) -->
+  <div id="mobile-menu" class="fixed top-20 left-0 w-full bg-white shadow-2xl border-t border-gray-100 transform -translate-y-full opacity-0 pointer-events-none transition-all duration-300 z-40">
+      <ul class="flex flex-col font-headline font-bold text-[14px]">
+          <li class="border-b border-gray-100"><a href="index.html" class="block px-8 py-5 text-gray-800 hover:bg-gray-50">Início</a></li>
+          <li class="border-b border-gray-100"><a href="properties.html" class="block px-8 py-5 text-gray-800 hover:bg-gray-50">Empreendimentos</a></li>
+          <li class="border-b border-gray-100"><a href="simulador.html" class="block px-8 py-5 text-primary bg-gray-50/50">Simulador</a></li>
+          <li class="border-b border-gray-100"><a href="blog.html" class="block px-8 py-5 text-gray-800 hover:bg-gray-50">Blog</a></li>
+          <li class="border-b border-gray-100"><a href="property-details.html" class="block px-8 py-5 text-gray-800 hover:bg-gray-50">Detalhes</a></li>
+          <li class="border-b border-gray-100"><a href="contato.html" class="block px-8 py-5 text-gray-800 hover:bg-gray-50">Contato</a></li>
+          <li><a href="https://wa.me/5511946211111" target="_blank" class="block px-8 py-6 text-[#f35525] font-black uppercase text-xs tracking-widest"><i class="fa fa-calendar mr-2"></i> Agende uma Visita</a></li>
+      </ul>
+  </div>
 </header>
 <main class="max-w-screen-2xl mx-auto px-6 py-12 grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-12 relative z-10">
-    <!-- Sidebar Integrada (Padrão Documento) - MT_LOG (04/2026): Agora no final no mobile -->
-    <aside class="order-2 lg:order-1 lg:col-span-3 bg-slate-950/40 backdrop-blur-3xl rounded-[2rem] p-8 h-fit lg:sticky lg:top-32 border border-white/5 shadow-2xl">
+    <!-- [COMPONENT: SIDEBAR TÉCNICA] - MT_LOG (04/2026) 
+         Oculta em mobile (hidden lg:block) para evitar duplicidade com o Co-Piloto IA 
+         que já gerencia Checklist e Portfolio flutuante em telas pequenas. -->
+    <aside class="hidden lg:block order-2 lg:order-1 lg:col-span-3 bg-slate-950/40 backdrop-blur-3xl rounded-[2rem] p-8 h-fit lg:sticky lg:top-32 border border-white/5 shadow-2xl">
         <div class="mb-10">
             <h2 class="text-xl font-black text-slate-50 font-headline">MT Parceiros</h2>
             <p class="text-xs text-slate-400 font-label tracking-wider uppercase">Inteligência Imobiliária</p>
@@ -481,7 +521,7 @@
                 </div>
                 <div class="flex items-center gap-3 opacity-40 transition-all duration-500" id="sidebar-step-2">
                     <div class="w-6 h-6 rounded-full bg-slate-800 flex items-center justify-center text-[10px] font-bold text-slate-400 transition-colors" id="sidebar-step-2-dot">2</div>
-                    <p class="text-xs text-slate-400 font-medium whitespace-nowrap" id="sidebar-step-2-text">Aprovação Bancária</p>
+                    <p class="text-xs text-slate-400 font-medium whitespace-nowrap" id="sidebar-step-2-text">Selecione um imóvel</p> <!-- MT_LOG (04/2026): Label atualizada para melhor UX -->
                 </div>
                 <div class="flex items-center gap-3 opacity-40 transition-all duration-500" id="sidebar-step-3">
                     <div class="w-6 h-6 rounded-full bg-slate-800 flex items-center justify-center text-[10px] font-bold text-slate-400 transition-colors" id="sidebar-step-3-dot">3</div>
@@ -810,10 +850,12 @@
                             MATCH ALTO <span class="material-symbols-outlined text-[12px]">verified</span>
                         </span>
 </div>
-<!-- Card Principal (Aumentado e Totalmente Redesenhado) -->
-<div class="glass-card rounded-xl overflow-hidden flex flex-col md:flex-row shadow-2xl group transition-all duration-500 border border-white/5 h-[500px]" id="main-match-card">
-<!-- Lado Esquerdo: Imagem + Título (Fica no Topo no Mobile) -->
-<div class="md:w-2/5 relative h-1/2 md:h-full border-r border-white/5">
+<!-- [COMPONENT: CARD DE IMÓVEL IDEAL] - MT_LOG (04/2026)
+      Layout Unificado (Universal Vertical): Imagem no topo e Mapa na base para todas as telas.
+      Otimiza a leitura e a hierarquia de informação do investidor. -->
+<div class="glass-card rounded-2xl overflow-hidden flex flex-col shadow-2xl group transition-all duration-500 border border-white/5 h-auto lg:min-h-[600px]" id="main-match-card">
+<!-- Lado Superior: Imagem + Título -->
+<div class="w-full relative h-[300px] md:h-[400px] border-b border-white/5">
 <img id="main-match-img" alt="Property" class="w-full h-full object-cover transition-all duration-700" src="https://images.unsplash.com/photo-1568605114967-8130f3a36994?q=80&w=2070&auto=format&fit=crop" onerror="this.src='https://images.unsplash.com/photo-1582407947304-fd86f028f716?q=80&w=2070&auto=format&fit=crop'"/>
 <div class="absolute bottom-4 left-4 right-4">
 <div class="bg-white/5 backdrop-blur-sm p-4 rounded-lg border border-white/20 shadow-2xl">
@@ -825,19 +867,20 @@
 </div>
 </div>
 </div>
-<!-- Lado Direito: Mapa + Barra Base -->
-<div class="md:w-3/5 relative flex flex-col h-1/2 md:h-full bg-surface-container/30">
+<!-- Lado Inferior: Mapa + Barra Base -->
+<div class="w-full relative flex flex-col h-[280px] md:h-[350px] bg-surface-container/30">
 <!-- Mapa Superior -->
 <div class="flex-grow relative overflow-hidden" id="match-map-container">
 <div id="real-map" class="w-full h-full z-0"></div> <!-- Mapa Leaflet Real -->
-<div class="absolute top-3 right-3 z-[1000] bg-black/80 p-2 rounded-lg border border-white/10 text-white shadow-xl">
-<p class="text-[8px] uppercase opacity-60 mb-0.5">Valor de Avaliação</p>
-<p class="text-sm font-black text-primary" id="main-match-price">R$ 244mil</p>
 </div>
+<!-- BARRA DE INTELIGÊNCIA UNIVERSAL - MT_LOG (04/2026): 
+      Modelo de 3 colunas (Avaliação, Valorização, Entrega) para Dashboard Financeiro. -->
+<div class="bg-black/40 backdrop-blur-md p-4 md:p-6 border-t border-white/10 flex items-center justify-start gap-4 md:gap-12 overflow-x-auto no-scrollbar">
+<div class="flex flex-col shrink-0">
+<p class="text-[8px] uppercase text-outline font-bold tracking-widest">Avaliação</p>
+<p class="text-sm font-black text-primary" id="main-match-price-uni">R$ ---</p>
 </div>
-<!-- Barra de Inteligência (A Base do Quadro) -->
-<div class="bg-black/40 backdrop-blur-md p-4 border-t border-white/10 flex items-center justify-start gap-8">
-<div class="flex flex-col">
+<div class="flex flex-col border-l border-white/10 pl-4 md:pl-12 shrink-0">
 <p class="text-[8px] uppercase text-outline font-bold tracking-widest">Valorização</p>
 <p class="text-sm font-black text-tertiary" id="main-match-valorizacao">+30% Proj.</p>
 </div>
@@ -954,9 +997,9 @@
 <span class="text-xs text-tertiary" id="score-c1-pts">30% de peso</span>
 </div>
 <div class="h-2 w-full bg-surface-container-highest rounded-full overflow-hidden">
-<div class="h-full bg-tertiary w-[85%] rounded-full shadow-[0_0_10px_rgba(64,225,126,0.4)] transition-all duration-1000" id="bar-renda"></div>
-</div>
-<p class="text-[10px] text-on-surface-variant uppercase tracking-widest" id="bar-renda-status">Capacidade Plena</p>
+<div class="h-full bg-slate-700 w-0 rounded-full transition-all duration-1000" id="bar-renda"></div>
+                    </div>
+                    <p class="text-[10px] text-on-surface-variant uppercase tracking-widest" id="bar-renda-status">Analisando...</p>
 </div>
 <!-- Variable 2: Comprometimento -->
 <div class="space-y-3">
@@ -965,9 +1008,9 @@
 <span class="text-xs text-primary" id="score-c2-pts">20% de peso</span>
 </div>
 <div class="h-2 w-full bg-surface-container-highest rounded-full overflow-hidden">
-<div class="h-full bg-primary w-[28%] rounded-full transition-all duration-1000" id="bar-comprometimento"></div>
-</div>
-<p class="text-[10px] text-on-surface-variant uppercase tracking-widest" id="bar-comp-status">Dentro do limite BACEN</p>
+<div class="h-full bg-slate-700 w-0 rounded-full transition-all duration-1000" id="bar-comprometimento"></div>
+                    </div>
+                    <p class="text-[10px] text-on-surface-variant uppercase tracking-widest" id="bar-comp-status">Analisando...</p>
 </div>
 <!-- Variable 3: Histórico -->
 <div class="space-y-3">
@@ -976,9 +1019,9 @@
 <span class="text-xs text-on-surface-variant" id="score-c3-pts">12% de peso</span>
 </div>
 <div class="h-2 w-full bg-surface-container-highest rounded-full overflow-hidden">
-<div class="h-full bg-on-surface w-[92%] rounded-full opacity-60 transition-all duration-1000" id="bar-historico"></div>
-</div>
-<p class="text-[10px] text-on-surface-variant uppercase tracking-widest" id="bar-hist-status">Excelente histórico</p>
+<div class="h-full bg-slate-700 w-0 rounded-full transition-all duration-1000" id="bar-historico"></div>
+                    </div>
+                    <p class="text-[10px] text-on-surface-variant uppercase tracking-widest" id="bar-hist-status">Analisando...</p>
 </div>
 <!-- Variable 4: Entrada -->
 <div class="space-y-3">
@@ -987,9 +1030,9 @@
 <span class="text-xs text-on-surface-variant" id="score-c4-pts">15% de peso</span>
 </div>
 <div class="h-2 w-full bg-surface-container-highest rounded-full overflow-hidden">
-<div class="h-full bg-on-surface w-[45%] rounded-full opacity-60 transition-all duration-1000" id="bar-entrada"></div>
-</div>
-<p class="text-[10px] text-on-surface-variant uppercase tracking-widest" id="bar-ent-status">Mínimo sugerido atingido</p>
+<div class="h-full bg-slate-700 w-0 rounded-full transition-all duration-1000" id="bar-entrada"></div>
+                    </div>
+                    <p class="text-[10px] text-on-surface-variant uppercase tracking-widest" id="bar-ent-status">Analisando...</p>
 </div>
 <!-- Variable 5: FGTS -->
 <div class="space-y-3">
@@ -998,9 +1041,9 @@
 <span class="text-xs text-on-surface-variant" id="score-c5-pts">15% de peso</span>
 </div>
 <div class="h-2 w-full bg-surface-container-highest rounded-full overflow-hidden">
-<div class="h-full bg-on-surface w-[70%] rounded-full opacity-60 transition-all duration-1000" id="bar-fgts"></div>
-</div>
-<p class="text-[10px] text-on-surface-variant uppercase tracking-widest" id="bar-fgts-status">Saldo disponível</p>
+<div class="h-full bg-slate-700 w-0 rounded-full transition-all duration-1000" id="bar-fgts"></div>
+                    </div>
+                    <p class="text-[10px] text-on-surface-variant uppercase tracking-widest" id="bar-fgts-status">Analisando...</p>
 </div>
 <!-- Variable 6: Idade -->
 <div class="space-y-3">
@@ -1009,9 +1052,9 @@
 <span class="text-xs text-on-surface-variant" id="score-c6-pts">8% de peso</span>
 </div>
 <div class="h-2 w-full bg-surface-container-highest rounded-full overflow-hidden">
-<div class="h-full bg-on-surface w-[100%] rounded-full opacity-60 transition-all duration-1000" id="bar-idade"></div>
-</div>
-<p class="text-[10px] text-on-surface-variant uppercase tracking-widest" id="bar-idade-status">Prazo máximo permitido</p>
+<div class="h-full bg-slate-700 w-0 rounded-full transition-all duration-1000" id="bar-idade"></div>
+                    </div>
+                    <p class="text-[10px] text-on-surface-variant uppercase tracking-widest" id="bar-idade-status">Analisando...</p>
 </div>
 </div>
 </section>
@@ -1183,6 +1226,16 @@
          * valores formatados para os elementos HTML correspondentes.
          */
         let finalScoreValue = 0; // Global para animação
+        window.userHasSelectedProperty = false; // MT_LOG (04/2026): Estado de seleção manual do usuário
+
+        /**
+         * SEGURANÇA DE CÁLCULO (Anti-NaN)
+         * Garante que falhas no cache não exibam erros matemáticos na tela.
+         */
+        function safeFormatRate(val) {
+            if (val === undefined || val === null || isNaN(val)) return "0.00";
+            return (val * 100).toFixed(2);
+        }
 
         /**
          * MOTOR DE INTELIGÊNCIA DINÂMICA (Smart recommendation)
@@ -1253,7 +1306,7 @@
                 'bento-ent-val': formatCurrency(res.entradaTotal),
                 'bento-fin-val': formatCurrency(res.financiamento),
                 'prof-renda': formatCurrency(data.raw.renda),
-                'prof-taxa': (res.taxa * 100).toFixed(2) + '% a.a.',
+                'prof-taxa': safeFormatRate(res.taxa) + '% a.a.',
                 'prof-prazo': res.prazo + ' meses',
                 'prof-parcela': formatCurrency(res.parcela),
                 'prof-imovel-max': formatCurrency(res.valorImovel),
@@ -1286,21 +1339,38 @@
             // --- NOVO: Sincronização das Barras de Score (Variáveis Críticas) ---
             const pts = res.scorePoints || {};
             const barMappings = {
-                'bar-renda': { p: (pts.c1 / 30 * 100), label: 'score-c1-pts', txt: `${pts.c1 || 0}/30 pts`, status: 'bar-renda-status', stTxt: pts.c1 >= 25 ? 'Capacidade Plena' : 'Capacidade Moderada' },
-                'bar-comprometimento': { p: (pts.c2 / 20 * 100), label: 'score-c2-pts', txt: `${pts.c2 || 0}/20 pts`, status: 'bar-comp-status', stTxt: pts.c2 >= 15 ? 'Dentro do Limite' : 'Alerta de Margem' },
-                'bar-fgts': { p: (pts.c3 / 15 * 100), label: 'score-c5-pts', txt: `${pts.c3 || 0}/15 pts`, status: 'bar-fgts-status', stTxt: pts.c3 >= 10 ? 'Saldo Disponível' : 'Saldo Reduzido' },
-                'bar-entrada': { p: (pts.c4 / 15 * 100), label: 'score-c4-pts', txt: `${pts.c4 || 0}/15 pts`, status: 'bar-ent-status', stTxt: pts.c4 >= 10 ? 'Aporte Estratégico' : 'Aporte Mínimo' },
-                'bar-historico': { p: (pts.c5 / 12 * 100), label: 'score-c3-pts', txt: `${pts.c5 || 0}/12 pts`, status: 'bar-hist-status', stTxt: pts.c5 >= 10 ? 'Vínculo Estável' : 'Vínculo Recente' },
-                'bar-idade': { p: (pts.c6 / 8 * 100), label: 'score-c6-pts', txt: `${pts.c6 || 0}/8 pts`, status: 'bar-idade-status', stTxt: pts.c6 >= 6 ? 'Prazo Máximo OK' : 'Prazo Reduzido' }
+                'bar-renda': { p: ((pts.c1 || 0) / 30 * 100), label: 'score-c1-pts', txt: `${pts.c1 || 0}/30 pts`, status: 'bar-renda-status', stTxt: pts.c1 >= 25 ? 'Capacidade Plena' : 'Capacidade Moderada' },
+                'bar-comprometimento': { p: ((pts.c2 || 0) / 20 * 100), label: 'score-c2-pts', txt: `${pts.c2 || 0}/20 pts`, status: 'bar-comp-status', stTxt: pts.c2 >= 15 ? 'Dentro do Limite' : 'Alerta de Margem' },
+                'bar-fgts': { p: ((pts.c3 || 0) / 15 * 100), label: 'score-c5-pts', txt: `${pts.c3 || 0}/15 pts`, status: 'bar-fgts-status', stTxt: pts.c3 >= 10 ? 'Saldo Disponível' : 'Saldo Reduzido' },
+                'bar-entrada': { p: ((pts.c4 || 0) / 15 * 100), label: 'score-c4-pts', txt: `${pts.c4 || 0}/15 pts`, status: 'bar-ent-status', stTxt: pts.c4 >= 10 ? 'Aporte Estratégico' : 'Aporte Mínimo' },
+                'bar-historico': { p: ((pts.c5 || 0) / 12 * 100), label: 'score-c3-pts', txt: `${pts.c5 || 0}/12 pts`, status: 'bar-hist-status', stTxt: pts.c5 >= 10 ? 'Vínculo Estável' : 'Vínculo Recente' },
+                'bar-idade': { p: ((pts.c6 || 0) / 8 * 100), label: 'score-c6-pts', txt: `${pts.c6 || 0}/8 pts`, status: 'bar-idade-status', stTxt: pts.c6 >= 6 ? 'Prazo Máximo OK' : 'Prazo Reduzido' }
             };
 
             for (const [id, config] of Object.entries(barMappings)) {
                 const bar = document.getElementById(id);
                 const lbl = document.getElementById(config.label);
                 const st = document.getElementById(config.status);
-                if (bar) bar.style.width = (config.p || 0) + '%';
+                
+                if (bar) {
+                    const perc = config.p || 0;
+                    bar.style.width = perc + '%';
+                    
+                    // Lógica de Cores Dinâmicas (MT_LOG 04/2026)
+                    // Reset de cores
+                    bar.classList.remove('bg-slate-700', 'bg-primary', 'bg-tertiary', 'shadow-[0_0_15px_rgba(64,225,126,0.4)]');
+                    
+                    if (perc >= 80) {
+                        bar.classList.add('bg-tertiary', 'shadow-[0_0_15px_rgba(64,225,126,0.4)]');
+                    } else if (perc > 0) {
+                        bar.classList.add('bg-primary');
+                    } else {
+                        bar.classList.add('bg-slate-700');
+                    }
+                }
+
                 if (lbl) lbl.innerText = config.txt;
-                if (st) st.innerText = config.stTxt;
+                if (st) st.innerText = (config.p > 0) ? config.stTxt : "Sob Consulta";
             }
 
             // --- NOVO: Recomendação Dinâmica da IA (Upgrade Smart) ---
@@ -1355,7 +1425,7 @@
             const mcmvParMobile = document.getElementById('comp-mcmv-par-mobile');
             const detMcmvPar = document.getElementById('det-mcmv-parcela');
             
-            const taxaMcmvTxt = (res.fullResults.taxaAnualMCMV * 100).toFixed(2) + "% + TR";
+            const taxaMcmvTxt = safeFormatRate(res.fullResults.taxaAnualMCMV) + "% + TR";
             const parMcmvTxt = formatCurrency(res.parcela);
 
             if (mcmvTaxaEl) mcmvTaxaEl.innerText = taxaMcmvTxt;
@@ -1376,7 +1446,7 @@
             const sbpeParMobile = document.getElementById('comp-sbpe-par-mobile');
             const detSbpePar = document.getElementById('det-sbpe-parcela');
 
-            const taxaSbpeTxt = (sbpeData.taxa * 100).toFixed(2) + "% + TR";
+            const taxaSbpeTxt = safeFormatRate(sbpeData.taxa) + "% + TR";
             const parSbpeTxt = formatCurrency(sbpeData.parcela);
 
             if (sbpeTaxaEl) sbpeTaxaEl.innerText = taxaSbpeTxt;
@@ -1391,8 +1461,8 @@
             if (preParEl) {
                 const taxaPre = 0.1150;
                 const prazoPre = 300;
-                const potencialFin = res.fullResults.potencial;
-                const pPre = Math.round((potencialFin / prazoPre) + (potencialFin * (taxaPre/12)));
+                const potencialFin = res.fullResults.potencial || 0;
+                const pPre = Math.round((potencialFin / (prazoPre || 1)) + (potencialFin * (taxaPre/12)));
                 preParEl.innerText = formatCurrency(pPre);
                 if (preParMobile) preParMobile.innerText = formatCurrency(pPre);
             }
@@ -1658,9 +1728,10 @@
          * Seleciona os 4 melhores imóveis ou os 4 mais baratos.
          */
         let currentMatches = [];
-        let slideIndex = 0;
-        let slideshowTimer = null;
+        let currentSlide = 0;
+        let slideshowTimer;
         let slideshowPaused = false;
+        let slideshowTerminated = false; // MT_LOG (04/2026): Impede o reinício pós-interação manual
 
         function initMatchIA(poderCompra) {
             if (typeof EMPREENDIMENTOS === 'undefined') {
@@ -1702,22 +1773,30 @@
         }
 
         function startSlideshow() {
+            if (slideshowTerminated) return;
             if (slideshowTimer) clearInterval(slideshowTimer);
             slideshowTimer = setInterval(() => {
-                if (!slideshowPaused) {
-                    slideIndex = (slideIndex + 1) % Math.min(4, currentMatches.length);
-                    selectProperty(currentMatches[slideIndex].nome, true);
-                }
+                if (slideshowPaused || slideshowTerminated) return;
+                currentSlide = (currentSlide + 1) % currentMatches.length;
+                selectProperty(currentMatches[currentSlide].nome, true);
+                updateDots();
             }, 5000);
         }
 
+        function stopSlideshowPermanently() {
+            slideshowTerminated = true;
+            if (slideshowTimer) {
+                clearInterval(slideshowTimer);
+                slideshowTimer = null;
+            }
+            console.log("Slideshow encerrado permanentemente.");
+        }
+
         window.stopSlideshow = function() { 
-            slideshowPaused = true; 
-            if (slideshowTimer) clearInterval(slideshowTimer);
-            console.log("Slideshow interrompido pelo usuário.");
+            stopSlideshowPermanently();
         }
         window.resumeSlideshow = function() { 
-            if (!slideshowPaused) return; // Se ja estiver rodando
+            if (slideshowTerminated) return;
             slideshowPaused = false; 
             startSlideshow();
         }
@@ -1782,18 +1861,29 @@
         }
 
         window.selectProperty = function(name, isSlideshow = false) {
-            const emp = EMPREENDIMENTOS.find(e => e.nome === name);
-            if (!emp) return;
+            let emp = EMPREENDIMENTOS.find(e => e.nome === name);
+            
+            // Caso Especial: Seleção Manual de "A ser definido"
+            if (name === 'A ser definido') {
+                emp = {
+                    nome: 'A ser definido',
+                    bairro: 'Consultar Especialista',
+                    preco: 'Sob Consulta',
+                    entrega: 'Análise em Tempo Real',
+                    imagem: 'assets/images/busca-manual.jpg'
+                };
+            }
 
+            if (!emp) return;
+            
             if (!isSlideshow) {
-                slideshowPaused = true;
-                if (slideshowTimer) clearInterval(slideshowTimer);
+                stopSlideshowPermanently();
             }
 
             const dna = window.getPropertyDNA ? window.getPropertyDNA(emp.nome) : { valor: 9.2 };
             const projection = (window.MT_Utils && window.MT_Utils.calculateFutureValue) 
                 ? window.MT_Utils.calculateFutureValue(emp.nome, dna.valor) 
-                : { rendimentoPerc: "30" };
+                : { rendimentoPerc: "30", lucroFmt: "Consultar" };
 
             // Atualizar UI Cabeçalho/Imagem
             const mainImg = document.getElementById('main-match-img');
@@ -1802,16 +1892,43 @@
             const mainLoc = document.getElementById('main-match-location');
             
             if (mainImg) {
-                mainImg.src = emp.imagem;
-                mainImg.onerror = () => { mainImg.src = 'https://images.unsplash.com/photo-1568605114967-8130f3a36994?q=80&w=2070&auto=format&fit=crop'; };
+                mainImg.style.opacity = '0';
+                setTimeout(() => {
+                    mainImg.src = emp.imagem;
+                    mainImg.style.opacity = '1';
+                }, 200);
+                
+                // Fallback de segurança apenas para casos externos
+                if (name !== 'A ser definido') {
+                    mainImg.onerror = () => { mainImg.src = 'https://images.unsplash.com/photo-1568605114967-8130f3a36994?q=80&w=2070&auto=format&fit=crop'; };
+                } else {
+                    // Para o busca-manual, se falhar, usa o backup premium da Unsplash
+                    mainImg.onerror = () => { mainImg.src = 'https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=2072&auto=format&fit=crop'; };
+                }
             }
+
+            /* 
+               MT_LOG (04/2026): SINCRONIZAÇÃO DE DADOS FINANCEIROS 
+               Atualiza o preço universal (main-match-price-uni) e as tags de suporte,
+               garantindo que o layout vertical reflita a seleção do investidor em tempo real.
+            */
+            let formattedPrice = "";
+            if (name === 'A ser definido') {
+                formattedPrice = 'Sob Consulta';
+            } else {
+                const priceVal = parsePreco(emp.preco);
+                formattedPrice = (window.MT_Utils && window.MT_Utils.formatCurrency) 
+                    ? window.MT_Utils.formatCurrency(priceVal).replace(",00", "") 
+                    : "R$ " + emp.preco;
+            }
+
+            const priceUniEl = document.getElementById('main-match-price-uni');
+            if (priceUniEl) priceUniEl.innerText = formattedPrice;
+
+            const priceEl = document.getElementById('main-match-price');
+            if (priceEl) priceEl.innerText = formattedPrice;
+
             if (mainTitle) mainTitle.textContent = emp.nome;
-            if (mainPrice) {
-                const priceValue = parsePreco(emp.preco);
-                mainPrice.textContent = (window.MT_Utils && window.MT_Utils.formatCurrency) 
-                    ? window.MT_Utils.formatCurrency(priceValue).replace(",00", "") 
-                    : 'R$ ' + emp.preco;
-            }
             if (mainLoc) mainLoc.innerHTML = `<span class="material-symbols-outlined text-[14px]">location_on</span> ${emp.bairro}`;
 
             // Ativar/Atualizar Mapa Real
@@ -1848,6 +1965,9 @@
                2. Auto-retração do Drawer de portfólio após seleção manual.
             */
             if (!isSlideshow) {
+                // Registrar que o usuário fez uma escolha ativa para a jornada do Co-Piloto
+                window.userHasSelectedProperty = true;
+
                 // Ativar visualmente o Passo 3 na Sidebar
                 const step3 = document.getElementById('sidebar-step-3');
                 const step3Dot = document.getElementById('sidebar-step-3-dot');
@@ -1934,13 +2054,21 @@ Dossiê de Viabilidade - Relatório Técnico:
         window.aprovarDossie = function(tipo) {
             sendDossieLeadToGoogleSheets();
             
+            // MT_LOG (04/2026): Registra a seleção como finalizada para o Co-Piloto
+            window.userHasSelectedProperty = true;
+            if (window.syncSmartFloater) window.syncSmartFloater();
+
             const selectedProperty = document.getElementById('match-property-sidebar')?.innerText || 'imóvel selecionado';
+            const rendaFam = document.getElementById('prof-renda')?.innerText || '--';
+            const imovelSugeridoVal = document.getElementById('prof-imovel-max')?.innerText || '--';
+            const enquadramento = document.getElementById('viability-enquadramento')?.innerText || '--';
+
             let customMsg = "";
             
             if (tipo === 'limpo') {
-                 customMsg = `Olá! Acabei de finalizar meu Dossiê do Investidor e selecionei o imóvel ${selectedProperty}. Gostaria de seguir com a aprovação oficial de crédito.`;
+                 customMsg = `Olá, finalizei meu Dossiê IA MT Parceiros.\n\n*Renda Familiar*: ${rendaFam}\n*Enquadramento*: ${enquadramento}\n*Imóvel*: ${selectedProperty}\n\nGostaria de seguir com a aprovação oficial!`;
             } else {
-                 customMsg = `Olá, finalizei meu Dossiê IA MT Parceiros.\n\n📌 Imóvel: ${selectedProperty}\n📌 Score IA: ${document.getElementById('score-value')?.innerText || '--'}/100\n\nGostaria de validar os próximos passos!`;
+                 customMsg = `Olá, finalizei meu Dossiê IA MT Parceiros.\n\n*Renda Familiar*: ${rendaFam}\n*Imóvel Sugerido*: ${imovelSugeridoVal}\n*Enquadramento*: ${enquadramento}\n*Imóvel*: ${selectedProperty}\n\nGostaria de validar os próximos passos!`;
             }
             
             window.open(`https://wa.me/5511946211111?text=${encodeURIComponent(customMsg)}`, '_blank');
@@ -1985,7 +2113,8 @@ Dossiê de Viabilidade - Relatório Técnico:
             const propertySelected = currentProperty !== 'Apto 2 Dorms' && 
                                    currentProperty !== 'Escolha um Imóvel' && 
                                    currentProperty !== 'Selecione um empreendimento' &&
-                                   currentProperty.trim() !== '';
+                                   currentProperty.trim() !== '' || 
+                                   currentProperty === 'A ser definido';
             
             const label = document.getElementById('pilot-step-label');
             const msg = document.getElementById('pilot-step-msg');
@@ -2001,12 +2130,12 @@ Dossiê de Viabilidade - Relatório Técnico:
                     btn.classList.add('bg-primary', 'text-on-primary');
                 }
                 floater.classList.remove('expanded');
-            } else if (!propertySelected || document.getElementById('match-property-sidebar')?.innerText === 'Apto 2 Dorms') {
+            } else if (!window.userHasSelectedProperty) {
                 currentStep = 2;
                 if (label) label.innerText = "Passo 2: Selecione o Imóvel";
-                if (msg) msg.innerText = "Não encontrou? Clique em Outro";
+                if (msg) msg.innerText = "Conheça o Portfólio Homologado";
                 if (btn) { 
-                    btn.innerText = "Expandir"; 
+                    btn.innerText = "Ver Portfólio"; 
                     btn.classList.remove('animate-bounce');
                     btn.classList.add('bg-tertiary', 'text-on-tertiary');
                 }
@@ -2038,35 +2167,63 @@ Dossiê de Viabilidade - Relatório Técnico:
             }
         }
 
-        function renderPilotPortfolio() {
+        function renderPilotPortfolio(filterQuery = "") {
             const pilotGrid = document.getElementById('pilot-portfolio-grid');
             if (!pilotGrid) return;
-            let html = "";
-            const list = window.currentMatches || [];
             
-            list.slice(0, 4).forEach(emp => {
+            const query = filterQuery.toLowerCase();
+            const list = filterQuery 
+                ? EMPREENDIMENTOS.filter(e => e.nome.toLowerCase().includes(query) || e.bairro.toLowerCase().includes(query)).slice(0, 4)
+                : (currentMatches || []);
+                
+            const topMatch = list[0] || { nome: 'Seu Perfil Ideal', entrega: 'Lazer completo' };
+            
+            let html = `
+            <!-- HEADER RECOMENDADO (HERO) - MT_LOG (04/2026) -->
+            <div class="mb-6 pt-2">
+                <p class="text-primary font-bold text-[8px] uppercase tracking-[0.2em] mb-1">Perfil Recomendado</p>
+                <h4 class="text-white font-bold text-xl mb-1">${topMatch.nome}</h4>
+                <div class="flex items-center gap-2 text-tertiary">
+                     <span class="material-symbols-outlined text-[14px]">check_circle</span>
+                     <span class="text-[10px] font-medium">Lazer completo</span>
+                </div>
+                <div class="h-px bg-white/10 w-full my-6"></div>
+                ${!filterQuery ? '<p class="text-white/40 font-bold text-[8px] uppercase tracking-wider mb-4">Sugestões de Patrimônio:</p>' : ''}
+            </div>`;
+
+            list.forEach((emp, idx) => {
+                const dna = window.getPropertyDNA ? window.getPropertyDNA(emp.nome) : { valor: 9.2 };
+                const projection = window.MT_Utils && window.MT_Utils.calculateFutureValue ? window.MT_Utils.calculateFutureValue(emp.nome, dna.valor) : { lucroFmt: "Consultar" };
+                const isMaster = !filterQuery && idx === 0;
+
+                const priceFmt = (window.MT_Utils && window.MT_Utils.formatCurrency) 
+                    ? window.MT_Utils.formatCurrency(parsePreco(emp.preco))
+                    : "R$ " + emp.preco;
+
                 html += `
-                <div class="bg-white/5 p-4 rounded-xl flex items-center gap-4 active:scale-95 transition-transform" onclick="selectProperty('${emp.nome.replace(/'/g, "\\'")}'); document.getElementById('mt-mobile-pilot').classList.remove('expanded');">
-                    <img src="${emp.imagem}" class="w-14 h-14 object-cover rounded-lg" onerror="this.src='https://images.unsplash.com/photo-1568605114967-8130f3a36994?q=80&w=2070&auto=format&fit=crop'">
-                    <div class="flex-1 overflow-hidden">
-                        <h6 class="text-[11px] font-bold text-white truncate">${emp.nome}</h6>
-                        <p class="text-[9px] text-gray-400">${emp.bairro}</p>
+                <div class="glass-card p-4 rounded-xl cursor-pointer hover:border-primary/50 transition-all group relative" onclick="selectProperty('${emp.nome.replace(/'/g, "\\'")}'); document.getElementById('mt-mobile-pilot').classList.remove('expanded');">
+                    ${isMaster ? '<span class="absolute -top-2 -left-2 bg-primary text-on-primary text-[8px] font-bold px-2 py-1 rounded-md z-10 shadow-lg">RECOMENDAÇÃO MASTER</span>' : ''}
+                    <img src="${emp.imagem}" class="w-full h-24 object-cover rounded-lg mb-3 grayscale group-hover:grayscale-0 transition-all" onerror="this.src='https://images.unsplash.com/photo-1568605114967-8130f3a36994?q=80&w=2070&auto=format&fit=crop'">
+                    <h5 class="text-xs font-bold truncate text-white">${emp.nome}</h5>
+                    <p class="text-[10px] text-outline mb-2">${emp.bairro}</p>
+                    <div class="flex justify-between items-center border-t border-white/5 pt-2">
+                        <span class="text-[10px] text-tertiary font-bold">${priceFmt}</span>
+                        <span class="text-[9px] text-primary">+ ${projection.lucroFmt} Lucro</span>
                     </div>
-                    <span class="material-symbols-outlined text-[14px] text-primary">arrow_forward_ios</span>
                 </div>`;
             });
 
-            // Opção "Outro" solicitada pelo usuário
+            // 5º Elemento: Opção "Outros" (Falar com Especialista)
             html += `
-            <div class="bg-primary/10 p-4 rounded-xl flex items-center gap-4 active:scale-95 transition-transform border border-primary/30" onclick="window.aprovarDossie('ia'); document.getElementById('mt-mobile-pilot').classList.remove('expanded');">
-                <div class="w-14 h-14 bg-primary/20 rounded-lg flex items-center justify-center text-primary">
-                    <span class="material-symbols-outlined text-2xl">add_circle</span>
+            <div class="glass-card p-6 rounded-xl flex flex-col items-center justify-center gap-3 border-2 border-dashed border-primary/20 hover:border-primary/50 transition-all group cursor-pointer" 
+                 onclick="selectProperty('A ser definido')">
+                <div class="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center group-hover:scale-110 transition-transform">
+                    <span class="material-symbols-outlined text-primary text-3xl">add_home</span>
                 </div>
-                <div class="flex-1 overflow-hidden">
-                    <h6 class="text-[11px] font-bold text-white">Outro Empreendimento</h6>
-                    <p class="text-[9px] text-gray-400">Clique para falar com um consultor</p>
+                <div class="text-center">
+                    <p class="text-xs font-bold uppercase text-white">Outras Opções</p>
+                    <p class="text-[9px] text-outline mt-1">Não encontrou o imóvel ideal? Fale com um especialista.</p>
                 </div>
-                <span class="material-symbols-outlined text-[14px] text-primary">whatsapp</span>
             </div>`;
 
             pilotGrid.innerHTML = html;
@@ -2090,7 +2247,14 @@ Dossiê de Viabilidade - Relatório Técnico:
                 observer.observe(hSection);
             }
             // Sincronia inicial após pequeno delay para garantir hidratação total
-            setTimeout(syncSmartFloater, 1500);
+            setTimeout(() => {
+                // FALLBACK: Se não houver dados no cache, carrega matches genéricos (250k) para não deixar o balão vazio
+                if (!currentMatches || currentMatches.length === 0) {
+                    console.log("MT Logic: Simulando Match IA de Fallback (Dossiê vazio)");
+                    if (window.initMatchIA) window.initMatchIA(250000);
+                }
+                syncSmartFloater();
+            }, 1500);
         });
 
         // Hooks para sincronização em tempo real
@@ -2106,4 +2270,42 @@ Dossiê de Viabilidade - Relatório Técnico:
             syncSmartFloater();
         };
     </script>
-</body></html>
+<script>
+    // --- LÓGICA DE MENU MOBILE (v3 FIDELITY) ---
+    document.addEventListener('DOMContentLoaded', () => {
+        const trigger = document.getElementById('mobile-menu-trigger');
+        const menu = document.getElementById('mobile-menu');
+        const line1 = document.getElementById('line1');
+        const line2 = document.getElementById('line2');
+        const line3 = document.getElementById('line3');
+        let isOpen = false;
+
+        if (trigger && menu) {
+            trigger.addEventListener('click', () => {
+                isOpen = !isOpen;
+                
+                if (isOpen) {
+                    // Abrir Menu
+                    menu.classList.remove('-translate-y-full', 'opacity-0', 'pointer-events-none');
+                    menu.classList.add('translate-y-0', 'opacity-100');
+                    
+                    // Transformar Hambúrguer em X
+                    line1.style.transform = 'translateY(8px) rotate(45deg)';
+                    line2.style.opacity = '0';
+                    line3.style.transform = 'translateY(-8px) rotate(-45deg)';
+                } else {
+                    // Fechar Menu
+                    menu.classList.add('-translate-y-full', 'opacity-0', 'pointer-events-none');
+                    menu.classList.remove('translate-y-0', 'opacity-100');
+                    
+                    // Voltar Hambúrguer ao normal
+                    line1.style.transform = 'none';
+                    line2.style.opacity = '1';
+                    line3.style.transform = 'none';
+                }
+            });
+        }
+    });
+</script>
+</body>
+</html>
