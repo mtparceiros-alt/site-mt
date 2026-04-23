@@ -435,6 +435,27 @@
             #mt-main-header .w-11 { width: 32px !important; height: 32px !important; }
             #mt-main-header .material-symbols-outlined { font-size: 16px !important; }
         }
+        /* 
+           MT_LOG (04/2026): ESTILOS DO CRONOGRAMA INTERATIVO (ACCORDION)
+        */
+        .timeline-content {
+            display: grid;
+            grid-template-rows: 0fr;
+            transition: grid-template-rows 500ms cubic-bezier(0.4, 0, 0.2, 1), opacity 400ms ease;
+            opacity: 0;
+        }
+        .timeline-expanded .timeline-content {
+            grid-template-rows: 1fr;
+            opacity: 1;
+            margin-top: 1.5rem;
+        }
+        .timeline-inner {
+            overflow: hidden;
+        }
+        .timeline-card-active {
+            border-color: rgba(255, 181, 160, 0.4) !important;
+            box-shadow: 0 0 30px rgba(255, 181, 160, 0.1) !important;
+        }
     </style>
 </head>
 <body class="text-on-surface selection:bg-primary/30">
@@ -521,11 +542,11 @@
                 </div>
                 <div class="flex items-center gap-3 opacity-40 transition-all duration-500" id="sidebar-step-2">
                     <div class="w-6 h-6 rounded-full bg-slate-800 flex items-center justify-center text-[10px] font-bold text-slate-400 transition-colors" id="sidebar-step-2-dot">2</div>
-                    <p class="text-xs text-slate-400 font-medium whitespace-nowrap" id="sidebar-step-2-text">Selecione um imóvel</p> <!-- MT_LOG (04/2026): Label atualizada para melhor UX -->
+                    <p class="text-xs text-slate-400 font-medium whitespace-nowrap" id="sidebar-step-2-text">Escolha da Unidade</p>
                 </div>
                 <div class="flex items-center gap-3 opacity-40 transition-all duration-500" id="sidebar-step-3">
                     <div class="w-6 h-6 rounded-full bg-slate-800 flex items-center justify-center text-[10px] font-bold text-slate-400 transition-colors" id="sidebar-step-3-dot">3</div>
-                    <p class="text-xs text-slate-400 font-medium whitespace-nowrap" id="sidebar-step-3-text">Escolha da Unidade</p>
+                    <p class="text-xs text-slate-400 font-medium whitespace-nowrap" id="sidebar-step-3-text">Aprovar Agora</p>
                 </div>
             </div>
         </div>
@@ -819,22 +840,81 @@
     Explicativo sobre o comportamento das parcelas durante a obra vs pós-chaves.
     Deve permanecer no corpo principal (Passo 1) e não na Sidebar.
 -->
-<div class="glass-card p-6 rounded-xl relative overflow-hidden group border border-primary/10 shadow-lg mt-2 w-full">
-<div class="flex items-start gap-4">
-<div class="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center text-primary shrink-0">
-<span class="material-symbols-outlined text-3xl">timeline</span>
-</div>
-<div class="space-y-1">
-<p class="text-[10px] uppercase tracking-widest text-outline font-bold">Cronograma de Investimento</p>
-<h4 class="text-xl font-bold text-slate-100">Fluxo de Pagamento</h4>
-<p class="text-[11px] text-on-surface-variant leading-relaxed text-slate-400">
-                                    Durante a <span class="text-primary font-bold">Obra</span>, você paga apenas a Entrada Parcelada e a Evolução. O pagamento do <span class="text-tertiary font-bold">Financiamento Bancário</span> só começa após a entrega das chaves.
-                                </p>
-</div>
-</div>
-<div class="absolute -right-4 -bottom-4 opacity-5 group-hover:opacity-10 transition-opacity">
-<span class="material-symbols-outlined text-8xl">info</span>
-</div>
+<div id="fluxo-card-container" onclick="toggleTimeline()" class="glass-card p-6 rounded-xl relative overflow-hidden group border border-primary/10 shadow-lg mt-2 w-full cursor-pointer hover:bg-white/5 transition-all">
+    <div class="flex items-start justify-between">
+        <div class="flex items-start gap-4">
+            <div class="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center text-primary shrink-0 transition-transform group-hover:scale-110">
+                <span class="material-symbols-outlined text-3xl">timeline</span>
+            </div>
+            <div class="space-y-1">
+                <p class="text-[10px] uppercase tracking-widest text-outline font-bold">Cronograma de Investimento</p>
+                <h4 class="text-xl font-bold text-slate-100">Fluxo de Pagamento</h4>
+                <p class="text-[11px] text-on-surface-variant leading-relaxed text-slate-400 max-w-lg">
+                    Durante a <span class="text-primary font-bold">Obra</span>, você paga apenas a Entrada e Evolução. O <span class="text-tertiary font-bold">Financiamento</span> só começa após as chaves.
+                </p>
+            </div>
+        </div>
+        <div class="flex flex-col items-end gap-2">
+            <span class="text-[10px] text-primary font-bold uppercase tracking-widest bg-primary/10 px-3 py-1 rounded-full">Clique para detalhar</span>
+            <span id="timeline-chevron" class="material-symbols-outlined text-primary transition-transform duration-500">expand_more</span>
+        </div>
+    </div>
+
+    <!-- Conteúdo Expansível (Timeline Detalhada) -->
+    <div class="timeline-content">
+        <div class="timeline-inner">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 border-t border-white/5 pt-6">
+                <!-- Fase Obra -->
+                <div class="bg-surface-container-low/50 p-4 rounded-2xl border border-white/5 space-y-3">
+                    <div class="flex items-center gap-3">
+                        <div class="w-8 h-8 rounded-lg bg-primary/20 flex items-center justify-center text-primary">
+                            <span class="material-symbols-outlined text-xl">construction</span>
+                        </div>
+                        <div>
+                            <p class="text-[10px] uppercase font-bold text-outline">Durante a Obra</p>
+                            <p class="text-sm font-bold text-slate-100">Desembolso Mensal Real</p>
+                        </div>
+                    </div>
+                    <div class="space-y-2">
+                        <div class="flex justify-between items-center text-[11px]">
+                            <span class="text-slate-400">Entrada + Evolução (Média):</span>
+                            <span class="font-bold text-primary" id="val-timeline-obra">R$ 0.000</span>
+                        </div>
+                        <div class="h-1.5 w-full bg-slate-800 rounded-full overflow-hidden">
+                            <div class="h-full bg-primary w-[40%] rounded-full"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Fase Chaves -->
+                <div class="bg-surface-container-low/50 p-4 rounded-2xl border border-white/5 space-y-3">
+                    <div class="flex items-center gap-3">
+                        <div class="w-8 h-8 rounded-lg bg-tertiary/20 flex items-center justify-center text-tertiary">
+                            <span class="material-symbols-outlined text-xl">vpn_key</span>
+                        </div>
+                        <div>
+                            <p class="text-[10px] uppercase font-bold text-outline">Após as Chaves</p>
+                            <p class="text-sm font-bold text-slate-100">Parcela Bancária Fixa</p>
+                        </div>
+                    </div>
+                    <div class="space-y-2">
+                        <div class="flex justify-between items-center text-[11px]">
+                            <span class="text-slate-400">Financiamento Estimado:</span>
+                            <span class="font-bold text-tertiary" id="val-timeline-chaves">R$ 0.000</span>
+                        </div>
+                        <div class="h-1.5 w-full bg-slate-800 rounded-full overflow-hidden">
+                            <div class="h-full bg-tertiary w-[100%] rounded-full"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <p class="text-[10px] text-slate-500 italic mt-4 text-center">Valores baseados na simulação técnica #<span id="sim-id-timeline">---</span></p>
+        </div>
+    </div>
+
+    <div class="absolute -right-4 -bottom-4 opacity-5 group-hover:opacity-10 transition-opacity pointer-events-none">
+        <span class="material-symbols-outlined text-8xl">insights</span>
+    </div>
 </div>
 </div>
 </div>
@@ -1094,7 +1174,7 @@
                         <div class="hidden md:block text-tertiary" id="comp-mcmv-taxa">4.5% a 7.0%</div>
                         <div class="hidden md:block" id="comp-mcmv-par">R$ 1.850,00</div>
                         
-                        <div class="absolute right-6 top-6 md:static col-span-3 md:col-span-2 text-right md:text-center">
+                        <div id="actions-mcmv" class="absolute right-6 top-6 md:static col-span-3 md:col-span-2 text-right md:text-center flex items-center justify-end md:justify-center gap-3">
                             <span class="material-symbols-outlined text-primary transition-transform group-open:rotate-180">expand_more</span>
                         </div>
                     </summary>
@@ -1137,7 +1217,7 @@
                         <div class="hidden md:block text-tertiary font-bold" id="comp-sbpe-taxa">9.2% + TR</div>
                         <div class="hidden md:block font-bold" id="comp-sbpe-par">R$ 2.450,00</div>
                         
-                        <div class="absolute right-6 top-6 md:static col-span-3 md:col-span-2 text-right md:text-center">
+                        <div id="actions-sbpe" class="absolute right-6 top-6 md:static col-span-3 md:col-span-2 text-right md:text-center flex items-center justify-end md:justify-center gap-3">
                             <span class="material-symbols-outlined text-primary transition-transform group-open:rotate-180">expand_more</span>
                         </div>
                     </summary>
@@ -1178,7 +1258,7 @@
                         <div class="hidden md:block text-tertiary" id="comp-sbpe-pre-taxa">11.5% Fixo</div>
                         <div class="hidden md:block" id="comp-sbpe-pre-par">R$ 3.120,00</div>
                         
-                        <div class="absolute right-6 top-6 md:static col-span-3 md:col-span-2 text-right md:text-center">
+                        <div id="actions-sbpe-pre" class="absolute right-6 top-6 md:static col-span-3 md:col-span-2 text-right md:text-center flex items-center justify-end md:justify-center gap-3">
                             <span class="material-symbols-outlined text-primary transition-transform group-open:rotate-180">expand_more</span>
                         </div>
                     </summary>
@@ -1313,9 +1393,12 @@
                 'bento-vgv-top': 'VGV: ' + formatCurrency(res.valorImovel),
                 'score-value': '000', // Será animado
                 'simulation-id': res.id,
+                'sim-id-timeline': res.id,
                 'val-parcela-entrada': res.fullResults.parcelaEntrada > 0 ? `36x de ${formatCurrency(res.fullResults.parcelaEntrada)}` : "100% Coberta",
                 'val-evolucao-obra': formatCurrency(res.parcela * 0.3), // Estimativa técnica (30% da parcela)
                 'val-pos-chaves': formatCurrency(res.parcela),
+                'val-timeline-obra': formatCurrency(res.fullResults.parcelaEntrada + (res.parcela * 0.3)),
+                'val-timeline-chaves': formatCurrency(res.parcela),
                 'viability-enquadramento': res.fullResults.foraDoMCMV ? "SBPE / Mercado" : (res.fullResults.faixaMCMV + " / Econômico")
             };
             
@@ -1481,20 +1564,22 @@
             }
 
             // --- NOVO: Automação de Recomendação (Passo 4) ---
-            const badgeHtml = `<span class="bg-primary text-on-primary text-[10px] px-2 py-0.5 rounded-full uppercase scale-in-center">Indicado</span>`;
+            const badgeHtml = `<span class="absolute right-2 md:right-4 top-1/2 -translate-y-1/2 bg-primary text-on-primary text-[10px] px-2 py-0.5 rounded-full uppercase scale-in-center shadow-lg z-10">Indicado</span>`;
             const rowMcmv = document.getElementById('row-mcmv');
             const rowSbpe = document.getElementById('row-sbpe');
-            const titleMcmv = document.getElementById('title-mcmv');
-            const titleSbpe = document.getElementById('title-sbpe');
 
             if (res.fullResults.foraDoMCMV) {
-                if (rowSbpe) rowSbpe.setAttribute('open', '');
-                if (titleSbpe) titleSbpe.insertAdjacentHTML('beforeend', badgeHtml);
-                if (rowSbpe) rowSbpe.querySelector('summary').classList.add('bg-primary/5');
+                if (rowSbpe) {
+                    rowSbpe.setAttribute('open', '');
+                    rowSbpe.querySelector('summary').insertAdjacentHTML('beforeend', badgeHtml);
+                    rowSbpe.querySelector('summary').classList.add('bg-primary/5');
+                }
             } else {
-                if (rowMcmv) rowMcmv.setAttribute('open', '');
-                if (titleMcmv) titleMcmv.insertAdjacentHTML('beforeend', badgeHtml);
-                if (rowMcmv) rowMcmv.querySelector('summary').classList.add('bg-primary/5');
+                if (rowMcmv) {
+                    rowMcmv.setAttribute('open', '');
+                    rowMcmv.querySelector('summary').insertAdjacentHTML('beforeend', badgeHtml);
+                    rowMcmv.querySelector('summary').classList.add('bg-primary/5');
+                }
             }
             // --- NOVO: Inicialização do Motor de Match (Passo 2) ---
             if (typeof initMatchIA === 'function') {
@@ -2072,6 +2157,25 @@ Dossiê de Viabilidade - Relatório Técnico:
             }
             
             window.open(`https://wa.me/5511946211111?text=${encodeURIComponent(customMsg)}`, '_blank');
+        };
+
+        // --- NOVO: LÓGICA DO CRONOGRAMA INTERATIVO ---
+        window.toggleTimeline = function() {
+            const container = document.getElementById('fluxo-card-container');
+            const chevron = document.getElementById('timeline-chevron');
+            
+            if (container) {
+                container.classList.toggle('timeline-expanded');
+                container.classList.toggle('timeline-card-active');
+            }
+            
+            if (chevron) {
+                if (container.classList.contains('timeline-expanded')) {
+                    chevron.style.transform = 'rotate(180deg)';
+                } else {
+                    chevron.style.transform = 'rotate(0deg)';
+                }
+            }
         };
     </script>
 
