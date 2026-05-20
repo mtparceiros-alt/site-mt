@@ -7,8 +7,8 @@
 <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;family=Manrope:wght@400;500;600;700&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
 <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
-<script src="empreendimentos.js"></script>
-<script src="assets/js/dna-data.min.js"></script>
+    <script src="empreendimentos.js?v=6.0"></script>
+    <script src="assets/js/simulator-core.min.js?v=6.0"></script>
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
 <script id="tailwind-config">
@@ -80,385 +80,169 @@
             },
         }
     </script>
-<style>
-        body { font-family: 'Manrope', sans-serif; background-color: #081325; scroll-behavior: smooth; }
-        h1, h2, h3, .font-headline { font-family: 'Plus Jakarta Sans', sans-serif; }
-        .font-label { font-family: 'Inter', sans-serif; }
-        .glass-card {
-            background: rgba(21, 32, 50, 0.6);
-            backdrop-filter: blur(24px);
-            border: 1px solid rgba(69, 71, 76, 0.15);
+    <link rel="stylesheet" href="assets/css/dossie-v5.css">
+    <style>
+        /* [ANIMATIONS] */
+        @keyframes pulse-red {
+            0% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.7); }
+            70% { box-shadow: 0 0 0 15px rgba(239, 68, 68, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0); }
         }
-        /* Custom Leaflet overrides */
-        .leaflet-container { background: #081325 !important; }
-        .leaflet-bar { border: none !important; box-shadow: 0 4px 12px rgba(0,0,0,0.3) !important; }
-        .leaflet-control-zoom a { background-color: rgba(30, 41, 59, 0.8) !important; color: white !important; border-bottom: 1px solid rgba(255,255,255,0.1) !important; }
-        .leaflet-control-attribution { background: rgba(0,0,0,0.4) !important; color: rgba(255,255,255,0.5) !important; font-size: 8px !important; }
-        @keyframes pulse-soft {
-            0%, 100% { opacity: 1; transform: scale(1); }
-            50% { opacity: 0.7; transform: scale(0.98); }
+        .btn-pulse-alert { 
+            animation: pulse-red 2s infinite !important;
         }
-        .pulse-badge {
-            animation: pulse-soft 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
-        }
-        /* 
-           MT_LOG (04/2026): Ajuste do Gauge de Score IA. 
-           Circunferência exata para R=110 (2 * PI * 110 = 691.15).
-        */
-        .gauge-ring {
-            stroke-dasharray: 691;
-            transition: stroke-dashoffset 2s ease-out;
-        }
-        .fade-in-section {
-            opacity: 0;
-            transform: translateY(20px);
-            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
-        }
-        .fade-in-section.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-        details summary::-webkit-details-marker { display: none; }
-        .neon-green { color: #40e17e; }
-        .bg-neon-green { background-color: #40e17e; }
 
-        /* Flip Card Logic */
-        .perspective { perspective: 1000px; }
-        .flip-card-inner {
-            transition: transform 0.6s;
-            transform-style: preserve-3d;
+        /* PADRONIZAÇÃO DOS PASSOS (SIDEBAR) - MT_LOG (05/2026) */
+        #sidebar-step-2.active, #sidebar-step-3.active { opacity: 1 !important; }
+        #sidebar-step-2.active > div:first-child, #sidebar-step-3.active > div:first-child { 
+            background-color: #ffb5a0 !important; /* Primary Padronizado */
+            color: #601500 !important; /* On-Primary */
+            box-shadow: 0 4px 15px rgba(255, 181, 160, 0.3) !important;
         }
-        .flip-card:hover .flip-card-inner {
-            transform: rotateY(180deg);
+        #sidebar-step-2.active p:first-of-type, #sidebar-step-3.active p:first-of-type { 
+            color: #f8fafc !important; /* Slate-50 */
         }
-        .flip-card-front, .flip-card-back {
-            backface-visibility: hidden;
+        /* Estilo Premium dos Botões Numerados 1-4 */
+        #match-carousel-dots {
+            margin-top: 2.5rem;
+            margin-bottom: 1.5rem;
+            display: flex;
+            justify-content: center;
+            gap: 1.2rem;
         }
-        .flip-card-back {
-            transform: rotateY(180deg);
+
+        #match-carousel-dots button {
+            width: 46px !important;
+            height: 46px !important;
+            border-radius: 50% !important;
+            border: 2px solid rgba(255, 255, 255, 0.08) !important;
+            background: rgba(15, 23, 42, 0.9) !important;
+            color: rgba(255, 255, 255, 0.4) !important;
+            font-weight: 900 !important;
+            font-size: 20px !important;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) !important; /* Efeito Bounce */
+            cursor: pointer !important;
+            display: flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            backdrop-filter: blur(12px) !important;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.4) !important;
+            position: relative;
+        }
+
+        #match-carousel-dots button:hover {
+            border-color: rgba(243, 85, 37, 0.6) !important;
+            color: white !important;
+            transform: translateY(-4px) !important;
+            box-shadow: 0 8px 25px rgba(243, 85, 37, 0.2) !important;
+        }
+
+        /* ESTADO ATIVO: O BRILHO LARANJA VIBRANTE */
+        #match-carousel-dots button.active {
+            background: linear-gradient(135deg, #ff7a00, #f35525) !important; /* Laranja Vibrante MT */
+            color: white !important;
+            border-color: #ffffff !important;
+            box-shadow: 0 0 35px rgba(243, 85, 37, 0.9), 0 0 10px rgba(243, 85, 37, 0.5) !important;
+            transform: scale(1.25) !important;
+            z-index: 20 !important;
         }
         
-        /* IA Super Card Specific Responsive Logic */
-        @media (max-width: 768px) {
-            .ia-super-card-inner {
-                transform-style: preserve-3d;
-                transition: transform 0.7s;
-            }
-            .ia-super-card-container:hover .ia-super-card-inner,
-            .ia-super-card-container:active .ia-super-card-inner {
-                transform: rotateY(180deg);
-            }
-            .ia-super-card-front, .ia-super-card-back {
-                backface-visibility: hidden;
-                position: absolute;
-                inset: 0;
-            }
-            .ia-super-card-back {
-                transform: rotateY(180deg);
-            }
-        }
-        @media (min-width: 769px) {
-            .ia-super-card-container {
-                perspective: none;
-            }
-            .ia-super-card-inner {
-                transform: none !important;
-                display: grid;
-                grid-template-columns: repeat(12, minmax(0, 1fr));
-                gap: 1.5rem;
-            }
-            .ia-super-card-front, .ia-super-card-back {
-                position: relative !important;
-                transform: none !important;
-                backface-visibility: visible !important;
-                width: auto !important;
-                height: auto !important;
-            }
-        }
-        .scale-in-center {
-            animation: scale-in-center 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
-        }
-
-        /* NEW: Button Shimmer & Pulse Animations */
-        @keyframes shimmer {
-            0% { background-position: -200% 0; }
-            100% { background-position: 200% 0; }
-        }
-        .animate-shimmer {
-            background: linear-gradient(90deg, #25D366 25%, #4ade80 50%, #25D366 75%);
-            background-size: 200% 100%;
-            animation: shimmer 3s infinite linear;
-        }
-        @keyframes pulse-wa {
-            0% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.6); }
-            70% { box-shadow: 0 0 0 15px rgba(37, 211, 102, 0); }
-            100% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0); }
-        }
-        .btn-pulse { animation: pulse-wa 2s infinite; }
-        /* Lead Modal CSS */
-        .mt-lead-modal-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.75);
-            backdrop-filter: blur(8px);
-            -webkit-backdrop-filter: blur(8px);
-            z-index: 9999;
-            display: none;
-            align-items: center;
-            justify-content: center;
-            opacity: 0;
-            transition: opacity 0.3s ease;
-        }
-        .mt-lead-modal-overlay.active {
-            display: flex;
-            opacity: 1;
-        }
-        .mt-lead-modal-content {
-            background: rgba(30, 30, 30, 0.85);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 20px;
-            width: 90%;
-            max-width: 420px;
-            padding: 40px 30px;
-            text-align: center;
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
-            position: relative;
-            transform: translateY(20px);
-            transition: transform 0.4s cubic-bezier(0.23, 1, 0.32, 1);
-        }
-        .mt-lead-modal-overlay.active .mt-lead-modal-content {
-            transform: translateY(0);
-        }
-        .mt-lead-modal-close {
+        /* [ANIMAÇÃO] Efeito de Pulso: Mantém o foco visual no imóvel selecionado */
+        #match-carousel-dots button.active::after {
+            content: '';
             position: absolute;
-            top: 15px;
-            right: 20px;
-            color: rgba(255, 255, 255, 0.5);
-            font-size: 24px;
-            cursor: pointer;
-            transition: color 0.2s;
-        }
-        .mt-lead-modal-close:hover { color: #fff; }
-        .mt-lead-icon-container { margin-bottom: 25px; }
-        .mt-lead-icon-container video {
-            width: 60px;
-            height: 60px;
+            inset: -4px;
             border-radius: 50%;
-            box-shadow: 0 0 20px rgba(243, 85, 37, 0.4);
-        }
-        .mt-lead-modal-content h3 { color: #fff; font-size: 1.5rem; font-weight: 700; margin-bottom: 10px; }
-        .mt-lead-modal-content p { color: rgba(255, 255, 255, 0.7); font-size: 0.95rem; margin-bottom: 30px; }
-        .mt-lead-form { display: flex; flex-direction: column; gap: 15px; }
-        .mt-lead-input {
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 12px;
-            padding: 14px 20px;
-            color: #fff;
-            font-size: 0.95rem;
-            transition: all 0.2s;
-        }
-        .mt-lead-input:focus { outline: none; border-color: #f35525; background: rgba(255, 255, 255, 0.1); }
-        .mt-lead-submit {
-            background: #f35525;
-            color: #fff;
-            border: none;
-            border-radius: 12px;
-            padding: 15px;
-            font-weight: 700;
-            font-size: 1rem;
-            cursor: pointer;
-            transition: all 0.3s;
-            margin-top: 10px;
-        }
-        .mt-lead-submit:hover { background: #e04a1d; transform: translateY(-2px); box-shadow: 0 5px 15px rgba(243, 85, 37, 0.4); }
-        /* WhatsApp Floating Button CSS */
-        @keyframes heartbeat {
-            0% { transform: scale(1); }
-            14% { transform: scale(1.12); }
-            28% { transform: scale(1); }
-            42% { transform: scale(1.07); }
-            56% { transform: scale(1); }
-            100% { transform: scale(1); }
-        }
-        .whatsapp-float {
-            position: fixed;
-            width: 180px;
-            bottom: 40px;
-            right: 40px;
-            z-index: 1000;
-            transition: transform .2s ease-in-out, filter 0.3s ease;
-            animation: heartbeat 2.4s ease-in-out infinite;
-        }
-        .whatsapp-float:hover {
-            animation: none;
-            transform: scale(1.15);
-            filter: drop-shadow(0 6px 16px rgba(37,211,102,0.55));
-        }
-        .whatsapp-float img {
-            width: 100%;
-            height: auto;
-        }
-        @media (max-width: 768px) {
-            .whatsapp-float {
-                width: 140px;
-                bottom: 20px;
-                right: 20px;
-            }
+            border: 2px solid #f35525;
+            animation: dot-pulse 2s infinite;
+            opacity: 0;
         }
 
-        /* 
-           MT_LOG (04/2026): ESTILOS DO CO-PILOTO IA (MOBILE BALLOON)
-           Design minimalista com suporte a expansão "Cascata".
-        */
-        #mt-mobile-pilot {
+        @keyframes dot-pulse {
+            0% { transform: scale(1); opacity: 0.8; }
+            100% { transform: scale(1.4); opacity: 0; }
+        }
+
+        /* [COCKPIT: TARGET REACHED GLOW] - MT_LOG (05/2026) */
+        .target-marker.target-reached .target-marker-label {
+            background: linear-gradient(135deg, #40e17e 0%, #22c55e 100%) !important;
+            box-shadow: 0 0 25px rgba(64, 225, 126, 0.7), 0 5px 15px rgba(0,0,0,0.4) !important;
+            color: #081325 !important;
+            transform: scale(1.1);
+        }
+        .target-marker.target-reached .target-marker-pin {
+            background: #40e17e !important;
+            box-shadow: 0 0 15px rgba(64, 225, 126, 0.9) !important;
+            height: 20px;
+        }
+        /* [SMART TOAST SYSTEM] - V7.5 Surgical Injection */
+        #smart-toast-container {
             position: fixed;
-            top: 105px;
-            left: 50%;
-            transform: translateX(-50%) translateY(-150%);
-            width: 90%;
-            max-width: 400px;
-            z-index: 40;
-            background: rgba(15, 23, 42, 0.7);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 181, 160, 0.2);
-            border-radius: 24px;
-            padding: 12px 16px;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.4);
-            transition: all 0.5s cubic-bezier(0.19, 1, 0.22, 1);
+            top: 24px;
+            right: 24px;
+            z-index: 10000;
             display: flex;
             flex-direction: column;
             gap: 12px;
-            overflow: hidden;
+            pointer-events: none;
+        }
+        .smart-toast {
+            background: rgba(15, 23, 42, 0.95);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(239, 68, 68, 0.3);
+            border-left: 4px solid #ef4444;
+            padding: 16px 20px;
+            border-radius: 16px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            min-width: 340px;
+            max-width: 420px;
+            animation: slideInRight 0.5s cubic-bezier(0.16, 1, 0.3, 1);
             pointer-events: auto;
         }
-        #mt-mobile-pilot.visible {
-            transform: translateX(-50%) translateY(0);
+        .smart-toast.fade-out {
+            animation: fadeOut 0.4s forwards;
         }
-        #mt-mobile-pilot.expanded {
-            max-height: 80vh;
-            border-color: rgba(255, 181, 160, 0.5);
+        .smart-toast-icon {
+            color: #ef4444;
+            font-size: 28px !important;
         }
-        .pilot-header {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            width: 100%;
-            cursor: pointer;
+        /* Success Variant */
+        .smart-toast.success {
+            border-color: rgba(64, 225, 126, 0.3);
+            border-left-color: #40e17e;
         }
-        /* 
-           MT_LOG (04/2026): LIMPEZA DE ÍCONE CO-PILOTO 
-           Removido fundo sólido e sombra para destacar apenas o GIF animado (32px), 
-           criando um efeito de "esfera flutuante" mais profissional.
-        */
-        .pilot-icon-pulse {
-            width: 32px;
-            height: 32px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+        .smart-toast.success .smart-toast-icon {
+            color: #40e17e;
         }
-        .pilot-icon-pulse img {
-            width: 32px;
-            height: 32px;
-            object-fit: contain;
-        }
-        .pilot-content {
-            flex: 1;
-        }
-        .pilot-title {
-            font-size: 10px;
+        .smart-toast-content h4 {
+            color: #f8fafc;
             font-weight: 800;
-            text-transform: uppercase;
-            color: #ffb5a0;
-            letter-spacing: 0.1em;
+            font-size: 14px;
             margin-bottom: 2px;
-        }
-        .pilot-msg {
-            font-size: 12px;
-            font-weight: 600;
-            color: #fff;
-        }
-        .pilot-action-btn {
-            background: #ffb5a0;
-            color: #3b0900;
-            padding: 6px 12px;
-            border-radius: 12px;
-            font-size: 10px;
-            font-weight: 800;
             text-transform: uppercase;
+            letter-spacing: 0.5px;
         }
-        .pilot-cascade-container {
-            max-height: 0;
-            overflow-y: auto;
-            transition: max-height 0.5s ease;
-            scrollbar-width: thin;
-            scrollbar-color: #ffb5a0 transparent;
-            padding-right: 4px; /* Espaço para a barra não colar no card */
+        .smart-toast-content p {
+            color: #94a3b8;
+            font-size: 12px;
+            line-height: 1.4;
         }
-        /* Custom Scrollbar Premium (The Floating Pill) */
-        .pilot-cascade-container::-webkit-scrollbar {
-            width: 4px;
+        @keyframes slideInRight {
+            from { transform: translateX(100%) scale(0.9); opacity: 0; }
+            to { transform: translateX(0) scale(1); opacity: 1; }
         }
-        .pilot-cascade-container::-webkit-scrollbar-track {
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: 10px;
-            margin: 8px 0;
-        }
-        .pilot-cascade-container::-webkit-scrollbar-thumb {
-            background: linear-gradient(180deg, #ffb5a0, #40e17e);
-            border-radius: 20px;
-            box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
-        }
-        .expanded .pilot-cascade-container {
-            max-height: 60vh;
-            padding-top: 12px;
-            border-top: 1px solid rgba(255,255,255,0.05);
-        }
-        @media (min-width: 769px) {
-            #mt-mobile-pilot { display: none !important; }
-        }
-
-        /* 
-           MT_LOG (04/2026): OTIMIZAÇÃO HEADER MOBILE 
-           Ajusta o espaçamento para evitar quebra de layout em telas < 480px.
-        */
-        @media (max-width: 480px) {
-            #mt-main-header { height: 80px !important; }
-            #mt-main-header nav { padding-left: 1rem !important; padding-right: 1rem !important; }
-            #mt-main-header .text-[22px] { font-size: 18px !important; letter-spacing: 0.05em !important; }
-            #mt-main-header .bg-[#1e1e1e] { padding-right: 1rem !important; font-size: 10px !important; gap: 8px !important; }
-            #mt-main-header .w-11 { width: 32px !important; height: 32px !important; }
-            #mt-main-header .material-symbols-outlined { font-size: 16px !important; }
-        }
-        /* 
-           MT_LOG (04/2026): ESTILOS DO CRONOGRAMA INTERATIVO (ACCORDION)
-        */
-        .timeline-content {
-            display: grid;
-            grid-template-rows: 0fr;
-            transition: grid-template-rows 500ms cubic-bezier(0.4, 0, 0.2, 1), opacity 400ms ease;
-            opacity: 0;
-        }
-        .timeline-expanded .timeline-content {
-            grid-template-rows: 1fr;
-            opacity: 1;
-            margin-top: 1.5rem;
-        }
-        .timeline-inner {
-            overflow: hidden;
-        }
-        .timeline-card-active {
-            border-color: rgba(255, 181, 160, 0.4) !important;
-            box-shadow: 0 0 30px rgba(255, 181, 160, 0.1) !important;
+        @keyframes fadeOut {
+            from { opacity: 1; transform: scale(1); }
+            to { opacity: 0; transform: scale(0.95); }
         }
     </style>
 </head>
 <body class="text-on-surface selection:bg-primary/30">
+    <!-- [TOAST CONTAINER] - MT_LOG (V7.5) -->
+    <div id="smart-toast-container"></div>
 <!-- [SECTION 1: HEADER & NAVIGATION] -->
 <header id="mt-main-header" class="bg-white sticky top-0 z-50 border-b border-gray-100 shadow-sm h-20 flex items-center">
   <nav class="flex justify-between items-center w-full px-4 max-w-[1320px] mx-auto h-full">
@@ -536,45 +320,53 @@
                 <span class="material-symbols-outlined text-[14px]">stairs</span> Próximos Passos
             </h3>
             <div class="space-y-4">
-                <div class="flex items-center gap-3">
-                    <div class="w-6 h-6 rounded-full bg-primary flex items-center justify-center text-[10px] font-bold text-on-primary shadow-[0_0_15px_rgba(255,181,160,0.3)]">1</div>
-                    <p class="text-xs text-slate-100 font-medium">Validação Documental</p>
+                <!-- Passo 1: Poder de Compra -->
+                <div class="flex items-start gap-4 transition-all duration-500 opacity-100" id="sidebar-step-1">
+                    <div class="w-8 h-8 rounded-full bg-primary text-on-primary flex items-center justify-center shrink-0 font-bold text-xs shadow-lg shadow-primary/20">1</div>
+                    <div class="space-y-1">
+                        <p class="text-[11px] font-bold text-slate-100 uppercase tracking-widest">Passo 1</p>
+                        <p class="text-[10px] text-slate-400 leading-tight">Entenda seu Poder de Compra!</p>
+                    </div>
                 </div>
-                <div class="flex items-center gap-3 opacity-40 transition-all duration-500" id="sidebar-step-2">
-                    <div class="w-6 h-6 rounded-full bg-slate-800 flex items-center justify-center text-[10px] font-bold text-slate-400 transition-colors" id="sidebar-step-2-dot">2</div>
-                    <p class="text-xs text-slate-400 font-medium whitespace-nowrap" id="sidebar-step-2-text">Escolha da Unidade</p>
+
+                <!-- Passo 2: Escolha do Imóvel -->
+                <div class="flex items-start gap-4 transition-all duration-500 opacity-40" id="sidebar-step-2">
+                    <div class="w-8 h-8 rounded-full bg-slate-800 text-slate-400 flex items-center justify-center shrink-0 font-bold text-xs">2</div>
+                    <div class="space-y-1">
+                        <p class="text-[11px] font-bold text-slate-400 uppercase tracking-widest">Passo 2</p>
+                        <p class="text-[10px] text-slate-400 leading-tight">Escolha seu Imóvel Ideal.</p>
+                    </div>
                 </div>
-                <div class="flex items-center gap-3 opacity-40 transition-all duration-500" id="sidebar-step-3">
-                    <div class="w-6 h-6 rounded-full bg-slate-800 flex items-center justify-center text-[10px] font-bold text-slate-400 transition-colors" id="sidebar-step-3-dot">3</div>
-                    <p class="text-xs text-slate-400 font-medium whitespace-nowrap" id="sidebar-step-3-text">Aprovar Agora</p>
+
+                <!-- Passo 3: Aprovação -->
+                <div class="flex items-start gap-4 transition-all duration-500 opacity-40" id="sidebar-step-3">
+                    <div class="w-8 h-8 rounded-full bg-slate-800 text-slate-400 flex items-center justify-center shrink-0 font-bold text-xs" id="sidebar-step-3-dot">3</div>
+                    <div class="space-y-1">
+                        <p class="text-[11px] font-bold text-slate-400 uppercase tracking-widest" id="sidebar-step-3-text">Passo 3</p>
+                        <p class="text-[10px] text-slate-400 leading-tight">Documentação e Aprovação.</p>
+                    </div>
                 </div>
             </div>
         </div>
 
-        <!-- Bloco 2: Matching de Imóvel -->
+        <!-- Bloco 2: Guia de Próxima Ação -->
         <div class="mb-8">
             <h3 class="text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-4 flex items-center gap-2">
-                <span class="material-symbols-outlined text-[14px]">location_city</span> Matching de Imóvel
+                <span class="material-symbols-outlined text-[14px]">auto_awesome</span> Próxima Ação
             </h3>
-            <div class="bg-surface-container-low p-4 rounded-2xl border border-white/5 space-y-3 transition-all duration-500" id="match-card-sidebar">
-                <p class="text-[9px] text-primary font-bold uppercase tracking-tighter" id="match-sidebar-subtitle">Perfil Recomendado</p>
-                <h4 class="text-sm font-bold text-slate-100" id="match-property-sidebar">Apto 2 Dorms</h4>
-                <div class="space-y-1" id="match-sidebar-features">
-                    <div class="flex items-center gap-1.5 text-tertiary">
-                        <span class="material-symbols-outlined text-[12px]">check_circle</span>
-                        <span class="text-[10px] font-medium">Lazer completo</span>
-                    </div>
+            <div class="bg-slate-900/60 p-5 rounded-2xl border border-white/5 space-y-3 transition-all duration-500" id="sidebar-guide-card">
+                <div class="flex items-center gap-2">
+                    <span id="guide-icon" class="material-symbols-outlined text-primary text-lg">search</span>
+                    <p id="guide-title" class="text-[10px] text-primary font-bold uppercase tracking-tighter">Explorar Ativos</p>
                 </div>
-
-                <!-- Drawer de Portfólio (Expandível) -->
+                <p id="guide-msg" class="text-[10px] text-slate-400 leading-relaxed">Analise seu Poder de Compra e selecione um imóvel no item **2. Imóvel Ideal Para Você**.</p>
+                
+                <!-- Drawer de Portfólio (Oculto por padrão no novo Guia) -->
                 <div id="portfolio-drawer" class="hidden flex-col gap-4 border-t border-white/5 pt-4">
                     <p class="text-[8px] text-slate-500 uppercase font-bold">Sugestões de Patrimônio:</p>
-                    <div id="portfolio-grid" class="grid grid-cols-1 gap-3">
-                        <!-- Gerado dinamicamente via JS (initMatchIA) -->
-                    </div>
+                    <div id="portfolio-grid" class="grid grid-cols-1 gap-3"></div>
                 </div>
-
-                <button id="btn-portfolio" onclick="togglePortfolio()" class="w-full bg-slate-800 text-slate-500 text-[9px] font-bold py-2 rounded-lg transition-all uppercase tracking-wider cursor-not-allowed" disabled>Ver Portfólio</button>
+                <button id="btn-portfolio" onclick="togglePortfolio()" class="w-full bg-slate-800 text-slate-500 text-[9px] font-bold py-2 rounded-lg transition-all uppercase tracking-wider cursor-not-allowed hidden" disabled>Ver Portfólio</button>
             </div>
         </div>
 
@@ -602,13 +394,14 @@
                 </div>
                 <!-- Botão Aprovar Dinâmico -->
                 <div id="sidebar-approve-container" class="pt-4 hidden">
-                    <button onclick="aprovarDossie('limpo')" class="w-full bg-tertiary text-on-tertiary text-[10px] font-bold py-3 rounded-xl hover:shadow-[0_0_20px_rgba(64,225,126,0.3)] transition-all animate-bounce">
+                    <button onclick="aprovarDossie('sidebar')" class="w-full bg-tertiary text-on-tertiary text-[10px] font-bold py-3 rounded-xl hover:shadow-[0_0_20px_rgba(64,225,126,0.3)] transition-all animate-bounce">
                         APROVAR AGORA
                     </button>
                 </div>
             </div>
         </div>
     </aside>
+    <!-- [END: SIDEBAR TÉCNICA] -->
 
     <!-- Conteúdo Principal Dinâmico - MT_LOG (04/2026): Primeiro no mobile -->
     <div class="order-1 lg:order-2 lg:col-span-9 space-y-8 lg:space-y-12">
@@ -620,6 +413,7 @@
                 <span class="material-symbols-outlined text-[14px]" style="font-variation-settings: 'FILL' 1;">verified</span>
                 Dossiê do Investidor
             </span>
+
         </div>
         <h1 class="text-4xl md:text-5xl font-extrabold tracking-tight text-on-surface leading-tight max-w-2xl">
             Análise Detalhada: <span class="text-primary italic">Diagnóstico IA</span>
@@ -652,7 +446,7 @@
 <span class="material-symbols-outlined text-tertiary text-2xl md:text-4xl">account_balance_wallet</span>
 <div>
 <p class="text-[10px] md:text-sm text-on-surface-variant font-label mb-1">Subsídio Federal</p>
-<p class="text-base md:text-2xl font-bold font-headline text-tertiary" id="bento-sub-val">R$ 55.000</p>
+<p class="text-base md:text-2xl font-bold font-headline text-tertiary" id="bento-sub-val">R$ 0</p>
 </div>
 </div>
 </div>
@@ -662,7 +456,7 @@
 <span class="material-symbols-outlined text-blue-400 text-2xl md:text-4xl">savings</span>
 <div>
 <p class="text-[10px] md:text-sm text-on-surface-variant font-label mb-1">FGTS</p>
-<p class="text-base md:text-2xl font-bold font-headline text-blue-400" id="bento-fgts-val">R$ 42.500</p>
+<p class="text-base md:text-2xl font-bold font-headline text-blue-400" id="bento-fgts-val">R$ 0</p>
 </div>
 </div>
 </div>
@@ -694,11 +488,11 @@
 <div class="grid grid-cols-2 md:grid-cols-5 divide-x divide-outline-variant/10">
 <div class="p-6 text-center">
 <p class="text-[10px] uppercase tracking-widest text-outline mb-2">Renda Familiar</p>
-<p class="text-lg font-bold" id="prof-renda">R$ 8.500,00</p>
+<p class="text-lg font-bold" id="prof-renda">R$ 0</p>
 </div>
 <div class="p-6 text-center">
 <p class="text-[10px] uppercase tracking-widest text-outline mb-2">Taxa de Juros</p>
-<p class="text-lg font-bold text-tertiary" id="prof-taxa">9.2% a.a.</p>
+<p class="text-lg font-bold text-tertiary" id="prof-taxa">---</p>
 </div>
 <div class="p-6 text-center">
 <p class="text-[10px] uppercase tracking-widest text-outline mb-2">Prazo Máximo</p>
@@ -706,11 +500,11 @@
 </div>
 <div class="p-6 text-center bg-primary/5">
 <p class="text-[10px] uppercase tracking-widest text-primary mb-2">Parcela Est.</p>
-<p class="text-lg font-bold text-primary" id="prof-parcela">R$ 2.450,00</p>
+<p class="text-lg font-bold text-primary" id="prof-parcela">R$ 0</p>
 </div>
 <div class="p-6 text-center bg-tertiary/5 col-span-2 md:col-span-1">
 <p class="text-[10px] uppercase tracking-widest text-tertiary mb-2">Imóvel Sugerido</p>
-<p class="text-lg font-bold text-tertiary" id="prof-imovel-max">R$ 510.000,00</p>
+<p class="text-lg font-bold text-tertiary" id="prof-imovel-max">R$ 0</p>
 </div>
 </div>
 </div>
@@ -765,13 +559,14 @@
 <h2 class="text-sm font-bold tracking-[0.4em] uppercase text-outline">Plano de Viabilidade Mapeado</h2>
 <span class="h-px flex-1 bg-outline-variant/20"></span>
 </div>
-<div class="grid grid-cols-1 lg:grid-cols-2 gap-10">
+<div class="grid grid-cols-1 gap-10">
+<!-- [START: MODULO 1 - PLANO DE FLUXO ORGANIZADO] -->
 <!-- 1. Plano de Fluxo Organizado -->
 <div class="space-y-6">
-<h3 class="text-xl font-bold font-headline flex items-center gap-2">
-<span class="material-symbols-outlined text-primary">account_tree</span>
-                        1. Plano de Fluxo Organizado
-                    </h3>
+            <h3 id="main-step1-title" class="text-xl font-bold font-headline flex items-center gap-2 transition-all duration-500">
+                <span class="material-symbols-outlined text-primary">account_tree</span>
+                1. Plano de Fluxo Organizado
+            </h3>
 <div class="grid grid-cols-1 gap-4">
 <!-- Enquadramento Card -->
 <div class="glass-card p-6 rounded-2xl relative overflow-hidden group">
@@ -840,25 +635,28 @@
     Explicativo sobre o comportamento das parcelas durante a obra vs pós-chaves.
     Deve permanecer no corpo principal (Passo 1) e não na Sidebar.
 -->
-<div id="fluxo-card-container" onclick="toggleTimeline()" class="glass-card p-6 rounded-xl relative overflow-hidden group border border-primary/10 shadow-lg mt-2 w-full cursor-pointer hover:bg-white/5 transition-all">
-    <div class="flex items-start justify-between">
-        <div class="flex items-start gap-4">
-            <div class="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center text-primary shrink-0 transition-transform group-hover:scale-110">
-                <span class="material-symbols-outlined text-3xl">timeline</span>
-            </div>
-            <div class="space-y-1">
-                <p class="text-[10px] uppercase tracking-widest text-outline font-bold">Cronograma de Investimento</p>
-                <h4 class="text-xl font-bold text-slate-100">Fluxo de Pagamento</h4>
-                <p class="text-[11px] text-on-surface-variant leading-relaxed text-slate-400 max-w-lg">
-                    Durante a <span class="text-primary font-bold">Obra</span>, você paga apenas a Entrada e Evolução. O <span class="text-tertiary font-bold">Financiamento</span> só começa após as chaves.
-                </p>
-            </div>
-        </div>
-        <div class="flex flex-col items-end gap-2">
-            <span class="text-[10px] text-primary font-bold uppercase tracking-widest bg-primary/10 px-3 py-1 rounded-full">Clique para detalhar</span>
-            <span id="timeline-chevron" class="material-symbols-outlined text-primary transition-transform duration-500">expand_more</span>
-        </div>
-    </div>
+                        <div id="btn-abrir-fluxo" onclick="toggleTimeline()" class="glass-card p-6 rounded-xl relative overflow-hidden group border border-primary/10 shadow-lg mt-2 w-full cursor-pointer hover:bg-white/5 transition-all">
+                            <div class="flex items-start justify-between">
+                                <div class="flex items-start gap-4">
+                                    <div class="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center text-primary shrink-0 transition-transform group-hover:scale-110">
+                                        <span class="material-symbols-outlined text-3xl">timeline</span>
+                                    </div>
+                                    <div class="space-y-1">
+                                        <p class="text-[10px] uppercase tracking-widest text-outline font-bold">Cronograma de Investimento</p>
+                                        <h4 class="text-xl font-bold text-slate-100">Fluxo de Pagamento</h4>
+                                        <p class="text-[11px] text-on-surface-variant leading-relaxed text-slate-400 max-w-lg">
+                                            Durante a <span class="text-primary font-bold">Obra</span>, você paga apenas a Entrada e Evolução. O <span class="text-tertiary font-bold">Financiamento</span> só começa após as chaves.
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="flex flex-col items-end gap-2">
+                                    <div id="fluxo-status-label" class="bg-tertiary/20 text-tertiary text-[8px] font-bold px-3 py-1 rounded-full flex items-center gap-1 shadow-sm">
+                                        <span id="fluxo-cadeado-icon" class="material-symbols-outlined text-[12px]">verified_user</span>
+                                        Liberado: Ver Cronograma
+                                    </div>
+                                    <span id="timeline-chevron" class="material-symbols-outlined text-primary transition-transform duration-500">expand_more</span>
+                                </div>
+                            </div>
 
     <!-- Conteúdo Expansível (Timeline Detalhada) -->
     <div class="timeline-content">
@@ -912,83 +710,410 @@
         </div>
     </div>
 
-    <div class="absolute -right-4 -bottom-4 opacity-5 group-hover:opacity-10 transition-opacity pointer-events-none">
-        <span class="material-symbols-outlined text-8xl">insights</span>
-    </div>
-</div>
-</div>
-</div>
+    </div> <!-- End Fluxo Card -->
+</div> <!-- End Module 1 space-y-6 -->
+<!-- [END: MODULO 1] -->
 
-            <!-- 2. Imóvel Ideal Para Você -->
-<div class="space-y-6">
-<div class="flex justify-between items-center">
-<h3 class="text-xl font-bold font-headline flex items-center gap-2">
-<span class="material-symbols-outlined text-primary">apartment</span>
-                            2. Imóvel Ideal Para Você
-                        </h3>
-<span class="bg-tertiary/10 text-tertiary text-[10px] font-bold px-3 py-1 rounded border border-tertiary/30 flex items-center gap-1">
-                            MATCH ALTO <span class="material-symbols-outlined text-[12px]">verified</span>
-                        </span>
-</div>
-<!-- [COMPONENT: CARD DE IMÓVEL IDEAL] - MT_LOG (04/2026)
-      Layout Unificado (Universal Vertical): Imagem no topo e Mapa na base para todas as telas.
-      Otimiza a leitura e a hierarquia de informação do investidor. -->
-<div class="glass-card rounded-2xl overflow-hidden flex flex-col shadow-2xl group transition-all duration-500 border border-white/5 h-auto lg:min-h-[600px]" id="main-match-card">
-<!-- Lado Superior: Imagem + Título -->
-<div class="w-full relative h-[300px] md:h-[400px] border-b border-white/5">
-<img id="main-match-img" alt="Property" class="w-full h-full object-cover transition-all duration-700" src="https://images.unsplash.com/photo-1568605114967-8130f3a36994?q=80&w=2070&auto=format&fit=crop" onerror="this.src='https://images.unsplash.com/photo-1582407947304-fd86f028f716?q=80&w=2070&auto=format&fit=crop'"/>
-<div class="absolute bottom-4 left-4 right-4">
-<div class="bg-white/5 backdrop-blur-sm p-4 rounded-lg border border-white/20 shadow-2xl">
-<p class="text-[10px] uppercase tracking-widest text-primary font-black mb-1 drop-shadow-md">Recomendação IA</p>
-<h4 class="text-xl font-bold text-white mb-1 drop-shadow-md" id="main-match-title">Vivaz Connection Adolfo Pinheiro</h4>
-<p class="text-xs text-white flex items-center gap-1 drop-shadow-md" id="main-match-location">
-<span class="material-symbols-outlined text-[14px]">location_on</span> Santo Amaro, São Paulo
-                                    </p>
-</div>
-</div>
-</div>
-<!-- Lado Inferior: Mapa + Barra Base -->
-<div class="w-full relative flex flex-col h-[280px] md:h-[350px] bg-surface-container/30">
-<!-- Mapa Superior -->
-<div class="flex-grow relative overflow-hidden" id="match-map-container">
-<div id="real-map" class="w-full h-full z-0"></div> <!-- Mapa Leaflet Real -->
-</div>
-<!-- BARRA DE INTELIGÊNCIA UNIVERSAL - MT_LOG (04/2026): 
-      Modelo de 3 colunas (Avaliação, Valorização, Entrega) para Dashboard Financeiro. -->
-<div class="bg-black/40 backdrop-blur-md p-4 md:p-6 border-t border-white/10 flex items-center justify-start gap-4 md:gap-12 overflow-x-auto no-scrollbar">
-<div class="flex flex-col shrink-0">
-<p class="text-[8px] uppercase text-outline font-bold tracking-widest">Avaliação</p>
-<p class="text-sm font-black text-primary" id="main-match-price-uni">R$ ---</p>
-</div>
-<div class="flex flex-col border-l border-white/10 pl-4 md:pl-12 shrink-0">
-<p class="text-[8px] uppercase text-outline font-bold tracking-widest">Valorização</p>
-<p class="text-sm font-black text-tertiary" id="main-match-valorizacao">+30% Proj.</p>
-</div>
-<div class="flex flex-col border-l border-white/10 pl-8">
-<p class="text-[8px] uppercase text-outline font-bold tracking-widest">Status / Entrega</p>
-<p class="text-sm font-black text-white" id="main-match-status">Nov/2026</p>
-</div>
-</div>
-</div>
-</div>
-                    <!-- Indicadores do Carrossel (Dots) -->
-                    <div class="flex justify-center gap-3 py-3" id="match-carousel-dots">
-                        <button onclick="selectPropertyByIndex(0)" class="w-2 h-2 rounded-full bg-primary shadow-[0_0_8px_rgba(255,181,160,0.5)] transition-all duration-300" aria-label="Imóvel 1"></button>
-                        <button onclick="selectPropertyByIndex(1)" class="w-2 h-2 rounded-full bg-white/20 hover:bg-white/40 transition-all duration-300" aria-label="Imóvel 2"></button>
-                        <button onclick="selectPropertyByIndex(2)" class="w-2 h-2 rounded-full bg-white/20 hover:bg-white/40 transition-all duration-300" aria-label="Imóvel 3"></button>
-                        <button onclick="selectPropertyByIndex(3)" class="w-2 h-2 rounded-full bg-white/20 hover:bg-white/40 transition-all duration-300" aria-label="Imóvel 4"></button>
+<!-- [START: MODULO 2 - IMÓVEL IDEAL PARA VOCÊ] -->
+<div class="space-y-6 reveal-up" id="module-2-container">
+    <div class="flex justify-between items-center">
+        <h3 class="text-xl font-bold font-headline flex items-center gap-2">
+            <span class="material-symbols-outlined text-primary">apartment</span>
+            2. Imóvel Ideal Para Você
+        </h3>
+        <span class="bg-[#0a1428] text-primary text-[10px] font-black px-4 py-1.5 rounded-full border border-primary/30 flex items-center gap-2 shadow-lg uppercase tracking-widest" id="curadoria-ia-badge">
+            <span class="material-symbols-outlined text-[14px]">analytics</span>
+            <span id="curadoria-count">04</span> Opções Encontradas
+        </span>
+    </div>
+    
+    <!-- [COMPONENT: CARD DE IMÓVEL IDEAL] -->
+    <div class="glass-card premium-glass neon-border-soft hover-lift rounded-2xl overflow-hidden flex flex-col shadow-2xl group transition-all duration-500 border border-white/5 h-auto lg:min-h-[600px] cursor-grab active:cursor-grabbing" id="main-match-card">
+        
+        <!-- [ESTADO: AGUARDANDO ESCOLHA (RADAR IA)] -->
+        <div id="property-waiting-state" class="w-full flex flex-grow flex-col items-center justify-center p-8 text-center space-y-6 min-h-[500px]">
+            <div class="relative">
+                <div class="absolute inset-0 bg-primary/20 blur-[60px] rounded-full animate-pulse"></div>
+                <img src="assets/images/bola_laranja.gif" alt="IA Radar" class="w-48 h-48 md:w-64 md:h-64 object-contain relative z-10">
+            </div>
+            <div class="space-y-3 max-w-md">
+                <h4 class="text-2xl md:text-3xl font-black font-headline text-white tracking-tight">Pronto para o Próximo Passo?</h4>
+                <p class="text-sm text-slate-400 leading-relaxed">
+                    Nossa IA mapeou os <span class="text-primary font-bold">4 ativos</span> com melhor performance para seu perfil. Analise cada opção abaixo.
+                </p>
+                <div class="bg-primary/10 border border-primary/20 rounded-2xl p-4 mt-6">
+                    <p class="text-[10px] uppercase font-black tracking-widest text-primary mb-1">Engenharia Automática</p>
+                    <p class="text-[11px] text-slate-300">Ao selecionar, todos os cálculos de fluxo e match serão adaptados instantaneamente ao imóvel.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- [ESTADO: ATIVO (DADOS DO IMÓVEL)] -->
+        <div id="property-active-content" class="hidden flex-col h-full">
+            <!-- Lado Superior: Imagem + Título -->
+            <div class="w-full relative h-[300px] md:h-[400px] border-b border-white/5">
+                <!-- Selo de Status Flutuante (Premium) -->
+                <div id="property-status-badge" class="property-status-badge">
+                    <span id="ps-badge-icon" class="material-symbols-outlined">warning</span>
+                    <span id="ps-badge-text">Analisando...</span>
+                </div>
+                
+                <img id="main-match-img" alt="Property" class="w-full h-full object-cover transition-all duration-700" src=""/>
+                <div class="absolute bottom-4 left-4 right-4">
+                    <div class="bg-white/5 backdrop-blur-sm p-4 rounded-lg border border-white/20 shadow-2xl">
+                        <p class="text-[10px] uppercase tracking-widest text-primary font-black mb-1 drop-shadow-md">Recomendação IA</p>
+                        <h4 class="text-xl font-bold text-white mb-1 drop-shadow-md" id="main-match-title">---</h4>
+                        <p class="text-xs text-white flex items-center gap-1 drop-shadow-md" id="main-match-location">
+                            <span class="material-symbols-outlined text-[14px]">location_on</span> ---
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <!-- Lado Inferior: Mapa + Barra Base -->
+            <div class="w-full relative flex flex-col h-[280px] md:h-[350px] bg-surface-container/30">
+                <div class="flex-grow relative overflow-hidden" id="match-map-container">
+                    <div id="real-map" class="w-full h-full z-0"></div>
+                </div>
+                <div class="bg-black/40 backdrop-blur-md p-4 md:p-6 border-t border-white/10 flex items-center justify-start gap-4 md:gap-12 overflow-x-auto no-scrollbar">
+                    <div class="flex flex-col shrink-0">
+                        <p class="text-[8px] uppercase text-outline font-bold tracking-widest">Investimento</p>
+                        <p class="text-sm font-black text-primary" id="main-match-price-uni">R$ ---</p>
+                    </div>
+                    <div class="flex flex-col border-l border-white/10 pl-4 md:pl-12 shrink-0">
+                        <p class="text-[8px] uppercase text-outline font-bold tracking-widest">Valorização</p>
+                        <p class="text-sm font-black text-tertiary" id="main-match-valorizacao">+30% Proj.</p>
+                    </div>
+                    <div class="flex flex-col border-l border-white/10 pl-8">
+                        <p class="text-[8px] uppercase text-outline font-bold tracking-widest">Status / Entrega</p>
+                        <p class="text-sm font-black text-white" id="main-match-status">---</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Indicadores do Carrossel (Dots) -->
+    <!-- Navegação Numerada (Imóveis 1-4) -->
+    <div class="flex justify-center gap-4 py-4" id="match-carousel-dots">
+        <button onclick="selectPropertyByIndex(0)">1</button>
+        <button onclick="selectPropertyByIndex(1)">2</button>
+        <button onclick="selectPropertyByIndex(2)">3</button>
+        <button onclick="selectPropertyByIndex(3)">4</button>
+    </div>
+
+    <!-- [BOTÃO: EXPLORAR PORTFÓLIO GLASS PILL] -->
+    <button onclick="openPortfolioModal()" class="mt-4 mb-2 text-[10px] uppercase font-black tracking-[0.2em] text-primary/80 hover:text-primary transition-all flex items-center gap-2 mx-auto py-3 px-8 rounded-full bg-white/5 border border-white/10 hover:bg-white/10 hover:border-primary/30 shadow-lg backdrop-blur-sm group">
+        <span class="material-symbols-outlined text-sm group-hover:rotate-90 transition-transform duration-500">grid_view</span> 
+        Explorar Todos os Empreendimentos
+    </button>
+
+    <div class="w-24 h-px bg-white/10 mx-auto my-4"></div>
+
+    <!-- [SECTION: COCKPIT UNIFICADO V5] - MT_LOG (04/2026) -->
+    <!-- Este cockpit é modular: Módulo 1 (Jornada) e Módulo 2 (Fluxo) são independentes -->
+    <div class="flex flex-col items-center justify-center py-4">
+        <!-- [BOTÃO 1: AJUSTE DE PERFIL] -->
+        <button onclick="toggleJornadaAccordion()" id="btn-open-jornada" class="group relative overflow-hidden bg-primary text-on-primary font-black px-12 py-7 rounded-full uppercase tracking-widest text-[13px] shadow-[0_12px_48px_rgba(255,181,160,0.4)] hover:scale-105 transition-all flex items-center gap-3 mb-4">
+            <span class="material-symbols-outlined text-2xl animate-bounce">rocket_launch</span>
+            Ajustar Perfil para este Imóvel
+            <div class="absolute inset-0 bg-white/10 -translate-x-full group-hover:translate-x-0 transition-transform duration-700"></div>
+        </button>
+
+        <!-- [ACORDEÃO 1: COCKPIT DE ESTRATÉGIA] -->
+        <div id="strategy-accordion-jornada" class="strategy-accordion w-full max-w-4xl">
+            <div class="strategy-inner">
+                <div class="glass-card p-6 md:p-8 rounded-[2.5rem] border border-white/10 shadow-2xl space-y-8 mt-4 mb-8">
+                    <!-- NEW: Cabeçalho Dinâmico do Imóvel (Solicitação Usuário) -->
+                    <div id="strategy-property-header" class="flex items-center gap-4 border-b border-white/5 pb-6">
+                        <div class="w-16 h-16 rounded-full overflow-hidden border-2 border-primary/20 shadow-lg shadow-primary/10 shrink-0">
+                            <img id="strategy-prop-img" src="https://images.unsplash.com/photo-1568605114967-8130f3a36994?q=80&w=2070&auto=format&fit=crop" alt="Imóvel" class="w-full h-full object-cover">
+                        </div>
+                        <div class="flex-1 min-w-0">
+                            <p class="text-[10px] uppercase tracking-widest text-primary font-black mb-0.5">Imóvel em Análise</p>
+                            <h4 class="text-lg md:text-xl font-black text-white font-headline truncate" id="strategy-prop-title">---</h4>
+                            <div class="flex flex-wrap items-center gap-2 mt-1">
+                                <p class="text-sm font-bold text-slate-300" id="strategy-prop-price">R$ 0</p>
+                                <div id="strategy-deficit-badge" class="badge-deficit px-3 py-1 rounded-full flex items-center gap-1.5 shadow-lg">
+                                    <span class="material-symbols-outlined text-[14px]">warning</span>
+                                    <span class="text-[10px] font-black uppercase tracking-tight" id="strategy-deficit-val">DÉFICIT: R$ 0</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- KPI Dashboard Rápido -->
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
+                        <div class="bg-white/5 p-4 rounded-2xl border border-white/5">
+                            <p class="text-[9px] uppercase font-bold text-outline mb-1">Ganho de Poder</p>
+                            <p class="text-lg font-black text-tertiary" id="kpi-strategy-poder">+R$ 0</p>
+                        </div>
+                        <div class="bg-white/5 p-4 rounded-2xl border border-white/5">
+                            <p class="text-[9px] uppercase font-bold text-outline mb-1">Nova Parcela</p>
+                            <p class="text-lg font-black text-primary" id="kpi-strategy-parcela">R$ 0</p>
+                        </div>
+                        <div class="bg-white/5 p-4 rounded-2xl border border-white/5">
+                            <p class="text-[9px] uppercase font-bold text-outline mb-1">Enquadramento</p>
+                            <p class="text-lg font-black text-white" id="kpi-strategy-faixa">---</p>
+                        </div>
+                        <div class="bg-white/5 p-4 rounded-2xl border border-white/5">
+                            <p class="text-[9px] uppercase font-bold text-outline mb-1">Cobertura</p>
+                            <p class="text-lg font-black text-slate-300" id="kpi-strategy-cobertura">0%</p>
+                        </div>
                     </div>
 
-                    <!-- Painel de Ajuste IA (Agora fora e abaixo do quadro) -->
-<div class="flex flex-col md:flex-row items-center justify-center gap-4 py-2">
-<span class="text-[10px] uppercase font-black text-primary tracking-[0.2em] opacity-80">Ajuste de Estratégia IA:</span>
-<div class="flex gap-2">
-<button class="bg-surface-bright/10 hover:bg-primary/20 hover:text-primary text-[10px] font-bold px-6 py-2.5 rounded-full border border-white/10 transition-all uppercase tracking-widest text-slate-300">Composição de Renda</button>
-<button class="bg-surface-bright/10 hover:bg-primary/20 hover:text-primary text-[10px] font-bold px-6 py-2.5 rounded-full border border-white/10 transition-all uppercase tracking-widest text-slate-300">Ajuste de Entrada</button>
+                    <!-- Área de Sliders e Engenharia (Symmetrical Dual Column Layout V7) - MT_LOG (05/2026) -->
+                    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+                        
+                        <!-- PILAR A: ALAVANCA DE CRÉDITO (Esquerda - 50%) -->
+                        <div class="lg:col-span-6 space-y-6">
+                            
+                            <!-- Engenharia de Perfil IA (Painel Unificado de Crédito) -->
+                            <div class="bg-white/5 p-8 rounded-[2.5rem] border border-white/10 flex flex-col shadow-2xl relative overflow-hidden h-full">
+                                <div class="absolute top-0 left-0 w-1 h-full bg-primary/40"></div>
+                                
+                                <h4 class="text-[11px] font-black text-white uppercase tracking-[0.2em] mb-8 flex items-center gap-3">
+                                    <span class="material-symbols-outlined text-primary text-xl">group_add</span>
+                                    NOVO PROPONENTE (Alavanca de Crédito)
+                                </h4>
+
+                                <div class="space-y-8">
+                                    <!-- 1. Vínculo Empregatício -->
+                                    <div class="opt-card bg-white/5 p-6 rounded-2xl border border-white/5">
+                                        <div class="opt-label text-slate-400 text-[10px] uppercase font-bold mb-4 flex items-center gap-2">
+                                            <span class="material-symbols-outlined text-sm">badge</span>
+                                            Vínculo Proponente
+                                        </div>
+                                        <div class="flex gap-3">
+                                            <button class="pill-btn active flex-1 bg-primary text-on-primary border border-transparent px-6 py-2.5 rounded-full text-[10px] font-black uppercase transition-all shadow-lg shadow-primary/20" onclick="setStrategyVinculo('clt', this)">CLT</button>
+                                            <button class="pill-btn flex-1 border border-white/10 text-slate-500 px-6 py-2.5 rounded-full text-[10px] font-black uppercase hover:border-white/30 transition-all" onclick="setStrategyVinculo('pj', this)">PJ</button>
+                                            <button class="pill-btn flex-1 border border-white/10 text-slate-500 px-6 py-2.5 rounded-full text-[10px] font-black uppercase hover:border-white/30 transition-all" onclick="setStrategyVinculo('publico', this)">Púb.</button>
+                                        </div>
+
+                                        <!-- [V9.5] Checkbox Cotista FGTS (Novo Proponente) - MT_LOG (05/2026) -->
+                                        <label class="flex items-center gap-3 cursor-pointer mt-4 transition-all duration-300" 
+                                               id="wrap-strategy-clt3anos" style="display: flex;">
+                                            <input type="checkbox" id="opt-strategy-clt3anos" 
+                                                   class="w-4 h-4 rounded border-2 border-white/20 accent-primary cursor-pointer bg-transparent"
+                                                   onchange="updateStrategyProfile()">
+                                            <span class="text-[10px] text-slate-300 font-bold uppercase tracking-wide">
+                                                3 anos ou + de CLT (Cotista FGTS)
+                                            </span>
+                                        </label>
+                                    </div>
+
+                                    <!-- 2. Composição de Renda (Integrada) -->
+                                    <div class="opt-card bg-white/5 p-6 rounded-2xl border border-white/5 relative">
+                                        <div class="flex justify-between items-center mb-6">
+                                            <div class="opt-label text-slate-400 text-[10px] uppercase font-bold flex items-center gap-2">
+                                                <span class="material-symbols-outlined text-sm text-primary">payments</span>
+                                                Composição de Renda
+                                            </div>
+                                            <span class="text-lg font-black text-primary" id="val-strategy-renda-label">R$ 0</span>
+                                        </div>
+                                        <div class="relative py-6">
+                                            <div id="marker-renda-target" class="target-marker">
+                                                <div class="target-marker-label" id="label-renda-target">Alvo Match</div>
+                                                <div class="target-marker-pin"></div>
+                                            </div>
+                                            <input type="range" id="slider-strategy-renda" min="0" max="10000" step="100" value="0" class="custom-slider" oninput="updateUnifiedStrategy('renda')">
+                                        </div>
+                                    </div>
+
+                                    <!-- 3. Parâmetros Técnicos (Idade e FGTS) -->
+                                    <div class="grid grid-cols-2 gap-6">
+                                        <div class="opt-card bg-white/5 p-6 rounded-2xl border border-white/5">
+                                            <div class="flex justify-between mb-4">
+                                                <span class="opt-label text-slate-400 text-[10px] uppercase font-bold flex items-center gap-2">
+                                                    <span class="material-symbols-outlined text-sm">cake</span>
+                                                    Idade
+                                                </span>
+                                                <span class="text-[11px] text-white font-black" id="val-opt-idade">30</span>
+                                            </div>
+                                            <input type="range" id="opt-strategy-idade" min="18" max="75" value="30" class="custom-slider-mini w-full" oninput="updateStrategyProfile()">
+                                        </div>
+                                        <div class="opt-card bg-white/5 p-6 rounded-2xl border border-white/5">
+                                            <div class="flex justify-between mb-4">
+                                                <span class="opt-label text-slate-400 text-[10px] uppercase font-bold flex items-center gap-2">
+                                                    <span class="material-symbols-outlined text-sm text-tertiary">account_balance_wallet</span>
+                                                    FGTS+
+                                                </span>
+                                                <span class="text-[11px] text-tertiary font-black" id="val-opt-fgts">R$ 0</span>
+                                            </div>
+                                            <input type="range" id="opt-strategy-fgts" min="0" max="50000" step="1000" value="0" class="custom-slider-mini w-full" oninput="updateStrategyProfile()">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- PILAR B: ALAVANCA DE LIQUIDEZ (Direita - 50%) -->
+                        <div class="lg:col-span-6 space-y-6">
+                            
+                            <!-- Reserva de Investimento (Painel Unificado de Liquidez) -->
+                            <div class="bg-white/5 p-8 rounded-[2.5rem] border border-white/10 flex flex-col shadow-2xl relative overflow-hidden h-full">
+                                <div class="absolute top-0 left-0 w-1 h-full bg-tertiary/40"></div>
+                                
+                                <h4 class="text-[11px] font-black text-white uppercase tracking-[0.2em] mb-8 flex items-center gap-3">
+                                    <span class="material-symbols-outlined text-tertiary text-xl">savings</span>
+                                    RESERVA DE INVESTIMENTO (Alavanca de Liquidez)
+                                </h4>
+
+                                <div class="space-y-8 flex-1 flex flex-col">
+                                    <!-- 1. Ajuste de Entrada (Integrado como opt-card) -->
+                                    <div class="opt-card bg-white/5 p-6 rounded-2xl border border-white/5 relative">
+                                        <div class="flex justify-between items-center mb-6">
+                                            <div class="opt-label text-slate-400 text-[10px] uppercase font-bold flex items-center gap-2">
+                                                <span class="material-symbols-outlined text-sm text-tertiary">rocket</span>
+                                                Ajuste de Entrada
+                                            </div>
+                                            <span class="text-lg font-black text-tertiary" id="val-strategy-ent-label">R$ 0</span>
+                                        </div>
+                                        <div class="relative py-6">
+                                            <div id="marker-ent-target" class="target-marker">
+                                                <div class="target-marker-label" id="label-ent-target">Alvo Match</div>
+                                                <div class="target-marker-pin"></div>
+                                            </div>
+                                            <input type="range" id="slider-strategy-ent" min="0" max="50000" step="500" value="0" class="custom-slider" oninput="updateUnifiedStrategy('entrada')">
+                                        </div>
+                                        <p class="text-[9px] text-slate-500 mt-2 italic">Aumente o aporte inicial para reduzir seu saldo devedor.</p>
+                                    </div>
+
+                                    <!-- 2. Card de Dicas do Estrategista IA (Integrado na Base) -->
+                                    <div id="ia-insight-box" class="bg-tertiary/5 p-6 rounded-2xl border border-tertiary/10 mt-auto flex flex-col gap-4 items-start shadow-inner relative overflow-hidden">
+                                        <div class="absolute top-0 right-0 p-4 opacity-10">
+                                            <span class="material-symbols-outlined text-5xl text-tertiary">auto_awesome</span>
+                                        </div>
+                                        <div class="flex items-center gap-2 text-tertiary relative z-10">
+                                            <span class="material-symbols-outlined text-lg animate-pulse">psychology</span>
+                                            <span class="text-[10px] font-black uppercase tracking-[0.2em]">Estrategista IA</span>
+                                        </div>
+                                        <p class="text-[12px] text-slate-300 leading-relaxed relative z-10 font-medium" id="ia-insight-msg">
+                                            Analizando seu potencial de equilíbrio... Arraste os sliders para receber recomendações estratégicas.
+                                        </p>
+                                        <div class="mt-2 w-full pt-4 border-t border-tertiary/10 relative z-10">
+                                            <p class="text-[9px] text-tertiary/60 font-bold uppercase tracking-widest">Status da Simulação</p>
+                                            <p class="text-[10px] text-white font-black mt-1">Aguardando Movimentação...</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Ações -->
+                    <div class="flex justify-center gap-4 pt-4">
+                        <button onclick="applyStrategyCenario()" class="bg-primary hover:bg-primary-dark text-on-primary text-[10px] font-black px-10 py-4 rounded-full transition-all uppercase tracking-widest shadow-xl shadow-primary/20">Aplicar ao Dossiê</button>
+                        <button onclick="resetStrategyCenario()" class="text-slate-500 hover:text-white text-[10px] font-bold uppercase tracking-widest transition-colors">Resetar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <p class="text-[11px] uppercase font-black text-primary/60 tracking-[0.6em] mb-4 mt-2">Tecnologia Co-Piloto IA Parceiros</p>
+        
+        <!-- [BOTÃO 2: FLUXO DE PAGAMENTO] -->
+        <button onclick="toggleFluxoAccordion()" id="btn-open-fluxo-ia" class="group relative overflow-hidden bg-slate-900 border-2 border-primary/40 text-primary font-black px-12 py-7 rounded-full uppercase tracking-widest text-[13px] shadow-[0_12px_48px_rgba(0,0,0,0.4)] hover:scale-105 transition-all flex items-center gap-3">
+            <span class="material-symbols-outlined text-2xl animate-pulse">insights</span>
+            Ver Fluxo de Pagamento deste Imóvel
+            <span id="fluxo-acc-chevron" class="material-symbols-outlined text-xl transition-transform duration-500">expand_more</span>
+            <div class="absolute inset-0 bg-primary/5 -translate-x-full group-hover:translate-x-0 transition-transform duration-700"></div>
+        </button>
+
+        <!-- [ACORDEÃO 2: DASHBOARD DE FLUXO PREMIUM] -->
+        <div id="strategy-accordion-fluxo" class="strategy-accordion w-full max-w-2xl">
+            <div class="strategy-inner">
+                <div class="glass-card p-6 md:p-8 rounded-3xl border border-white/10 shadow-2xl space-y-8 mt-4">
+                    <!-- Header Imóvel Selecionado -->
+                    <div class="flex items-center gap-4 border-b border-white/5 pb-6">
+                        <div class="w-16 h-16 rounded-full overflow-hidden border-2 border-primary/20 shadow-lg shadow-primary/10">
+                            <img id="fluxo-prop-img" src="" alt="Imóvel" class="w-full h-full object-cover">
+                        </div>
+                        <div>
+                            <h4 class="text-xl font-black text-white font-headline" id="fluxo-title">Carregando...</h4>
+                            <p class="text-xs font-bold text-primary" id="fluxo-prop-price">R$ 0</p>
+                        </div>
+                    </div>
+
+                    <!-- Título do Quadro -->
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <h3 class="text-sm font-black text-white uppercase tracking-widest flex items-center gap-2">
+                                <span class="material-symbols-outlined text-primary text-lg">timeline</span>
+                                Fluxo do Imóvel
+                            </h3>
+                            <p class="text-[10px] text-slate-400 mt-1" id="fluxo-subtitle">VALOR DO INVESTIMENTO: R$ 0</p>
+                        </div>
+                        <div id="fluxo-badge" class="bg-tertiary/10 text-tertiary text-[9px] font-black px-4 py-1 rounded-full border border-tertiary/20">MCMV</div>
+                    </div>
+
+                    <!-- Timeline 1-2-3 (Estilo Imagem 2) -->
+                    <div class="grid grid-cols-3 gap-4 relative pt-4">
+                        <!-- Linha conectora -->
+                        <div class="absolute top-[32px] left-[15%] right-[15%] h-px bg-white/10"></div>
+                        
+                        <!-- Passo 1 -->
+                        <div class="flex flex-col items-center text-center relative z-10">
+                            <div class="w-10 h-10 rounded-full bg-primary flex items-center justify-center text-on-primary font-black mb-3 border-4 border-[#081325] shadow-lg">1</div>
+                            <p class="text-[9px] font-black text-primary uppercase mb-1">Entrada</p>
+                            <p class="text-sm font-black text-white mb-0.5" id="fluxo-f1-val">R$ 0/mês</p>
+                            <p class="text-[8px] text-slate-500 italic" id="fluxo-f1-prazo">36x Direto Construtora</p>
+                            <p class="text-[8px] text-slate-400 font-bold mt-1" id="fluxo-f1-total">Total: R$ 0</p>
+                        </div>
+
+                        <!-- Passo 2 -->
+                        <div class="flex flex-col items-center text-center relative z-10">
+                            <div class="w-10 h-10 rounded-full bg-slate-500 flex items-center justify-center text-white font-black mb-3 border-4 border-[#081325] shadow-lg">2</div>
+                            <p class="text-[9px] font-black text-slate-400 uppercase mb-1">Durante Obra</p>
+                            <p class="text-sm font-black text-white mb-0.5" id="fluxo-f2-val">R$ 0</p>
+                            <p class="text-[8px] text-slate-500 italic">Evolução + Seguros</p>
+                            <p class="text-[8px] text-slate-400 font-bold mt-1" id="fluxo-f2-prazo">≈ 24 meses</p>
+                        </div>
+
+                        <!-- Passo 3 -->
+                        <div class="flex flex-col items-center text-center relative z-10">
+                            <div class="w-10 h-10 rounded-full bg-tertiary flex items-center justify-center text-on-tertiary font-black mb-3 border-4 border-[#081325] shadow-lg">3</div>
+                            <p class="text-[9px] font-black text-tertiary uppercase mb-1">Após Chaves</p>
+                            <p class="text-sm font-black text-white mb-0.5" id="fluxo-f3-val">R$ 0</p>
+                            <p class="text-[8px] text-slate-500 italic">Financiamento Bancário</p>
+                            <p class="text-[8px] text-tertiary font-bold mt-1" id="fluxo-f3-prazo">420 meses</p>
+                        </div>
+                    </div>
+
+                    <!-- Composição (Barra Robusta) -->
+                    <div class="bg-black/40 p-6 rounded-2xl border border-white/5 space-y-6">
+                        <div class="flex h-4 w-full rounded-full overflow-hidden bg-slate-900 shadow-inner" id="fluxo-bar-container"></div>
+                        <div class="grid grid-cols-2 lg:grid-cols-4 gap-4" id="fluxo-legend-container">
+                            <div class="flex items-center gap-2">
+                                <div class="w-2 h-2 rounded-full bg-primary"></div>
+                                <span class="text-[8px] text-slate-400 font-bold uppercase">Subsídio:</span>
+                                <span class="text-[10px] text-white font-black" id="fluxo-leg-sub">R$ 0</span>
+                            </div>
+                            <div class="flex items-center gap-2">
+                                <div class="w-2 h-2 rounded-full bg-blue-400"></div>
+                                <span class="text-[8px] text-slate-400 font-bold uppercase">FGTS:</span>
+                                <span class="text-[10px] text-white font-black" id="fluxo-leg-fgts">R$ 0</span>
+                            </div>
+                            <div class="flex items-center gap-2">
+                                <div class="w-2 h-2 rounded-full bg-white/40"></div>
+                                <span class="text-[8px] text-slate-400 font-bold uppercase">Entrada:</span>
+                                <span class="text-[10px] text-white font-black" id="fluxo-leg-ent">R$ 0</span>
+                            </div>
+                            <div class="flex items-center gap-2">
+                                <div class="w-2 h-2 rounded-full bg-tertiary"></div>
+                                <span class="text-[8px] text-slate-400 font-bold uppercase">Financ.:</span>
+                                <span class="text-[10px] text-white font-black" id="fluxo-leg-fin">R$ 0</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
 </div>
-</div>
-</div>
-</div>
+<!-- [END: MODULO 2] -->
+
+</div> <!-- End Grid Container -->
+
 <!-- 3. Documentação Necessária -->
 <div class="space-y-8">
 <div class="text-center space-y-2">
@@ -1054,9 +1179,10 @@
 </div>
 </div>
 </div>
+</div>
 <!-- 4. WhatsApp Final CTA -->
             <div class="flex flex-col items-center justify-center pt-2 md:pt-10 pb-8 px-4">
-                <button id="btn-whatsapp-final" class="animate-shimmer btn-pulse w-full md:w-auto min-w-[320px] text-white px-8 md:px-12 py-5 md:py-6 rounded-2xl md:rounded-full font-black text-lg md:text-xl flex items-center justify-center gap-4 shadow-[0_20px_40px_rgba(37,211,102,0.25)] transition-all hover:scale-[1.02] active:scale-95 group relative overflow-hidden">
+                <button id="btn-whatsapp-final" onclick="aprovarDossie('final')" class="animate-shimmer btn-pulse w-full md:w-auto min-w-[320px] text-white px-8 md:px-12 py-5 md:py-6 rounded-2xl md:rounded-full font-black text-lg md:text-xl flex items-center justify-center gap-4 shadow-[0_20px_40px_rgba(37,211,102,0.25)] transition-all hover:scale-[1.02] active:scale-95 group relative overflow-hidden">
 <svg class="w-8 h-8 group-hover:animate-pulse" fill="currentColor" viewbox="0 0 448 512" xmlns="http://www.w3.org/2000/svg"><path d="M380.9 97.1C339 55.1 283.2 32 223.9 32c-122.4 0-222 99.6-222 222 0 39.1 10.2 77.3 29.6 111L0 480l117.7-30.9c32.7 17.9 69.4 27.3 106.2 27.3 122.4 0 222-99.6 222-222 0-59.3-23.1-115.1-65.1-157.1zM223.9 445.3c-33.2 0-65.7-8.9-94.1-25.7l-6.7-4-69.8 18.3 18.7-68.1-4.4-7c-18.5-29.4-28.2-63.3-28.2-98.2 0-101.7 82.8-184.5 184.5-184.5 49.3 0 95.6 19.2 130.4 54.1 34.8 34.9 54.1 81.2 54.1 130.5 0 101.7-82.8 184.5-184.5 184.5zm101.2-138.2c-5.5-2.8-32.8-16.2-37.9-18-5.1-1.9-8.8-2.8-12.5 2.8-3.7 5.6-14.3 18-17.6 21.8-3.2 3.7-6.5 4.2-12 1.4-5.5-2.8-23.2-8.5-44.2-27.1-16.4-14.6-27.4-32.7-30.6-38.2-3.2-5.5-.3-8.5 2.4-11.3 2.5-2.4 5.5-6.5 8.3-9.7 2.8-3.2 3.7-5.5 5.5-9.2 1.8-3.7.9-6.9-.5-9.7-1.4-2.8-12.5-30.1-17.1-41.2-4.5-10.8-9.1-9.3-12.5-9.5-3.2-.2-6.9-.2-10.6-.2-3.7 0-9.7 1.4-14.8 6.9-5.1 5.6-19.4 19-19.4 46.3 0 27.3 19.9 53.7 22.6 57.4 2.8 3.7 39.1 59.7 94.8 83.8 13.3 5.7 23.7 9.1 31.7 11.7 13.3 4.2 25.4 3.6 35 2.2 10.7-1.6 32.8-13.4 37.4-26.4 4.6-13 4.6-24.1 3.2-26.4-1.3-2.5-5-3.9-10.5-6.6z"></path></svg>
 <span>Receber meu Laudo Aprovado no WhatsApp</span>
 </button>
@@ -1293,895 +1419,11 @@
             © 2024 MT Parceiros IA - Inteligência em Crédito Imobiliário
         </p>
 </footer>
-    <!-- Bibliotecas e Componentes MT Parceiros -->
-    <script src="assets/js/shared.min.js"></script>
-    <script src="assets/js/cms-renderer.min.js"></script>
-    <script src="assets/js/components-renderer.min.js"></script>
+    <script src="assets/js/shared.min.js?v=6.0"></script>
 
-    <script id="animations-js">
-        // --- 1. HIDRATAÇÃO DE DADOS (Engenharia de Ponte com o Simulador) ---
-        /**
-         * Esta função é o coração do Dossiê. Ela busca o objeto 'mt_sim_data' no 
-         * localStorage, que foi gravado pelo simulador.html, e distribui os
-         * valores formatados para os elementos HTML correspondentes.
-         */
-        let finalScoreValue = 0; // Global para animação
-        window.userHasSelectedProperty = false; // MT_LOG (04/2026): Estado de seleção manual do usuário
-
-        /**
-         * SEGURANÇA DE CÁLCULO (Anti-NaN)
-         * Garante que falhas no cache não exibam erros matemáticos na tela.
-         */
-        function safeFormatRate(val) {
-            if (val === undefined || val === null || isNaN(val)) return "0.00";
-            return (val * 100).toFixed(2);
-        }
-
-        /**
-         * MOTOR DE INTELIGÊNCIA DINÂMICA (Smart recommendation)
-         * Analisa o objeto de resultados e gera um diagnóstico personalizado.
-         */
-        function parsePreco(s) {
-            if (!s) return Infinity;
-            if (typeof s === 'number') return s;
-            let num = parseInt(s.replace(/[^\d]/g, ''), 10);
-            if (s.toLowerCase().includes('mil')) num *= 1000;
-            return num || Infinity;
-        }
-
-        function generateDynamicRecommendation(res, data, formatCurrency) {
-            const fr = res.fullResults;
-            const pts = res.scorePoints || {};
-            
-            // 1. Gatilho de Dívidas (Comprometimento alto)
-            if (fr.dividas > (fr.renda * 0.15)) {
-                return `"Detectamos que o seu **comprometimento de dívidas** (${formatCurrency(fr.dividas)}) está acima do ideal. Reduzir cartões de crédito ou empréstimos ativos pode liberar até **R$ 45.000 extras** no seu potencial de financiamento imediato."`;
-            }
-
-            // 2. Gatilho de Idade (Prazo reduzido)
-            if (fr.prazoEfetivo < 420 && fr.idade > 45) {
-                return `"O prazo de financiamento foi ajustado para **${fr.prazoEfetivo} meses** devido ao fator idade. Recomendamos incluir um **co-proponente mais jovem** (filho ou cônjuge) para estender o prazo para 420 meses e reduzir sua parcela em aproximadamente 18%."`;
-            }
-
-            // 3. Gatilho de Isenção HIS-1 (Economia de ITBI)
-            if (fr.perfilEnquadramento === 'HIS-1') {
-                return `"Excelente notícia! Seu perfil se enquadra como **HIS-1**, o que garante **Isenção Total de ITBI** em São Paulo. Isso representa uma economia direta de aproximadamente **${formatCurrency(fr.valorImovel * 0.03)}** no ato da sua escritura."`;
-            }
-
-            // 4. Gatilho de Entrada Alta (Fluxo Parcelado)
-            if (fr.saldoEntrada > (fr.valorImovel * 0.12)) {
-                return `"Para viabilizar sua compra, estruturamos um plano onde a entrada de ${formatCurrency(fr.saldoEntrada)} é **parcelada em 36 meses** pela construtora. Isso permite que você mantenha sua reserva de emergência rendendo enquanto garante sua unidade."`;
-            }
-
-            // 5. Gatilho SBPE (Investimento)
-            if (fr.foraDoMCMV) {
-                return `"Com base no seu perfil de alta renda, identificamos uma oportunidade de **valorização patrimonial via SBPE**. Com a entrega prevista para ${fr.mesesObra} meses, a projeção de valorização do imóvel supera o custo do financiamento, sendo um excelente match de investimento."`;
-            }
-
-            // 6. Default MCMV
-            return `"Seu perfil se enquadra com excelência no programa **Minha Casa Minha Vida**. Com subsídio de ${formatCurrency(fr.subsidio)}, a estratégia recomendada é focar no uso do FGTS para reduzir o saldo devedor e garantir as menores taxas do mercado."`;
-        }
-
-        function hydrateFromCache() {
-            const rawData = localStorage.getItem('mt_sim_data');
-            if (!rawData) return;
-
-            const data = JSON.parse(rawData);
-            const res = data.results;
-
-            console.log("Dossiê: Hidratando com dados de " + data.timestamp);
-
-            const formatCurrency = (val) => {
-                return new Intl.NumberFormat('pt-BR', {
-                    style: 'currency',
-                    currency: 'BRL',
-                    maximumFractionDigits: 0
-                }).format(val || 0);
-            };
-
-            // Injeção nos IDs Mapeados
-            const mappings = {
-                'bento-sub-val': formatCurrency(res.subsidio),
-                'bento-fgts-val': formatCurrency(res.fgtsTotal),
-                'bento-ent-val': formatCurrency(res.entradaTotal),
-                'bento-fin-val': formatCurrency(res.financiamento),
-                'prof-renda': formatCurrency(data.raw.renda),
-                'prof-taxa': safeFormatRate(res.taxa) + '% a.a.',
-                'prof-prazo': res.prazo + ' meses',
-                'prof-parcela': formatCurrency(res.parcela),
-                'prof-imovel-max': formatCurrency(res.valorImovel),
-                'bento-vgv-top': 'VGV: ' + formatCurrency(res.valorImovel),
-                'score-value': '000', // Será animado
-                'simulation-id': res.id,
-                'sim-id-timeline': res.id,
-                'val-parcela-entrada': res.fullResults.parcelaEntrada > 0 ? `36x de ${formatCurrency(res.fullResults.parcelaEntrada)}` : "100% Coberta",
-                'val-evolucao-obra': formatCurrency(res.parcela * 0.3), // Estimativa técnica (30% da parcela)
-                'val-pos-chaves': formatCurrency(res.parcela),
-                'val-timeline-obra': formatCurrency(res.fullResults.parcelaEntrada + (res.parcela * 0.3)),
-                'val-timeline-chaves': formatCurrency(res.parcela),
-                'viability-enquadramento': res.fullResults.foraDoMCMV ? "SBPE / Mercado" : (res.fullResults.faixaMCMV + " / Econômico")
-            };
-            
-            // Lógica Especial para ITBI
-            const itbiEl = document.getElementById('viability-itbi-status');
-            if (itbiEl) {
-                if (res.fullResults.itbi === 0) {
-                    itbiEl.innerHTML = '<span class="material-symbols-outlined text-xs">verified</span> ITBI GRÁTIS';
-                    itbiEl.className = "bg-tertiary text-on-tertiary text-[10px] font-bold px-3 py-1 rounded-full flex items-center gap-1 shadow-[0_0_15px_rgba(64,225,126,0.4)]";
-                } else {
-                    itbiEl.innerHTML = `<span class="material-symbols-outlined text-xs">payments</span> ITBI: ${formatCurrency(res.fullResults.itbi)}`;
-                    itbiEl.className = "bg-primary text-on-primary text-[10px] font-bold px-3 py-1 rounded-full flex items-center gap-1 shadow-lg";
-                }
-            }
-
-            for (const [id, value] of Object.entries(mappings)) {
-                const el = document.getElementById(id);
-                if (el) el.innerText = value;
-            }
-
-            // --- NOVO: Sincronização das Barras de Score (Variáveis Críticas) ---
-            const pts = res.scorePoints || {};
-            const barMappings = {
-                'bar-renda': { p: ((pts.c1 || 0) / 30 * 100), label: 'score-c1-pts', txt: `${pts.c1 || 0}/30 pts`, status: 'bar-renda-status', stTxt: pts.c1 >= 25 ? 'Capacidade Plena' : 'Capacidade Moderada' },
-                'bar-comprometimento': { p: ((pts.c2 || 0) / 20 * 100), label: 'score-c2-pts', txt: `${pts.c2 || 0}/20 pts`, status: 'bar-comp-status', stTxt: pts.c2 >= 15 ? 'Dentro do Limite' : 'Alerta de Margem' },
-                'bar-fgts': { p: ((pts.c3 || 0) / 15 * 100), label: 'score-c5-pts', txt: `${pts.c3 || 0}/15 pts`, status: 'bar-fgts-status', stTxt: pts.c3 >= 10 ? 'Saldo Disponível' : 'Saldo Reduzido' },
-                'bar-entrada': { p: ((pts.c4 || 0) / 15 * 100), label: 'score-c4-pts', txt: `${pts.c4 || 0}/15 pts`, status: 'bar-ent-status', stTxt: pts.c4 >= 10 ? 'Aporte Estratégico' : 'Aporte Mínimo' },
-                'bar-historico': { p: ((pts.c5 || 0) / 12 * 100), label: 'score-c3-pts', txt: `${pts.c5 || 0}/12 pts`, status: 'bar-hist-status', stTxt: pts.c5 >= 10 ? 'Vínculo Estável' : 'Vínculo Recente' },
-                'bar-idade': { p: ((pts.c6 || 0) / 8 * 100), label: 'score-c6-pts', txt: `${pts.c6 || 0}/8 pts`, status: 'bar-idade-status', stTxt: pts.c6 >= 6 ? 'Prazo Máximo OK' : 'Prazo Reduzido' }
-            };
-
-            for (const [id, config] of Object.entries(barMappings)) {
-                const bar = document.getElementById(id);
-                const lbl = document.getElementById(config.label);
-                const st = document.getElementById(config.status);
-                
-                if (bar) {
-                    const perc = config.p || 0;
-                    bar.style.width = perc + '%';
-                    
-                    // Lógica de Cores Dinâmicas (MT_LOG 04/2026)
-                    // Reset de cores
-                    bar.classList.remove('bg-slate-700', 'bg-primary', 'bg-tertiary', 'shadow-[0_0_15px_rgba(64,225,126,0.4)]');
-                    
-                    if (perc >= 80) {
-                        bar.classList.add('bg-tertiary', 'shadow-[0_0_15px_rgba(64,225,126,0.4)]');
-                    } else if (perc > 0) {
-                        bar.classList.add('bg-primary');
-                    } else {
-                        bar.classList.add('bg-slate-700');
-                    }
-                }
-
-                if (lbl) lbl.innerText = config.txt;
-                if (st) st.innerText = (config.p > 0) ? config.stTxt : "Sob Consulta";
-            }
-
-            // --- NOVO: Recomendação Dinâmica da IA (Upgrade Smart) ---
-            const recEl = document.getElementById('ia-recommendation-text');
-            if (recEl) {
-                recEl.innerHTML = generateDynamicRecommendation(res, data, formatCurrency);
-            }
-
-            // Atualizar o Gauge Circle
-            const gauge = document.getElementById('score-gauge');
-            if (gauge) {
-                gauge.style.strokeDasharray = "691";
-                gauge.style.transition = "stroke-dashoffset 2s ease-out";
-                const dashOffset = 691 - (691 * res.score / 100);
-                setTimeout(() => {
-                    gauge.style.strokeDashoffset = dashOffset;
-                }, 100);
-            }
-
-            // Atualizar Status do Perfil
-            const statusLabel = document.getElementById('profile-status');
-            if (statusLabel) {
-                if (res.score >= 80) statusLabel.innerText = "Perfil de Alta Conversão";
-                else if (res.score >= 50) statusLabel.innerText = "Perfil Qualificável";
-                else statusLabel.innerText = "Perfil em Evolução";
-            }
-
-            // Iniciar Score IA (Animação)
-            finalScoreValue = res.score;
-            animateScore(0, res.score);
-
-            // MT_LOG (04/2026): Sincronizar Co-piloto IA com dados carregados
-            if (window.syncSmartFloater) window.syncSmartFloater();
-
-            // Iniciar animação do Score Texto imediatamente após hidratar
-            setTimeout(() => {
-                window.requestAnimationFrame(animateScore);
-                // Revelar os cards do Passo 1 (Efeito de carregamento)
-                document.querySelectorAll('.flip-card-inner').forEach((el, i) => {
-                    setTimeout(() => {
-                        el.style.transform = 'rotateY(180deg)';
-                        setTimeout(() => el.style.transform = '', 1500); // Mostra por 1.5s e volta
-                    }, 800 + (i * 200));
-                });
-            }, 300);
-            const isMcmv = !res.fullResults.foraDoMCMV;
-            
-            // 1. MCMV
-            const mcmvTaxaEl = document.getElementById('comp-mcmv-taxa');
-            const mcmvTaxaMobile = document.getElementById('comp-mcmv-taxa-mobile');
-            const mcmvParEl = document.getElementById('comp-mcmv-par');
-            const mcmvParMobile = document.getElementById('comp-mcmv-par-mobile');
-            const detMcmvPar = document.getElementById('det-mcmv-parcela');
-            
-            const taxaMcmvTxt = safeFormatRate(res.fullResults.taxaAnualMCMV) + "% + TR";
-            const parMcmvTxt = formatCurrency(res.parcela);
-
-            if (mcmvTaxaEl) mcmvTaxaEl.innerText = taxaMcmvTxt;
-            if (mcmvTaxaMobile) mcmvTaxaMobile.innerText = taxaMcmvTxt;
-            if (mcmvParEl) mcmvParEl.innerText = parMcmvTxt;
-            if (mcmvParMobile) mcmvParMobile.innerText = parMcmvTxt;
-            if (detMcmvPar) detMcmvPar.innerText = "Price / SAC (Indicado)";
-
-            // 2. SBPE Flex
-            const sbpeData = res.fullResults.sbpe || { 
-                taxa: 0.1099, 
-                prazo: Math.min(360, res.prazo), 
-                parcela: Math.round(res.parcela * 1.35) 
-            };
-            const sbpeTaxaEl = document.getElementById('comp-sbpe-taxa');
-            const sbpeTaxaMobile = document.getElementById('comp-sbpe-taxa-mobile');
-            const sbpeParEl = document.getElementById('comp-sbpe-par');
-            const sbpeParMobile = document.getElementById('comp-sbpe-par-mobile');
-            const detSbpePar = document.getElementById('det-sbpe-parcela');
-
-            const taxaSbpeTxt = safeFormatRate(sbpeData.taxa) + "% + TR";
-            const parSbpeTxt = formatCurrency(sbpeData.parcela);
-
-            if (sbpeTaxaEl) sbpeTaxaEl.innerText = taxaSbpeTxt;
-            if (sbpeTaxaMobile) sbpeTaxaMobile.innerText = taxaSbpeTxt;
-            if (sbpeParEl) sbpeParEl.innerText = parSbpeTxt;
-            if (sbpeParMobile) sbpeParMobile.innerText = parSbpeTxt;
-            if (detSbpePar) detSbpePar.innerText = "Sistema SAC (Bento Grid)";
-
-            // 3. SBPE Pré-Fixado
-            const preParEl = document.getElementById('comp-sbpe-pre-par');
-            const preParMobile = document.getElementById('comp-sbpe-pre-par-mobile');
-            if (preParEl) {
-                const taxaPre = 0.1150;
-                const prazoPre = 300;
-                const potencialFin = res.fullResults.potencial || 0;
-                const pPre = Math.round((potencialFin / (prazoPre || 1)) + (potencialFin * (taxaPre/12)));
-                preParEl.innerText = formatCurrency(pPre);
-                if (preParMobile) preParMobile.innerText = formatCurrency(pPre);
-            }
-
-            // --- NOVO: Link de WhatsApp Personalizado (Passo 5) ---
-            const waBtn = document.getElementById('btn-whatsapp-final');
-            const ctaEmission = document.getElementById('cta-request-emission');
-            const phone = "5511946211111";
-
-            if (waBtn) {
-                waBtn.setAttribute('onclick', `aprovarDossie('tech')`);
-            }
-
-            if (ctaEmission) {
-                ctaEmission.setAttribute('onclick', `aprovarDossie('tech')`);
-            }
-
-            // --- NOVO: Automação de Recomendação (Passo 4) ---
-            const badgeHtml = `<span class="absolute right-2 md:right-4 top-1/2 -translate-y-1/2 bg-primary text-on-primary text-[10px] px-2 py-0.5 rounded-full uppercase scale-in-center shadow-lg z-10">Indicado</span>`;
-            const rowMcmv = document.getElementById('row-mcmv');
-            const rowSbpe = document.getElementById('row-sbpe');
-
-            if (res.fullResults.foraDoMCMV) {
-                if (rowSbpe) {
-                    rowSbpe.setAttribute('open', '');
-                    rowSbpe.querySelector('summary').insertAdjacentHTML('beforeend', badgeHtml);
-                    rowSbpe.querySelector('summary').classList.add('bg-primary/5');
-                }
-            } else {
-                if (rowMcmv) {
-                    rowMcmv.setAttribute('open', '');
-                    rowMcmv.querySelector('summary').insertAdjacentHTML('beforeend', badgeHtml);
-                    rowMcmv.querySelector('summary').classList.add('bg-primary/5');
-                }
-            }
-            // --- NOVO: Inicialização do Motor de Match (Passo 2) ---
-            if (typeof initMatchIA === 'function') {
-                initMatchIA(res.valorImovel);
-            }
-        }
-
-        // Chamar hidratação IMEDIATAMENTE antes das outras lógicas
-        document.addEventListener('DOMContentLoaded', () => {
-            hydrateFromCache();
-        });
-
-        // Simple intersection observer for scroll reveal
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('visible');
-                }
-            });
-        }, { threshold: 0.1 });
-
-        document.querySelectorAll('.fade-in-section').forEach(section => {
-            observer.observe(section);
-        });
-
-        // Score Counter Animation
-        const scoreElement = document.getElementById('score-value');
-        const startScore = 0;
-        const duration = 2000;
-        let startTime = null;
-
-        function animateScore(timestamp) {
-            if (!startTime) startTime = timestamp;
-            const progress = Math.min((timestamp - startTime) / duration, 1);
-            const currentScore = Math.floor(progress * (finalScoreValue - startScore) + startScore);
-            if (scoreElement) scoreElement.textContent = currentScore;
-            if (progress < 1) {
-                window.requestAnimationFrame(animateScore);
-            }
-        }
-
-        // O gatilho de animateScore agora é chamado dentro de hydrateFromCache()
-        // para garantir que finalScoreValue já foi lido do cache.
-
-        /* 
-           MT_LOG (04/2026): GESTÃO DE ESTADOS DO DOSSIÊ
-           Utilizamos window.docState para garantir que o checklist de documentos
-           possa ser lido globalmente pelo Co-Piloto Mobile (Pilot), 
-           permitindo transições de passos em tempo real sem recarga de página.
-        */
-        // --- LÓGICA DE GAMIFICAÇÃO (CHECKLIST INTERATIVO) ---
-        window.docState = {
-            id: false,
-            residencia: false,
-            civil: false,
-            renda: false
-        };
-
-        const propertyData = {
-            'Vivaz Penha': {
-                price: 'R$ 205.000',
-                location: 'Penha, São Paulo',
-                img: 'https://lh3.googleusercontent.com/aida/ADBb0uh83jEpd69ItFrOKa0bC6sCQOFdwUHLNh4Kak91lNhqo-D-MaYidkKqMtfCqBWc9YWwGBnKHtq9uB0SzRFjg0e2LdLFHvKy-h_g3lAPClntsdOj25f-JcdShtGSNjIqNktNNl2ryZFZzv5LYt0bg5k71Kt7tBRi5JIey0UkWDaecKnulERzFiXQyA3Nc4OaVUlubpXV0_kxIM4kZfBxgCwrnjlmrBZeFBpRxYriI6idpFsv4Q8uQVh5mZq03ZUdjPfkSaIHzoRTGg'
-            },
-            'Vivaz Estação Lapa': {
-                price: 'R$ 235.000',
-                location: 'Lapa, São Paulo',
-                img: 'https://lh3.googleusercontent.com/aida/ADBb0uhL_uApt3l-7A8sY9z7E7w-FpI6v_Yx6i5H-Z3f2I-oM8S2nS9r4R1p7W5t_uR9y2l-8C7wY-5t_uR9y2l-8C7wY-A' // Imagem representativa
-            },
-            'Vivaz Estação Itaquera': {
-                price: 'R$ 195.000',
-                location: 'Itaquera, São Paulo',
-                img: 'https://lh3.googleusercontent.com/aida/ADBb0ui7E7w-FpI6v_Yx6i5H-Z3f2I-oM8S2nS9r4R1p7W5t_uR9y2l-8C7wY-5t_uR9y2l-8C7wY-A' // Imagem representativa
-            },
-            'Vivaz Belém': {
-                price: 'R$ 265.000',
-                location: 'Belém, São Paulo',
-                img: 'https://lh3.googleusercontent.com/aida/ADBb0uj9_I7w-FpI6v_Yx6i5H-Z3f2I-oM8S2nS9r4R1p7W5t_uR9y2l-8C7wY-5t_uR9y2l-8C7wY-A' // Imagem representativa
-            }
-        };
-
-        window.toggleDoc = function(type) {
-            // 1. Alternar estado
-            docState[type] = !docState[type];
-            
-            // 2. Elementos Principais
-            const card = document.getElementById(`card-doc-${type}`);
-            const dot = card.querySelector('.status-dot');
-            const text = card.querySelector('.status-text');
-            const iconBox = card.querySelector('.icon-box');
-
-            // 3. Elementos Sidebar
-            const sideItem = document.getElementById(`side-item-${type}`);
-            const sideCheck = document.getElementById(`side-check-${type}`);
-            const sideText = sideItem.querySelector('p');
-
-            if (docState[type]) {
-                // Ativar (Main)
-                card.classList.add('bg-primary/10', 'border-t-primary');
-                dot.classList.replace('bg-outline', 'bg-tertiary');
-                text.textContent = 'Pronto';
-                text.classList.replace('text-outline', 'text-tertiary');
-                iconBox.classList.replace('bg-primary/10', 'bg-tertiary/20');
-                iconBox.classList.replace('text-primary', 'text-tertiary');
-
-                // Ativar (Sidebar)
-                sideCheck.classList.replace('border-slate-700', 'bg-tertiary');
-                sideCheck.classList.add('border-tertiary', 'shadow-[0_0_10px_rgba(64,225,126,0.3)]');
-                sideCheck.innerHTML = '<span class="material-symbols-outlined text-[8px] text-on-tertiary font-bold">check</span>';
-                sideText.classList.replace('text-slate-400', 'text-slate-100');
-            } else {
-                // Desativar (Main)
-                card.classList.remove('bg-primary/10', 'border-t-primary');
-                dot.classList.replace('bg-tertiary', 'bg-outline');
-                text.textContent = 'Pendente';
-                text.classList.replace('text-tertiary', 'text-outline');
-                iconBox.classList.replace('bg-tertiary/20', 'bg-primary/10');
-                iconBox.classList.replace('text-tertiary', 'text-primary');
-
-                // Desativar (Sidebar)
-                sideCheck.classList.replace('bg-tertiary', 'border-slate-700');
-                sideCheck.classList.remove('border-tertiary', 'shadow-[0_0_10px_rgba(64,225,126,0.3)]');
-                sideCheck.innerHTML = '';
-                sideText.classList.replace('text-slate-100', 'text-slate-400');
-            }
-
-            // 4. Verificar se completou tudo (Gatilho de Gamificação)
-            checkCompletion();
-        };
-
-        /**
-         * MONITOR DE CONCLUSÃO: Verifica se os 4 documentos foram validados.
-         * Desbloqueia o Passo 2 (Portfólio) e prepara a sidebar para a fase final.
-         */
-        function checkCompletion() {
-            const allDone = Object.values(docState).every(val => val === true);
-            const step2 = document.getElementById('sidebar-step-2');
-            const step2Dot = document.getElementById('sidebar-step-2-dot');
-            const step2Text = document.getElementById('sidebar-step-2-text');
-            const approveBtn = document.getElementById('sidebar-approve-container');
-            
-            // Novos elementos do Portfólio
-            const btnPortfolio = document.getElementById('btn-portfolio');
-            const matchTitle = document.getElementById('match-property-sidebar');
-            const matchSubtitle = document.getElementById('match-sidebar-subtitle');
-
-            if (allDone) {
-                // Desbloquear Próximo Passo
-                step2.classList.replace('opacity-40', 'opacity-100');
-                step2Dot.classList.replace('bg-slate-800', 'bg-primary');
-                step2Dot.classList.replace('text-slate-400', 'text-on-primary');
-                step2Dot.classList.add('shadow-[0_0_15px_rgba(255,181,160,0.3)]');
-                step2Text.classList.replace('text-slate-400', 'text-slate-100');
-
-                // Ativar Portfólio
-                btnPortfolio.classList.replace('bg-slate-800', 'bg-tertiary');
-                btnPortfolio.classList.replace('text-slate-500', 'text-on-tertiary');
-                btnPortfolio.classList.add('hover:brightness-110');
-                btnPortfolio.disabled = false;
-                btnPortfolio.classList.remove('cursor-not-allowed');
-
-                if (matchTitle.textContent === 'Apto 2 Dorms') {
-                    matchTitle.textContent = 'Selecione um empreendimento';
-                    matchSubtitle.textContent = 'Aguardando Escolha';
-                    matchSubtitle.classList.replace('text-primary', 'text-tertiary');
-                }
-            } else {
-                // Bloquear novamente
-                step2.classList.replace('opacity-100', 'opacity-40');
-                step2Dot.classList.replace('bg-primary', 'bg-slate-800');
-                step2Dot.classList.replace('text-on-primary', 'text-slate-400');
-                step2Dot.classList.remove('shadow-[0_0_15px_rgba(255,181,160,0.3)]');
-                step2Text.classList.replace('text-slate-100', 'text-slate-400');
-                
-                // Esconder botão aprovar caso desmarque algo
-                approveBtn.classList.add('hidden');
-
-                // Desativar Portfólio (Fallback de desmarcação)
-                btnPortfolio.classList.replace('bg-tertiary', 'bg-slate-800');
-                btnPortfolio.classList.replace('text-on-tertiary', 'text-slate-500');
-                btnPortfolio.disabled = true;
-                btnPortfolio.classList.add('cursor-not-allowed');
-            }
-            // Sincronizar Balão Mobile
-            if (window.syncSmartFloater) window.syncSmartFloater();
-        }
-
-        /**
-         * MENU DE PORTFÓLIO: Abre/Fecha a gaveta de empreendimentos compatíveis.
-         */
-        // --- SISTEMA DE MAPA INTERATIVO (Upgrade) ---
-        let dossierMap = null;
-        let mapMarker = null;
-
-        function initInteractiveMap(lat, lng, name) {
-            const mapContainer = document.getElementById('real-map');
-            if (!mapContainer || typeof L === 'undefined') return;
-
-            try {
-                if (!dossierMap) {
-                    dossierMap = L.map('real-map', {
-                        zoomControl: true,
-                        scrollWheelZoom: false
-                    }).setView([lat, lng], 15);
-
-                    L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', {
-                        attribution: '© OpenStreetMap © CartoDB',
-                        maxZoom: 18
-                    }).addTo(dossierMap);
-                } else {
-                    dossierMap.setView([lat, lng], 15);
-                }
-
-                if (mapMarker) {
-                    mapMarker.setLatLng([lat, lng]).setPopupContent(`<b style="color:#081325">${name}</b>`).openPopup();
-                } else {
-                    mapMarker = L.marker([lat, lng]).addTo(dossierMap)
-                        .bindPopup(`<b style="color:#081325">${name}</b>`)
-                        .openPopup();
-                }
-                
-                // Forçar redimensionamento após 200ms para evitar bugs de tiles não carregados
-                setTimeout(() => dossierMap.invalidateSize(), 200);
-            } catch (err) {
-                console.error("Erro ao iniciar mapa:", err);
-            }
-        }
-
-        /**
-         * MOTOR DE MATCH IA (V3)
-         * Seleciona os 4 melhores imóveis ou os 4 mais baratos.
-         */
-        let currentMatches = [];
-        let currentSlide = 0;
-        let slideshowTimer;
-        let slideshowPaused = false;
-        let slideshowTerminated = false; // MT_LOG (04/2026): Impede o reinício pós-interação manual
-
-        function initMatchIA(poderCompra) {
-            if (typeof EMPREENDIMENTOS === 'undefined') {
-                console.error("Match IA: Banco de dados EMPREENDIMENTOS não carregado.");
-                return;
-            }
-
-            // Fallback for MT_Utils if shared.js failed to load
-            const utils = window.MT_Utils || { 
-                formatCurrency: (v) => 'R$ ' + v.toLocaleString('pt-BR')
-            };
-
-            // 1. Filtrar e Ordenar usando o novo parsePreco
-            const sorted = [...EMPREENDIMENTOS].sort((a, b) => {
-                return parsePreco(a.preco) - parsePreco(b.preco);
-            });
-
-            // Tenta encontrar 4 que cabem no bolso
-            let matches = sorted.filter(emp => {
-                return parsePreco(emp.preco) <= (poderCompra + 10000); // Margem de 10k
-            });
-
-            // Se não houver 4, pega os 4 mais baratos da base
-            if (matches.length < 4) {
-                matches = sorted.slice(0, 4);
-            } else {
-                // Pega os 4 mais próximos do teto (fim da lista filtrada e ordenada)
-                matches = matches.slice(-4).reverse();
-            }
-
-            currentMatches = matches;
-            renderPortfolioDrawer();
-            
-            // Inicia com o Top 1
-            if (currentMatches.length > 0) {
-                selectProperty(currentMatches[0].nome, true);
-                startSlideshow();
-            }
-        }
-
-        function startSlideshow() {
-            if (slideshowTerminated) return;
-            if (slideshowTimer) clearInterval(slideshowTimer);
-            slideshowTimer = setInterval(() => {
-                if (slideshowPaused || slideshowTerminated) return;
-                currentSlide = (currentSlide + 1) % currentMatches.length;
-                selectProperty(currentMatches[currentSlide].nome, true);
-                updateDots();
-            }, 5000);
-        }
-
-        function stopSlideshowPermanently() {
-            slideshowTerminated = true;
-            if (slideshowTimer) {
-                clearInterval(slideshowTimer);
-                slideshowTimer = null;
-            }
-            console.log("Slideshow encerrado permanentemente.");
-        }
-
-        window.stopSlideshow = function() { 
-            stopSlideshowPermanently();
-        }
-        window.resumeSlideshow = function() { 
-            if (slideshowTerminated) return;
-            slideshowPaused = false; 
-            startSlideshow();
-        }
-
-        // Função auxiliar para selecionar por índice (usada pelos dots)
-        window.selectPropertyByIndex = function(index) {
-            if (currentMatches[index]) {
-                stopSlideshow(); // Para o carrossel ao interagir manualmente
-                selectProperty(currentMatches[index].nome);
-            }
-        }
-
-        /**
-         * RENDERIZAÇÃO DO PORTFÓLIO (4+1)
-         */
-        function renderPortfolioDrawer(filterQuery = "") {
-            const container = document.getElementById('portfolio-grid');
-            if (!container) return;
-
-            let html = "";
-            const query = filterQuery.toLowerCase();
-            
-            // Filtrar base completa para o buscador
-            const displayList = filterQuery 
-                ? EMPREENDIMENTOS.filter(e => e.nome.toLowerCase().includes(query) || e.bairro.toLowerCase().includes(query)).slice(0, 4)
-                : currentMatches;
-
-            displayList.forEach((emp, idx) => {
-                const dna = window.getPropertyDNA ? window.getPropertyDNA(emp.nome) : { valor: 9.2 };
-                const projection = window.MT_Utils && window.MT_Utils.calculateFutureValue ? window.MT_Utils.calculateFutureValue(emp.nome, dna.valor) : { lucroFmt: "Consultar" };
-                const isTop1 = !filterQuery && idx === 0;
-
-                const priceFmt = (window.MT_Utils && window.MT_Utils.formatCurrency) 
-                    ? window.MT_Utils.formatCurrency(parsePreco(emp.preco))
-                    : "R$ " + emp.preco;
-
-                html += `
-                <div class="glass-card p-4 rounded-xl cursor-pointer hover:border-primary/50 transition-all group relative" onclick="selectProperty('${emp.nome.replace(/'/g, "\\'")}')">
-                    ${isTop1 ? '<span class="absolute -top-2 -left-2 bg-primary text-on-primary text-[8px] font-bold px-2 py-1 rounded-md z-10 shadow-lg">RECOMENDAÇÃO MASTER</span>' : ''}
-                    <img src="${emp.imagem}" class="w-full h-24 object-cover rounded-lg mb-3 grayscale group-hover:grayscale-0 transition-all">
-                    <h5 class="text-xs font-bold truncate">${emp.nome}</h5>
-                    <p class="text-[10px] text-outline mb-2">${emp.bairro}</p>
-                    <div class="flex justify-between items-center border-t border-white/5 pt-2">
-                        <span class="text-[10px] text-tertiary font-bold">${priceFmt}</span>
-                        <span class="text-[9px] text-primary">+ ${projection.lucroFmt} Lucro</span>
-                    </div>
-                </div>`;
-            });
-
-            // 5º Elemento: Buscador / Ver Mais
-            html += `
-            <div class="glass-card p-4 rounded-xl flex flex-col items-center justify-center gap-3 border-2 border-dashed border-outline-variant/30 hover:border-primary/50 transition-all group">
-                <span class="material-symbols-outlined text-primary text-3xl group-hover:scale-110 transition-transform">search_check</span>
-                <div class="text-center">
-                    <p class="text-[10px] font-bold uppercase">Personalizar Match</p>
-                    <input type="text" placeholder="Buscar Bairro..." oninput="renderPortfolioDrawer(this.value)" 
-                           class="mt-2 w-full bg-surface-container border border-outline-variant/30 rounded-lg text-[10px] p-2 focus:border-primary outline-none">
-                </div>
-            </div>`;
-
-            container.innerHTML = html;
-        }
-
-        window.selectProperty = function(name, isSlideshow = false) {
-            let emp = EMPREENDIMENTOS.find(e => e.nome === name);
-            
-            // Caso Especial: Seleção Manual de "A ser definido"
-            if (name === 'A ser definido') {
-                emp = {
-                    nome: 'A ser definido',
-                    bairro: 'Consultar Especialista',
-                    preco: 'Sob Consulta',
-                    entrega: 'Análise em Tempo Real',
-                    imagem: 'assets/images/busca-manual.jpg'
-                };
-            }
-
-            if (!emp) return;
-            
-            if (!isSlideshow) {
-                stopSlideshowPermanently();
-            }
-
-            const dna = window.getPropertyDNA ? window.getPropertyDNA(emp.nome) : { valor: 9.2 };
-            const projection = (window.MT_Utils && window.MT_Utils.calculateFutureValue) 
-                ? window.MT_Utils.calculateFutureValue(emp.nome, dna.valor) 
-                : { rendimentoPerc: "30", lucroFmt: "Consultar" };
-
-            // Atualizar UI Cabeçalho/Imagem
-            const mainImg = document.getElementById('main-match-img');
-            const mainTitle = document.getElementById('main-match-title');
-            const mainPrice = document.getElementById('main-match-price');
-            const mainLoc = document.getElementById('main-match-location');
-            
-            if (mainImg) {
-                mainImg.style.opacity = '0';
-                setTimeout(() => {
-                    mainImg.src = emp.imagem;
-                    mainImg.style.opacity = '1';
-                }, 200);
-                
-                // Fallback de segurança apenas para casos externos
-                if (name !== 'A ser definido') {
-                    mainImg.onerror = () => { mainImg.src = 'https://images.unsplash.com/photo-1568605114967-8130f3a36994?q=80&w=2070&auto=format&fit=crop'; };
-                } else {
-                    // Para o busca-manual, se falhar, usa o backup premium da Unsplash
-                    mainImg.onerror = () => { mainImg.src = 'https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=2072&auto=format&fit=crop'; };
-                }
-            }
-
-            /* 
-               MT_LOG (04/2026): SINCRONIZAÇÃO DE DADOS FINANCEIROS 
-               Atualiza o preço universal (main-match-price-uni) e as tags de suporte,
-               garantindo que o layout vertical reflita a seleção do investidor em tempo real.
-            */
-            let formattedPrice = "";
-            if (name === 'A ser definido') {
-                formattedPrice = 'Sob Consulta';
-            } else {
-                const priceVal = parsePreco(emp.preco);
-                formattedPrice = (window.MT_Utils && window.MT_Utils.formatCurrency) 
-                    ? window.MT_Utils.formatCurrency(priceVal).replace(",00", "") 
-                    : "R$ " + emp.preco;
-            }
-
-            const priceUniEl = document.getElementById('main-match-price-uni');
-            if (priceUniEl) priceUniEl.innerText = formattedPrice;
-
-            const priceEl = document.getElementById('main-match-price');
-            if (priceEl) priceEl.innerText = formattedPrice;
-
-            if (mainTitle) mainTitle.textContent = emp.nome;
-            if (mainLoc) mainLoc.innerHTML = `<span class="material-symbols-outlined text-[14px]">location_on</span> ${emp.bairro}`;
-
-            // Ativar/Atualizar Mapa Real
-            if (emp.lat && emp.lng) {
-                initInteractiveMap(emp.lat, emp.lng, emp.nome);
-            }
-
-            // Atualizar Barra de Inteligência (A Base do Quadro)
-            const valEl = document.getElementById('main-match-valorizacao');
-            const stEl = document.getElementById('main-match-status');
-            if (valEl) valEl.textContent = `+${projection.rendimentoPerc}% Proj.`;
-            if (stEl) stEl.textContent = emp.entrega;
-
-            // Atualizar os Dots do Carrossel
-            const dots = document.querySelectorAll('#match-carousel-dots button');
-            dots.forEach((dot, idx) => {
-                const isSelected = currentMatches[idx] && currentMatches[idx].nome === name;
-                if (isSelected) {
-                    dot.classList.remove('bg-white/20', 'bg-white/40');
-                    dot.classList.add('bg-primary', 'shadow-[0_0_8px_rgba(255,181,160,0.5)]', 'w-4');
-                } else {
-                    dot.classList.remove('bg-primary', 'shadow-[0_0_8px_rgba(255,181,160,0.5)]', 'w-4');
-                    dot.classList.add('bg-white/20');
-                }
-            });
-
-            // Atualizar Sidebar: Nome do imóvel selecionado
-            const sbTitle = document.getElementById('match-property-sidebar');
-            if (sbTitle) sbTitle.textContent = emp.nome;
-
-            /* 
-               MT_LOG (04/2026): LÓGICA DE PROGRESSÃO E UX DA SIDEBAR.
-               1. Ativação do Passo 3 e Botão de Conversão protegida por guard (!isSlideshow).
-               2. Auto-retração do Drawer de portfólio após seleção manual.
-            */
-            if (!isSlideshow) {
-                // Registrar que o usuário fez uma escolha ativa para a jornada do Co-Piloto
-                window.userHasSelectedProperty = true;
-
-                // Ativar visualmente o Passo 3 na Sidebar
-                const step3 = document.getElementById('sidebar-step-3');
-                const step3Dot = document.getElementById('sidebar-step-3-dot');
-                const step3Text = document.getElementById('sidebar-step-3-text');
-                if (step3 && step3Dot && step3Text) {
-                    step3.classList.remove('opacity-40');
-                    step3.classList.add('opacity-100');
-                    step3Dot.classList.remove('bg-slate-800', 'text-slate-400');
-                    step3Dot.classList.add('bg-tertiary', 'text-on-tertiary', 'shadow-[0_0_15px_rgba(64,225,126,0.2)]');
-                    step3Text.classList.remove('text-slate-400');
-                    step3Text.classList.add('text-slate-100');
-                }
-
-                // Revelar Botão de Conversão Final
-                const approveBtn = document.getElementById('sidebar-approve-container');
-                if (approveBtn) {
-                    approveBtn.classList.remove('hidden');
-                    approveBtn.classList.add('fade-in-section', 'visible');
-                }
-
-                // Auto-retrair Portfolio Drawer após seleção para foco total
-                const drawer = document.getElementById('portfolio-drawer');
-                if (drawer && !drawer.classList.contains('hidden')) {
-                    window.togglePortfolio();
-                }
-            }
-        };
-
-        window.togglePortfolio = function() {
-            const drawer = document.getElementById('portfolio-drawer');
-            if (drawer.classList.contains('hidden')) {
-                drawer.classList.remove('hidden');
-                drawer.classList.add('flex', 'fade-in-section', 'visible');
-            } else {
-                drawer.classList.add('hidden');
-                drawer.classList.remove('flex', 'fade-in-section', 'visible');
-            }
-        }
-
-        /* MT_LOG (04/2026): SINCRONIZAÇÃO DE LEADS (FAVE 2 - DOSSIÊ) 
-           Envia o Relatório Técnico completo antes do redirecionamento. */
-        async function sendDossieLeadToGoogleSheets() {
-            const rawData = localStorage.getItem('mt_sim_data');
-            if (!rawData) return;
-
-            const data = JSON.parse(rawData);
-            const selectedProperty = document.getElementById('match-property-sidebar')?.innerText || 'Nenhum Selecionado';
-            const scoreVal = document.getElementById('score-value')?.innerText || '---';
-
-            const techReport = `
-Dossiê de Viabilidade - Relatório Técnico:
-- Imóvel Selecionado: ${selectedProperty}
-- Score de Crédito IA: ${scoreVal}
-- Poder de Compra Total: ${document.getElementById('bento-vgv-top')?.innerText || 'N/A'}
-- Renda Declarada: ${document.getElementById('prof-renda')?.innerText || 'N/A'}
-- Entrada em Dinheiro: ${document.getElementById('bento-ent-val')?.innerText || 'N/A'}
-- FGTS Aplicado: ${document.getElementById('bento-fgts-val')?.innerText || 'N/A'}
-- Subsídio Calculado: ${document.getElementById('bento-sub-val')?.innerText || 'N/A'}
-- Financiamento: ${document.getElementById('bento-fin-val')?.innerText || 'N/A'}
-- Plano de Fluxo: ${document.getElementById('val-parcela-entrada')?.innerText || 'N/A'}
-- ID da Simulação: ${document.getElementById('simulation-id')?.innerText || 'N/A'}
-`.trim();
-
-            const payload = new URLSearchParams();
-            payload.append('token', 'mtpc_seguro_2025');
-            payload.append('nome', data.raw?.nome || 'Lead Dossiê');
-            payload.append('whatsapp', data.raw?.celular ? data.raw.celular.replace(/\D/g, '') : '');
-            payload.append('assunto', `APROVAÇÃO DIRETA: ${selectedProperty}`);
-            payload.append('mensagem', techReport);
-            payload.append('origem', 'Dossiê do Investidor (Fase 2)');
-
-            try {
-                fetch('https://script.google.com/macros/s/AKfycbzmtDgzbLghMsO0NFMt3CAUDS4lu1E2CjIHibGGSZP_PlWomYcRoYdVE3cIlYxVJDzNlg/exec', {
-                    method: 'POST',
-                    body: payload,
-                    mode: 'no-cors'
-                });
-                console.log("MT Logic: Lead Fase 2 (Dossiê) sincronizado.");
-            } catch (err) {
-                console.error("MT Logic: Erro no Fase 2 sync:", err);
-            }
-        }
-
-        window.aprovarDossie = function(tipo) {
-            sendDossieLeadToGoogleSheets();
-            
-            // MT_LOG (04/2026): Registra a seleção como finalizada para o Co-Piloto
-            window.userHasSelectedProperty = true;
-            if (window.syncSmartFloater) window.syncSmartFloater();
-
-            const selectedProperty = document.getElementById('match-property-sidebar')?.innerText || 'imóvel selecionado';
-            const rendaFam = document.getElementById('prof-renda')?.innerText || '--';
-            const imovelSugeridoVal = document.getElementById('prof-imovel-max')?.innerText || '--';
-            const enquadramento = document.getElementById('viability-enquadramento')?.innerText || '--';
-
-            let customMsg = "";
-            
-            if (tipo === 'limpo') {
-                 customMsg = `Olá, finalizei meu Dossiê IA MT Parceiros.\n\n*Renda Familiar*: ${rendaFam}\n*Enquadramento*: ${enquadramento}\n*Imóvel*: ${selectedProperty}\n\nGostaria de seguir com a aprovação oficial!`;
-            } else {
-                 customMsg = `Olá, finalizei meu Dossiê IA MT Parceiros.\n\n*Renda Familiar*: ${rendaFam}\n*Imóvel Sugerido*: ${imovelSugeridoVal}\n*Enquadramento*: ${enquadramento}\n*Imóvel*: ${selectedProperty}\n\nGostaria de validar os próximos passos!`;
-            }
-            
-            window.open(`https://wa.me/5511946211111?text=${encodeURIComponent(customMsg)}`, '_blank');
-        };
-
-        // --- NOVO: LÓGICA DO CRONOGRAMA INTERATIVO ---
-        window.toggleTimeline = function() {
-            const container = document.getElementById('fluxo-card-container');
-            const chevron = document.getElementById('timeline-chevron');
-            
-            if (container) {
-                container.classList.toggle('timeline-expanded');
-                container.classList.toggle('timeline-card-active');
-            }
-            
-            if (chevron) {
-                if (container.classList.contains('timeline-expanded')) {
-                    chevron.style.transform = 'rotate(180deg)';
-                } else {
-                    chevron.style.transform = 'rotate(0deg)';
-                }
-            }
-        };
-    </script>
-
-    <!-- [COMPONENT: MT MOBILE PILOT (BALLOON)] - MT_LOG (04/2026) -->
+    <!-- [COMPONENT: MT MOBILE PILOT (BALLOON)] - MT_LOG (05/2026) -->
     <div id="mt-mobile-pilot" class="md:hidden">
-        <div class="pilot-header" onclick="handlePilotInteraction()">
+        <div class="pilot-header" onclick="window.handlePilotInteraction()">
             <div class="pilot-icon-pulse">
                 <img src="assets/images/bola_laranja.gif" alt="IA">
             </div>
@@ -2196,220 +1438,1020 @@ Dossiê de Viabilidade - Relatório Técnico:
         </div>
     </div>
 
-    <script>
-        /* 
-           MT_LOG (04/2026): LÓGICA DO CO-PILOTO MOBILE (MODO PREMIUM)
-           Arquitetura de Jornada em 3 Estágios:
-           1. Passo 1 (Checklist): Focado na organização de documentos (window.docState).
-           2. Passo 2 (Matching): Ativado via checkCompletion(), permite a escolha do imóvel.
-           3. Passo 3 (Aprovação): Ativado após seleção real na sidebar, libera o CTA pulsante.
-        */
-        let currentStep = 1;
+    <!-- [MODAL PORTFÓLIO IA] - MT_LOG (05/2026) -->
+    <div id="portfolio-modal" class="portfolio-modal-overlay">
+        <div class="portfolio-modal-body">
+            <div class="flex justify-between items-center mb-10 pb-6 border-b border-white/10">
+                <div>
+                    <h2 class="text-3xl font-black text-white font-headline uppercase tracking-tighter">Portfólio Homologado</h2>
+                    <p class="text-[10px] text-primary font-bold uppercase tracking-[0.3em]">IA Matching Engine v6.0</p>
+                </div>
+                <button onclick="window.closePortfolioModal()" class="w-12 h-12 rounded-full bg-white/5 hover:bg-white/10 flex items-center justify-center transition-all">
+                    <span class="material-symbols-outlined text-slate-400">close</span>
+                </button>
+            </div>
+            <div id="portfolio-modal-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"></div>
+            <div class="mt-12 pt-8 border-t border-white/5 text-center">
+                <p class="text-[9px] text-slate-500 uppercase font-bold tracking-[0.4em]">MT Parceiros • Inteligência em Investimentos</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- 
+        =========================================================
+        [MT_DOSSIE_MASTER: ELITE FUSION v6.0]
+        Este é o cérebro unificado do Dossiê do Investidor.
         
-        function syncSmartFloater() {
-            const floater = document.getElementById('mt-mobile-pilot');
-            if (!floater) return;
+        [BLINDAGEM] Ordem Sagrada de Inicialização:
+        1. MT_Core (Cálculos de Base)
+        2. EMPREENDIMENTOS (Banco de Dados)
+        3. DOSSIE_ENGINE (Inteligência Financeira)
+        4. DOSSIE_CONTROLLER (Hidratação e Orquestração)
+        5. UI_RENDER (Desenho de Componentes)
+        =========================================================
+    -->
+    <script>
+        // --- 1. ESTADO GLOBAL (SINGLE SOURCE OF TRUTH) ---
+        window.isUpdating = false;
+        window._originalSimData = null;
+        window.MT_SimulatedPower = 0;
+        window.currentMatches = [];
+        window._strategyProfile = { idade: 30, fgts: 0, vinculo: 'clt' };
+        window.docState = { fluxo: false, checklist: false, docs: false };
 
-            const ds = window.docState || {};
-            const allChecked = ds.id && ds.residencia && ds.civil && ds.renda;
-            
-            const currentProperty = document.getElementById('match-property-sidebar')?.innerText || '';
-            const propertySelected = currentProperty !== 'Apto 2 Dorms' && 
-                                   currentProperty !== 'Escolha um Imóvel' && 
-                                   currentProperty !== 'Selecione um empreendimento' &&
-                                   currentProperty.trim() !== '' || 
-                                   currentProperty === 'A ser definido';
-            
-            const label = document.getElementById('pilot-step-label');
-            const msg = document.getElementById('pilot-step-msg');
-            const btn = document.getElementById('pilot-btn-label');
+        // --- 2. ENGINE FINANCEIRA (ELITE FUSION) ---
+        window.DossieEngine = {
+            parsePreco: function(txt) {
+                if (!txt) return 0;
+                if (typeof txt === 'number') return txt;
+                let clean = txt.toLowerCase().trim();
+                if (clean.includes('milhão') || clean.includes('milhões')) {
+                    const parts = clean.split(/milh[õesão]+/);
+                    let mega = parseFloat(parts[0].replace(/[^\d,.]/g, '').replace(',', '.')) || 0;
+                    return Math.floor(mega * 1000000);
+                }
+                if (clean.includes('mil')) {
+                    return parseFloat(clean.replace(/[^\d,.]/g, '').replace(',', '.')) * 1000;
+                }
+                return parseInt(clean.replace(/\D/g, '')) || 0;
+            },
 
-            if (!allChecked) {
-                currentStep = 1;
-                if (label) label.innerText = "Passo 1: Viabilidade de Crédito";
-                if (msg) msg.innerText = "Você tem todos os documentos necessários?";
-                if (btn) { 
-                    btn.innerText = "Checklist"; 
-                    btn.classList.remove('animate-bounce'); 
-                    btn.classList.add('bg-primary', 'text-on-primary');
+            evaluateMatch: function(precoImovel, scenario) {
+                if (typeof MT_Core === 'undefined') return { delta: 0, isMatch: false };
+                const sim = MT_Core.calculateMCMV(
+                    scenario.renda || 0, 0, scenario.fgts || 0, scenario.entrada || 0,
+                    !!scenario.clt3anos, true, scenario.idade || 30, scenario.vinculo || 'clt', false
+                );
+                const power = Math.max(sim.valorImovel || 0, window.MT_SimulatedPower || 0);
+                const delta = Math.max(0, precoImovel - power);
+                return { sim, delta, isMatch: delta <= 100 };
+            },
+
+            findMatchTarget: function(type, baseData, propertyPrice, originalSimData = {}, overrides = {}) {
+                const steps = 400; 
+                const maxVal = type === 'renda' ? 10000 : 50000;
+                const stepVal = maxVal / steps;
+                let low = 0;
+                let high = steps;
+                let bestIndex = steps;
+
+                while (low <= high) {
+                    let mid = Math.floor((low + high) / 2);
+                    const currentExtra = mid * stepVal;
+                    
+                    // Constroi o cenário simulado respeitando os overrides
+                    const scenario = {
+                        ...(originalSimData.raw || {}),
+                        ...baseData,
+                        renda: (originalSimData.raw?.renda || 0) + (overrides.extraRenda || 0),
+                        entrada: (originalSimData.raw?.entrada || 0) + (overrides.extraEntrada || 0),
+                        fgts: (originalSimData.raw?.fgts || 0) + (overrides.extraFgts || 0)
+                    };
+                    
+                    // Sobrescreve o campo específico da busca binária
+                    scenario[type] = (originalSimData.raw ? (originalSimData.raw[type] || 0) : 0) + currentExtra;
+
+                    const result = this.evaluateMatch(propertyPrice, scenario); 
+                    if (result.isMatch) {
+                        bestIndex = mid;
+                        high = mid - 1; 
+                    } else {
+                        low = mid + 1;
+                    }
                 }
-                floater.classList.remove('expanded');
-            } else if (!window.userHasSelectedProperty) {
-                currentStep = 2;
-                if (label) label.innerText = "Passo 2: Selecione o Imóvel";
-                if (msg) msg.innerText = "Conheça o Portfólio Homologado";
-                if (btn) { 
-                    btn.innerText = "Ver Portfólio"; 
-                    btn.classList.remove('animate-bounce');
-                    btn.classList.add('bg-tertiary', 'text-on-tertiary');
-                }
-            } else {
-                currentStep = 3;
-                if (label) label.innerText = "Passo 3: Aprovação Profissional";
-                if (msg) msg.innerText = "Solicite sua aprovação agora!";
-                if (btn) { 
-                    btn.innerText = "Aprovar agora"; 
-                    btn.classList.add('animate-bounce'); 
-                    btn.classList.add('bg-tertiary', 'text-on-tertiary');
-                }
-                floater.classList.remove('expanded');
+                return bestIndex * stepVal;
             }
-        }
-
-        window.handlePilotInteraction = function() {
-            const floater = document.getElementById('mt-mobile-pilot');
-            if (currentStep === 1) {
-                const checkEl = document.getElementById('docs-checklist');
-                if (checkEl) checkEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
-            } else if (currentStep === 2) {
-                floater.classList.toggle('expanded');
-                if (floater.classList.contains('expanded')) {
-                    renderPilotPortfolio();
-                }
-            } else if (currentStep === 3) {
-                window.aprovarDossie('ia');
-            }
-        }
-
-        function renderPilotPortfolio(filterQuery = "") {
-            const pilotGrid = document.getElementById('pilot-portfolio-grid');
-            if (!pilotGrid) return;
-            
-            const query = filterQuery.toLowerCase();
-            const list = filterQuery 
-                ? EMPREENDIMENTOS.filter(e => e.nome.toLowerCase().includes(query) || e.bairro.toLowerCase().includes(query)).slice(0, 4)
-                : (currentMatches || []);
-                
-            const topMatch = list[0] || { nome: 'Seu Perfil Ideal', entrega: 'Lazer completo' };
-            
-            let html = `
-            <!-- HEADER RECOMENDADO (HERO) - MT_LOG (04/2026) -->
-            <div class="mb-6 pt-2">
-                <p class="text-primary font-bold text-[8px] uppercase tracking-[0.2em] mb-1">Perfil Recomendado</p>
-                <h4 class="text-white font-bold text-xl mb-1">${topMatch.nome}</h4>
-                <div class="flex items-center gap-2 text-tertiary">
-                     <span class="material-symbols-outlined text-[14px]">check_circle</span>
-                     <span class="text-[10px] font-medium">Lazer completo</span>
-                </div>
-                <div class="h-px bg-white/10 w-full my-6"></div>
-                ${!filterQuery ? '<p class="text-white/40 font-bold text-[8px] uppercase tracking-wider mb-4">Sugestões de Patrimônio:</p>' : ''}
-            </div>`;
-
-            list.forEach((emp, idx) => {
-                const dna = window.getPropertyDNA ? window.getPropertyDNA(emp.nome) : { valor: 9.2 };
-                const projection = window.MT_Utils && window.MT_Utils.calculateFutureValue ? window.MT_Utils.calculateFutureValue(emp.nome, dna.valor) : { lucroFmt: "Consultar" };
-                const isMaster = !filterQuery && idx === 0;
-
-                const priceFmt = (window.MT_Utils && window.MT_Utils.formatCurrency) 
-                    ? window.MT_Utils.formatCurrency(parsePreco(emp.preco))
-                    : "R$ " + emp.preco;
-
-                html += `
-                <div class="glass-card p-4 rounded-xl cursor-pointer hover:border-primary/50 transition-all group relative" onclick="selectProperty('${emp.nome.replace(/'/g, "\\'")}'); document.getElementById('mt-mobile-pilot').classList.remove('expanded');">
-                    ${isMaster ? '<span class="absolute -top-2 -left-2 bg-primary text-on-primary text-[8px] font-bold px-2 py-1 rounded-md z-10 shadow-lg">RECOMENDAÇÃO MASTER</span>' : ''}
-                    <img src="${emp.imagem}" class="w-full h-24 object-cover rounded-lg mb-3 grayscale group-hover:grayscale-0 transition-all" onerror="this.src='https://images.unsplash.com/photo-1568605114967-8130f3a36994?q=80&w=2070&auto=format&fit=crop'">
-                    <h5 class="text-xs font-bold truncate text-white">${emp.nome}</h5>
-                    <p class="text-[10px] text-outline mb-2">${emp.bairro}</p>
-                    <div class="flex justify-between items-center border-t border-white/5 pt-2">
-                        <span class="text-[10px] text-tertiary font-bold">${priceFmt}</span>
-                        <span class="text-[9px] text-primary">+ ${projection.lucroFmt} Lucro</span>
-                    </div>
-                </div>`;
-            });
-
-            // 5º Elemento: Opção "Outros" (Falar com Especialista)
-            html += `
-            <div class="glass-card p-6 rounded-xl flex flex-col items-center justify-center gap-3 border-2 border-dashed border-primary/20 hover:border-primary/50 transition-all group cursor-pointer" 
-                 onclick="selectProperty('A ser definido')">
-                <div class="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center group-hover:scale-110 transition-transform">
-                    <span class="material-symbols-outlined text-primary text-3xl">add_home</span>
-                </div>
-                <div class="text-center">
-                    <p class="text-xs font-bold uppercase text-white">Outras Opções</p>
-                    <p class="text-[9px] text-outline mt-1">Não encontrou o imóvel ideal? Fale com um especialista.</p>
-                </div>
-            </div>`;
-
-            pilotGrid.innerHTML = html;
-        }
-
-        // Observer para controle de visibilidade do Balão Mobile
-        document.addEventListener('DOMContentLoaded', () => {
-            const floater = document.getElementById('mt-mobile-pilot');
-            const hSection = document.getElementById('header-section');
-            if (floater && hSection) {
-                const observer = new IntersectionObserver((entries) => {
-                    entries.forEach(entry => {
-                        // Quando o header principal começar a sumir (scroll para baixo)
-                        if (!entry.isIntersecting) {
-                             floater.classList.add('visible');
-                        } else {
-                             floater.classList.remove('visible', 'expanded');
-                        }
-                    });
-                }, { threshold: 0.1 });
-                observer.observe(hSection);
-            }
-            // Sincronia inicial após pequeno delay para garantir hidratação total
-            setTimeout(() => {
-                // FALLBACK: Se não houver dados no cache, carrega matches genéricos (250k) para não deixar o balão vazio
-                if (!currentMatches || currentMatches.length === 0) {
-                    console.log("MT Logic: Simulando Match IA de Fallback (Dossiê vazio)");
-                    if (window.initMatchIA) window.initMatchIA(250000);
-                }
-                syncSmartFloater();
-            }, 1500);
-        });
-
-        // Hooks para sincronização em tempo real
-        const originalToggleDoc = window.toggleDoc;
-        window.toggleDoc = function(id) {
-            if (originalToggleDoc) originalToggleDoc(id);
-            syncSmartFloater();
         };
 
-        const originalSelectProperty = window.selectProperty;
-        window.selectProperty = function(name, isSlideshow) {
-            if (originalSelectProperty) originalSelectProperty(name, isSlideshow);
-            syncSmartFloater();
+        // --- 3. CONTROLADOR (HYDRATION & SYNC) ---
+        window.DossieController = {
+            hydrate: function(preserveUid = null) {
+                console.log("MT Dossie: Iniciando Hidratação...");
+                if (window.isUpdating) return;
+                window.isUpdating = true;
+                try {
+                    let raw = localStorage.getItem('mt_sim_data');
+                    if (!raw) {
+                        console.warn("MT Dossie: Nenhum dado de simulação encontrado.");
+                        raw = JSON.stringify({
+                            raw: { renda: 3500, entrada: 5000, fgts: 10000, idade: 30, vinculo: 'clt' },
+                            results: { valorImovel: 280000, subsidio: 25000, fgtsTotal: 10000, entradaTotal: 5000, financiamento: 240000, score: 85, id: "#MT-DEMO" }
+                        });
+                    }
+                    const data = JSON.parse(raw);
+                    window._originalSimData = data;
+                    window.MT_SimulatedPower = data.results.valorImovel || 0;
+                    
+                    // Sincronizar Perfil
+                    window._strategyProfile.idade = data.raw.idade || 30;
+                    window._strategyProfile.vinculo = data.raw.vinculo || 'clt';
+                    
+                    console.log("MT Dossie: Dados Carregados -> Poder de Compra =", window.MT_SimulatedPower);
+
+                    this.rankMatches();
+                    this.updateBento(data.results, data.raw);
+                    
+                    // Inicializar Módulo 2 (Se disponível)
+                    if (window.DossieStrategy) window.DossieStrategy.init();
+                    if (window.DossieCarousel) window.DossieCarousel.renderPortfolioDrawer();
+                    
+                    // [PLAN_REFATORACAO] Foco no Crédito: Preencher fluxo com o Poder de Compra simulado
+                    if (window.DossieFluxo) {
+                        window.DossieFluxo.renderFluxoPagamento(data.results, data.raw.entrada, data.raw.fgts);
+                        
+                        // [ANIMAÇÃO] Revelar os cards do Passo 1 (Efeito de carregamento)
+                        setTimeout(() => {
+                            document.querySelectorAll('.flip-card-inner').forEach((el, i) => {
+                                setTimeout(() => {
+                                    el.style.transform = 'rotateY(180deg)';
+                                    setTimeout(() => el.style.transform = '', 1500); // Mostra por 1.5s e volta
+                                }, i * 200);
+                            });
+                        }, 800);
+                    }
+
+                    if (!preserveUid) {
+                        this.setWaitingState();
+                    } else {
+                        window.selectPropertyByUid(preserveUid);
+                    }
+                } catch (err) {
+                    console.error("MT Dossie: Erro crítico na hidratação:", err);
+                } finally {
+                    window.isUpdating = false;
+                }
+            },
+
+            setWaitingState: function() {
+                const waitState = document.getElementById('property-waiting-state');
+                const activeContent = document.getElementById('property-active-content');
+                
+                if (waitState) waitState.classList.remove('hidden');
+                if (activeContent) activeContent.classList.add('hidden');
+
+                // Reset do Título do Passo 1
+                const step1Title = document.getElementById('main-step1-title');
+                if (step1Title) {
+                    step1Title.innerHTML = `<span class="material-symbols-outlined text-primary">account_tree</span> 1. Plano de Fluxo Organizado`;
+                }
+
+                // Apagar luzes dos botões 1-4
+                document.querySelectorAll('#match-carousel-dots button').forEach(btn => btn.classList.remove('active'));
+
+                // Reset do Badge
+                const bText = document.getElementById('ps-badge-text');
+                const badge = document.getElementById('property-status-badge');
+                if (badge) badge.classList.remove('active');
+                if (bText) bText.innerText = "SELECIONE UM IMÓVEL";
+
+                // Reset IA Recommendation
+                const iaText = document.getElementById('ia-recommendation-text');
+                if (iaText) iaText.innerText = '"Diagnóstico inicial concluído com sucesso. Por favor, selecione um dos ativos recomendados no carrossel para que eu possa estruturar sua estratégia de investimento personalizada."';
+
+                // [NEW] Reset do Cabeçalho do Cockpit
+                const hTitle = document.getElementById('strategy-prop-title');
+                const hPrice = document.getElementById('strategy-prop-price');
+                const hDeficit = document.getElementById('strategy-deficit-val');
+                if (hTitle) hTitle.innerText = "---";
+                if (hPrice) hPrice.innerText = "R$ 0";
+                if (hDeficit) hDeficit.innerText = "DÉFICIT: R$ 0";
+
+                // Bloqueio dos Passos 2 e 3
+                const s2 = document.getElementById('sidebar-step-2');
+                const s3 = document.getElementById('sidebar-step-3');
+                if (s2) { s2.classList.remove('active', 'opacity-100'); s2.classList.add('opacity-40'); }
+                if (s3) { s3.classList.remove('active', 'opacity-100'); s3.classList.add('opacity-40'); }
+                
+                const approveBtn = document.getElementById('sidebar-approve-container');
+                if (approveBtn) approveBtn.classList.add('hidden');
+
+                // Reset dos Botões de Ação Principais
+                const btnJornada = document.getElementById('btn-open-jornada');
+                const btnFluxoIA = document.getElementById('btn-open-fluxo-ia');
+                if (btnJornada) {
+                    btnJornada.classList.remove('ring-4', 'ring-red-500/30', 'btn-pulse-alert');
+                    const icon = btnJornada.querySelector('.material-symbols-outlined');
+                    if (icon) icon.innerText = 'rocket_launch';
+                }
+                if (btnFluxoIA) {
+                    btnFluxoIA.classList.remove('bg-tertiary', 'text-on-tertiary', 'btn-pulse', 'border-tertiary');
+                    btnFluxoIA.classList.add('bg-slate-900', 'text-primary', 'border-primary/40');
+                }
+
+                // Reset do Card de Fluxo
+                const fBtn = document.getElementById('btn-abrir-fluxo');
+                const fStatus = document.getElementById('fluxo-status-label');
+                if (fBtn && fStatus) {
+                    fBtn.classList.remove('btn-fluxo-success', 'btn-fluxo-warning', 'btn-pulse');
+                    fStatus.innerHTML = '<span class="material-symbols-outlined text-[12px]">verified_user</span> Liberado: Ver Cronograma';
+                    fStatus.className = "bg-tertiary/20 text-tertiary text-[8px] font-bold px-3 py-1 rounded-full flex items-center gap-1 shadow-sm";
+                }
+            },
+
+            syncJornadaStatus: function() {
+                const currentProp = document.getElementById('main-match-title')?.innerText || "Aguardando Escolha";
+                const propertySelected = !!(currentProp !== "Aguardando Escolha" && currentProp.trim() !== "");
+                
+                const ds = window.docState || {};
+                const allDocsChecked = !!(ds.id && ds.residencia && ds.civil && ds.renda);
+                
+                // 1. Passo 2 (Imóvel)
+                const s2 = document.getElementById('sidebar-step-2');
+                if (s2) {
+                    if (propertySelected) {
+                        s2.classList.add('active', 'opacity-100');
+                        s2.classList.remove('opacity-40');
+                    } else {
+                        s2.classList.remove('active', 'opacity-100');
+                        s2.classList.add('opacity-40');
+                    }
+                }
+
+                // 2. Passo 3 (Documentos)
+                const s3 = document.getElementById('sidebar-step-3');
+                if (s3) {
+                    if (allDocsChecked) {
+                        s3.classList.add('active', 'opacity-100');
+                        s3.classList.remove('opacity-40');
+                    } else {
+                        s3.classList.remove('active', 'opacity-100');
+                        s3.classList.add('opacity-40');
+                    }
+                }
+
+                // 3. Botão Aprovar (Gatilho Final)
+                const approveBtn = document.getElementById('sidebar-approve-container');
+                if (approveBtn) {
+                    if (propertySelected && allDocsChecked) {
+                        approveBtn.classList.remove('hidden');
+                    } else {
+                        approveBtn.classList.add('hidden');
+                    }
+                }
+
+                // 4. Atualizar Guia de Próxima Ação
+                this.updateGuide(window.lastMatchResult?.isMatch, propertySelected);
+            },
+
+            updateGuide: function(isMatch, hasProperty) {
+                const guideCard = document.getElementById('sidebar-guide-card');
+                const gIcon = document.getElementById('guide-icon');
+                const gTitle = document.getElementById('guide-title');
+                const gMsg = document.getElementById('guide-msg');
+                
+                if (!guideCard || !gIcon || !gTitle || !gMsg) return;
+
+                // Capturar Estado dos Documentos
+                const ds = window.docState || {};
+                const allDocsChecked = !!(ds.id && ds.residencia && ds.civil && ds.renda);
+
+                let icon = "search";
+                let title = "Explorar Ativos";
+                let msg = "Analise seu Poder de Compra e selecione um imóvel no item **2. Imóvel Ideal Para Você**.";
+                let themeColor = "#ffb5a0"; // Primary
+
+                if (!hasProperty) {
+                    icon = "search";
+                    title = "Explorar Ativos";
+                    msg = "Entenda seu Poder de Compra e selecione um imóvel no item **2. Imóvel Ideal Para Você**.";
+                } else if (!isMatch) {
+                    icon = "construction";
+                    title = "Ajuste Necessário";
+                    msg = "Este imóvel possui déficit. Clique em **'Ajustar Perfil'** para equilibrar sua engenharia financeira.";
+                    themeColor = "#ef4444"; // Red
+                } else if (!allDocsChecked) {
+                    icon = "fact_check";
+                    title = "Validar Documentos";
+                    msg = "Excelente! O imóvel tem Match Alto. Agora, preencha o **Checklist** para preparar sua aprovação.";
+                    themeColor = "#40e17e"; // Tertiary
+                } else {
+                    icon = "verified_user";
+                    title = "Aprovação Liberada";
+                    msg = "Análise técnica concluída! Clique no botão **'APROVAR AGORA'** abaixo para finalizar seu dossiê.";
+                    themeColor = "#40e17e"; // Tertiary
+                }
+
+                // Aplicar Mudanças com Pequeno Fade
+                guideCard.style.opacity = '0.4';
+                setTimeout(() => {
+                    gIcon.innerText = icon;
+                    gIcon.style.color = themeColor;
+                    gTitle.innerText = title;
+                    gTitle.style.color = themeColor;
+                    gMsg.innerHTML = msg;
+                    guideCard.style.opacity = '1';
+                    guideCard.style.borderColor = `${themeColor}33`; // 20% opacity border
+                }, 150);
+            },
+
+            rankMatches: function() {
+                try {
+                    if (typeof EMPREENDIMENTOS === 'undefined') {
+                        console.error("MT Dossie: Database EMPREENDIMENTOS não carregada!");
+                        window.currentMatches = [];
+                        return;
+                    }
+                    const poder = window.MT_SimulatedPower;
+                    
+                    // FILTRO: Apenas imóveis com preço definido (ignora "Aguarde Lançamento")
+                    const disponiveis = [...EMPREENDIMENTOS].filter(e => {
+                        const p = window.DossieEngine.parsePreco(e.preco);
+                        return p > 0 && p !== Infinity;
+                    });
+
+                    const sorted = disponiveis.sort((a,b) => window.DossieEngine.parsePreco(a.preco) - window.DossieEngine.parsePreco(b.preco));
+                    const matches = sorted.filter(e => window.DossieEngine.parsePreco(e.preco) <= poder);
+                    const deficits = sorted.filter(e => window.DossieEngine.parsePreco(e.preco) > poder);
+                    
+                    window.currentMatches = matches.length >= 4 ? matches.slice(-4) : [...matches, ...deficits.slice(0, 4 - matches.length)];
+                } catch (err) {
+                    console.error("MT Dossie: Erro no rankMatches:", err);
+                }
+            },
+
+            // --- 4. DOSSIEMAP (Geolocalização do Imóvel) ---
+            updateBento: function(res, raw) {
+                const fmt = (v) => new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL', maximumFractionDigits: 0 }).format(v || 0);
+                
+                // 1. Bento Cards
+                const map = { 
+                    'bento-sub-val': fmt(res.subsidio), 
+                    'bento-fgts-val': fmt(res.fgtsTotal), 
+                    'bento-ent-val': fmt(res.entradaTotal), 
+                    'bento-fin-val': fmt(res.financiamento),
+                    'bento-vgv-top': "Poder: " + fmt(window.MT_SimulatedPower)
+                };
+                
+                // 2. Profile Ruler
+                const ruler = {
+                    'prof-renda': fmt(raw.renda),
+                    'prof-taxa': (res.taxa * 100 || 5.00).toFixed(2) + "% a.a.",
+                    'prof-prazo': (res.prazo || 420) + " meses",
+                    'prof-parcela': fmt(res.parcela),
+                    'prof-imovel-max': fmt(window.MT_SimulatedPower),
+                    'simulation-id': res.id || "#MT-2024-X"
+                };
+
+                // 3. Score & Status
+                const scoreValue = res.score || 0;
+                const scoreMap = {
+                    'score-value': scoreValue,
+                    'profile-status': scoreValue >= 80 ? "Excelente" : (scoreValue >= 60 ? "Muito Bom" : "Regular")
+                };
+
+                // 4. Score Breakdown Bars (C1-C6)
+                const pts = res.scorePoints || { c1: 20, c2: 15, c3: 10, c4: 10, c5: 10, c6: 5 };
+                const bars = {
+                    'bar-renda': (pts.c1 / 30 * 100) + "%",
+                    'bar-renda-status': pts.c1 >= 25 ? "Otimizado" : "Pode Melhorar",
+                    'bar-comprometimento': (pts.c2 / 20 * 100) + "%",
+                    'bar-comp-status': pts.c2 >= 15 ? "Saudável" : "Atenção",
+                    'bar-historico': (pts.c3 / 15 * 100) + "%",
+                    'bar-hist-status': pts.c3 >= 10 ? "Positivo" : "Em Análise",
+                    'bar-entrada': (pts.c4 / 15 * 100) + "%",
+                    'bar-ent-status': pts.c4 >= 10 ? "Consistente" : "Aporte Baixo",
+                    'bar-fgts': (pts.c5 / 12 * 100) + "%",
+                    'bar-fgts-status': pts.c5 >= 8 ? "Utilizável" : "Saldo Mínimo",
+                    'bar-idade': (pts.c6 / 8 * 100) + "%",
+                    'bar-idade-status': pts.c6 >= 6 ? "Ideal" : "Limitante"
+                };
+
+                // 5. Comparativo de Modalidades (Tabela)
+                const pSim = window.MT_SimulatedPower || 0;
+                const mMaps = {
+                    'comp-mcmv-taxa': (res.taxa * 100 || 5).toFixed(2) + "% + TR",
+                    'comp-mcmv-par': fmt(res.parcela),
+                    'comp-mcmv-taxa-mobile': (res.taxa * 100 || 5).toFixed(2) + "% + TR",
+                    'comp-mcmv-par-mobile': fmt(res.parcela),
+
+                    'comp-sbpe-taxa': "10.99% + TR",
+                    'comp-sbpe-par': fmt(Math.round((pSim * 0.8) / 420 + (pSim * 0.8 * 0.009))), // SAC Est. @ 10.99
+                    'comp-sbpe-taxa-mobile': "10.99% + TR",
+                    'comp-sbpe-par-mobile': fmt(Math.round((pSim * 0.8) / 420 + (pSim * 0.8 * 0.009))),
+
+                    'comp-sbpe-pre-taxa': "11.50% Fixo",
+                    'comp-sbpe-pre-par': fmt(Math.round(pSim * 0.01)), // Price Est.
+                    'comp-sbpe-pre-taxa-mobile': "11.50% Fixo",
+                    'comp-sbpe-pre-par-mobile': fmt(Math.round(pSim * 0.01))
+                };
+
+                // 6. Arquiteto IA Recommendation (Initial/General)
+                const advice = this.generateIAAdvice(scoreValue, res);
+                const recommendation = { 'ia-recommendation-text': `"${advice}"` };
+
+                const finalMap = { ...map, ...ruler, ...scoreMap, ...recommendation, ...mMaps };
+                for (const [id, val] of Object.entries(finalMap)) {
+                    const el = document.getElementById(id);
+                    if (el) el.innerText = val;
+                }
+
+                // [NOVO] Injeção Dinâmica de Recomendação (RECOMENDADO)
+                const badgeHtml = `<span class="absolute right-2 md:right-4 top-1/2 -translate-y-1/2 bg-primary text-on-primary text-[10px] px-2 py-0.5 rounded-full uppercase scale-in-center shadow-lg z-10 font-black">Indicado</span>`;
+                const rowMcmv = document.getElementById('row-mcmv');
+                const rowSbpe = document.getElementById('row-sbpe');
+                
+                // Limpeza
+                [rowMcmv, rowSbpe].forEach(r => {
+                    if (!r) return;
+                    const b = r.querySelector('.scale-in-center');
+                    if (b) b.remove();
+                    r.querySelector('summary')?.classList.remove('bg-primary/5');
+                    r.removeAttribute('open');
+                });
+
+                // Ativação baseada no Perfil
+                const fullRes = res.fullResults || {};
+                const isMcmv = !fullRes.foraDoMCMV;
+                const targetRow = isMcmv ? rowMcmv : rowSbpe;
+                if (targetRow) {
+                    targetRow.setAttribute('open', '');
+                    targetRow.querySelector('summary')?.insertAdjacentHTML('beforeend', badgeHtml);
+                    targetRow.querySelector('summary')?.classList.add('bg-primary/5');
+                }
+                
+                // [KICKSTART MODULE 2]
+                const statusText = document.getElementById('strategy-status-text');
+                if (statusText) statusText.innerText = "PERFIL SINCRONIZADO";
+
+                // Update Bars Widths and Colors
+                for (const [id, val] of Object.entries(bars)) {
+                    const el = document.getElementById(id);
+                    if (el) {
+                        if (id.includes('bar-') && !id.includes('status')) {
+                            el.style.width = val;
+                            const perc = parseFloat(val);
+                            el.className = "h-full rounded-full transition-all duration-1000 " + (perc >= 80 ? 'bg-tertiary' : 'bg-primary');
+                        } else {
+                            el.innerText = val;
+                        }
+                    }
+                }
+
+                // Gauge Animation
+                const gauge = document.getElementById('score-gauge');
+                if (gauge) {
+                    const offset = 691 - (691 * scoreValue / 100);
+                    gauge.style.strokeDashoffset = offset;
+                }
+            },
+
+            generateIAAdvice: function(score, res, context = null) {
+                // Cenário: Sem imóvel selecionado
+                if (!context) {
+                    if (score >= 80) return "Sua engenharia de crédito está impecável. Explore o portfólio para identificar o ativo que melhor performa no seu planejamento.";
+                    return "Diagnóstico inicial concluído. Selecione um dos ativos recomendados para que eu possa estruturar seu fluxo de pagamento personalizado.";
+                }
+
+                // Cenário: Com imóvel selecionado
+                const delta = context.delta || 0;
+                const isMatch = delta <= 100;
+                
+                if (!isMatch) {
+                    const deltaFmt = new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL', maximumFractionDigits: 0 }).format(delta);
+                    return `Detectamos um desvio de ${deltaFmt} para este ativo. Minha recomendação: Aumente seu aporte de entrada ou considere adicionar um co-proponente para restabelecer o equilíbrio financeiro.`;
+                }
+
+                // Insights Técnicos para MATCH
+                const vinculo = window._originalSimData?.raw?.vinculo || 'clt';
+                if (vinculo === 'mei' || vinculo === 'autonomo') {
+                    return "Para perfis de Empreendedor/MEI, este fluxo é ideal pois preserva sua liquidez mensal. A aprovação via extratos bancários será nossa próxima etapa técnica.";
+                }
+
+                if (res && res.subsidio > 35000) {
+                    return "Você capturou um subsídio governamental de alta performance. Este ativo é a escolha mais inteligente para maximizar o retorno sobre seu capital próprio.";
+                }
+
+                if (score >= 85) {
+                    return "Engenharia de Elite. Este ativo possui o melhor custo-benefício para o seu perfil, garantindo parcelas que não comprometem sua qualidade de vida.";
+                }
+
+                return "Proposta validada pela IA. O equilíbrio entre financiamento e entrada está otimizado para este empreendimento.";
+            },
+
+            // [V8.3] SMART TOAST: Sistema de Feedback de Alta Performance
+            // MT_LOG (05/2026): Agora suporta 'success' para celebração de Match.
+            showSmartToast: function(title, msg, type = 'warning') {
+                const container = document.getElementById('smart-toast-container');
+                if (!container) return;
+
+                const toast = document.createElement('div');
+                toast.className = `smart-toast ${type}`;
+                const icon = type === 'success' ? 'verified' : 'warning';
+                
+                toast.innerHTML = `
+                    <span class="material-symbols-outlined smart-toast-icon">${icon}</span>
+                    <div class="smart-toast-content">
+                        <h4>${title}</h4>
+                        <p>${msg}</p>
+                    </div>
+                `;
+                container.appendChild(toast);
+
+                setTimeout(() => {
+                    toast.classList.add('fade-out');
+                    setTimeout(() => toast.remove(), 400);
+                }, 6000);
+            }
+        };
+
+        // --- 3. UI ACTIONS & INTERACTION ---
+        window.activePropertyUid = null; // Tracker Global
+
+        window.selectPropertyByUid = function(uid) {
+            // MT_LOG (18/05/2026): [AMNÉSIA ESTRATÉGICA EXTENDIDA - FALHA 2 FIXED]
+            // Reseta os overrides e todo o perfil lógico e visual ao trocar de imóvel para evitar contaminações.
+            window._strategyOverrides = { extraRenda: 0, extraEntrada: 0, extraFgts: 0 };
+            
+            const origRaw = window._originalSimData?.raw || {};
+            
+            // 1. Reset lógico do perfil de estratégia para os valores base da simulação do cliente
+            window._strategyProfile = {
+                idade: origRaw.idade || 30,
+                fgts: 0,
+                vinculo: origRaw.vinculo || 'clt',
+                clt3anos: !!origRaw.clt3anos
+            };
+
+            // 2. Reset visual dos Sliders de Renda e Entrada Extra
+            const sliderRenda = document.getElementById('slider-strategy-renda');
+            const sliderEnt = document.getElementById('slider-strategy-ent');
+            if (sliderRenda) sliderRenda.value = 0;
+            if (sliderEnt) sliderEnt.value = 0;
+
+            // 3. Reset visual do Slider e Label de FGTS Adicional
+            const sliderFgts = document.getElementById('opt-strategy-fgts');
+            if (sliderFgts) sliderFgts.value = 0;
+            const valFgts = document.getElementById('val-opt-fgts');
+            if (valFgts) {
+                valFgts.innerText = (window.MT_Utils && window.MT_Utils.formatCurrency) 
+                    ? window.MT_Utils.formatCurrency(0) 
+                    : "R$ 0";
+            }
+
+            // 4. Reset visual do Slider e Label de Idade do Novo Proponente
+            const sliderIdade = document.getElementById('opt-strategy-idade');
+            const baseIdade = origRaw.idade || 30;
+            if (sliderIdade) sliderIdade.value = baseIdade;
+            const valIdade = document.getElementById('val-opt-idade');
+            if (valIdade) valIdade.innerText = baseIdade;
+
+            // 5. Reset visual do Checkbox de Cotista FGTS
+            const chkClt3 = document.getElementById('opt-strategy-clt3anos');
+            if (chkClt3) chkClt3.checked = !!origRaw.clt3anos;
+
+            // 6. Reset visual dos botões de Vínculo Empregatício (CLT, PJ, Púb)
+            const baseVinculo = origRaw.vinculo || 'clt';
+            const vinculoButtons = document.querySelectorAll('[onclick^="setStrategyVinculo"]');
+            vinculoButtons.forEach(btn => {
+                const clickAttr = btn.getAttribute('onclick') || '';
+                const isActive = clickAttr.includes(`'${baseVinculo}'`);
+                
+                btn.classList.remove('active', 'bg-primary', 'text-on-primary', 'bg-primary/20', 'text-primary', 'border-primary/30', 'border-transparent', 'shadow-lg', 'shadow-primary/20');
+                btn.classList.add('border', 'border-white/10', 'text-slate-500');
+                
+                if (isActive) {
+                    btn.classList.add('active', 'bg-primary', 'text-on-primary', 'shadow-lg', 'shadow-primary/20');
+                    btn.classList.remove('border-white/10', 'text-slate-500', 'border-transparent');
+                }
+            });
+
+            // 7. Reset da visibilidade do checkbox cotista (apenas visível para CLT)
+            const wrapClt3 = document.getElementById('wrap-strategy-clt3anos');
+            if (wrapClt3) {
+                wrapClt3.style.display = (baseVinculo === 'clt') ? 'flex' : 'none';
+            }
+
+            const emp = EMPREENDIMENTOS.find(e => e.uid === uid) || EMPREENDIMENTOS[0];
+            window.activePropertyUid = emp.uid;
+            
+            // Troca de Estado (Waiting -> Active)
+            const waitState = document.getElementById('property-waiting-state');
+            const activeContent = document.getElementById('property-active-content');
+            if (waitState) waitState.classList.add('hidden');
+            if (activeContent) {
+                activeContent.classList.remove('hidden');
+                activeContent.classList.add('flex');
+            }
+
+            const t = document.getElementById('main-match-title');
+            const p = document.getElementById('main-match-price');
+            const uni = document.getElementById('main-match-price-uni');
+            const side = document.getElementById('match-property-sidebar');
+            const i = document.getElementById('main-match-img');
+            const loc = document.getElementById('main-match-location');
+            const status = document.getElementById('main-match-status');
+            
+            if(t) t.innerText = emp.nome;
+            if(p) p.innerText = emp.preco;
+            if(uni) uni.innerText = emp.preco;
+            if(side) side.innerText = emp.nome;
+            if(i) i.src = emp.imagem;
+            if(loc) loc.innerHTML = `<span class="material-symbols-outlined text-[14px]">location_on</span> ${emp.endereco}`;
+            if(status) status.innerText = emp.entrega || 'Em Obras';
+
+            // Atualizar Título do Passo 1 Dinamicamente
+            const step1Title = document.getElementById('main-step1-title');
+            if (step1Title) {
+                step1Title.innerHTML = `
+                    <span class="material-symbols-outlined text-primary">account_tree</span> 
+                    1. Plano de Fluxo Organizado 
+                    <span class="text-primary ml-2 animate-fade-in">${emp.nome}</span> 
+                    <span class="text-slate-400 text-[11px] font-normal ml-2 italic">(${emp.preco})</span>
+                `;
+            }
+
+            // [MODULO 2: MAPA] - MT_LOG (05/2026)
+            if (emp.lat && emp.lng && window.DossieMap) {
+                window.DossieMap.init(emp.lat, emp.lng, emp.nome);
+            }
+
+            // O controlador cuidará da ativação dos passos via syncJornadaStatus
+            window.recalculateForProperty(emp.uid);
+        };
+
+        window.selectPropertyByIndex = function(index) {
+            const matches = window.currentMatches || [];
+            if (matches[index]) {
+                window.selectPropertyByUid(matches[index].uid);
+            }
+        };
+
+        window.recalculateForProperty = function(uid) {
+            // MT_LOG (05/2026): Unificação via UID - Sincronia absoluta de ativos homônimos.
+            if (window.isUpdating) return;
+            window.isUpdating = true;
+            try {
+                const emp = EMPREENDIMENTOS.find(e => e.uid === uid) || EMPREENDIMENTOS[0];
+                const price = window.DossieEngine.parsePreco(emp.preco);
+                const scenario = { ...window._originalSimData.raw, ...window._strategyProfile };
+                // [V8.3] O JUIZ DO MATCH: Central de comando para badges e status
+                const res = window.DossieEngine.evaluateMatch(price, scenario);
+                window.lastMatchResult = res; 
+                
+                const bText = document.getElementById('ps-badge-text');
+                const badge = document.getElementById('property-status-badge');
+                if (badge && bText) {
+                    badge.classList.add('active');
+                    if (res.isMatch) {
+                        badge.className = "property-status-badge active badge-match px-4 py-2 rounded-2xl flex items-center gap-2 shadow-2xl backdrop-blur-md border border-white/10";
+                        bText.innerText = "MATCH CONFIRMADO";
+                        
+                        // [V8.3] Toast de Sucesso para Match
+                        window.DossieController.showSmartToast(
+                            "Match Confirmado",
+                            "Parabéns! Sua estratégia garantiu a viabilidade deste imóvel. O fluxo está liberado.",
+                            "success"
+                        );
+                    } else {
+                        badge.className = "property-status-badge active badge-deficit px-4 py-2 rounded-2xl flex items-center gap-2 shadow-2xl backdrop-blur-md border border-white/10";
+                        bText.innerText = `DÉFICIT: ${new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL', maximumFractionDigits: 0 }).format(res.delta)}`;
+                        
+                        // Alerta de Déficit Premium
+                        window.DossieController.showSmartToast(
+                            "Déficit Identificado",
+                            `Faltam ${new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL', maximumFractionDigits: 0 }).format(res.delta)} para este ativo. Ajuste o perfil para equilibrar.`
+                        );
+                    }
+                }
+
+                // Sincronizar Progresso da Jornada (Passo 2/3 e Aprovação)
+                window.DossieController.syncJornadaStatus();
+
+                // [UPDATE ACTION BUTTONS] - MT_LOG (05/2026)
+                const btnJornada = document.getElementById('btn-open-jornada');
+                const btnFluxoIA = document.getElementById('btn-open-fluxo-ia');
+
+                if (res.delta > 1000) {
+                    // MODO DÉFICIT: Foco no Ajuste de Perfil
+                    if (btnJornada) {
+                        btnJornada.classList.add('ring-4', 'ring-red-500/30', 'btn-pulse-alert');
+                        const icon = btnJornada.querySelector('.material-symbols-outlined');
+                        if (icon) icon.innerText = 'construction';
+                    }
+                    if (btnFluxoIA) {
+                        btnFluxoIA.classList.remove('bg-tertiary', 'text-on-tertiary', 'btn-pulse', 'border-tertiary');
+                        btnFluxoIA.classList.add('bg-slate-900', 'text-primary', 'border-primary/40');
+                    }
+                } else if (res.isMatch) {
+                    // MODO MATCH: Foco no Fluxo de Pagamento
+                    if (btnJornada) {
+                        btnJornada.classList.remove('ring-4', 'ring-red-500/30', 'btn-pulse-alert');
+                        const icon = btnJornada.querySelector('.material-symbols-outlined');
+                        if (icon) icon.innerText = 'rocket_launch';
+                    }
+                    if (btnFluxoIA) {
+                        btnFluxoIA.classList.add('bg-tertiary', 'text-on-tertiary', 'btn-pulse', 'border-tertiary');
+                        btnFluxoIA.classList.remove('bg-slate-900', 'text-primary', 'border-primary/40');
+                    }
+                }
+
+                // [UPDATE FLUXO CARD STATE] - MT_LOG (05/2026)
+                const fBtn = document.getElementById('btn-abrir-fluxo');
+                const fStatus = document.getElementById('fluxo-status-label');
+                if (fBtn && fStatus) {
+                    // Limpeza de estados anteriores
+                    fBtn.classList.remove('btn-fluxo-success', 'btn-fluxo-warning', 'btn-pulse');
+                    
+                    if (res.isMatch) {
+                        fBtn.classList.add('btn-fluxo-success', 'btn-pulse');
+                        fStatus.innerHTML = '<span class="material-symbols-outlined text-[10px]">auto_awesome</span> CONDIÇÃO IDEAL';
+                        fStatus.className = "bg-tertiary text-on-tertiary text-[9px] font-black px-3 py-1 rounded-full flex items-center gap-1 shadow-[0_0_15px_rgba(64,225,126,0.4)] animate-bounce";
+                    } else {
+                        fBtn.classList.add('btn-fluxo-warning', 'btn-pulse');
+                        fStatus.innerHTML = '<span class="material-symbols-outlined text-[10px]">warning</span> NECESSÁRIO AJUSTES';
+                        fStatus.className = "bg-red-500 text-white text-[9px] font-black px-3 py-1 rounded-full flex items-center gap-1 shadow-[0_0_15px_rgba(239,68,68,0.4)] animate-pulse";
+                    }
+                }
+
+                // [UPDATE TARGET MARKERS & COCKPIT]
+                if (window.DossieStrategy) {
+                    window.DossieStrategy.updateStrategyValues();
+                }
+                
+                // Atualizar Recomendação IA Contextual
+                const iaText = document.getElementById('ia-recommendation-text');
+                if (iaText) {
+                    const scoreVal = window._originalSimData.results.score || 0;
+                    const advice = window.DossieController.generateIAAdvice(scoreVal, res.sim, { delta: res.delta });
+                    iaText.innerText = `"${advice}"`;
+                }
+                
+                const idx = window.currentMatches.findIndex(m => m.uid === emp.uid);
+                document.querySelectorAll('#match-carousel-dots button').forEach((btn, i) => btn.classList.toggle('active', i === idx));
+
+                if (window.DossieFluxo) window.DossieFluxo.hydrateFluxoPremium();
+                if (window.DossiePilot) window.DossiePilot.syncSmartFloater();
+                
+                // [SYNC] Sincronizar Módulo 2 (Estratégia) com o novo imóvel
+                if (window.DossieStrategy) window.DossieStrategy.updateStrategyValues();
+            } finally {
+                window.isUpdating = false;
+            }
+        };
+
+        // --- 3. BRIDGE FUNCTIONS (Módulo 2) ---
+        window.updateUnifiedStrategy = () => window.DossieStrategy && window.DossieStrategy.updateStrategyValues();
+        window.updateStrategyProfile = () => window.DossieStrategy && window.DossieStrategy.updateStrategyProfile();
+        window.setStrategyVinculo = (v, btn) => window.DossieStrategy && window.DossieStrategy.selectProfileVinculo(v, btn);
+        window.applyStrategyCenario = () => window.DossieStrategy && window.DossieStrategy.applyStrategyCenario();
+        window.resetStrategyCenario = () => window.DossieStrategy && window.DossieStrategy.resetStrategyCenario();
+
+        // Sync & Hydrate final
+        window.syncLiveCacheAndHydrate = (data, preserveUid) => {
+            localStorage.setItem('mt_sim_data', JSON.stringify(data));
+            window.DossieController.hydrate(preserveUid);
+        };
+
+        // Checklist & Gamefication
+        window.toggleDoc = function(type) {
+            if (!window.docState) window.docState = { id: false, residencia: false, civil: false, renda: false };
+            window.docState[type] = !window.docState[type];
+            const isChecked = window.docState[type];
+            
+            // 1. Seletores do Card (Área Central)
+            const card = document.getElementById(`card-doc-${type}`);
+            const dot = card?.querySelector('.status-dot');
+            const text = card?.querySelector('.status-text');
+            const iconBox = card?.querySelector('.icon-box');
+
+            // 2. Seletores da Sidebar (Menu Lateral)
+            const sideCheck = document.getElementById(`side-check-${type}`);
+            const sideItem = document.getElementById(`side-item-${type}`);
+            const sideText = sideItem?.querySelector('p');
+
+            if (isChecked) {
+                // --- ESTADO: PRONTO (Sucesso Verde) ---
+                if (card) card.classList.add('bg-primary/10', 'border-t-primary');
+                if (dot) dot.classList.replace('bg-outline', 'bg-tertiary');
+                if (text) { 
+                    text.textContent = 'Pronto'; 
+                    text.classList.replace('text-outline', 'text-tertiary'); 
+                }
+                if (iconBox) {
+                    iconBox.classList.replace('bg-primary/10', 'bg-tertiary/20');
+                    iconBox.classList.replace('text-primary', 'text-tertiary');
+                }
+                
+                // Sidebar Sync
+                if (sideCheck) {
+                    sideCheck.classList.remove('border-primary/50');
+                    sideCheck.classList.add('bg-tertiary', 'border-tertiary', 'shadow-[0_0_15px_rgba(64,225,126,0.4)]');
+                    sideCheck.innerHTML = '<span class="material-symbols-outlined text-[8px] text-on-tertiary font-bold">check</span>';
+                }
+                if (sideText) sideText.classList.replace('text-slate-400', 'text-slate-100');
+
+            } else {
+                // --- ESTADO: PENDENTE (Padrão Cinza) ---
+                if (card) card.classList.remove('bg-primary/10', 'border-t-primary');
+                if (dot) dot.classList.replace('bg-tertiary', 'bg-outline');
+                if (text) { 
+                    text.textContent = 'Pendente'; 
+                    text.classList.replace('text-tertiary', 'text-outline'); 
+                }
+                if (iconBox) {
+                    iconBox.classList.replace('bg-tertiary/20', 'bg-primary/10');
+                    iconBox.classList.replace('text-tertiary', 'text-primary');
+                }
+
+                // Sidebar Sync
+                if (sideCheck) {
+                    sideCheck.classList.add('border-primary/50');
+                    sideCheck.classList.remove('bg-tertiary', 'border-tertiary', 'shadow-[0_0_15px_rgba(64,225,126,0.4)]');
+                    sideCheck.innerHTML = '';
+                }
+                if (sideText) sideText.classList.replace('text-slate-100', 'text-slate-400');
+            }
+            
+            // 3. Sincronizar Status da Jornada e Pilot
+            if (window.DossieController) window.DossieController.syncJornadaStatus();
+            if (window.DossiePilot) window.DossiePilot.syncSmartFloater();
+        };
+
+        // Accordions
+        window.toggleJornadaAccordion = () => {
+            document.getElementById('strategy-accordion-jornada').classList.toggle('expanded');
+            document.getElementById('strategy-accordion-fluxo').classList.remove('expanded');
+        };
+        window.toggleFluxoAccordion = () => {
+            const acc = document.getElementById('strategy-accordion-fluxo');
+            acc.classList.toggle('expanded');
+            document.getElementById('strategy-accordion-jornada').classList.remove('expanded');
+            
+            if (acc.classList.contains('expanded') && window.DossieFluxo) {
+                window.DossieFluxo.hydrateFluxoPremium();
+            }
+        };
+
+        // Lead Sync
+        window.aprovarDossie = function(origemBotao) {
+            const currentProp = document.getElementById('main-match-title')?.innerText || "Imóvel";
+            const simID = document.getElementById('simulation-id')?.innerText || "#MT-SIM";
+            const poderBase = window.MT_SimulatedPower || 0;
+            const formatador = window.MT_Utils ? window.MT_Utils.formatCurrency : (v) => "R$ " + v;
+            
+            // 1. Coletar Dados da Simulação
+            const sim = window.lastMatchResult?.sim || window._originalSimData?.results || {};
+            const rawOriginal = window._originalSimData?.raw || {};
+            const isMatch = window.lastMatchResult ? window.lastMatchResult.isMatch : true;
+            
+            // Tratamento de Vínculo
+            const vinculoMap = {
+                clt: 'CLT', mei: 'MEI', autonomo: 'Autônomo', pj: 'PJ', publico: 'Funcionário Público', aposentado: 'Aposentado'
+            };
+            const vinculoNome = vinculoMap[rawOriginal.vinculo] || 'Não informado';
+
+            // 2. Coletar Estratégia Aplicada (Sliders do Cockpit)
+            const overrides = window._strategyOverrides || { extraRenda: 0, extraEntrada: 0, extraFgts: 0 };
+            const usouNovoProponente = overrides.extraRenda > 0 ? "✅ Sim" : "❌ Não";
+            const usouReserva = (overrides.extraEntrada > 0 || overrides.extraFgts > 0) ? "✅ Sim" : "❌ Não";
+            
+            // 3. Coletar Status do Checklist de Documentos
+            const ds = window.docState || {};
+            const chkRG = ds.id ? "✅ Pronto" : "❌ Pendente";
+            const chkRes = ds.residencia ? "✅ Pronto" : "❌ Pendente";
+            const chkCiv = ds.civil ? "✅ Pronto" : "❌ Pendente";
+            const chkRen = ds.renda ? "✅ Pronto" : "❌ Pendente";
+
+            let tracker = "";
+            if (origemBotao === 'ia') tracker = "[Via Card do Arquiteto IA]";
+            if (origemBotao === 'sidebar') tracker = "[Via Checklist Aprovado]";
+            if (origemBotao === 'final') tracker = "[Via Rodapé Final do Laudo]";
+            
+            let msg = `🚀 *LAUDO APROVADO — MT Parceiros*\n\n` +
+                      `Olá! Gostaria de avançar com o meu Dossiê IA.\n\n` +
+                      `🏢 *IMÓVEL SELECIONADO:*\n` +
+                      `- Empreendimento: *${currentProp}*\n` +
+                      `- Status IA: ${isMatch ? '✅ MATCH CONFIRMADO' : '⚠️ DÉFICIT PENDENTE'}\n\n` +
+                      `📊 *ESTRUTURA FINANCEIRA:*\n` +
+                      `- ID Simulação: ${simID}\n` +
+                      `- Vínculo: ${vinculoNome}\n` +
+                      `- Renda Base Declarada: ${formatador(rawOriginal.renda || 0)}\n` +
+                      `- Poder de Compra: ${formatador(poderBase)}\n` +
+                      `- Subsídio Liberado: ${formatador(sim.subsidio || 0)}\n` +
+                      `- Financiamento Caixa: ${formatador(sim.potencial || sim.financiamento || 0)}\n` +
+                      `- Parcela Pós-Chaves: ${formatador(sim.parcela || 0)}\n\n` +
+                      `⚙️ *ESTRATÉGIA APLICADA (COCKPIT):*\n` +
+                      `- Composição (Novo Proponente): ${usouNovoProponente}\n` +
+                      `- Aporte (Reserva/FGTS extra): ${usouReserva}\n\n` +
+                      `📑 *CHECKLIST DE DOCUMENTOS:*\n` +
+                      `- RG/CPF: ${chkRG}\n` +
+                      `- Holerites: ${chkRen}\n` +
+                      `- Est. Civil: ${chkCiv}\n` +
+                      `- Residência: ${chkRes}\n\n` +
+                      `📍 _Origem: ${tracker}_`;
+            
+            const numero = (window.MT_Utils && window.MT_Utils.WHATSAPP_NUMBER) ? window.MT_Utils.WHATSAPP_NUMBER : '5511946211111';
+            window.open(`https://wa.me/${numero}?text=${encodeURIComponent(msg)}`, '_blank');
+        };
+
+        window.toggleTimeline = () => window.DossieFluxo && window.DossieFluxo.toggleTimeline();
+        window.togglePortfolio = () => document.getElementById('portfolio-drawer').classList.toggle('hidden');
+        window.closePortfolioModal = () => document.getElementById('portfolio-modal').classList.remove('active');
+
+        // [STRATEGY GLOBAL HOOKS]
+        window.updateUnifiedStrategy = (type) => window.DossieStrategy && window.DossieStrategy.updateStrategyValues();
+        window.updateStrategyProfile = () => window.DossieStrategy && window.DossieStrategy.updateStrategyProfile();
+        window.setStrategyVinculo = (v, btn) => window.DossieStrategy && window.DossieStrategy.selectProfileVinculo(v, btn);
+        window.applyStrategyCenario = () => window.DossieStrategy && window.DossieStrategy.applyStrategyCenario();
+        window.resetStrategyCenario = () => window.DossieStrategy && window.DossieStrategy.resetStrategyCenario();
+
+        window.openPortfolioModal = () => {
+            document.getElementById('portfolio-modal').classList.add('active');
+            if (window.DossieCarousel) window.DossieCarousel.renderPortfolioModal();
+        };
+
+        // --- 4. BOOT ---
+        document.addEventListener('DOMContentLoaded', () => {
+            window.MT_Utils = { formatCurrency: (v) => new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL', maximumFractionDigits: 0 }).format(v || 0) };
+            window.DossieController.hydrate();
+
+            // [ANIMAÇÕES] Ativar observador de revelação (Reveal-on-Scroll)
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible', 'active');
+                    }
+                });
+            }, { threshold: 0.1 });
+
+            document.querySelectorAll('.fade-in-section, .reveal-up').forEach(section => {
+                observer.observe(section);
+            });
+        });
+    </script>
+    <script>
+        // [MODULE: DOSSIEMAP] - MT_LOG (05/2026)
+        window.DossieMap = {
+            instance: null,
+            marker: null,
+            
+            init: function(lat, lng, name) {
+                const container = document.getElementById('real-map');
+                if (!container || typeof L === 'undefined') return;
+
+                try {
+                    if (!this.instance) {
+                        // Criar instância única (Geomática V5)
+                        this.instance = L.map('real-map', { 
+                            zoomControl: true, 
+                            scrollWheelZoom: false,
+                            dragging: !L.Browser.mobile,
+                            tap: !L.Browser.mobile
+                        }).setView([lat, lng], 15);
+
+                        L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', {
+                            attribution: '© OpenStreetMap © CartoDB',
+                            maxZoom: 18
+                        }).addTo(this.instance);
+                    } else {
+                        // Suavizar transição de câmera
+                        this.instance.flyTo([lat, lng], 15, { duration: 1.5 });
+                    }
+
+                    // Gerenciar Marcador Premium
+                    if (this.marker) {
+                        this.marker.setLatLng([lat, lng]).setPopupContent(`<b style="color:#081325">${name}</b>`).openPopup();
+                    } else {
+                        this.marker = L.marker([lat, lng]).addTo(this.instance).bindPopup(`<b style="color:#081325">${name}</b>`).openPopup();
+                    }
+
+                    // Correção técnica para containers flex/hidden
+                    setTimeout(() => {
+                        if (this.instance) this.instance.invalidateSize();
+                    }, 400);
+
+                } catch (err) {
+                    console.error("MT Dossie: Erro crítico no DossieMap:", err);
+                }
+            }
         };
     </script>
-<script>
-    // --- LÓGICA DE MENU MOBILE (v3 FIDELITY) ---
-    document.addEventListener('DOMContentLoaded', () => {
-        const trigger = document.getElementById('mobile-menu-trigger');
-        const menu = document.getElementById('mobile-menu');
-        const line1 = document.getElementById('line1');
-        const line2 = document.getElementById('line2');
-        const line3 = document.getElementById('line3');
-        let isOpen = false;
 
-        if (trigger && menu) {
-            trigger.addEventListener('click', () => {
-                isOpen = !isOpen;
-                
-                if (isOpen) {
-                    // Abrir Menu
-                    menu.classList.remove('-translate-y-full', 'opacity-0', 'pointer-events-none');
-                    menu.classList.add('translate-y-0', 'opacity-100');
-                    
-                    // Transformar Hambúrguer em X
-                    line1.style.transform = 'translateY(8px) rotate(45deg)';
-                    line2.style.opacity = '0';
-                    line3.style.transform = 'translateY(-8px) rotate(-45deg)';
-                } else {
-                    // Fechar Menu
-                    menu.classList.add('-translate-y-full', 'opacity-0', 'pointer-events-none');
-                    menu.classList.remove('translate-y-0', 'opacity-100');
-                    
-                    // Voltar Hambúrguer ao normal
-                    line1.style.transform = 'none';
-                    line2.style.opacity = '1';
-                    line3.style.transform = 'none';
-                }
-            });
-        }
-    });
-</script>
+    <!-- [MODULES: SYNC] -->
+    <script src="assets/js/dossie-engine.min.js?v=6.0"></script>
+    <script src="assets/js/dossie-fluxo.min.js?v=6.0"></script>
+    <script src="assets/js/dossie-strategy.min.js?v=6.0"></script>
+    <script src="assets/js/dossie-carousel.min.js?v=6.0"></script>
+    <script src="assets/js/dossie-pilot.min.js?v=6.0"></script>
 </body>
 </html>

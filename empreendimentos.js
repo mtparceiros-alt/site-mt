@@ -1,5 +1,14 @@
+/**
+ * BANCO DE DADOS DE EMPREENDIMENTOS - MT PARCEIROS
+ * 
+ * PADRÃO OBRIGATÓRIO (UID):
+ * Cada empreendimento deve possuir um "uid" único para evitar conflitos de precificação.
+ * Formato: "nome-do-imovel-preco" (minúsculo, sem espaços).
+ * Exemplo: "vivaz-pirituba-209"
+ */
 var EMPREENDIMENTOS = [
   {
+    "uid": "vivaz-penha-2-205",
     "nome": "Vivaz Penha 2",
     "bairro": "Penha (Zona Leste)",
     "endereco": "Avenida Condessa Elisabeth de Robiano, 6000",
@@ -14,6 +23,7 @@ var EMPREENDIMENTOS = [
     "lng": -46.5945978
   },
   {
+    "uid": "vivaz-estacao-lapa-214",
     "nome": "Vivaz Estação Lapa",
     "bairro": "Lapa (Zona Oeste)",
     "endereco": "Rua Professor Clemente Pastore, 14",
@@ -28,6 +38,7 @@ var EMPREENDIMENTOS = [
     "lng": -46.69922
   },
   {
+    "uid": "grand-vivaz-jardim-franca-paris-224",
     "nome": "Grand Vivaz Jardim França Paris",
     "bairro": "Jardim França",
     "endereco": "Avenida Água Fria, 1215",
@@ -42,6 +53,7 @@ var EMPREENDIMENTOS = [
     "lng": -46.6211741
   },
   {
+    "uid": "vivaz-selection-santo-amaro-218",
     "nome": "Vivaz Selection Santo Amaro",
     "bairro": "Santo Amaro",
     "endereco": "Rua Doutor Rubens Gomes Bueno, 158",
@@ -56,6 +68,7 @@ var EMPREENDIMENTOS = [
     "lng": -46.7189299
   },
   {
+    "uid": "vivaz-selection-laguna-235",
     "nome": "Vivaz Selection Laguna",
     "bairro": "Granja Julieta",
     "endereco": "Rua Laguna, 440",
@@ -70,6 +83,7 @@ var EMPREENDIMENTOS = [
     "lng": -46.71574
   },
   {
+    "uid": "vivaz-estacao-pirituba-235",
     "nome": "Vivaz Estação Pirituba",
     "bairro": "Pirituba",
     "endereco": "Avenida Cristo Rei, 34",
@@ -84,6 +98,7 @@ var EMPREENDIMENTOS = [
     "lng": -46.72078
   },
   {
+    "uid": "vivaz-parque-joao-dias-235",
     "nome": "Vivaz Parque João Dias",
     "bairro": "Santo Amaro",
     "endereco": "Av. Maria Coelho Aguiar, 250",
@@ -98,6 +113,7 @@ var EMPREENDIMENTOS = [
     "lng": -46.730015
   },
   {
+    "uid": "vivaz-connection-adolfo-pinheiro-244",
     "nome": "Vivaz Connection Adolfo Pinheiro",
     "bairro": "Santo Amaro",
     "endereco": "Rua Doutor Antônio Bento, 104",
@@ -112,6 +128,7 @@ var EMPREENDIMENTOS = [
     "lng": -46.7021799
   },
   {
+    "uid": "vivaz-parque-freguesia-do-o-226",
     "nome": "Vivaz Parque Freguesia do Ó (1, 2 e 3)",
     "bairro": "Freguesia do Ó",
     "endereco": "Rua Rio Verde, 1025",
@@ -126,6 +143,7 @@ var EMPREENDIMENTOS = [
     "lng": -46.7011663
   },
   {
+    "uid": "vivaz-santa-marina-306",
     "nome": "Vivaz Santa Marina",
     "bairro": "Água Branca",
     "endereco": "Avenida Santa Marina, 1660",
@@ -140,6 +158,7 @@ var EMPREENDIMENTOS = [
     "lng": -46.6944346
   },
   {
+    "uid": "vivaz-cantareira-293",
     "nome": "Vivaz Cantareira (1, 2 e 3)",
     "bairro": "V. N. Cachoeirinha",
     "endereco": "Avenida Professor Miguel Franchini Neto, 186",
@@ -154,6 +173,7 @@ var EMPREENDIMENTOS = [
     "lng": -46.7253
   },
   {
+    "uid": "vivaz-estacao-pirituba-209",
     "nome": "Vivaz Estação Pirituba",
     "bairro": "Pirituba",
     "endereco": "Avenida Cristo Rei, 34",
@@ -168,6 +188,7 @@ var EMPREENDIMENTOS = [
     "lng": -46.72078
   },
   {
+    "uid": "vivaz-prime-vila-prudente-pronto",
     "nome": "Vivaz Prime Vila Prudente",
     "bairro": "Vila Prudente",
     "endereco": "Rua Cavour, 642",
@@ -182,6 +203,7 @@ var EMPREENDIMENTOS = [
     "lng": -46.5762737
   },
   {
+    "uid": "casa-piaui-higienopolis-8m",
     "nome": "CASA PIAUÍ HIGIENÓPOLIS",
     "bairro": "HIGIENÓPOLIS",
     "endereco": "RUA PIAUÍ",
@@ -196,6 +218,7 @@ var EMPREENDIMENTOS = [
     "lng": -46.6548677
   },
   {
+    "uid": "havva-higienopolis-12m",
     "nome": "HAVVA HIGIENÓPOLIS",
     "bairro": "HIGIENÓPOLIS",
     "endereco": "RUA BAHIA",
@@ -210,6 +233,7 @@ var EMPREENDIMENTOS = [
     "lng": -46.6597158
   },
   {
+    "uid": "collage-bela-vista-389",
     "nome": "COLLAGE BELA VISTA",
     "bairro": "BELA VISTA",
     "endereco": "AV. BRIG LUIS ANTONIO",
@@ -224,6 +248,7 @@ var EMPREENDIMENTOS = [
     "lng": -46.6433462
   },
   {
+    "uid": "patteo-vila-mariana-studio-509",
     "nome": "PATTEO VILA MARIANA",
     "bairro": "VILA MARIANA",
     "endereco": "R: DOMINGOS DE MORAIS",
@@ -238,6 +263,7 @@ var EMPREENDIMENTOS = [
     "lng": -46.6410318
   },
   {
+    "uid": "patteo-vila-mariana-suites-1m",
     "nome": "PATTEO VILA MARIANA",
     "bairro": "VILA MARIANA",
     "endereco": "R: FRANÇA PINTO",
@@ -252,6 +278,7 @@ var EMPREENDIMENTOS = [
     "lng": -46.6420424
   },
   {
+    "uid": "open-mind-chacara-santo-antonio-599",
     "nome": "OPEN MIND",
     "bairro": "CHÁCARA SANTO ANTONIO",
     "endereco": "R: ENXOVIA",
@@ -266,6 +293,7 @@ var EMPREENDIMENTOS = [
     "lng": -46.6995339
   },
   {
+    "uid": "roya-perdizes-449",
     "nome": "ROYA PERDIZES",
     "bairro": "PERDIZES",
     "endereco": "R: DR HOMEM DE MELO",
@@ -280,6 +308,7 @@ var EMPREENDIMENTOS = [
     "lng": -46.6698045
   },
   {
+    "uid": "metropolitan-vila-nova-conceicao-739",
     "nome": "METROPOLITAN",
     "bairro": "VILA NOVA CONCEIÇÃO",
     "endereco": "R: JOÃO LOURENÇO",
@@ -294,6 +323,7 @@ var EMPREENDIMENTOS = [
     "lng": -46.6677471
   },
   {
+    "uid": "caminhos-da-lapa-nova-vivere-105-1m",
     "nome": "Caminhos da Lapa-Nova Vivere",
     "bairro": "Lapa",
     "endereco": "Rua Fortunato Ferraz 625",
@@ -308,6 +338,7 @@ var EMPREENDIMENTOS = [
     "lng": -46.7178455
   },
   {
+    "uid": "caminhos-da-lapa-nova-vivere-73-892",
     "nome": "Caminhos da Lapa-Nova Vivere",
     "bairro": "Lapa",
     "endereco": "Rua Fortunato Ferraz 625",
@@ -322,6 +353,7 @@ var EMPREENDIMENTOS = [
     "lng": -46.7178455
   },
   {
+    "uid": "caminhos-da-lapa-garden-design-725",
     "nome": "Caminhos da Lapa - Garden design",
     "bairro": "Lapa",
     "endereco": "Rua Fortunato Ferraz 625",
@@ -336,6 +368,7 @@ var EMPREENDIMENTOS = [
     "lng": -46.7178455
   },
   {
+    "uid": "signature-barra-funda-579",
     "nome": "Signature",
     "bairro": "Barra Funda",
     "endereco": "Rua Robert Bosch, 332",
@@ -350,6 +383,7 @@ var EMPREENDIMENTOS = [
     "lng": -46.6728561
   },
   {
+    "uid": "concept-barra-funda-338",
     "nome": "Concept Barra Funda",
     "bairro": "Barra Funda",
     "endereco": "Rua Inocêncio Tobias, 130",
@@ -364,6 +398,7 @@ var EMPREENDIMENTOS = [
     "lng": -46.6726381
   },
   {
+    "uid": "abyta-santo-amaro-288",
     "nome": "Abytá Santo Amaro",
     "bairro": "Santo Amaro",
     "endereco": "Rua Herbert Alfred Landsberger, 27",
@@ -378,6 +413,7 @@ var EMPREENDIMENTOS = [
     "lng": -46.7016056
   },
   {
+    "uid": "brooklin-sky-350",
     "nome": "Brooklin SKY",
     "bairro": "Brooklin",
     "endereco": "Rua Princesa Isabel, 400",
@@ -392,6 +428,7 @@ var EMPREENDIMENTOS = [
     "lng": -46.6827174
   },
   {
+    "uid": "011-brooklin-570",
     "nome": "011 Brooklin",
     "bairro": "Brooklin",
     "endereco": "Rua Caetano José Batista, 149",
@@ -406,6 +443,7 @@ var EMPREENDIMENTOS = [
     "lng": -46.6922873
   },
   {
+    "uid": "estilo-lapa-breve",
     "nome": "Estilo Lapa",
     "bairro": "Lapa",
     "endereco": "Rua Fortunato Ferraz, 1251",
@@ -420,6 +458,7 @@ var EMPREENDIMENTOS = [
     "lng": -46.7178455
   },
   {
+    "uid": "grand-vivaz-lapa-220",
     "nome": "Grand Vivaz Lapa",
     "bairro": "Lapa (Zona Oeste)",
     "endereco": "Rua Marina Ciufuli Zanfelice, 163",
