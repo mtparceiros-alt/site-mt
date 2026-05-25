@@ -1,0 +1,36 @@
+# ═════════════
+src/
+assets/js/simulator-core.js
+assets/js/index-logic.js
+assets/js/score-module.js
+assets/js/score-melhorias.js
+assets/css/*.css
+
+!dist/
+!dist/**/*.min.js
+!dist/**/*.min.css
+!dist/index.html
+!assets/**/*.min.js
+!assets/**/*.min.css
+!assets/css/*.min.css
+!assets/js/*.min.js
+!vendor/**
+!videos/**
+
+# Pasta de Memória do Projeto (Somente Desenvolvimento)
+_memoria_projeto/
+.env
+
+
+# Build outputs e arquivos de publicação
+dist/
+Site_MT_Final/
+node_modules/
+npm-debug.log*
+*.log
+._limpeza_backup/
+.vs/
+.vscode/
+.suo
+.user
+.sln.docstates
