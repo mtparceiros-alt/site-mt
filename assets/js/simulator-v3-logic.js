@@ -730,6 +730,29 @@ document.addEventListener('DOMContentLoaded', function () {
     if (inputs.nome) inputs.nome.addEventListener('input', updateSimulation);
     if (inputs.celular) inputs.celular.addEventListener('input', updateSimulation);
 
+    // --- UX: ao tocar nos sliders no mobile, remove o foco do input ativo
+    // Evita que o teclado virtual permaneça aberto e gere scroll indesejado
+    (function() {
+        const sliderIds = ['renda','idade','dividas','fgts','entrada'];
+        const sliders = sliderIds.map(id => document.getElementById(id)).filter(Boolean);
+        const blurActive = () => {
+            try {
+                const a = document.activeElement;
+                if (!a) return;
+                const tag = (a.tagName || '').toUpperCase();
+                if (tag === 'INPUT' || tag === 'TEXTAREA' || a.isContentEditable) {
+                    a.blur();
+                }
+            } catch (e) {
+                console.warn('blurActive failed', e);
+            }
+        };
+        sliders.forEach(s => {
+            s.addEventListener('pointerdown', blurActive, { passive: true });
+            s.addEventListener('touchstart', blurActive, { passive: true });
+        });
+    })();
+
     inputs.vinculoButtons.forEach(btn => {
         btn.addEventListener('click', function() {
             // Atualizar UI dos botões
