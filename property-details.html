@@ -1,4 +1,6 @@
 <!DOCTYPE html>
+
+<!-- Atualizado pelo Assistente -->
 <html lang="pt-br">
 
 <head>
@@ -46,7 +48,112 @@
 
   <!-- GEO Engine [MT Parceiros] (Cérebro Invisível para IA) -->
   <script src="assets/js/geo-engine.js"></script>
+
+  <!-- TAILWIND & STITCH ASSETS -->
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            corePlugins: { preflight: false },
+            theme: {
+                extend: {
+                    "colors": {
+                        "error-container": "#ffdad6",
+                        "tertiary": "#00628f",
+                        "background": "#fff8f6",
+                        "on-error-container": "#93000a",
+                        "surface-container": "#ffe9e3",
+                        "on-secondary-fixed": "#3b0900",
+                        "on-primary-container": "#fffbff",
+                        "inverse-primary": "#ffb5a0",
+                        "on-tertiary-fixed-variant": "#004b6f",
+                        "secondary": "#9b442b",
+                        "surface-container-low": "#fff1ed",
+                        "on-primary": "#ffffff",
+                        "surface": "#fff8f6",
+                        "on-secondary-container": "#752811",
+                        "surface-dim": "#f8d2c7",
+                        "on-surface": "#2a1610",
+                        "on-tertiary-container": "#fcfcff",
+                        "on-tertiary-fixed": "#001e2f",
+                        "primary-fixed-dim": "#ffb5a0",
+                        "secondary-fixed-dim": "#ffb5a0",
+                        "on-background": "#2a1610",
+                        "tertiary-fixed": "#cae6ff",
+                        "surface-tint": "#b02e00",
+                        "primary-fixed": "#ffdbd1",
+                        "on-surface-variant": "#5b4139",
+                        "error": "#ba1a1a",
+                        "on-primary-fixed-variant": "#872100",
+                        "surface-container-highest": "#ffdbd0",
+                        "on-secondary": "#ffffff",
+                        "on-error": "#ffffff",
+                        "inverse-on-surface": "#ffede8",
+                        "primary-container": "#d43f0e",
+                        "on-primary-fixed": "#3b0900",
+                        "surface-container-lowest": "#ffffff",
+                        "secondary-fixed": "#ffdbd1",
+                        "on-secondary-fixed-variant": "#7c2d16",
+                        "surface-container-high": "#ffe2da",
+                        "secondary-container": "#fd9071",
+                        "on-tertiary": "#ffffff",
+                        "tertiary-fixed-dim": "#8cceff",
+                        "tertiary-container": "#007cb3",
+                        "outline-variant": "#e3beb5",
+                        "outline": "#8f7068",
+                        "inverse-surface": "#422b23",
+                        "surface-bright": "#fff8f6",
+                        "surface-variant": "#ffdbd0",
+                        "primary": "#ac2d00"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "1rem",
+                        "lg": "2rem",
+                        "xl": "3rem",
+                        "full": "9999px"
+                    },
+                    "fontFamily": {
+                        "headline": ["Plus Jakarta Sans"],
+                        "display": ["Plus Jakarta Sans"],
+                        "body": ["Inter"],
+                        "label": ["Inter"]
+                    }
+                },
+            },
+        }
+    </script>
+  <style>
+        /* === CONFIGURAÇÕES GLOBAIS === */
+        body { font-family: 'Inter', sans-serif; background-color: #fff8f6; color: #2a1610; }
+        .font-headline { font-family: 'Plus Jakarta Sans', sans-serif; }
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 200, 'GRAD' 0, 'opsz' 24; }
+
+        /* === COMPONENTES VISUAIS (Modelo Stitch) === */
+        /* Sombra difusa e elegante usada nos cartões e fotos */
+        .ambient-shadow { box-shadow: 0 40px 80px -15px rgba(42, 22, 16, 0.08); }
+        /* Efeito de vidro fosco (translucidez e desfoque) */
+        .glass-card { background: rgba(255, 255, 255, 0.4); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.3); }
+        /* Barra lateral laranja usada nos títulos de seções */
+        .vertical-marker { border-left: 8px solid #f35525; padding-left: 1.5rem; }
+        /* Formato orgânico das bolhas de fundo */
+        .kinetic-blob { border-radius: 40% 60% 70% 30% / 40% 50% 60% 50%; }
+
+        /* === COMPONENTES INTERATIVOS === */
+        .cta-ball { position: relative; display: flex; align-items: center; background: #f35525; color: white; padding: 1.25rem 2.5rem; border-radius: 100px; transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
+        .cta-ball:hover { transform: scale(1.05); box-shadow: 0 10px 30px rgba(243, 85, 37, 0.3); }
+
+        /* === MÁSCARAS E EFEITOS ESPECÍFICOS === */
+        /* Gradiente escuro para dar leitura ao texto sobre fotos da Alta Liderança */
+        .image-overlay-gradient { background: linear-gradient(0deg, rgba(42, 22, 16, 0.9) 0%, rgba(42, 22, 16, 0.3) 50%, transparent 100%); }
+        /* Animação que faz o texto da Alta Liderança surgir suavemente no Hover da imagem */
+        /* Escrita em CSS puro para blindar contra overrides do Bootstrap */
+        .lider-text-reveal { opacity: 0; transform: translateY(16px); transition: opacity 0.5s ease, transform 0.5s ease; }
+        .group:hover .lider-text-reveal { opacity: 1; transform: translateY(0); }
+    </style>
 </head>
+
 
 <body>
 
@@ -118,250 +225,221 @@
               </div>
             </div>
           </div>
-          <div class="main-content">
-            <span class="category">Compra</span>
-            <h4>Uma Assessoria Inovadora que Devolve o Seu Tempo!</h4>
-            <p>Esqueça a papelada, as visitas inúteis e a insegurança. Na <strong>MT Parceiros</strong> redefinimos a
-              experiência de compra de imóveis na planta com uma assessoria completa, desenhada para que sua única
-              preocupação seja planejar a mudança.
-
-              <br><br>Veja como nossa metodologia <strong>"Zero Burocracia"</strong> trabalha por você:
+          <!-- ========================================== -->
+          <!-- MÓDULO: METODOLOGIA ZERO BUROCRACIA        -->
+          <!-- Detalha os 4 pilares/camadas da consultoria-->
+          <!-- ========================================== -->
+          <section class="mb-32 relative">
+<div class="absolute -left-20 -top-20 w-64 h-64 bg-[#ac2d00]/5 kinetic-blob -z-10 animate-pulse"></div>
+<div class="mb-20">
+<span class="text-[#ac2d00] font-bold text-sm tracking-[0.3em] uppercase mb-4 block">Processos Fluidos</span>
+<h2 class="text-5xl md:text-7xl font-extrabold font-headline vertical-marker mb-10 tracking-tight leading-[1.1]">Metodologia<br/>Zero Burocracia</h2>
+<p class="text-on-surface-variant text-xl md:text-2xl max-w-2xl leading-relaxed opacity-80">
+                Redefinimos a segurança imobiliária através de um ecossistema de 4 camadas integradas, onde a tecnologia impulsiona a confiança.
             </p>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+<!-- Layer 1: IA -->
+<div class="group relative overflow-hidden glass-card p-10 rounded-[2.5rem] hover:bg-white transition-all duration-500 ambient-shadow">
+<div class="absolute -right-4 -bottom-4 w-24 h-24 bg-[#ac2d00]/10 kinetic-blob group-hover:scale-150 transition-transform duration-700"></div>
+<div class="relative z-10">
+<div class="w-16 h-16 bg-[#ac2d00] text-white rounded-2xl flex items-center justify-center mb-8 shadow-lg shadow-primary/20 group-hover:rotate-6 transition-transform">
+<span class="material-symbols-outlined text-3xl">psychology</span>
+</div>
+<h3 class="font-headline font-black text-2xl mb-4 text-orange-950">Inteligência Preditiva</h3>
+<p class="text-on-surface-variant leading-relaxed text-lg">Algoritmos proprietários que analisam riscos de mercado e perfis de crédito em tempo real antes mesmo da primeira visita.</p>
+</div>
+</div>
+<!-- Layer 2: Jurídico -->
+<div class="group relative overflow-hidden glass-card p-10 rounded-[2.5rem] md:mt-12 hover:bg-white transition-all duration-500 ambient-shadow">
+<div class="absolute -right-4 -bottom-4 w-24 h-24 bg-[#ac2d00]/10 kinetic-blob group-hover:scale-150 transition-transform duration-700"></div>
+<div class="relative z-10">
+<div class="w-16 h-16 bg-[#ac2d00] text-white rounded-2xl flex items-center justify-center mb-8 shadow-lg shadow-primary/20 group-hover:-rotate-6 transition-transform">
+<span class="material-symbols-outlined text-3xl">gavel</span>
+</div>
+<h3 class="font-headline font-black text-2xl mb-4 text-orange-950">Blindagem Jurídica</h3>
+<p class="text-on-surface-variant leading-relaxed text-lg">Compliance rigoroso e análise de certidões automatizada para garantir que o imóvel esteja 100% livre de ônus.</p>
+</div>
+</div>
+<!-- Layer 3: Técnico -->
+<div class="group relative overflow-hidden glass-card p-10 rounded-[2.5rem] hover:bg-white transition-all duration-500 ambient-shadow">
+<div class="absolute -right-4 -bottom-4 w-24 h-24 bg-[#ac2d00]/10 kinetic-blob group-hover:scale-150 transition-transform duration-700"></div>
+<div class="relative z-10">
+<div class="w-16 h-16 bg-[#ac2d00] text-white rounded-2xl flex items-center justify-center mb-8 shadow-lg shadow-primary/20 group-hover:rotate-6 transition-transform">
+<span class="material-symbols-outlined text-3xl">architecture</span>
+</div>
+<h3 class="font-headline font-black text-2xl mb-4 text-orange-950">Auditoria Técnica</h3>
+<p class="text-on-surface-variant leading-relaxed text-lg">Verificação estrutural e documental por engenheiros especializados, assegurando o valor real do patrimônio.</p>
+</div>
+</div>
+<!-- Layer 4: Gestão -->
+<div class="group relative overflow-hidden glass-card p-10 rounded-[2.5rem] md:mt-12 hover:bg-white transition-all duration-500 ambient-shadow">
+<div class="absolute -right-4 -bottom-4 w-24 h-24 bg-[#ac2d00]/10 kinetic-blob group-hover:scale-150 transition-transform duration-700"></div>
+<div class="relative z-10">
+<div class="w-16 h-16 bg-[#ac2d00] text-white rounded-2xl flex items-center justify-center mb-8 shadow-lg shadow-primary/20 group-hover:-rotate-6 transition-transform">
+<span class="material-symbols-outlined text-3xl">key</span>
+</div>
+<h3 class="font-headline font-black text-2xl mb-4 text-orange-950">Gestão de Chaves</h3>
+<p class="text-on-surface-variant leading-relaxed text-lg">Fluxo operacional otimizado para entrega imediata e transição de posse sem atritos burocráticos.</p>
+</div>
+</div>
+</div>
+</section>
+          <!-- ========================================== -->
+          <!-- MÓDULO: EQUIPE E LIDERANÇA                 -->
+          <!-- Grid dinâmico com fotos interativas e hover-->
+          <!-- ========================================== -->
+<section class="mt-48" id="quem-somos">
+<div class="mb-24 flex flex-col md:flex-row md:items-end justify-between gap-8">
+<div class="max-w-xl">
+<span class="text-[#ac2d00] font-bold text-sm tracking-[0.3em] uppercase mb-4 block">Capital Humano</span>
+<h2 class="text-5xl md:text-7xl font-extrabold font-headline vertical-marker tracking-tight leading-none mb-4">O Time que Move o Mercado</h2>
+</div>
+<p class="text-on-surface-variant text-lg max-w-xs opacity-70">Expertise de 6 anos em São Paulo. Unindo tecnologia Google à segurança jurídica de especialistas que transformam números em conquistas reais desde 2018.</p>
+</div>
+<!-- Alta Liderança -->
+<div class="mb-32">
+<h3 class="text-[#ac2d00] font-bold text-xs uppercase tracking-[0.3em] mb-12 flex items-center gap-4">
+<span class="w-12 h-[2px] bg-[#ac2d00]/30"></span> Alta Liderança
+</h3>
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-16">
+<!-- Marcos Medeiros -->
+<div class="relative group w-[80%] mx-auto">
+<div class="relative aspect-[3/4] rounded-[3rem] overflow-hidden ambient-shadow mb-8 bg-surface-container transition-transform duration-700 group-hover:scale-[1.02]">
+<img alt="Marcos Medeiros" class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700 ease-out" src="assets/images/equipe/marcos-medeiros.webp">
+<div class="absolute inset-0 image-overlay-gradient"></div>
+<div class="absolute bottom-10 left-10 right-10 text-white">
+<h4 class="text-4xl font-black font-headline mb-2 leading-tight" style="color: white !important;">Marcos Medeiros</h4>
+<p class="text-[#ffb5a0] font-bold text-lg mb-6">CEO &amp; Fundador</p>
+<p class="text-white/80 text-sm leading-relaxed max-w-sm mb-8 lider-text-reveal">Visionário com mais de 20 anos no mercado imobiliário, focado em transformar ativos complexos em oportunidades de luxo.</p>
+<a href="https://wa.me/5511946211111" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-3 text-sm font-bold bg-white text-orange-950 px-6 py-3 rounded-full hover:bg-[#ac2d00] hover:text-white transition-all shadow-xl js-lead-intercept">
+<span class="material-symbols-outlined text-lg">chat</span> Contato Direto
+</a>
+</div>
+</div>
+</div>
+<!-- Gilberto Medeiros -->
+<div class="relative group lg:mt-24 w-[80%] mx-auto">
+<div class="relative aspect-[3/4] rounded-[3rem] overflow-hidden ambient-shadow mb-8 bg-surface-container transition-transform duration-700 group-hover:scale-[1.02]">
+<img alt="Gilberto Medeiros" class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700 ease-out" src="assets/images/equipe/gilberto-medeiros.webp">
+<div class="absolute inset-0 image-overlay-gradient"></div>
+<div class="absolute bottom-10 left-10 right-10 text-white">
+<h4 class="text-4xl font-black font-headline mb-2 leading-tight" style="color: white !important;">Gilberto Medeiros</h4>
+<p class="text-[#ffb5a0] font-bold text-lg mb-6">Diretor Comercial</p>
+<p class="text-white/80 text-sm leading-relaxed max-w-sm mb-8 lider-text-reveal">Estrategista comercial focado em expansão de portfólio e relacionamento com grandes investidores nacionais.</p>
+<a href="https://wa.me/5511946211111" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-3 text-sm font-bold bg-white text-orange-950 px-6 py-3 rounded-full hover:bg-[#ac2d00] hover:text-white transition-all shadow-xl js-lead-intercept">
+<span class="material-symbols-outlined text-lg">chat</span> Contato Direto
+</a>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Especialistas Grid -->
+<div class="space-y-32">
+<!-- Assessoria Jurídica e Técnica -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-12 lg:gap-24">
+<!-- Amanda Justino -->
+<div class="relative group w-[80%] mx-auto">
+<h3 class="text-[#ac2d00] font-bold text-[10px] uppercase tracking-[0.4em] mb-8">Assessoria Jurídica</h3>
+<div class="relative aspect-[3/4] rounded-3xl overflow-hidden ambient-shadow mb-8 transition-all duration-500 group-hover:rounded-[4rem]">
+<img alt="Amanda Justino Vicentin" class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700" src="assets/images/equipe/amanda.webp" style="object-position: center 10%;">
+<div class="absolute inset-0 bg-gradient-to-t from-orange-950/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
+</div>
+<div class="relative z-10 -mt-16 mx-6 bg-white p-8 rounded-2xl shadow-xl border border-orange-50 group-hover:-translate-y-4 transition-transform duration-500">
+<h4 class="text-2xl font-bold font-headline mb-1">Amanda Justino Vicentin</h4>
+<p class="text-[#ac2d00] font-semibold text-xs uppercase tracking-widest mb-4">OAB SP 468.979</p>
+<p class="text-on-surface-variant text-sm leading-relaxed mb-6">Especialista em Direito Imobiliário e Due Diligence, garantindo segurança total em cada contrato.</p>
+<a href="https://wa.me/5511988517070" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 text-[#ac2d00] font-black text-xs uppercase tracking-[0.2em] hover:text-orange-950 transition-colors js-lead-intercept">
+<span class="material-symbols-outlined text-base">chat</span> Contato
+</a>
+</div>
+</div>
+<!-- Andreia da Silva -->
+<div class="relative group md:mt-24 w-[80%] mx-auto">
+<h3 class="text-[#ac2d00] font-bold text-[10px] uppercase tracking-[0.4em] mb-8">Assessoria Técnica</h3>
+<div class="relative aspect-[3/4] rounded-3xl overflow-hidden ambient-shadow mb-8 transition-all duration-500 group-hover:rounded-[4rem]">
+<img alt="Andreia da Silva Lisboa" class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700" src="assets/images/equipe/andreia.jpeg" style="object-position: center 10%;">
+<div class="absolute inset-0 bg-gradient-to-t from-orange-950/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
+</div>
+<div class="relative z-10 -mt-16 mx-6 bg-white p-8 rounded-2xl shadow-xl border border-orange-50 group-hover:-translate-y-4 transition-transform duration-500">
+<h4 class="text-2xl font-bold font-headline mb-1">Andreia da Silva Lisboa</h4>
+<p class="text-[#ac2d00] font-semibold text-xs uppercase tracking-widest mb-4">RESP. TÉCNICA | CREA SP 5071518379</p>
+<p class="text-on-surface-variant text-sm leading-relaxed mb-6">Lidera as auditorias estruturais e laudos técnicos, assegurando a integridade física dos ativos.</p>
+<a href="https://wa.me/5511985106712" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 text-[#ac2d00] font-black text-xs uppercase tracking-[0.2em] hover:text-orange-950 transition-colors js-lead-intercept">
+<span class="material-symbols-outlined text-base">chat</span> Contato
+</a>
+</div>
+</div>
+</div>
+<!-- Gestão e Operações Center -->
+<div class="flex flex-col items-center">
+<h3 class="text-[#ac2d00] font-bold text-[10px] uppercase tracking-[0.4em] mb-12">Gestão e Operações</h3>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-12 w-full">
+<!-- Thainá Castro -->
+<div class="group flex flex-col md:flex-row items-center gap-8 bg-white/40 p-8 rounded-[2rem] border border-orange-100 hover:bg-white transition-all">
+<div class="w-64 h-64 rounded-full overflow-hidden ambient-shadow flex-shrink-0 group-hover:scale-110 transition-transform duration-500">
+<img alt="Thainá Castro Mendes" class="w-full h-full object-cover grayscale group-hover:grayscale-0" src="assets/images/equipe/thaina-castro.webp" style="object-position: center 10%;">
+</div>
+<div class="flex flex-col">
+<h4 class="text-2xl font-bold font-headline mb-1">Thainá Castro Mendes</h4>
+<p class="text-[#ac2d00] font-medium mb-1">Corretora</p>
+<p class="text-on-surface-variant text-sm mb-4">CRECI: 291.011-F</p>
+<div class="flex flex-wrap gap-3">
+<a href="https://wa.me/5511960364355" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 text-xs font-bold bg-surface-container-highest text-orange-950 px-4 py-2 rounded-full hover:bg-[#ac2d00] hover:text-white transition-all js-lead-intercept"><span class="material-symbols-outlined text-sm">chat</span> WPP</a>
+<a href="#!" data-wa-number="5511960364355" class="inline-flex items-center gap-2 text-xs font-bold bg-surface-container-highest text-orange-950 px-4 py-2 rounded-full hover:bg-[#ac2d00] hover:text-white transition-all schedule-visit-link js-lead-intercept"><span class="material-symbols-outlined text-sm">calendar_month</span> Agenda</a>
+</div>
+</div>
+</div>
+<!-- Vanessa Manara -->
+<div class="group flex flex-col md:flex-row items-center gap-8 bg-white/40 p-8 rounded-[2rem] border border-orange-100 hover:bg-white transition-all">
+<div class="w-64 h-64 rounded-full overflow-hidden ambient-shadow flex-shrink-0 group-hover:scale-110 transition-transform duration-500">
+<img alt="Vanessa Manara" class="w-full h-full object-cover grayscale group-hover:grayscale-0" src="assets/images/equipe/vanesa-manara.webp" style="object-position: center 10%;">
+</div>
+<div class="flex flex-col">
+<h4 class="text-2xl font-bold font-headline mb-1">Vanessa Manara</h4>
+<p class="text-[#ac2d00] font-medium mb-1">Corretora</p>
+<p class="text-on-surface-variant text-sm mb-4">CRECI: (Em breve)</p>
+<div class="flex flex-wrap gap-3">
+<a href="https://wa.me/5511978413919" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 text-xs font-bold bg-surface-container-highest text-orange-950 px-4 py-2 rounded-full hover:bg-[#ac2d00] hover:text-white transition-all js-lead-intercept"><span class="material-symbols-outlined text-sm">chat</span> WPP</a>
+<a href="#!" data-wa-number="5511978413919" class="inline-flex items-center gap-2 text-xs font-bold bg-surface-container-highest text-orange-950 px-4 py-2 rounded-full hover:bg-[#ac2d00] hover:text-white transition-all schedule-visit-link js-lead-intercept"><span class="material-symbols-outlined text-sm">calendar_month</span> Agenda</a>
+</div>
+</div>
+</div>
+<!-- Bruna Valente -->
+<div class="group flex flex-col md:flex-row items-center gap-8 bg-white/40 p-8 rounded-[2rem] border border-orange-100 hover:bg-white transition-all">
+<div class="w-64 h-64 rounded-full overflow-hidden ambient-shadow flex-shrink-0 group-hover:scale-110 transition-transform duration-500">
+<img alt="Bruna Valente" class="w-full h-full object-cover grayscale group-hover:grayscale-0" src="assets/images/equipe/Bruna.jpg" style="object-position: center 10%;">
+</div>
+<div class="flex flex-col">
+<h4 class="text-2xl font-bold font-headline mb-1">Bruna Valente</h4>
+<p class="text-[#ac2d00] font-medium mb-4">Publicidade e Propaganda</p>
+<div class="flex flex-wrap gap-3">
+<a href="https://wa.me/5511964730974" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 text-xs font-bold bg-surface-container-highest text-orange-950 px-4 py-2 rounded-full hover:bg-[#ac2d00] hover:text-white transition-all js-lead-intercept"><span class="material-symbols-outlined text-sm">chat</span> WPP</a>
+<a href="#!" data-wa-number="5511964730974" class="inline-flex items-center gap-2 text-xs font-bold bg-surface-container-highest text-orange-950 px-4 py-2 rounded-full hover:bg-[#ac2d00] hover:text-white transition-all schedule-visit-link js-lead-intercept"><span class="material-symbols-outlined text-sm">calendar_month</span> Agenda</a>
+</div>
+</div>
+</div>
+<!-- Victor Marom -->
+<div class="group flex flex-col md:flex-row items-center gap-8 bg-white/40 p-8 rounded-[2rem] border border-orange-100 hover:bg-white transition-all">
+<div class="w-64 h-64 rounded-full overflow-hidden ambient-shadow flex-shrink-0 group-hover:scale-110 transition-transform duration-500">
+<img alt="Victor Marom" class="w-full h-full object-cover grayscale group-hover:grayscale-0" src="assets/images/equipe/victor.png" style="object-position: center 10%;">
+</div>
+<div class="flex flex-col">
+<h4 class="text-2xl font-bold font-headline mb-1">Victor Marom</h4>
+<p class="text-[#ac2d00] font-medium mb-4">Prospecção e Marketing</p>
+<div class="flex flex-wrap gap-3">
+<a href="https://wa.me/5511972263667" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 text-xs font-bold bg-surface-container-highest text-orange-950 px-4 py-2 rounded-full hover:bg-[#ac2d00] hover:text-white transition-all js-lead-intercept"><span class="material-symbols-outlined text-sm">chat</span> WPP</a>
+<a href="#!" data-wa-number="5511972263667" class="inline-flex items-center gap-2 text-xs font-bold bg-surface-container-highest text-orange-950 px-4 py-2 rounded-full hover:bg-[#ac2d00] hover:text-white transition-all schedule-visit-link js-lead-intercept"><span class="material-symbols-outlined text-sm">calendar_month</span> Agenda</a>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
 
-            <!-- 🛡️ Workflow de Proteção Interativo (Roadmap) -->
-            <div class="workflow-wrapper">
-              <div class="workflow-intro">
-                <div class="d-flex align-items-center">
-                  <div class="text-box">
-                    <h5>🛡️ Proteção Completa: Nossa Metodologia</h5>
-                    <p>Clique para conhecer as 4 camadas de segurança que blindam sua conquista em cada etapa.</p>
-                  </div>
-                  <div class="workflow-arrow"><i class="fa fa-angle-down"></i></div>
-                </div>
-              </div>
-              <div id="workflow-content" class="workflow-content">
-                <div class="row g-3">
-                  <!-- 1. Alta Liderança -->
-                  <div class="col-lg-3 col-md-6">
-                    <div class="workflow-card step-1">
-                      <i class="fa fa-microchip"></i>
-                      <h6>Alta Liderança</h6>
-                      <p>Estratégia, IA <br>& Curadoria <br><strong>(Marcos/Gilberto)</strong></p>
-                    </div>
-                  </div>
-                  <!-- 2. Gestão e Operações -->
-                  <div class="col-lg-3 col-md-6">
-                    <div class="workflow-card step-2">
-                      <i class="fa fa-chart-line"></i>
-                      <h6>Gestão e Operações</h6>
-                      <p>Vendas & Aprovação de Crédito <br><strong>(Equipe MT)</strong></p>
-                    </div>
-                  </div>
-                  <!-- 3. Assessoria Jurídica -->
-                  <div class="col-lg-3 col-md-6">
-                    <div class="workflow-card step-3">
-                      <i class="fa fa-shield-alt"></i>
-                      <h6>Assessoria Jurídica</h6>
-                      <p>Análise Contratual <br>& Blindagem <br><strong>(Amanda)</strong></p>
-                    </div>
-                  </div>
-                  <!-- 4. Assessoria Técnica -->
-                  <div class="col-lg-3 col-md-6">
-                    <div class="workflow-card step-4">
-                      <i class="fa fa-hard-hat"></i>
-                      <h6>Assessoria Técnica</h6>
-                      <p>Vistoria Profissional <br>& Qualidade <br><strong>(Andreia)</strong></p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <!-- ══ MÓDULO EQUIPE (REPOSICIONADO) ══ -->
-          <div class="team-section" id="quem-somos" style="border-radius: 25px; padding: 50px 20px; overflow: hidden; margin-bottom: 40px;">
-            <!-- Cabeçalho -->
-            <div class="team-header">
-              <h6>| Nossa Base e História</h6>
-              <h2 style="font-size: 1.8rem;">Expertise de 6 anos em São Paulo.</h2>
-              <p style="font-size: 0.9rem;">Operamos a partir de nossa base em Pirituba (Rua Manuel Álvares Passos, 249) unindo tecnologia Google à segurança jurídica de especialistas que transformam números em conquistas reais desde 2018. Site estritamente informativo — sem transações financeiras.</p>
-              <div class="accent-line"></div>
-            </div>
-
-            <!-- ══ LIDERANÇA ══ -->
-            <div class="team-category">
-              <h5>Alta Liderança</h5>
-            </div>
-            <div class="row justify-content-center">
-              <div class="col-lg-6 col-md-6">
-                <div class="team-card team-card-lead">
-                  <div class="team-photo">
-                    <img src="assets/images/equipe/marcos-medeiros.webp" alt="Marcos Medeiros">
-                  </div>
-                  <div class="team-name">Marcos Medeiros</div>
-                  <div class="team-role">CEO / Fundador</div>
-                  <p class="team-bio">Visão estratégica e mais de 10 anos liderando operações imobiliárias.</p>
-                </div>
-              </div>
-              <div class="col-lg-6 col-md-6">
-                <div class="team-card team-card-lead">
-                  <div class="team-photo">
-                    <img src="assets/images/equipe/gilberto-medeiros.webp" alt="Gilberto Medeiros">
-                  </div>
-                  <div class="team-name">Gilberto Medeiros</div>
-                  <div class="team-role">Diretor Comercial</div>
-                  <p class="team-bio">Foco em parcerias estratégicas com as maiores construtoras.</p>
-                </div>
-              </div>
-            </div>
-
-            <!-- ══ ASSESSORIA ESPECIALIZADA ══ -->
-            <div class="row justify-content-center">
-              <!-- Jurídico -->
-              <div class="col-lg-6 col-md-6">
-                <div class="team-category" style="margin-top: 20px;">
-                  <h5>Assessoria Jurídica</h5>
-                </div>
-                <div class="team-card team-legal">
-                  <div class="team-photo">
-                    <img src="assets/images/equipe/amanda.webp" alt="Amanda Justino Vicentin" style="object-position: center 10%;">
-                  </div>
-                  <div class="team-name">Amanda Justino Vicentin</div>
-                  <div class="team-role" style="font-size: 0.65rem;">Resp. Jurídica | OAB SP 468.979</div>
-                  <span class="team-specialty">Direito Imobiliário</span>
-                  <div class="team-actions">
-                    <a href="https://wa.me/5511988517070" target="_blank" rel="noopener noreferrer" class="team-btn team-btn-whatsapp js-lead-intercept"><i class="fab fa-whatsapp"></i> Contato</a>
-                  </div>
-                </div>
-              </div>
-              <!-- Técnica -->
-              <div class="col-lg-6 col-md-6">
-                <div class="team-category" style="margin-top: 20px;">
-                  <h5>Assessoria Técnica</h5>
-                </div>
-                <div class="team-card team-tech">
-                  <div class="team-photo">
-                    <img src="assets/images/equipe/andreia.jpeg" alt="Andreia da Silva Lisboa" style="object-position: center 10%;">
-                  </div>
-                  <div class="team-name">Andreia da Silva Lisboa</div>
-                  <div class="team-role" style="font-size: 0.65rem; color: #42a5f5;">RESP. TÉCNICA | CREA SP 5071518379</div>
-                  <span class="team-specialty">Engenharia Civil</span>
-                  <div class="team-actions">
-                    <a href="https://wa.me/5511985106712" target="_blank" rel="noopener noreferrer" class="team-btn team-btn-whatsapp js-lead-intercept"><i class="fab fa-whatsapp"></i> Contato</a>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <!-- ══ GESTÃO E OPERAÇÕES ══ -->
-            <div class="team-category">
-              <h5>Gestão e Operações</h5>
-            </div>
-            <div class="row justify-content-center">
-              <div class="col-lg-6 col-md-6">
-                <div class="team-card">
-                  <div class="team-photo">
-                    <img src="assets/images/equipe/thaina-castro.webp" alt="Thainá Castro Mendes" style="object-position: center 10%;">
-                  </div>
-                  <div class="team-name" style="font-size: 0.9rem;">Thainá Castro Mendes</div>
-                  <div class="team-role">Corretora</div>
-                  <div class="team-creci" style="font-size: 0.65rem;">CRECI: 291.011-F</div>
-                  <div class="team-actions">
-                    <a href="https://wa.me/5511960364355" target="_blank" rel="noopener noreferrer" class="team-btn team-btn-whatsapp js-lead-intercept" style="padding: 6px 10px; font-size: 0.7rem;"><i class="fab fa-whatsapp"></i> WPP</a>
-                    <a href="#!" class="team-btn team-btn-schedule schedule-visit-link js-lead-intercept" data-wa-number="5511960364355" style="padding: 6px 10px; font-size: 0.7rem;"><i class="fa fa-calendar"></i> Agenda</a>
-                  </div>
-                </div>
-              </div>
-              <div class="col-lg-6 col-md-6">
-                <div class="team-card">
-                  <div class="team-photo">
-                    <img src="assets/images/equipe/vanesa-manara.webp" alt="Vanessa Manara" style="object-position: center 10%;">
-                  </div>
-                  <div class="team-name" style="font-size: 0.9rem;">Vanessa Manara</div>
-                  <div class="team-role">Corretora</div>
-                  <div class="team-creci" style="font-size: 0.65rem;">CRECI: (Em breve)</div>
-                  <div class="team-actions">
-                    <a href="https://wa.me/5511978413919" target="_blank" rel="noopener noreferrer" class="team-btn team-btn-whatsapp js-lead-intercept" style="padding: 6px 10px; font-size: 0.7rem;"><i class="fab fa-whatsapp"></i> WPP</a>
-                    <a href="#!" class="team-btn team-btn-schedule schedule-visit-link js-lead-intercept" data-wa-number="5511978413919" style="padding: 6px 10px; font-size: 0.7rem;"><i class="fa fa-calendar"></i> Agenda</a>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <!-- Selos -->
-            <div class="team-badge-row" style="margin-top: 20px; gap: 10px;">
-              <div class="team-badge" style="font-size: 0.65rem; padding: 6px 12px;"><i class="fa fa-shield-alt"></i> CRECI-J: 50809-J</div>
-              <div class="team-badge" style="font-size: 0.65rem; padding: 6px 12px;"><i class="fa fa-award"></i> Parceiro Caixa</div>
-            </div>
-
-            <div class="team-cta" style="margin-top: 30px;">
-              <a href="https://wa.me/5511946211111" style="padding: 12px 30px; font-size: 0.9rem;">
-                <i class="fab fa-whatsapp"></i> Falar com Especialista
-              </a>
-            </div>
-          </div>
-
-          <div class="accordion" id="accordionExample">
-            <div class="accordion-item">
-              <h2 class="accordion-header" id="headingOne">
-                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne"
-                  aria-expanded="true" aria-controls="collapseOne">
-                  Como garantimos sua segurança?
-                </button>
-              </h2>
-              <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne"
-                data-bs-parent="#accordionExample">
-                <div class="accordion-body">
-                  A compra de um imóvel é, muitas vezes, a maior decisão financeira da sua vida. Não deixe esse momento
-                  nas mãos do acaso. Nossa consultoria vai além da venda: analisamos a segurança jurídica, a qualidade
-                  técnica do projeto e o real potencial de valorização da região.
-                </div>
-              </div>
-            </div>
-            <div class="accordion-item">
-              <h2 class="accordion-header" id="headingTwo">
-                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                  data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                  Como funciona?
-                </button>
-              </h2>
-              <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo"
-                data-bs-parent="#accordionExample">
-                <div class="accordion-body">
-                  Na MT Parceiros, redefinimos a compra do seu imóvel na planta para que ela seja uma experiência
-                  segura e sem estresse. Nossa assessoria inovadora foi desenhada para devolver o seu tempo,
-                  blindando você de toda a complexidade do mercado imobiliário.
-                  <br><br>
-                  Tudo começa com você. Antes de apresentar qualquer opção, realizamos um Diagnóstico Inteligente
-                  do seu perfil e objetivo financeiro. Em seguida, nossa equipe aplica um rigoroso Filtro de
-                  Engenharia, selecionando apenas as melhores opções do mercado: imóveis com qualidade construtiva
-                  garantida e alto potencial de valorização.
-                </div>
-              </div>
-            </div>
-            <div class="accordion-item">
-              <h2 class="accordion-header" id="headingThree">
-                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                  data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-                  Por que somos os melhores?
-                </button>
-              </h2>
-              <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree"
-                data-bs-parent="#accordionExample">
-                <div class="accordion-body">
-                  Nós assumimos a parte pesada. Atuamos como um Escudo contra a Burocracia, analisando
-                  minuciosamente o contrato da construtora para garantir seus direitos e prazos de entrega.
-                  Simultaneamente, desenhamos a melhor estratégia de pagamento para o seu bolso, seja orientando
-                  sobre o uso do FGTS, enquadramento no Minha Casa Minha Vida ou negociando o financiamento
-                  direto.
-                  <br><br>
-                  E a parceria não termina na assinatura. Oferecemos um Pós-Venda Conectado, com atendimento ágil
-                  via canais digitais e WhatsApp, para que você tenha suporte contínuo até o momento de pegar as
-                  chaves.
-                </div>
-              </div>
-            </div>
-          </div>
+          
         </div>
 
       </div>
@@ -369,133 +447,61 @@
   </div>
 
 
-  <div class="section best-deal">
-    <div class="container">
-      <div class="row">
-        <div class="col-lg-4">
-          <div class="section-heading">
-            <h6>| Melhores investimentos</h6>
-            <h2>Encontre o que você precisa!</h2>
-          </div>
-        </div>
-        <div class="col-lg-12">
-          <div class="tabs-content">
-            <div class="row">
-              <div class="nav-wrapper ">
-                <ul class="nav nav-tabs" role="tablist">
-                  <li class="nav-item" role="presentation">
-                    <button class="nav-link active" id="appartment-tab" data-bs-toggle="tab"
-                      data-bs-target="#appartment" type="button" role="tab" aria-controls="appartment"
-                      aria-selected="true">Apartamento</button>
-                  </li>
-                  <li class="nav-item" role="presentation">
-                    <button class="nav-link" id="villa-tab" data-bs-toggle="tab" data-bs-target="#villa" type="button"
-                      role="tab" aria-controls="villa" aria-selected="false">Loft</button>
-                  </li>
-                  <li class="nav-item" role="presentation">
-                    <button class="nav-link" id="penthouse-tab" data-bs-toggle="tab" data-bs-target="#penthouse"
-                      type="button" role="tab" aria-controls="penthouse" aria-selected="false">Cobertura</button>
-                  </li>
-                </ul>
-              </div>
-              <div class="tab-content" id="myTabContent">
-                <div class="tab-pane fade show active" id="appartment" role="tabpanel" aria-labelledby="appartment-tab">
-                  <div class="row">
-                    <div class="col-lg-3">
-                      <div class="info-table">
-                        <ul>
-                          <li>Espaço Total<br><span>De 24m² a 120m²</span></li>
-                          <li>Andar<br><span>Varias opções</span></li>
-                          <li>Número de Quartos<br><span> de 1 a 4</span></li>
-                          <li>Estacionamento<br><span>Opcional</span></li>
-                          <li>Pagamento<br><span>Facilitado</span></li>
-                        </ul>
-                      </div>
-                    </div>
-                    <div class="col-lg-6 img-hover-wrap">
-                      <a href="property-details.html">
-                        <img src="assets/images/deal-01.jpg" alt="Fachada Apartamento" class="property-image" style="border-radius:10px;">
-                        <span class="view-details-tag"><i class="fas fa-search"></i> Ver Detalhes</span>
-                      </a>
-                    </div>
-                    <div class="col-lg-3">
-                      <h4>Detalhes sobre Apartamentos</h4>
-                      <p>O equilíbrio perfeito entre conforto e segurança. Plantas inteligentes ideais para famílias
-                        que buscam condomínios com lazer completo e infraestrutura moderna. Um ativo sólido com
-                        valorização constante.
-                        <br><br>Foco: Família, Segurança e Estabilidade.
-                      </p>
-                      <div class="mt-4"><a href="simulador.html" class="d-inline-flex align-items-center justify-content-center" style="gap: 10px; background: #1e1e1e; color: #fff; padding: 12px 25px; border-radius: 14px; font-weight: 600; text-decoration: none; transition: transform 0.2s ease; box-shadow: 0 4px 15px rgba(243, 85, 37, 0.3);"><video autoplay loop muted playsinline style="width: 28px !important; height: 28px !important; flex-shrink: 0; border-radius: 50%; display: inline-block; margin-right: 8px; opacity: 1 !important; pointer-events: none;"><source src="assets/images/bola_laranja.webm" type="video/webm"></video> Simular Aprovação na IA</a></div>
-                    </div>
-                  </div>
-                </div>
-                <div class="tab-pane fade" id="villa" role="tabpanel" aria-labelledby="villa-tab">
-                  <div class="row">
-                    <div class="col-lg-3">
-                      <div class="info-table">
-                        <ul>
-                          <li>Espaço Total<br><span>De 10m² a 24m²</span></li>
-                          <li>Andar<br><span>Varias opções</span></li>
-                          <li>Número de Quartos<br><span>1</span></li>
-                          <li>Estacionamento<br><span>Não</span></li>
-                          <li>Pagamento<br><span>Facilitado</span></li>
-                        </ul>
-                      </div>
-                    </div>
-                    <div class="col-lg-6 img-hover-wrap">
-                      <a href="property-details.html">
-                        <img src="assets/images/deal-02.jpg" alt="Fachada Loft" class="property-image" style="border-radius:10px;">
-                        <span class="view-details-tag"><i class="fas fa-search"></i> Ver Detalhes</span>
-                      </a>
-                    </div>
-                    <div class="col-lg-3">
-                      <h4>Detalhes sobre Lofts</h4>
-                      <p>Conceito aberto para quem valoriza estilo e dinamismo. A escolha estratégica para
-                        investidores que buscam alta rentabilidade em locação ou para quem deseja morar com
-                        praticidade e tecnologia integrada.</p><br>Foco: Modernidade, Rentabilidade e Praticidade.</p>
-                      <div class="mt-4"><a href="simulador.html" class="d-inline-flex align-items-center justify-content-center" style="gap: 10px; background: #1e1e1e; color: #fff; padding: 12px 25px; border-radius: 14px; font-weight: 600; text-decoration: none; transition: transform 0.2s ease; box-shadow: 0 4px 15px rgba(243, 85, 37, 0.3);"><video autoplay loop muted playsinline style="width: 28px !important; height: 28px !important; flex-shrink: 0; border-radius: 50%; display: inline-block; margin-right: 8px; opacity: 1 !important; pointer-events: none;"><source src="assets/images/bola_laranja.webm" type="video/webm"></video> Simular Aprovação na IA</a></div>
-                    </div>
-                  </div>
-                </div>
-                <div class="tab-pane fade" id="penthouse" role="tabpanel" aria-labelledby="penthouse-tab">
-                  <div class="row">
-                    <div class="col-lg-3">
-                      <div class="info-table">
-                        <ul>
-                          <li>Espaço Total<br><span>De 40m² a 200m²</span></li>
-                          <li>Andar<br><span>Cobertura</span></li>
-                          <li>Número de Quartos<br><span> De 2 a 6</span></li>
-                          <li>Estacionamento<br><span>Sim</span></li>
-                          <li>Pagamento<br><span>financiamento</span></li>
-                        </ul>
-                      </div>
-                    </div>
-                    <div class="col-lg-6 img-hover-wrap">
-                      <a href="property-details.html">
-                        <img src="assets/images/deal-03.jpg" alt="Fachada Cobertura" class="property-image" style="border-radius:10px;">
-                        <span class="view-details-tag"><i class="fas fa-search"></i> Ver Detalhes</span>
-                      </a>
-                    </div>
-                    <div class="col-lg-3">
-                      <h4>Detalhes sobre sobre Coberturas</h4>
-                      <p>Exclusividade no topo. Desfrute de privacidade total, vistas privilegiadas e o luxo de uma
-                        área externa privativa. O investimento definitivo para quem não abre mão de espaço, liberdade
-                        e sofisticação.<br><br>Foco: Exclusividade, Espaço e Privacidade.</p>
-                      <div class="mt-4"><a href="simulador.html" class="d-inline-flex align-items-center justify-content-center" style="gap: 10px; background: #1e1e1e; color: #fff; padding: 12px 25px; border-radius: 14px; font-weight: 600; text-decoration: none; transition: transform 0.2s ease; box-shadow: 0 4px 15px rgba(243, 85, 37, 0.3);"><video autoplay loop muted playsinline style="width: 28px !important; height: 28px !important; flex-shrink: 0; border-radius: 50%; display: inline-block; margin-right: 8px; opacity: 1 !important; pointer-events: none;"><source src="assets/images/bola_laranja.webm" type="video/webm"></video> Simular Aprovação na IA</a></div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
 
 
 
   <!-- FIM: MÓDULO QUEM SOMOS -->
+
+  <!-- ========================================== -->
+  <!-- MÓDULO: DÚVIDAS FREQUENTES (FAQ)           -->
+  <!-- Acordeões interativos com lógica em JS puro-->
+  <!-- Blindado contra CSS do Bootstrap           -->
+  <!-- ========================================== -->
+  <section class="mt-40 mb-32 px-6 max-w-7xl mx-auto">
+<div class="mb-16">
+<span class="text-[#ac2d00] font-bold text-sm tracking-[0.3em] uppercase mb-4 block pl-6">Dúvidas Frequentes</span>
+<h2 class="text-5xl md:text-6xl font-extrabold font-headline vertical-marker tracking-tight leading-none mb-4">FAQ</h2>
+</div>
+<div class="space-y-6">
+<!-- FAQ Item 1 -->
+<div class="group bg-white border-none rounded-[2rem] overflow-hidden ambient-shadow transition-all duration-500">
+<button class="w-full flex items-center justify-between p-8 text-left focus:outline-none border-none bg-transparent" onclick="this.parentElement.classList.toggle('active'); this.querySelector('.expand-icon').classList.toggle('rotate-180')">
+<span class="text-xl md:text-2xl font-headline font-bold text-orange-950">Como garantimos sua segurança?</span>
+<span class="material-symbols-outlined expand-icon transition-transform duration-300" style="color: #ac2d00 !important; font-weight: 300;">expand_more</span>
+</button>
+<div class="max-h-0 overflow-hidden transition-all duration-500 ease-in-out group-[.active]:max-h-96">
+<div class="p-8 pt-0 text-on-surface-variant text-lg leading-relaxed opacity-80">
+                    A compra de um imóvel é, muitas vezes, a maior decisão financeira da sua vida. Não deixe esse momento nas mãos do acaso. Nossa consultoria vai além da venda: analisamos a segurança jurídica, a qualidade técnica do projeto e o real potencial de valorização da região.
+                </div>
+</div>
+</div>
+<!-- FAQ Item 2 -->
+<div class="group bg-white border-none rounded-[2rem] overflow-hidden ambient-shadow transition-all duration-500">
+<button class="w-full flex items-center justify-between p-8 text-left focus:outline-none border-none bg-transparent" onclick="this.parentElement.classList.toggle('active'); this.querySelector('.expand-icon').classList.toggle('rotate-180')">
+<span class="text-xl md:text-2xl font-headline font-bold text-orange-950">Como funciona?</span>
+<span class="material-symbols-outlined expand-icon transition-transform duration-300" style="color: #ac2d00 !important; font-weight: 300;">expand_more</span>
+</button>
+<div class="max-h-0 overflow-hidden transition-all duration-500 ease-in-out group-[.active]:max-h-[500px]">
+<div class="p-8 pt-0 text-on-surface-variant text-lg leading-relaxed opacity-80">
+                    Na MT Parceiros, redefinimos a compra do seu imóvel na planta para que ela seja uma experiência segura e sem estresse. Nossa assessoria inovadora foi desenhada para devolver o seu tempo, blindando você de toda a complexidade do mercado imobiliário. Tudo começa com você. Antes de apresentar qualquer opção, realizamos um Diagnóstico Inteligente do seu perfil e objetivo financeiro. Em seguida, nossa equipe aplica um rigoroso Filtro de Engenharia, selecionando apenas as melhores opções do mercado: imóveis com qualidade construtiva garantida e alto potencial de valorização.
+                </div>
+</div>
+</div>
+<!-- FAQ Item 3 -->
+<div class="group bg-white border-none rounded-[2rem] overflow-hidden ambient-shadow transition-all duration-500">
+<button class="w-full flex items-center justify-between p-8 text-left focus:outline-none border-none bg-transparent" onclick="this.parentElement.classList.toggle('active'); this.querySelector('.expand-icon').classList.toggle('rotate-180')">
+<span class="text-xl md:text-2xl font-headline font-bold text-orange-950">Por que somos os melhores?</span>
+<span class="material-symbols-outlined expand-icon transition-transform duration-300" style="color: #ac2d00 !important; font-weight: 300;">expand_more</span>
+</button>
+<div class="max-h-0 overflow-hidden transition-all duration-500 ease-in-out group-[.active]:max-h-[500px]">
+<div class="p-8 pt-0 text-on-surface-variant text-lg leading-relaxed opacity-80">
+                    Nós assumimos a parte pesada. Atuamos como um Escudo contra a Burocracia, analisando minuciosamente o contrato da construtora para garantir seus direitos e prazos de entrega. Simultaneamente, desenhamos a melhor estratégia de pagamento para o seu bolso, seja orientando sobre o uso do FGTS, enquadramento no Minha Casa Minha Vida ou negociando o financiamento direto. E a parceria não termina na assinatura. Oferecemos um Pós-Venda Conectado, com atendimento ágil via canais digitais e WhatsApp, para que você tenha suporte contínuo até o momento de pegar as chaves.
+                </div>
+</div>
+</div>
+</div>
+</section>
+  <!-- FIM MÓDULO FAQ -->
 
 
   <footer>
@@ -531,7 +537,21 @@
   <script src="assets/js/shared.js"></script>
   <script src="assets/js/micro-animations.js"></script>
   <script src="assets/js/property-drawer.js"></script>
+
+  <script>
+    // Parallax effect for cards (Stitch)
+    document.addEventListener('mousemove', (e) => {
+        const amount = 5;
+        const x = (e.clientX / window.innerWidth - 0.5) * amount;
+        const y = (e.clientY / window.innerHeight - 0.5) * amount;
+        
+        document.querySelectorAll('.glass-card').forEach(card => {
+            card.style.transform = `translate3d(${x}px, ${y}px, 0)`;
+        });
+    });
+  </script>
 </body>
+
 
 </html>
 

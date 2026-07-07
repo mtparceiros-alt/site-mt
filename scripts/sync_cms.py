@@ -45,6 +45,8 @@ import time
 import sys
 import os
 import re
+import hashlib
+import unicodedata
 import urllib.request
 import urllib.parse
 from datetime import datetime
@@ -400,6 +402,35 @@ def verificar_imagem(nome_arquivo):
     return ""
 
 
+def normalizar_uid_base(valor):
+    texto = unicodedata.normalize("NFKD", str(valor or ""))
+    texto = texto.encode("ascii", "ignore").decode("ascii")
+    texto = re.sub(r"[^a-zA-Z0-9]+", "-", texto).strip("-").lower()
+    return texto
+
+
+def gerar_uid(row, indice, usados):
+    nome = str(row[COL_NOME] or "").strip()
+    endereco = str(row[COL_END] or "").strip()
+    bairro = str(row[COL_BAIRRO] or "").strip()
+
+    base = normalizar_uid_base(nome)
+    if not base:
+        base = f"emp-{indice}"
+
+    fonte = f"{nome}|{endereco}|{bairro}"
+    sufixo = hashlib.sha1(fonte.encode("utf-8")).hexdigest()[:6]
+    uid = f"{base}-{sufixo}"
+
+    contador = 2
+    while uid in usados:
+        uid = f"{base}-{contador}"
+        contador += 1
+
+    usados.add(uid)
+    return uid
+
+
 
 # ══════════════════════════════════════════════════════════════
 #  FUNÇÃO PRINCIPAL
@@ -437,6 +468,8 @@ def main():
     empreendimentos = []
     erros_geocod = 0
     imagens_faltantes = []
+    sem_coordenadas = 0
+    uids_usados = set()
 
     linhas = list(ws.iter_rows(min_row=2, max_row=ws.max_row, values_only=True))
     total = sum(1 for r in linhas if r[COL_NOME])
@@ -449,6 +482,7 @@ def main():
         if not nome:
             continue
         contador += 1
+        uid = gerar_uid(row, contador, uids_usados)
 
         endereco = str(row[COL_END] or "").strip().replace("\n", " ")
         bairro = str(row[COL_BAIRRO] or "").strip()
@@ -493,9 +527,9 @@ def main():
                 if not dry_run:
                     salvar_cache(cache)
             else:
-                print(f"  ❌ Geocodificação falhou para: {endereco}")
+                print(f"  ⚠️  Geocodificação falhou para: {endereco}")
                 erros_geocod += 1
-                continue
+                sem_coordenadas += 1
 
         # ── Verificar imagem ──────────────────────────────────
         imagem_nome = str(row[COL_IMAGEM] or "").strip()
@@ -523,6 +557,7 @@ def main():
             "imagem":       imagem_path,
             "lat":          lat,
             "lng":          lng,
+            "uid":          uid,
         })
 
     # ══════════════════════════════════════════════════════════
@@ -535,9 +570,13 @@ def main():
         print("📋 PRÉVIA (--dry-run): Nenhum arquivo foi alterado.\n")
         for i, emp in enumerate(empreendimentos):
             print(f"  {i+1}. {emp['nome']}")
-            print(f"     📍 {emp['lat']:.5f}, {emp['lng']:.5f}")
+            if emp["lat"] is not None and emp["lng"] is not None:
+                print(f"     📍 {emp['lat']:.5f}, {emp['lng']:.5f}")
+            else:
+                print("     📍 SEM COORDENADAS")
             print(f"     💰 {emp['preco']} | 📅 {emp['entrega']}")
             print(f"     🖼️  {emp['imagem'] or '⚠️  SEM IMAGEM'}")
+            print(f"     🆔 {emp['uid']}")
             print()
     else:
         # ── Backup do arquivo anterior ────────────────────────
@@ -551,16 +590,26 @@ def main():
                 print(f"  ⚠️  Falha ao criar backup: {e}")
 
         # ── Gerar empreendimentos.js ──────────────────────────
-        with open(ARQUIVO_JS, "w", encoding="utf-8") as f:
+        temp_js = ARQUIVO_JS + ".tmp"
+        with open(temp_js, "w", encoding="utf-8") as f:
             f.write("var EMPREENDIMENTOS = ")
             json.dump(empreendimentos, f, ensure_ascii=False, indent=2)
             f.write(";\n")
+        try:
+            os.replace(temp_js, ARQUIVO_JS)
+        except Exception as e:
+            print(f"  ⚠️  Falha ao atualizar {ARQUIVO_JS}: {e}")
+            if os.path.exists(temp_js):
+                print(f"  ℹ️  Arquivo temporário mantido em: {temp_js}")
+            raise
 
     # ── Relatório Final ───────────────────────────────────────
     print("\n" + "=" * 55)
     print(f"✅ {len(empreendimentos)} empreendimentos processados!")
     if erros_geocod > 0:
         print(f"⚠️  {erros_geocod} endereço(s) com falha de geocodificação.")
+    if sem_coordenadas > 0:
+        print(f"ℹ️  {sem_coordenadas} item(ns) ficaram sem coordenadas válidas, mas foram mantidos no catálogo.")
     if imagens_faltantes:
         print(f"⚠️  {len(imagens_faltantes)} imagem(ns) não encontrada(s):")
         for img in imagens_faltantes:

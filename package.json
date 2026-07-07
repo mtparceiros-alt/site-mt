@@ -8,8 +8,6 @@
     "sync:dry": "python scripts/sync_cms.py --dry-run",
     "clean": "node -e \"const fs = require('fs'); const path = require('path'); const dist = path.join(process.cwd(), 'dist'); if (fs.existsSync(dist)) fs.rmSync(dist, { recursive: true, force: true });\"",
     "build": "npm run clean && node scripts/obfuscate.js && node scripts/sign-code.js && node scripts/copy-assets.js",
-    "prepare:publish": "node scripts/prepare-publish.js",
-    "cleanup:bkps": "node scripts/cleanup-backups.js",
     "build:prod": "set NODE_ENV=production && npm run build",
     "obfuscate": "node scripts/obfuscate.js",
     "sign-code": "node scripts/sign-code.js",

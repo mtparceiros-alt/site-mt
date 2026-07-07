@@ -6,6 +6,34 @@
 document.addEventListener('DOMContentLoaded', function () {
     console.log("MT Logic v3: Iniciando...");
 
+        // --- FOCUS GUARD (Opção B) ---
+        // Prevê re-focus programático logo após interação com sliders.
+        // Quando um slider é tocado, setamos `window.__mt_lastSliderTouch`.
+        // Aqui sobrescrevemos temporariamente `HTMLInputElement.prototype.focus`
+        // para bloquear focos programáticos que ocorram dentro do intervalo.
+        try {
+            window.__mt_lastSliderTouch = 0;
+            window.__mt_focusGuardTimeout = 800; // ms
+            (function () {
+                const origFocus = Element.prototype.focus;
+                Element.prototype.focus = function () {
+                    try {
+                        const last = window.__mt_lastSliderTouch || 0;
+                        const now = Date.now();
+                        if (now - last < (window.__mt_focusGuardTimeout || 800)) {
+                            if (window.console && window.console.debug) window.console.debug('MT: focus blocked for', this.id || this);
+                            return; // noop — bloqueia foco programático imediato após tocar slider
+                        }
+                    } catch (e) {
+                        // se algo falhar, cair para o comportamento padrão
+                    }
+                    return origFocus.apply(this, arguments);
+                };
+            })();
+        } catch (e) {
+            console.warn('MT: focus guard installation failed', e);
+        }
+
     // --- 1. CONFIGURAÇÃO DE INPUTS ---
     const inputs = {
         renda: document.getElementById('renda'),
@@ -737,6 +765,8 @@ document.addEventListener('DOMContentLoaded', function () {
         const sliders = sliderIds.map(id => document.getElementById(id)).filter(Boolean);
         const blurActive = () => {
             try {
+                // Marca o momento do último toque no slider — usado pelo guard de foco
+                try { window.__mt_lastSliderTouch = Date.now(); } catch (e) { /* noop */ }
                 const a = document.activeElement;
                 if (!a) return;
                 const tag = (a.tagName || '').toUpperCase();
@@ -748,8 +778,9 @@ document.addEventListener('DOMContentLoaded', function () {
             }
         };
         sliders.forEach(s => {
-            s.addEventListener('pointerdown', blurActive, { passive: true });
-            s.addEventListener('touchstart', blurActive, { passive: true });
+            // use capture phase so blur runs before other listeners
+            s.addEventListener('pointerdown', blurActive, { capture: true, passive: true });
+            s.addEventListener('touchstart', blurActive, { capture: true, passive: true });
         });
     })();
 

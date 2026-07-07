@@ -95,6 +95,10 @@ function renderHeader() {
 function renderFooter() {
     const footerPlaceholder = document.querySelector('footer .container');
     if (!footerPlaceholder) return;
+    
+    // Calcula o prefixo da rota
+    const isSubdir = window.location.pathname.includes('/modelo/') || window.location.pathname.includes('/documentacao/');
+    const basePath = isSubdir ? '../' : '';
 
     footerPlaceholder.innerHTML = `
         <div class="row footer-content-row justify-content-center text-center">
@@ -106,7 +110,7 @@ function renderFooter() {
                 
                 <div class="trust-badges" style="margin: 15px 0 20px 0; display: flex; justify-content: center; gap: 15px; align-items: center; flex-wrap: wrap;">
                     <a href="https://www.reclameaqui.com.br/empresa/thaina-castro-mendes/" target="_blank" rel="noopener noreferrer" aria-label="Reclame Aqui">
-                        <img src="assets/images/reclame_aqui.png" alt="Empresa Verificada no Reclame Aqui" style="height: 45px; width: auto; transition: 0.3s; filter: drop-shadow(0 0 5px rgba(255,255,255,0.1));" onmouseover="this.style.transform='scale(1.05)';" onmouseout="this.style.transform='scale(1)';" >
+                        <img src="${basePath}assets/images/reclame_aqui.png" alt="Empresa Verificada no Reclame Aqui" style="height: 45px; width: auto; transition: 0.3s; filter: drop-shadow(0 0 5px rgba(255,255,255,0.1));" onmouseover="this.style.transform='scale(1.05)';" onmouseout="this.style.transform='scale(1)';" >
                     </a>
                     <a href="https://maps.app.goo.gl/Jt9T9ZzfhKbJo3qu9" target="_blank" rel="noopener noreferrer" aria-label="Google Maps" style="color: #fff; font-size: 0.8rem; display: flex; align-items: center; gap: 8px; text-decoration: none; background: rgba(255,255,255,0.05); padding: 8px 15px; border-radius: 50px; border: 1px solid rgba(255,255,255,0.1); height: 45px;">
                         <img src="https://www.google.com/images/branding/product/2x/maps_96dp.png" alt="Google Maps" style="height: 20px; width: auto;">
@@ -128,9 +132,12 @@ function renderWhatsApp() {
     // Verifica se ja existe o botao
     if (document.querySelector('.whatsapp-float')) return;
 
+    const isSubdir = window.location.pathname.includes('/modelo/') || window.location.pathname.includes('/documentacao/');
+    const basePath = isSubdir ? '../' : '';
+
     const waHtml = `
         <a href="https://wa.me/5511946211111" target="_blank" class="whatsapp-float">
-            <img src="assets/images/bot-whatsapp.png" alt="Fale conosco pelo WhatsApp">
+            <img src="${basePath}assets/images/bot-whatsapp.png" alt="Fale conosco pelo WhatsApp">
         </a>
     `;
     document.body.insertAdjacentHTML('beforeend', waHtml);

@@ -80,7 +80,7 @@
             },
         }
     </script>
-    <link rel="stylesheet" href="assets/css/dossie-v5.css">
+    <link rel="stylesheet" href="assets/css/dossie-v5.css?v=2">
     <style>
         /* [ANIMATIONS] */
         @keyframes pulse-red {
@@ -651,9 +651,9 @@
                                 </div>
                                 <div class="flex flex-col items-end gap-2">
                                     <div id="fluxo-status-label" class="bg-tertiary/20 text-tertiary text-[8px] font-bold px-3 py-1 rounded-full flex items-center gap-1 shadow-sm">
-                                        <span id="fluxo-cadeado-icon" class="fluxo-icon material-symbols-outlined text-[12px]">verified_user</span>
-                                        <span class="fluxo-main">Liberado</span>
-                                        <span class="fluxo-ver text-[9px] ml-2">Ver Cronograma</span>
+                                        <span id="fluxo-cadeado-icon" class="fluxo-icon material-symbols-outlined text-[12px]">hourglass_top</span>
+                                        <span class="fluxo-main">Aguardando Imóvel</span>
+                                        <span class="fluxo-ver text-[9px] ml-2"></span>
                                     </div>
                                     <span id="timeline-chevron" class="material-symbols-outlined text-primary transition-transform duration-500">expand_more</span>
                                 </div>
@@ -722,7 +722,7 @@
             <span class="material-symbols-outlined text-primary">apartment</span>
             2. Imóvel Ideal Para Você
         </h3>
-        <span class="bg-[#0a1428] text-primary text-[10px] font-black px-4 py-1.5 rounded-full border border-primary/30 flex items-center gap-2 shadow-lg uppercase tracking-widest" id="curadoria-ia-badge">
+        <span class="hidden md:flex bg-[#0a1428] text-primary text-[10px] font-black px-4 py-1.5 rounded-full border border-primary/30 items-center gap-2 shadow-lg uppercase tracking-widest" id="curadoria-ia-badge">
             <span class="material-symbols-outlined text-[14px]">analytics</span>
             <span id="curadoria-count">04</span> Opções Encontradas
         </span>
@@ -785,7 +785,10 @@
                         <p class="text-sm font-black text-tertiary" id="main-match-valorizacao">+30% Proj.</p>
                     </div>
                     <div class="flex flex-col border-l border-white/10 pl-8">
-                        <p class="text-[8px] uppercase text-outline font-bold tracking-widest">Status / Entrega</p>
+                        <p class="text-[8px] uppercase text-outline font-bold tracking-widest">
+                            <span class="md:hidden">Entrega</span>
+                            <span class="hidden md:inline">Status / Entrega</span>
+                        </p>
                         <p class="text-sm font-black text-white" id="main-match-status">---</p>
                     </div>
                 </div>
@@ -1132,12 +1135,12 @@
 <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-6" id="docs-checklist">
 <!-- Doc 1 -->
 <div id="card-doc-id" class="doc-card glass-card p-6 rounded-2xl border-t-2 border-t-transparent hover:border-t-primary transition-all cursor-pointer group" onclick="toggleDoc('id')">
-<div class="flex justify-between items-start mb-6">
+<div class="flex justify-between items-center mb-6">
 <div class="icon-box w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center text-primary transition-colors">
 <span class="material-symbols-outlined">id_card</span>
 </div>
 <div class="flex items-center gap-2">
-<span class="status-text text-[10px] font-bold uppercase text-outline">Pendente</span>
+<span class="status-text text-[8px] md:text-[10px] font-bold uppercase text-outline">Pendente</span>
 <div class="status-dot w-2 h-2 rounded-full bg-outline transition-all"></div>
 </div>
 </div>
@@ -1146,12 +1149,12 @@
 </div>
 <!-- Doc 2 -->
 <div id="card-doc-residencia" class="doc-card glass-card p-6 rounded-2xl border-t-2 border-t-transparent hover:border-t-primary transition-all cursor-pointer group" onclick="toggleDoc('residencia')">
-<div class="flex justify-between items-start mb-6">
+<div class="flex justify-between items-center mb-6">
 <div class="icon-box w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center text-primary transition-colors">
 <span class="material-symbols-outlined">home_pin</span>
 </div>
 <div class="flex items-center gap-2">
-<span class="status-text text-[10px] font-bold uppercase text-outline">Pendente</span>
+<span class="status-text text-[8px] md:text-[10px] font-bold uppercase text-outline">Pendente</span>
 <div class="status-dot w-2 h-2 rounded-full bg-outline transition-all"></div>
 </div>
 </div>
@@ -1160,12 +1163,12 @@
 </div>
 <!-- Doc 3 -->
 <div id="card-doc-civil" class="doc-card glass-card p-6 rounded-2xl border-t-2 border-t-transparent hover:border-t-primary transition-all cursor-pointer group" onclick="toggleDoc('civil')">
-<div class="flex justify-between items-start mb-6">
+<div class="flex justify-between items-center mb-6">
 <div class="icon-box w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center text-primary transition-colors">
 <span class="material-symbols-outlined">diversity_3</span>
 </div>
 <div class="flex items-center gap-2">
-<span class="status-text text-[10px] font-bold uppercase text-outline">Pendente</span>
+<span class="status-text text-[8px] md:text-[10px] font-bold uppercase text-outline">Pendente</span>
 <div class="status-dot w-2 h-2 rounded-full bg-outline transition-all"></div>
 </div>
 </div>
@@ -1174,12 +1177,12 @@
 </div>
 <!-- Doc 4 -->
 <div id="card-doc-renda" class="doc-card glass-card p-6 rounded-2xl border-t-2 border-t-transparent hover:border-t-primary transition-all cursor-pointer group" onclick="toggleDoc('renda')">
-<div class="flex justify-between items-start mb-6">
+<div class="flex justify-between items-center mb-6">
 <div class="icon-box w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center text-primary transition-colors">
 <span class="material-symbols-outlined">payments</span>
 </div>
 <div class="flex items-center gap-2">
-<span class="status-text text-[10px] font-bold uppercase text-outline">Pendente</span>
+<span class="status-text text-[8px] md:text-[10px] font-bold uppercase text-outline">Pendente</span>
 <div class="status-dot w-2 h-2 rounded-full bg-outline transition-all"></div>
 </div>
 </div>
@@ -1672,7 +1675,7 @@
                 const fStatus = document.getElementById('fluxo-status-label');
                     if (fBtn && fStatus) {
                     fBtn.classList.remove('btn-fluxo-success', 'btn-fluxo-warning', 'btn-pulse');
-                    fStatus.innerHTML = '<span class="fluxo-icon material-symbols-outlined text-[12px]">verified_user</span><span class="fluxo-main">Liberado</span><span class="fluxo-ver text-[9px] ml-2">Ver Cronograma</span>';
+                    fStatus.innerHTML = '<span class="fluxo-icon material-symbols-outlined text-[12px]">hourglass_top</span><span class="fluxo-main">Aguardando Imóvel</span><span class="fluxo-ver text-[9px] ml-2"></span>';
                     fStatus.className = "bg-tertiary/20 text-tertiary text-[8px] font-bold px-3 py-1 rounded-full flex items-center gap-1 shadow-sm";
                 }
             },
@@ -2081,11 +2084,16 @@
             // Atualizar Título do Passo 1 Dinamicamente
             const step1Title = document.getElementById('main-step1-title');
             if (step1Title) {
+                step1Title.classList.add('flex-wrap');
                 step1Title.innerHTML = `
-                    <span class="material-symbols-outlined text-primary">account_tree</span> 
-                    1. Plano de Fluxo Organizado 
-                    <span class="text-primary ml-2 animate-fade-in">${emp.nome}</span> 
-                    <span class="text-slate-400 text-[11px] font-normal ml-2 italic">(${emp.preco})</span>
+                    <div class="flex items-center gap-2">
+                        <span class="material-symbols-outlined text-primary">account_tree</span>
+                        <span>1. Plano de Fluxo Organizado</span>
+                    </div>
+                    <div class="w-full md:w-auto flex items-center md:ml-2 mt-1 md:mt-0 animate-fade-in">
+                        <span class="mobile-prop-name text-primary text-sm md:text-base truncate max-w-[200px] md:max-w-none">${emp.nome}</span>
+                        <span class="mobile-prop-price text-slate-400 text-[11px] font-normal ml-2 italic">(${emp.preco})</span>
+                    </div>
                 `;
             }
 
@@ -2122,7 +2130,7 @@
                 if (badge && bText) {
                     badge.classList.add('active');
                     if (res.isMatch) {
-                        badge.className = "property-status-badge active badge-match px-4 py-2 rounded-2xl flex items-center gap-2 shadow-2xl backdrop-blur-md border border-white/10";
+                        badge.className = "property-status-badge active badge-match px-3 py-1.5 md:px-4 md:py-2 rounded-2xl flex items-center gap-1.5 md:gap-2 shadow-2xl backdrop-blur-md border border-white/10 text-[8px] md:text-xs font-black md:whitespace-nowrap";
                         bText.innerText = "MATCH CONFIRMADO";
                         
                         // [V8.3] Toast de Sucesso para Match
@@ -2132,7 +2140,7 @@
                             "success"
                         );
                     } else {
-                        badge.className = "property-status-badge active badge-deficit px-4 py-2 rounded-2xl flex items-center gap-2 shadow-2xl backdrop-blur-md border border-white/10";
+                        badge.className = "property-status-badge active badge-deficit px-3 py-1.5 md:px-4 md:py-2 rounded-2xl flex items-center gap-1.5 md:gap-2 shadow-2xl backdrop-blur-md border border-white/10 text-[8px] md:text-xs font-black md:whitespace-nowrap";
                         bText.innerText = `DÉFICIT: ${new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL', maximumFractionDigits: 0 }).format(res.delta)}`;
                         
                         // Alerta de Déficit Premium

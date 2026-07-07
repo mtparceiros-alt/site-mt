@@ -455,6 +455,32 @@ const DossieController = {
     },
 
     updateFluxoButtonState: function(matchDelta, formatter) {
+        /*
+         * Controle do botão/etiqueta do Cronograma (Fluxo)
+         * -----------------------------------------------
+         * Onde alterar o texto/estado inicial:
+         * - O conteúdo mostrado no selo é definido aqui via `statusLabel.innerHTML`.
+         * - Para mudar o texto exibido (por exemplo: "Aguardando Imóvel"), edite
+         *   as strings dentro dos blocos `statusLabel.innerHTML = '...';` abaixo.
+         *
+         * Mobile-only (layout):
+         * - Não altere o HTML aqui para ajustes somente de layout móvel. Em vez disso,
+         *   modifique os seletores específicos dentro de
+         *   assets/css/dossie-v5.css na seção `@media (max-width: 480px)`.
+         * - Seletores úteis para centralizar/alinhar no mobile:
+         *     #btn-abrir-fluxo > .flex
+         *     #btn-abrir-fluxo > .flex > .flex.flex-col
+         *     #fluxo-status-label
+         *     #timeline-chevron
+         * - Exemplo de ajuste (CSS): definir `flex-direction: column; align-items: center;`
+         *   e `width:100%` para as colunas internas. Veja `assets/css/dossie-v5.css`.
+         *
+         * Testes locais:
+         * - Ao alterar o CSS, abra DevTools → Network → marque "Disable cache" e
+         *   recarregue a página com Ctrl+F5 para validar. Para propagar para produção,
+         *   sincronize as mudanças em `dist/` e `Site_MT_Final/` e atualize o parâmetro
+         *   de versão na tag <link> (ex: ?v=2) se necessário.
+         */
         const fluxoBtn = document.getElementById('btn-abrir-fluxo');
         const fluxoBtnIA = document.getElementById('btn-open-fluxo-ia');
         const statusLabel = document.getElementById('fluxo-status-label');
@@ -479,7 +505,7 @@ const DossieController = {
                     fluxoBtnIA.classList.add('bg-slate-900', 'text-primary', 'border-primary/40');
                 }
                 if (statusLabel) {
-                    statusLabel.innerHTML = '<span class="fluxo-icon material-symbols-outlined text-[12px]">verified_user</span><span class="fluxo-main">Liberado</span><span class="fluxo-ver text-[9px] ml-2">Ver Cronograma</span>';
+                    statusLabel.innerHTML = '<span class="fluxo-icon material-symbols-outlined text-[12px]">hourglass_top</span><span class="fluxo-main">Aguardando Imóvel</span><span class="fluxo-ver text-[9px] ml-2"></span>';
                     statusLabel.className = "bg-tertiary/20 text-tertiary text-[8px] font-bold px-3 py-1 rounded-full flex items-center gap-1 shadow-sm";
                 }
             }

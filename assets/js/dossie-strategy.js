@@ -287,11 +287,11 @@ const DossieStrategy = {
             const mainIcon = document.getElementById('ps-badge-icon');
             const mainText = document.getElementById('ps-badge-text');
             if (!isMatch) {
-                mainBadge.className = "property-status-badge active badge-deficit px-4 py-2 rounded-2xl flex items-center gap-2 shadow-2xl backdrop-blur-md border border-white/10";
+                mainBadge.className = "property-status-badge active badge-deficit px-3 py-1.5 md:px-4 md:py-2 rounded-2xl flex items-center gap-1.5 md:gap-2 shadow-2xl backdrop-blur-md border border-white/10 text-[8px] md:text-xs font-black md:whitespace-nowrap";
                 if (mainIcon) mainIcon.innerText = 'warning';
                 if (mainText) mainText.innerText = `DÉFICIT: ${formattedDelta}`;
             } else {
-                mainBadge.className = "property-status-badge active badge-match px-4 py-2 rounded-2xl flex items-center gap-2 shadow-2xl backdrop-blur-md border border-white/10";
+                mainBadge.className = "property-status-badge active badge-match px-3 py-1.5 md:px-4 md:py-2 rounded-2xl flex items-center gap-1.5 md:gap-2 shadow-2xl backdrop-blur-md border border-white/10 text-[8px] md:text-xs font-black md:whitespace-nowrap";
                 if (mainIcon) mainIcon.innerText = 'verified';
                 if (mainText) mainText.innerText = 'MATCH ALTO IA';
             }

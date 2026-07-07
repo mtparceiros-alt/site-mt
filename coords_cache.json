@@ -138,5 +138,97 @@
   "Rua Marina Ciufuli Zanfelice, 163": {
     "lat": -23.5132033,
     "lng": -46.707189
+  },
+  "RUA CUNHA GAGO": {
+    "lat": -23.5663513,
+    "lng": -46.6910361
+  },
+  "RUA TEODORO SAMPAIO": {
+    "lat": -23.5632948,
+    "lng": -46.6870607
+  },
+  "Rua Dr. Fernandes Coelho": {
+    "lat": -23.5688233,
+    "lng": -46.690147
+  },
+  "RUA BARTOLOMEU PAES - VILA ANASTACIO": {
+    "lat": -23.5148041,
+    "lng": -46.7157247
+  },
+  "AV MUTINGA": {
+    "lat": -23.487887,
+    "lng": -46.7342511
+  },
+  "AV THOMAS EDSON": {
+    "lat": -23.4738517,
+    "lng": -46.5362741
+  },
+  "RUA COMENDADOR SOUZA": {
+    "lat": -23.5797432,
+    "lng": -46.5270713
+  },
+  "AV JOSE MARIA DE FARIA": {
+    "lat": -23.5118259,
+    "lng": -46.7008217
+  },
+  "AV SANTA MARINA": {
+    "lat": -23.523654,
+    "lng": -46.6853231
+  },
+  "AV DO ANASTACIO": {
+    "lat": -23.4943364,
+    "lng": -46.736732
+  },
+  "Rua Marina Ciufuli Zanfelice": {
+    "lat": -23.5132033,
+    "lng": -46.707189
+  },
+  "Rua Marina Ciufuli Zanfelice,": {
+    "lat": -23.5132033,
+    "lng": -46.707189
+  },
+  "AV DO RIO PEQUENO": {
+    "lat": -23.5647003,
+    "lng": -46.7502907
+  },
+  "R. Comendador Elias Assi,": {
+    "lat": -23.5814371,
+    "lng": -46.7179602
+  },
+  "AV GINO CESARO": {
+    "lat": -23.510991,
+    "lng": -46.6990389
+  },
+  "RUA AUTÁS": {
+    "lat": -23.5550045,
+    "lng": -46.7443121
+  },
+  "RUA BAUMANN VILA LEOPOLDINA": {
+    "lat": -23.5350371,
+    "lng": -46.7312148
+  },
+  "RUA BAUMANN": {
+    "lat": -23.5350371,
+    "lng": -46.7312148
+  },
+  "RUA SALES JUNIOR": {
+    "lat": -23.5312518,
+    "lng": -46.7184664
+  },
+  "RUA ANDRE AMPERE": {
+    "lat": -23.6099393,
+    "lng": -46.6934966
+  },
+  "RUA ARANDU": {
+    "lat": -23.6063766,
+    "lng": -46.6901591
+  },
+  "Rua Ibaragui Nissui": {
+    "lat": -23.5910887,
+    "lng": -46.6267927
+  },
+  "Rua Conselheiro Brotero": {
+    "lat": -23.5349499,
+    "lng": -46.6601573
   }
 }
