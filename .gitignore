@@ -25,6 +25,8 @@ _memoria_projeto/
 node_modules/
 scripts/
 scratch/
+documentacao/
+Site_MT_Final/
 Empreendimentos.xlsx
 coords_cache.json
 *.bat
