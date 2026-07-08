@@ -246,6 +246,13 @@ Para publicar qualquer atualização (seja HTML, CSS, JS ou novos empreendimento
 - `npm run build`: Empacota todo o site, ofusca o JavaScript e copia tudo para a pasta `dist/`.
 - `npm run deploy`: Envia **automaticamente** os arquivos minificados da pasta `dist/` para a branch oculta `gh-pages` no GitHub. O site entrará no ar em cerca de 1 a 2 minutos.
 
-**E o GitHub Desktop?**
-- Use o GitHub Desktop **apenas** para salvar/fazer backup do seu código-fonte legível (branch `main`). 
-- As regras do `.gitignore` já bloqueiam pastas grandes (`node_modules`) e arquivos de banco de dados (`Empreendimentos.xlsx`) para não vazar informações na internet.
+**Arquitetura de Segurança de Duas Rotas (Zero Tolerance):**
+Para garantir 100% de proteção da sua Propriedade Intelectual (código legível e regras de negócio), o sistema opera em duas rotas separadas:
+
+1. **Rota de Hospedagem (O Comando Acima):**
+   - O comando `npm run deploy` se encarrega de colocar o site no ar de forma segura. Ele pega **exclusivamente** os arquivos gerados na pasta `dist/` (onde o JavaScript já foi transformado em "sopa de letrinhas" pelo ofuscador) e envia para a branch `gh-pages`. A internet só tem acesso a esse código ilegível.
+
+2. **Rota de Backup do Código Fonte (GitHub Desktop):**
+   - Você continuará usando o GitHub Desktop para salvar/fazer backup diário do seu código na branch principal (`main`).
+   - **Regra de Tolerância Zero:** Nosso arquivo `.gitignore` possui um bloqueio absoluto para a pasta `assets/js/*.js` e `Empreendimentos.xlsx`. 
+   - Ao fazer o commit no Desktop, o sistema salvará todo o seu HTML, CSS e imagens na nuvem, mas **recusará terminantemente** o envio de qualquer JavaScript original (legível). Todo seu código fonte e segredos industriais residem exclusivamente na sua máquina física, sem riscos de vazamento para a internet.
