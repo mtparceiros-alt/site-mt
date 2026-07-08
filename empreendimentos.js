@@ -1,14 +1,5 @@
-/**
- * BANCO DE DADOS DE EMPREENDIMENTOS - MT PARCEIROS
- * 
- * PADRÃO OBRIGATÓRIO (UID):
- * Cada empreendimento deve possuir um "uid" único para evitar conflitos de precificação.
- * Formato: "nome-do-imovel-preco" (minúsculo, sem espaços).
- * Exemplo: "vivaz-pirituba-209"
- */
 var EMPREENDIMENTOS = [
   {
-    "uid": "vivaz-penha-2-205",
     "nome": "Vivaz Penha 2",
     "bairro": "Penha (Zona Leste)",
     "endereco": "Avenida Condessa Elisabeth de Robiano, 6000",
@@ -20,10 +11,10 @@ var EMPREENDIMENTOS = [
     "entrega": "Nov/2028",
     "imagem": "assets/images/empreendimentos/Vivaz Penha.jpg",
     "lat": -23.5300813,
-    "lng": -46.5945978
+    "lng": -46.5945978,
+    "uid": "vivaz-penha-2-a61e08"
   },
   {
-    "uid": "vivaz-estacao-lapa-214",
     "nome": "Vivaz Estação Lapa",
     "bairro": "Lapa (Zona Oeste)",
     "endereco": "Rua Professor Clemente Pastore, 14",
@@ -35,10 +26,10 @@ var EMPREENDIMENTOS = [
     "entrega": "Lançamento",
     "imagem": "assets/images/empreendimentos/Vivaz Estacao Lapa.jpg",
     "lat": -23.51383,
-    "lng": -46.69922
+    "lng": -46.69922,
+    "uid": "vivaz-estacao-lapa-eb9bc4"
   },
   {
-    "uid": "grand-vivaz-jardim-franca-paris-224",
     "nome": "Grand Vivaz Jardim França Paris",
     "bairro": "Jardim França",
     "endereco": "Avenida Água Fria, 1215",
@@ -50,10 +41,10 @@ var EMPREENDIMENTOS = [
     "entrega": "Mai/2029",
     "imagem": "assets/images/empreendimentos/Grand Vivaz Jardim Franca.jpg",
     "lat": -23.4780682,
-    "lng": -46.6211741
+    "lng": -46.6211741,
+    "uid": "grand-vivaz-jardim-franca-paris-de3dcc"
   },
   {
-    "uid": "vivaz-selection-santo-amaro-218",
     "nome": "Vivaz Selection Santo Amaro",
     "bairro": "Santo Amaro",
     "endereco": "Rua Doutor Rubens Gomes Bueno, 158",
@@ -65,10 +56,10 @@ var EMPREENDIMENTOS = [
     "entrega": "Jan/2029",
     "imagem": "assets/images/empreendimentos/Vivaz Selection Santo Amaro.jpg",
     "lat": -23.6435906,
-    "lng": -46.7189299
+    "lng": -46.7189299,
+    "uid": "vivaz-selection-santo-amaro-a3b5c9"
   },
   {
-    "uid": "vivaz-selection-laguna-235",
     "nome": "Vivaz Selection Laguna",
     "bairro": "Granja Julieta",
     "endereco": "Rua Laguna, 440",
@@ -80,10 +71,10 @@ var EMPREENDIMENTOS = [
     "entrega": "Ago/2028",
     "imagem": "assets/images/empreendimentos/Vivaz Selection Laguna.jpg",
     "lat": -23.63959,
-    "lng": -46.71574
+    "lng": -46.71574,
+    "uid": "vivaz-selection-laguna-cb2c24"
   },
   {
-    "uid": "vivaz-estacao-pirituba-235",
     "nome": "Vivaz Estação Pirituba",
     "bairro": "Pirituba",
     "endereco": "Avenida Cristo Rei, 34",
@@ -95,10 +86,10 @@ var EMPREENDIMENTOS = [
     "entrega": "Nov/2028",
     "imagem": "assets/images/empreendimentos/Vivaz Estacao Pirituba.jpg",
     "lat": -23.48938,
-    "lng": -46.72078
+    "lng": -46.72078,
+    "uid": "vivaz-estacao-pirituba-12b7ed"
   },
   {
-    "uid": "vivaz-parque-joao-dias-235",
     "nome": "Vivaz Parque João Dias",
     "bairro": "Santo Amaro",
     "endereco": "Av. Maria Coelho Aguiar, 250",
@@ -110,11 +101,11 @@ var EMPREENDIMENTOS = [
     "entrega": "Out/2028",
     "imagem": "assets/images/empreendimentos/Vivaz Parque Joao Dias.jpg",
     "lat": -23.645962,
-    "lng": -46.730015
+    "lng": -46.730015,
+    "uid": "vivaz-parque-joao-dias-488a1a"
   },
   {
-    "uid": "vivaz-connection-adolfo-pinheiro-244",
-    "nome": "Vivaz Connection Adolfo Pinheiro",
+    "nome": "Vivaz Connection  Adolfo Pinheiro",
     "bairro": "Santo Amaro",
     "endereco": "Rua Doutor Antônio Bento, 104",
     "area": "De 24m² a 36m²",
@@ -125,10 +116,10 @@ var EMPREENDIMENTOS = [
     "entrega": "Lançamento",
     "imagem": "assets/images/empreendimentos/Vivaz Connection.jpg",
     "lat": -23.6453481,
-    "lng": -46.7021799
+    "lng": -46.7021799,
+    "uid": "vivaz-connection-adolfo-pinheiro-f3554d"
   },
   {
-    "uid": "vivaz-parque-freguesia-do-o-226",
     "nome": "Vivaz Parque Freguesia do Ó (1, 2 e 3)",
     "bairro": "Freguesia do Ó",
     "endereco": "Rua Rio Verde, 1025",
@@ -140,10 +131,10 @@ var EMPREENDIMENTOS = [
     "entrega": "Out/2027",
     "imagem": "assets/images/empreendimentos/Vivaz Parque Freguesia do o.jpg",
     "lat": -23.4849018,
-    "lng": -46.7011663
+    "lng": -46.7011663,
+    "uid": "vivaz-parque-freguesia-do-o-1-2-e-3-85a70a"
   },
   {
-    "uid": "vivaz-santa-marina-306",
     "nome": "Vivaz Santa Marina",
     "bairro": "Água Branca",
     "endereco": "Avenida Santa Marina, 1660",
@@ -155,10 +146,10 @@ var EMPREENDIMENTOS = [
     "entrega": "Jul/2027",
     "imagem": "assets/images/empreendimentos/Vivaz Santa Marina.jpg",
     "lat": -23.5027603,
-    "lng": -46.6944346
+    "lng": -46.6944346,
+    "uid": "vivaz-santa-marina-6fe6b9"
   },
   {
-    "uid": "vivaz-cantareira-293",
     "nome": "Vivaz Cantareira (1, 2 e 3)",
     "bairro": "V. N. Cachoeirinha",
     "endereco": "Avenida Professor Miguel Franchini Neto, 186",
@@ -170,10 +161,10 @@ var EMPREENDIMENTOS = [
     "entrega": "Dez/2027",
     "imagem": "assets/images/empreendimentos/Vivaz Cantareira.jpg",
     "lat": -23.44355,
-    "lng": -46.7253
+    "lng": -46.7253,
+    "uid": "vivaz-cantareira-1-2-e-3-230f25"
   },
   {
-    "uid": "vivaz-estacao-pirituba-209",
     "nome": "Vivaz Estação Pirituba",
     "bairro": "Pirituba",
     "endereco": "Avenida Cristo Rei, 34",
@@ -185,10 +176,10 @@ var EMPREENDIMENTOS = [
     "entrega": "Nov/2028",
     "imagem": "assets/images/empreendimentos/Vivaz Estacao Pirituba.jpg",
     "lat": -23.48938,
-    "lng": -46.72078
+    "lng": -46.72078,
+    "uid": "vivaz-estacao-pirituba-2"
   },
   {
-    "uid": "vivaz-prime-vila-prudente-pronto",
     "nome": "Vivaz Prime Vila Prudente",
     "bairro": "Vila Prudente",
     "endereco": "Rua Cavour, 642",
@@ -200,10 +191,10 @@ var EMPREENDIMENTOS = [
     "entrega": "Pronto",
     "imagem": "assets/images/empreendimentos/Vivaz Prime Vila Prudente.jpg",
     "lat": -23.5813085,
-    "lng": -46.5762737
+    "lng": -46.5762737,
+    "uid": "vivaz-prime-vila-prudente-118232"
   },
   {
-    "uid": "casa-piaui-higienopolis-8m",
     "nome": "CASA PIAUÍ HIGIENÓPOLIS",
     "bairro": "HIGIENÓPOLIS",
     "endereco": "RUA PIAUÍ",
@@ -215,10 +206,10 @@ var EMPREENDIMENTOS = [
     "entrega": "Nov/2028",
     "imagem": "assets/images/empreendimentos/CASAPIAUI.jpg",
     "lat": -23.5465355,
-    "lng": -46.6548677
+    "lng": -46.6548677,
+    "uid": "casa-piaui-higienopolis-c3e745"
   },
   {
-    "uid": "havva-higienopolis-12m",
     "nome": "HAVVA HIGIENÓPOLIS",
     "bairro": "HIGIENÓPOLIS",
     "endereco": "RUA BAHIA",
@@ -230,10 +221,10 @@ var EMPREENDIMENTOS = [
     "entrega": "Fev/2029",
     "imagem": "assets/images/empreendimentos/HAVVA_Higienopolis.jpg",
     "lat": -23.5451366,
-    "lng": -46.6597158
+    "lng": -46.6597158,
+    "uid": "havva-higienopolis-c0ab35"
   },
   {
-    "uid": "collage-bela-vista-389",
     "nome": "COLLAGE BELA VISTA",
     "bairro": "BELA VISTA",
     "endereco": "AV. BRIG LUIS ANTONIO",
@@ -245,10 +236,10 @@ var EMPREENDIMENTOS = [
     "entrega": "Nov/2028",
     "imagem": "assets/images/empreendimentos/COLLAGE BELA VISTA.jpg",
     "lat": -23.5605441,
-    "lng": -46.6433462
+    "lng": -46.6433462,
+    "uid": "collage-bela-vista-940a79"
   },
   {
-    "uid": "patteo-vila-mariana-studio-509",
     "nome": "PATTEO VILA MARIANA",
     "bairro": "VILA MARIANA",
     "endereco": "R: DOMINGOS DE MORAIS",
@@ -260,10 +251,10 @@ var EMPREENDIMENTOS = [
     "entrega": "Out/2027",
     "imagem": "assets/images/empreendimentos/PATTEO VILA MARIANA.jpg",
     "lat": -23.5785277,
-    "lng": -46.6410318
+    "lng": -46.6410318,
+    "uid": "patteo-vila-mariana-6f6043"
   },
   {
-    "uid": "patteo-vila-mariana-suites-1m",
     "nome": "PATTEO VILA MARIANA",
     "bairro": "VILA MARIANA",
     "endereco": "R: FRANÇA PINTO",
@@ -275,10 +266,10 @@ var EMPREENDIMENTOS = [
     "entrega": "Out/2027",
     "imagem": "assets/images/empreendimentos/PATTEO VILA MARIANA.jpg",
     "lat": -23.5876324,
-    "lng": -46.6420424
+    "lng": -46.6420424,
+    "uid": "patteo-vila-mariana-5d5f6a"
   },
   {
-    "uid": "open-mind-chacara-santo-antonio-599",
     "nome": "OPEN MIND",
     "bairro": "CHÁCARA SANTO ANTONIO",
     "endereco": "R: ENXOVIA",
@@ -290,10 +281,10 @@ var EMPREENDIMENTOS = [
     "entrega": "Jun/2027",
     "imagem": "assets/images/empreendimentos/OPEN MIND.jpg",
     "lat": -23.6288287,
-    "lng": -46.6995339
+    "lng": -46.6995339,
+    "uid": "open-mind-8b547e"
   },
   {
-    "uid": "roya-perdizes-449",
     "nome": "ROYA PERDIZES",
     "bairro": "PERDIZES",
     "endereco": "R: DR HOMEM DE MELO",
@@ -305,10 +296,10 @@ var EMPREENDIMENTOS = [
     "entrega": "Jan/2027",
     "imagem": "assets/images/empreendimentos/ROYA PERDIZES.jpg",
     "lat": -23.5362131,
-    "lng": -46.6698045
+    "lng": -46.6698045,
+    "uid": "roya-perdizes-8e9709"
   },
   {
-    "uid": "metropolitan-vila-nova-conceicao-739",
     "nome": "METROPOLITAN",
     "bairro": "VILA NOVA CONCEIÇÃO",
     "endereco": "R: JOÃO LOURENÇO",
@@ -320,10 +311,10 @@ var EMPREENDIMENTOS = [
     "entrega": "Set/2026",
     "imagem": "assets/images/empreendimentos/METROPOLITAN.jpg",
     "lat": -23.5908681,
-    "lng": -46.6677471
+    "lng": -46.6677471,
+    "uid": "metropolitan-9c0577"
   },
   {
-    "uid": "caminhos-da-lapa-nova-vivere-105-1m",
     "nome": "Caminhos da Lapa-Nova Vivere",
     "bairro": "Lapa",
     "endereco": "Rua Fortunato Ferraz 625",
@@ -335,10 +326,10 @@ var EMPREENDIMENTOS = [
     "entrega": "Mai/2026",
     "imagem": "assets/images/empreendimentos/Caminhos da Lapa-Nova Vivere.jpg",
     "lat": -23.5177726,
-    "lng": -46.7178455
+    "lng": -46.7178455,
+    "uid": "caminhos-da-lapa-nova-vivere-560d92"
   },
   {
-    "uid": "caminhos-da-lapa-nova-vivere-73-892",
     "nome": "Caminhos da Lapa-Nova Vivere",
     "bairro": "Lapa",
     "endereco": "Rua Fortunato Ferraz 625",
@@ -350,10 +341,10 @@ var EMPREENDIMENTOS = [
     "entrega": "Mai/2026",
     "imagem": "assets/images/empreendimentos/Caminhos da Lapa-Nova Vivere.jpg",
     "lat": -23.5177726,
-    "lng": -46.7178455
+    "lng": -46.7178455,
+    "uid": "caminhos-da-lapa-nova-vivere-2"
   },
   {
-    "uid": "caminhos-da-lapa-garden-design-725",
     "nome": "Caminhos da Lapa - Garden design",
     "bairro": "Lapa",
     "endereco": "Rua Fortunato Ferraz 625",
@@ -365,10 +356,10 @@ var EMPREENDIMENTOS = [
     "entrega": "Ago/2026",
     "imagem": "assets/images/empreendimentos/Caminhos da Lapa - Garden design.jpg",
     "lat": -23.5177726,
-    "lng": -46.7178455
+    "lng": -46.7178455,
+    "uid": "caminhos-da-lapa-garden-design-00e36f"
   },
   {
-    "uid": "signature-barra-funda-579",
     "nome": "Signature",
     "bairro": "Barra Funda",
     "endereco": "Rua Robert Bosch, 332",
@@ -380,10 +371,10 @@ var EMPREENDIMENTOS = [
     "entrega": "Dez/2028",
     "imagem": "assets/images/empreendimentos/Signature.jpg",
     "lat": -23.521034,
-    "lng": -46.6728561
+    "lng": -46.6728561,
+    "uid": "signature-f00121"
   },
   {
-    "uid": "concept-barra-funda-338",
     "nome": "Concept Barra Funda",
     "bairro": "Barra Funda",
     "endereco": "Rua Inocêncio Tobias, 130",
@@ -395,10 +386,10 @@ var EMPREENDIMENTOS = [
     "entrega": "Set/2028",
     "imagem": "assets/images/empreendimentos/Concept Barra Funda.jpg",
     "lat": -23.522686,
-    "lng": -46.6726381
+    "lng": -46.6726381,
+    "uid": "concept-barra-funda-f0ec2d"
   },
   {
-    "uid": "abyta-santo-amaro-288",
     "nome": "Abytá Santo Amaro",
     "bairro": "Santo Amaro",
     "endereco": "Rua Herbert Alfred Landsberger, 27",
@@ -410,10 +401,10 @@ var EMPREENDIMENTOS = [
     "entrega": "Dez/2028",
     "imagem": "assets/images/empreendimentos/Abyta Santo Amaro.jpg",
     "lat": -23.6618586,
-    "lng": -46.7016056
+    "lng": -46.7016056,
+    "uid": "abyta-santo-amaro-1d946d"
   },
   {
-    "uid": "brooklin-sky-350",
     "nome": "Brooklin SKY",
     "bairro": "Brooklin",
     "endereco": "Rua Princesa Isabel, 400",
@@ -425,10 +416,10 @@ var EMPREENDIMENTOS = [
     "entrega": "Ago/2028",
     "imagem": "assets/images/empreendimentos/Brooklin SKY.jpg",
     "lat": -23.6220072,
-    "lng": -46.6827174
+    "lng": -46.6827174,
+    "uid": "brooklin-sky-bc86f5"
   },
   {
-    "uid": "011-brooklin-570",
     "nome": "011 Brooklin",
     "bairro": "Brooklin",
     "endereco": "Rua Caetano José Batista, 149",
@@ -440,10 +431,10 @@ var EMPREENDIMENTOS = [
     "entrega": "Dez/2028",
     "imagem": "assets/images/empreendimentos/011 Brooklin.jpg",
     "lat": -23.6214999,
-    "lng": -46.6922873
+    "lng": -46.6922873,
+    "uid": "011-brooklin-6d4bcb"
   },
   {
-    "uid": "estilo-lapa-breve",
     "nome": "Estilo Lapa",
     "bairro": "Lapa",
     "endereco": "Rua Fortunato Ferraz, 1251",
@@ -455,10 +446,10 @@ var EMPREENDIMENTOS = [
     "entrega": "Jan/2029",
     "imagem": "assets/images/empreendimentos/em-breve.jpg",
     "lat": -23.5177726,
-    "lng": -46.7178455
+    "lng": -46.7178455,
+    "uid": "estilo-lapa-6cebab"
   },
   {
-    "uid": "grand-vivaz-lapa-220",
     "nome": "Grand Vivaz Lapa",
     "bairro": "Lapa (Zona Oeste)",
     "endereco": "Rua Marina Ciufuli Zanfelice, 163",
@@ -470,6 +461,427 @@ var EMPREENDIMENTOS = [
     "entrega": "Mar/2029",
     "imagem": "assets/images/empreendimentos/Grand Vivaz Jardim Franca.jpg",
     "lat": -23.5132033,
-    "lng": -46.707189
+    "lng": -46.707189,
+    "uid": "grand-vivaz-lapa-d029e8"
+  },
+  {
+    "nome": "VERY FARIA LIMA",
+    "bairro": "",
+    "endereco": "RUA CUNHA GAGO",
+    "area": "22M 39M  ",
+    "quartos": "1 a 2 ",
+    "diferenciais": "Varanda ",
+    "lazer": "COMPLETO",
+    "preco": "430mil",
+    "entrega": "2028",
+    "imagem": "assets/images/empreendimentos/VERYFARIALIMA_ONE.jpg",
+    "lat": -23.5663513,
+    "lng": -46.6910361,
+    "uid": "very-faria-lima-0b663f"
+  },
+  {
+    "nome": "VERY PEDROSO DE MORAES",
+    "bairro": "",
+    "endereco": "RUA ALVARES YANES",
+    "area": "24M A 39 ",
+    "quartos": "1 a 2 ",
+    "diferenciais": "Varanda ",
+    "lazer": "COMPLETO",
+    "preco": "355mil",
+    "entrega": "2028",
+    "imagem": "assets/images/empreendimentos/VERY PEDROSO DE MORAES ONE.jpg",
+    "lat": null,
+    "lng": null,
+    "uid": "very-pedroso-de-moraes-4f9072"
+  },
+  {
+    "nome": "NEX ONE ESTAÇÃO CLINICAS",
+    "bairro": "",
+    "endereco": "RUA TEODORO SAMPAIO",
+    "area": "23M 46M ",
+    "quartos": "1 a 2 ",
+    "diferenciais": "Varanda ",
+    "lazer": "COMPLETO",
+    "preco": "409mil",
+    "entrega": "2028",
+    "imagem": "assets/images/empreendimentos/em-breve.jpg",
+    "lat": -23.5632948,
+    "lng": -46.6870607,
+    "uid": "nex-one-estacao-clinicas-a92913"
+  },
+  {
+    "nome": "OLLIE",
+    "bairro": "",
+    "endereco": "Rua Dr. Fernandes Coelho",
+    "area": "34M A 225M",
+    "quartos": "NR E 3 SUI",
+    "diferenciais": "Varanda e Vaga ",
+    "lazer": "COMPLETO",
+    "preco": "630mil",
+    "entrega": "2027",
+    "imagem": "assets/images/empreendimentos/OLLIE_ONE.webp",
+    "lat": -23.5688233,
+    "lng": -46.690147,
+    "uid": "ollie-a73638"
+  },
+  {
+    "nome": "MERITO LAPA",
+    "bairro": "",
+    "endereco": "RUA BARTOLOMEU PAES - VILA ANASTACIO",
+    "area": "37M E 38M",
+    "quartos": "2",
+    "diferenciais": "Varanda ",
+    "lazer": "COMPLETO; BEACH TENIS",
+    "preco": "299mil",
+    "entrega": "2029",
+    "imagem": "assets/images/empreendimentos/MERITO LAPA.jpg",
+    "lat": -23.5148041,
+    "lng": -46.7157247,
+    "uid": "merito-lapa-f69858"
+  },
+  {
+    "nome": "ALTO SÃO DOMINGOS",
+    "bairro": "",
+    "endereco": "AV MUTINGA",
+    "area": "34M ",
+    "quartos": "1 a 2 ",
+    "diferenciais": "S/ Vaga",
+    "lazer": "COMPLETO EXCETO PISCINA",
+    "preco": "258mil",
+    "entrega": "2027",
+    "imagem": "assets/images/empreendimentos/ALTO SÃO DOMINGOS CURY.jpg",
+    "lat": -23.487887,
+    "lng": -46.7342511,
+    "uid": "alto-sao-domingos-0ceccf"
+  },
+  {
+    "nome": "MERITO BARRA FUNDA",
+    "bairro": "",
+    "endereco": "AV THOMAS EDSON",
+    "area": "34M A 45M ",
+    "quartos": "2",
+    "diferenciais": "Suíte, Varanda e Vaga",
+    "lazer": "COMPLETO  ",
+    "preco": "304mil",
+    "entrega": "2027",
+    "imagem": "assets/images/empreendimentos/MERITO BARRA FUNDA CURY.jpg",
+    "lat": -23.4738517,
+    "lng": -46.5362741,
+    "uid": "merito-barra-funda-9f2694"
+  },
+  {
+    "nome": "LYNE AGUA BRANCA",
+    "bairro": "",
+    "endereco": "RUA COMENDADOR SOUZA",
+    "area": "37M A 47M ",
+    "quartos": "2",
+    "diferenciais": "Suíte, Varanda e Vaga",
+    "lazer": "COMPLETO ",
+    "preco": "310mil",
+    "entrega": "2029",
+    "imagem": "assets/images/empreendimentos/LYNE BARRA FUNDA CURY 2.jpg",
+    "lat": -23.5797432,
+    "lng": -46.5270713,
+    "uid": "lyne-agua-branca-367b30"
+  },
+  {
+    "nome": "CIDADE LAPA SANTA MARINA",
+    "bairro": "",
+    "endereco": "RUA JOSE INACIO DO Rosfiro",
+    "area": "43M ",
+    "quartos": "2",
+    "diferenciais": "Varanda ",
+    "lazer": "COMPLETO ",
+    "preco": "379mil",
+    "entrega": "2027",
+    "imagem": "assets/images/empreendimentos/CIDADE LAPA SANTA MARINA CURY.jpg",
+    "lat": null,
+    "lng": null,
+    "uid": "cidade-lapa-santa-marina-ce18bc"
+  },
+  {
+    "nome": "CIDADE LAPA AGUA BRANCA",
+    "bairro": "",
+    "endereco": "AV JOSE MARIA DE FARIA",
+    "area": "37M A 42M ",
+    "quartos": "2",
+    "diferenciais": "Varanda ",
+    "lazer": "COMPLETO ",
+    "preco": "324mil",
+    "entrega": "2028",
+    "imagem": "assets/images/empreendimentos/Cidade-Lapa-Agua-Branca_CURY.jpg",
+    "lat": -23.5118259,
+    "lng": -46.7008217,
+    "uid": "cidade-lapa-agua-branca-34d662"
+  },
+  {
+    "nome": "CIDADE LAPA PERDIZES",
+    "bairro": "",
+    "endereco": "AV JOSE MARIA DE FARIA",
+    "area": "34M A 46M ",
+    "quartos": "2",
+    "diferenciais": "Varanda e Vaga ",
+    "lazer": "COMPLETO",
+    "preco": "269mil",
+    "entrega": "2029",
+    "imagem": "assets/images/empreendimentos/CIDADE LAPA PERDIZES CURY.jpg",
+    "lat": -23.5118259,
+    "lng": -46.7008217,
+    "uid": "cidade-lapa-perdizes-3177fc"
+  },
+  {
+    "nome": "CIDADE LAPA POMPEIA",
+    "bairro": "",
+    "endereco": "AV JOSE INACIO DO ROSARIO",
+    "area": "38M A 45M",
+    "quartos": "2",
+    "diferenciais": "Varanda e Vaga ",
+    "lazer": "COMPLETO ",
+    "preco": "371mil",
+    "entrega": "2028",
+    "imagem": "assets/images/empreendimentos/CIDADE LAPA POMPEIA CURY.jpg",
+    "lat": null,
+    "lng": null,
+    "uid": "cidade-lapa-pompeia-93038e"
+  },
+  {
+    "nome": "Astro Santa Marina",
+    "bairro": "",
+    "endereco": "AV ADRIANO JOSE MARCHINI",
+    "area": "35M A 50M",
+    "quartos": "2",
+    "diferenciais": "Varanda ",
+    "lazer": "COMPLETO E UND C GARDEN ",
+    "preco": "326mil",
+    "entrega": "2028",
+    "imagem": "assets/images/empreendimentos/ASTRO SANTA MARINA.jpg",
+    "lat": null,
+    "lng": null,
+    "uid": "astro-santa-marina-2c1f92"
+  },
+  {
+    "nome": "ARTE SANTA MARINA",
+    "bairro": "",
+    "endereco": "AV SANTA MARINA",
+    "area": "41M E 44M ",
+    "quartos": "2",
+    "diferenciais": "Varanda e Vaga ",
+    "lazer": "COMPLETO",
+    "preco": "380mil",
+    "entrega": "2028",
+    "imagem": "assets/images/empreendimentos/em-breve.jpg",
+    "lat": -23.523654,
+    "lng": -46.6853231,
+    "uid": "arte-santa-marina-8dc5a3"
+  },
+  {
+    "nome": "360  PARK VIEW",
+    "bairro": "",
+    "endereco": "AV DO ANASTACIO",
+    "area": "37M A 46M ",
+    "quartos": "2",
+    "diferenciais": "Varanda e Vaga ",
+    "lazer": "COMPLETO ",
+    "preco": "307mil",
+    "entrega": "2028",
+    "imagem": "assets/images/empreendimentos/360 PARK VIEW CURY.jpg",
+    "lat": -23.4943364,
+    "lng": -46.736732,
+    "uid": "360-park-view-ce8356"
+  },
+  {
+    "nome": "TERRANOÁ",
+    "bairro": "",
+    "endereco": "Rua Marina Ciufuli Zanfelice",
+    "area": "36M A 49M ",
+    "quartos": "2",
+    "diferenciais": "Varanda e Vaga ",
+    "lazer": "COMPLETO ",
+    "preco": "383mil",
+    "entrega": "2027",
+    "imagem": "assets/images/empreendimentos/TERRANOA - ENGELUX.jpg",
+    "lat": -23.5132033,
+    "lng": -46.707189,
+    "uid": "terranoa-2d58d0"
+  },
+  {
+    "nome": "LA PARQUE",
+    "bairro": "",
+    "endereco": "Rua Marina Ciufuli Zanfelice,",
+    "area": "41 A 55M ",
+    "quartos": "2 a 3 ",
+    "diferenciais": "Suíte, Varanda e Vaga",
+    "lazer": "COMPLETO ",
+    "preco": "426mil",
+    "entrega": "Pronto",
+    "imagem": "assets/images/empreendimentos/em-breve.jpg",
+    "lat": -23.5132033,
+    "lng": -46.707189,
+    "uid": "la-parque-f59743"
+  },
+  {
+    "nome": "MARCO BUTANTÃ",
+    "bairro": "",
+    "endereco": "AV DO RIO PEQUENO",
+    "area": "30M A 44M ",
+    "quartos": "1 a 2 ",
+    "diferenciais": "Varanda",
+    "lazer": "COMPLETO ",
+    "preco": "264mil",
+    "entrega": "2028",
+    "imagem": "assets/images/empreendimentos/MARCO_BUTANTA_ENGELUX.jpg",
+    "lat": -23.5647003,
+    "lng": -46.7502907,
+    "uid": "marco-butanta-cab6d8"
+  },
+  {
+    "nome": "SP MORUMBI",
+    "bairro": "",
+    "endereco": "R. Comendador Elias Assi,",
+    "area": "27M E 38M",
+    "quartos": "1 a 2 ",
+    "diferenciais": "Varanda e Vaga ",
+    "lazer": "COMPLETO ",
+    "preco": "Aguarde Lançamento",
+    "entrega": "Lançamento",
+    "imagem": "assets/images/empreendimentos/em-breve.jpg",
+    "lat": -23.5814371,
+    "lng": -46.7179602,
+    "uid": "sp-morumbi-6ba093"
+  },
+  {
+    "nome": "GO LAPA",
+    "bairro": "",
+    "endereco": "AV GINO CESARO",
+    "area": "54M A 69M ",
+    "quartos": "2",
+    "diferenciais": "Varanda e Vaga ",
+    "lazer": "COMPLETO ",
+    "preco": "594mil",
+    "entrega": "2027",
+    "imagem": "assets/images/empreendimentos/GO LAPA - ECON.jpg",
+    "lat": -23.510991,
+    "lng": -46.6990389,
+    "uid": "go-lapa-b778eb"
+  },
+  {
+    "nome": "EPIC JAGUARE",
+    "bairro": "",
+    "endereco": "RUA AUTÁS",
+    "area": "59M A 69",
+    "quartos": "2 a 3",
+    "diferenciais": "Varanda e Vaga ",
+    "lazer": "COMPLETO ",
+    "preco": "541mil",
+    "entrega": "2027",
+    "imagem": "assets/images/empreendimentos/EPIC JAGUARE - ECON.jpg",
+    "lat": -23.5550045,
+    "lng": -46.7443121,
+    "uid": "epic-jaguare-9d3a32"
+  },
+  {
+    "nome": "HYPE STYLE",
+    "bairro": "",
+    "endereco": "RUA BAUMANN VILA LEOPOLDINA",
+    "area": "29M A 43M ",
+    "quartos": "1 a 2 ",
+    "diferenciais": "Varanda ",
+    "lazer": "COMPLETO ",
+    "preco": "264mil",
+    "entrega": "2028",
+    "imagem": "assets/images/empreendimentos/HYPE STYLE ECON.jpg",
+    "lat": -23.5350371,
+    "lng": -46.7312148,
+    "uid": "hype-style-7d380e"
+  },
+  {
+    "nome": "HYPE TREND",
+    "bairro": "",
+    "endereco": "RUA BAUMANN",
+    "area": "76M ",
+    "quartos": "3",
+    "diferenciais": "Varanda e Vaga ",
+    "lazer": "COMPLETO - BEACH TENNIS ",
+    "preco": "989mil",
+    "entrega": "2028",
+    "imagem": "assets/images/empreendimentos/HYPE TREND ECON.jpg",
+    "lat": -23.5350371,
+    "lng": -46.7312148,
+    "uid": "hype-trend-942410"
+  },
+  {
+    "nome": "OAZII BY PIERO LISSONI",
+    "bairro": "",
+    "endereco": "RUA SALES JUNIOR",
+    "area": " 173M 212M ",
+    "quartos": "3 a 4",
+    "diferenciais": "Suíte, Varanda e Vaga",
+    "lazer": "COMPLETO ",
+    "preco": "Aguarde Lançamento",
+    "entrega": "",
+    "imagem": "assets/images/empreendimentos/em-breve.jpg",
+    "lat": -23.5312518,
+    "lng": -46.7184664,
+    "uid": "oazii-by-piero-lissoni-06164b"
+  },
+  {
+    "nome": "AMPERE BROOKLIN",
+    "bairro": "",
+    "endereco": "RUA ANDRE AMPERE",
+    "area": "262M ",
+    "quartos": "4",
+    "diferenciais": "Suíte, Varanda e Vaga",
+    "lazer": "COMPLETO ",
+    "preco": "4 milhões e 854mil",
+    "entrega": "2027",
+    "imagem": "assets/images/empreendimentos/AMPERE BROOKLIN TEGRA.jpg",
+    "lat": -23.6099393,
+    "lng": -46.6934966,
+    "uid": "ampere-brooklin-bfc435"
+  },
+  {
+    "nome": "STUDIOS BERRINI",
+    "bairro": "",
+    "endereco": "RUA ARANDU",
+    "area": "30M ",
+    "quartos": "STUDIO",
+    "diferenciais": "COMPLETO ",
+    "lazer": "COMPLETO ",
+    "preco": "554mil",
+    "entrega": "2027",
+    "imagem": "assets/images/empreendimentos/STUDIOS BERRINI TEGRA.jpg",
+    "lat": -23.6063766,
+    "lng": -46.6901591,
+    "uid": "studios-berrini-ed2c21"
+  },
+  {
+    "nome": "CAPITOLO BY PIERO LISSONI",
+    "bairro": "",
+    "endereco": "Rua Ibaragui Nissui",
+    "area": "2120M E 363M ",
+    "quartos": "3 a 4",
+    "diferenciais": "Suíte, Varanda e Vaga",
+    "lazer": "COMPLETO ",
+    "preco": "4 milhões e 625mil",
+    "entrega": "2028",
+    "imagem": "assets/images/empreendimentos/CAPITOLIO TEGRA.jpg",
+    "lat": -23.5910887,
+    "lng": -46.6267927,
+    "uid": "capitolo-by-piero-lissoni-09f5d4"
+  },
+  {
+    "nome": "MOZAE",
+    "bairro": "",
+    "endereco": "Rua Conselheiro Brotero",
+    "area": "46M E 73M ",
+    "quartos": "1 a 2",
+    "diferenciais": "Suíte, Varanda e Vaga",
+    "lazer": "COMPLETO ",
+    "preco": "896mil",
+    "entrega": "2028",
+    "imagem": "assets/images/empreendimentos/MOZAE TEGRA.jpg",
+    "lat": -23.5349499,
+    "lng": -46.6601573,
+    "uid": "mozae-421588"
   }
 ];

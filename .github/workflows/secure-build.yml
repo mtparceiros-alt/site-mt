@@ -1,0 +1,80 @@
+name: 🔒 Build Seguro - Ofusca + Assinatura
+
+on:
+  push:
+    branches: [ main, develop ]
+    paths:
+      - 'assets/js/**'
+      - 'assets/css/**'
+      - 'package.json'
+      - '.github/workflows/secure-build.yml'
+  workflow_dispatch:
+
+jobs:
+  build-seguro:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: 📥 Checkout código
+      uses: actions/checkout@v4
+      with:
+        token: ${{ secrets.GITHUB_TOKEN }}
+    
+    - name: 📦 Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '18'
+        cache: 'npm'
+    
+    - name: 🔐 Configurar variáveis de segurança
+      run: |
+        echo "SIGNING_KEY=${{ secrets.SIGNING_KEY }}" > .env
+        echo "CODE_VERSION=$(date +%Y%m%d-%H%M%S)" >> .env
+      shell: bash
+    
+    - name: 📥 Instalar dependências
+      run: npm ci --omit=dev
+    
+    - name: 🔒 1️⃣ Ofuscar código JavaScript
+      run: npm run obfuscate
+      env:
+        NODE_ENV: production
+    
+    - name: 🔑 2️⃣ Assinar códigos ofuscados
+      run: npm run sign-code
+      env:
+        SIGNING_KEY: ${{ secrets.SIGNING_KEY }}
+    
+    - name: 📋 3️⃣ Copiar assets
+      run: npm run copy-assets
+    
+    - name: ✅ 4️⃣ Verificar integridade
+      run: npm run verify
+        ls -lh dist/assets/js/*.min.js || true
+        du -sh dist/
+    
+    - name: 📂 Upload artifacts
+      uses: actions/upload-artifact@v3
+      with:
+        name: build-ofuscado
+        path: dist/
+        retention-days: 30
+    
+    - name: 🚀 Deploy para GitHub Pages (se main)
+      if: github.ref == 'refs/heads/main'
+      uses: peaceiris/actions-gh-pages@v3
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        publish_dir: ./dist
+        cname: mtparceiros.com.br
+    
+    - name: 📧 Notificar conclusão
+      if: always()
+      run: |
+        if [ "${{ job.status }}" == "success" ]; then
+          echo "✅ Build seguro CONCLUÍDO com sucesso!"
+          echo "📦 Publicado em: https://mtparceiros.com.br"
+        else
+          echo "❌ Build falhou - verifique logs acima"
+          exit 1
+        fi

@@ -1,0 +1,37 @@
+﻿{
+  "name": "site_mt",
+  "version": "1.0.0",
+  "description": "MTParceiros - Simulador MCMV com pipeline de segurança",
+  "main": "index.html",
+  "scripts": {
+    "sync": "python scripts/sync_cms.py",
+    "sync:dry": "python scripts/sync_cms.py --dry-run",
+    "clean": "node -e \"const fs = require('fs'); const path = require('path'); const dist = path.join(process.cwd(), 'dist'); if (fs.existsSync(dist)) fs.rmSync(dist, { recursive: true, force: true });\"",
+    "build": "npm run clean && node scripts/obfuscate.js && node scripts/sign-code.js && node scripts/copy-assets.js",
+    "build:prod": "set NODE_ENV=production && npm run build",
+    "obfuscate": "node scripts/obfuscate.js",
+    "sign-code": "node scripts/sign-code.js",
+    "copy-assets": "node scripts/copy-assets.js",
+    "deploy": "node scripts/deploy-github.js",
+    "verify": "node scripts/verify-integrity.js",
+    "start": "http-server dist -p 8080 -c-1"
+  },
+  "devDependencies": {
+    "cssnano": "^6.0.1",
+    "http-server": "^14.1.1",
+    "javascript-obfuscator": "^5.3.0",
+    "terser": "^5.19.0"
+  },
+  "keywords": [
+    "mcmv",
+    "simulador",
+    "imobiliária",
+    "segurança",
+    "obfuscação"
+  ],
+  "author": "MTParceiros",
+  "license": "PROPRIETARY",
+  "dependencies": {
+    "sharp": "^0.34.5"
+  }
+}

@@ -1,0 +1,114 @@
+{
+  "baseline": {
+    "margem": 1100,
+    "potencial": 137997,
+    "subsidio": 0,
+    "poder": 175000,
+    "poderReal": 175000,
+    "tetoMCMV": 275000,
+    "excedeTeto": false,
+    "faixaMCMV": null,
+    "taxaAnual": 0.065,
+    "mesesObra": 36,
+    "taxaINCC": 0.0055,
+    "parcelaEntrada": 54,
+    "parcelaPosChaves": 1055,
+    "saldoEntrada": 5000,
+    "fgts": 20000,
+    "entrada": 10000,
+    "rendaOriginal": 5000,
+    "idade": 35
+  },
+  "scenarios": [
+    {
+      "kind": "INCC",
+      "param": 0.004,
+      "poder": 175000,
+      "poder_change_abs": 0,
+      "poder_change_pct": 0.0,
+      "parcela": 1055,
+      "parcela_change_abs": 0,
+      "parcela_change_pct": 0.0
+    },
+    {
+      "kind": "INCC",
+      "param": 0.0055,
+      "poder": 175000,
+      "poder_change_abs": 0,
+      "poder_change_pct": 0.0,
+      "parcela": 1055,
+      "parcela_change_abs": 0,
+      "parcela_change_pct": 0.0
+    },
+    {
+      "kind": "INCC",
+      "param": 0.008,
+      "poder": 175000,
+      "poder_change_abs": 0,
+      "poder_change_pct": 0.0,
+      "parcela": 1055,
+      "parcela_change_abs": 0,
+      "parcela_change_pct": 0.0
+    },
+    {
+      "kind": "mesesObra",
+      "param": 24,
+      "poder": 175000,
+      "poder_change_abs": 0,
+      "poder_change_pct": 0.0,
+      "parcela": 1055,
+      "parcela_change_abs": 0,
+      "parcela_change_pct": 0.0
+    },
+    {
+      "kind": "mesesObra",
+      "param": 36,
+      "poder": 175000,
+      "poder_change_abs": 0,
+      "poder_change_pct": 0.0,
+      "parcela": 1055,
+      "parcela_change_abs": 0,
+      "parcela_change_pct": 0.0
+    },
+    {
+      "kind": "mesesObra",
+      "param": 48,
+      "poder": 175000,
+      "poder_change_abs": 0,
+      "poder_change_pct": 0.0,
+      "parcela": 1055,
+      "parcela_change_abs": 0,
+      "parcela_change_pct": 0.0
+    },
+    {
+      "kind": "taxaAnual",
+      "param": 0.055,
+      "poder": 190000,
+      "poder_change_abs": 15000,
+      "poder_change_pct": 8.571428571428571,
+      "parcela": 1051,
+      "parcela_change_abs": -4,
+      "parcela_change_pct": -0.37914691943127965
+    },
+    {
+      "kind": "taxaAnual",
+      "param": 0.065,
+      "poder": 175000,
+      "poder_change_abs": 0,
+      "poder_change_pct": 0.0,
+      "parcela": 1055,
+      "parcela_change_abs": 0,
+      "parcela_change_pct": 0.0
+    },
+    {
+      "kind": "taxaAnual",
+      "param": 0.075,
+      "poder": 162000,
+      "poder_change_abs": -13000,
+      "poder_change_pct": -7.428571428571429,
+      "parcela": 1058,
+      "parcela_change_abs": 3,
+      "parcela_change_pct": 0.2843601895734597
+    }
+  ]
+}

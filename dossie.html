@@ -8,7 +8,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;family=Manrope:wght@400;500;600;700&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
 <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
     <script src="empreendimentos.js?v=6.0"></script>
-    <script src="assets/js/simulator-core.min.js?v=6.0"></script>
+    <script src="assets/js/simulator-core.js?v=6.0"></script>
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
 <script id="tailwind-config">
@@ -80,7 +80,7 @@
             },
         }
     </script>
-    <link rel="stylesheet" href="assets/css/dossie-v5.css">
+    <link rel="stylesheet" href="assets/css/dossie-v5.css?v=2">
     <style>
         /* [ANIMATIONS] */
         @keyframes pulse-red {
@@ -651,8 +651,9 @@
                                 </div>
                                 <div class="flex flex-col items-end gap-2">
                                     <div id="fluxo-status-label" class="bg-tertiary/20 text-tertiary text-[8px] font-bold px-3 py-1 rounded-full flex items-center gap-1 shadow-sm">
-                                        <span id="fluxo-cadeado-icon" class="material-symbols-outlined text-[12px]">verified_user</span>
-                                        Liberado: Ver Cronograma
+                                        <span id="fluxo-cadeado-icon" class="fluxo-icon material-symbols-outlined text-[12px]">hourglass_top</span>
+                                        <span class="fluxo-main">Aguardando Imóvel</span>
+                                        <span class="fluxo-ver text-[9px] ml-2"></span>
                                     </div>
                                     <span id="timeline-chevron" class="material-symbols-outlined text-primary transition-transform duration-500">expand_more</span>
                                 </div>
@@ -721,7 +722,7 @@
             <span class="material-symbols-outlined text-primary">apartment</span>
             2. Imóvel Ideal Para Você
         </h3>
-        <span class="bg-[#0a1428] text-primary text-[10px] font-black px-4 py-1.5 rounded-full border border-primary/30 flex items-center gap-2 shadow-lg uppercase tracking-widest" id="curadoria-ia-badge">
+        <span class="hidden md:flex bg-[#0a1428] text-primary text-[10px] font-black px-4 py-1.5 rounded-full border border-primary/30 items-center gap-2 shadow-lg uppercase tracking-widest" id="curadoria-ia-badge">
             <span class="material-symbols-outlined text-[14px]">analytics</span>
             <span id="curadoria-count">04</span> Opções Encontradas
         </span>
@@ -784,7 +785,10 @@
                         <p class="text-sm font-black text-tertiary" id="main-match-valorizacao">+30% Proj.</p>
                     </div>
                     <div class="flex flex-col border-l border-white/10 pl-8">
-                        <p class="text-[8px] uppercase text-outline font-bold tracking-widest">Status / Entrega</p>
+                        <p class="text-[8px] uppercase text-outline font-bold tracking-widest">
+                            <span class="md:hidden">Entrega</span>
+                            <span class="hidden md:inline">Status / Entrega</span>
+                        </p>
                         <p class="text-sm font-black text-white" id="main-match-status">---</p>
                     </div>
                 </div>
@@ -1028,21 +1032,21 @@
                             <img id="fluxo-prop-img" src="" alt="Imóvel" class="w-full h-full object-cover">
                         </div>
                         <div>
-                            <h4 class="text-xl font-black text-white font-headline" id="fluxo-title">Carregando...</h4>
-                            <p class="text-xs font-bold text-primary" id="fluxo-prop-price">R$ 0</p>
+                            <h4 class="text-xl md:text-2xl font-black text-white font-headline" id="fluxo-title">Carregando...</h4>
+                            <p class="text-xs md:text-sm font-bold text-primary" id="fluxo-prop-price">R$ 0</p>
                         </div>
                     </div>
 
                     <!-- Título do Quadro -->
                     <div class="flex items-center justify-between">
                         <div>
-                            <h3 class="text-sm font-black text-white uppercase tracking-widest flex items-center gap-2">
+                            <h3 class="text-sm md:text-base font-black text-white uppercase tracking-widest flex items-center gap-2">
                                 <span class="material-symbols-outlined text-primary text-lg">timeline</span>
                                 Fluxo do Imóvel
                             </h3>
-                            <p class="text-[10px] text-slate-400 mt-1" id="fluxo-subtitle">VALOR DO INVESTIMENTO: R$ 0</p>
+                            <p class="text-[10px] md:text-[11px] text-slate-400 mt-1" id="fluxo-subtitle">VALOR DO INVESTIMENTO: R$ 0</p>
                         </div>
-                        <div id="fluxo-badge" class="bg-tertiary/10 text-tertiary text-[9px] font-black px-4 py-1 rounded-full border border-tertiary/20">MCMV</div>
+                        <div id="fluxo-badge" class="bg-tertiary/10 text-tertiary text-[9px] md:text-[10px] font-black px-4 py-1 rounded-full border border-tertiary/20">MCMV</div>
                     </div>
 
                     <!-- Timeline 1-2-3 (Estilo Imagem 2) -->
@@ -1053,16 +1057,16 @@
                         <!-- Passo 1 -->
                         <div class="flex flex-col items-center text-center relative z-10">
                             <div class="w-10 h-10 rounded-full bg-primary flex items-center justify-center text-on-primary font-black mb-3 border-4 border-[#081325] shadow-lg">1</div>
-                            <p class="text-[9px] font-black text-primary uppercase mb-1">Entrada</p>
-                            <p class="text-sm font-black text-white mb-0.5" id="fluxo-f1-val">R$ 0/mês</p>
-                            <p class="text-[8px] text-slate-500 italic" id="fluxo-f1-prazo">36x Direto Construtora</p>
-                            <p class="text-[8px] text-slate-400 font-bold mt-1" id="fluxo-f1-total">Total: R$ 0</p>
+                            <p class="text-[9px] md:text-[10px] font-black text-primary uppercase mb-1">Entrada</p>
+                            <p class="text-sm md:text-base font-black text-white mb-0.5" id="fluxo-f1-val">R$ 0/mês</p>
+                            <p class="text-[8px] md:text-[9px] text-slate-500 italic" id="fluxo-f1-prazo">36x Direto Construtora</p>
+                            <p class="text-[8px] md:text-[9px] text-slate-400 font-bold mt-1" id="fluxo-f1-total">Total: R$ 0</p>
                         </div>
 
                         <!-- Passo 2 -->
                         <div class="flex flex-col items-center text-center relative z-10">
                             <div class="w-10 h-10 rounded-full bg-slate-500 flex items-center justify-center text-white font-black mb-3 border-4 border-[#081325] shadow-lg">2</div>
-                            <p class="text-[9px] font-black text-slate-400 uppercase mb-1">Durante Obra</p>
+                            <p class="text-[9px] md:text-[10px] font-black text-slate-400 uppercase mb-1">Durante Obra</p>
                             <p class="text-sm font-black text-white mb-0.5" id="fluxo-f2-val">R$ 0</p>
                             <p class="text-[8px] text-slate-500 italic">Evolução + Seguros</p>
                             <p class="text-[8px] text-slate-400 font-bold mt-1" id="fluxo-f2-prazo">≈ 24 meses</p>
@@ -1083,24 +1087,32 @@
                         <div class="flex h-4 w-full rounded-full overflow-hidden bg-slate-900 shadow-inner" id="fluxo-bar-container"></div>
                         <div class="grid grid-cols-2 lg:grid-cols-4 gap-4" id="fluxo-legend-container">
                             <div class="flex items-center gap-2">
-                                <div class="w-2 h-2 rounded-full bg-primary"></div>
-                                <span class="text-[8px] text-slate-400 font-bold uppercase">Subsídio:</span>
-                                <span class="text-[10px] text-white font-black" id="fluxo-leg-sub">R$ 0</span>
+                                <div class="w-2 h-2 rounded-full bg-primary shrink-0"></div>
+                                <div class="flex flex-col">
+                                    <span class="text-[8px] text-slate-400 font-bold uppercase">Subsídio:</span>
+                                    <span class="text-[10px] text-white font-black" id="fluxo-leg-sub">R$ 0</span>
+                                </div>
                             </div>
                             <div class="flex items-center gap-2">
-                                <div class="w-2 h-2 rounded-full bg-blue-400"></div>
-                                <span class="text-[8px] text-slate-400 font-bold uppercase">FGTS:</span>
-                                <span class="text-[10px] text-white font-black" id="fluxo-leg-fgts">R$ 0</span>
+                                <div class="w-2 h-2 rounded-full bg-blue-400 shrink-0"></div>
+                                <div class="flex flex-col">
+                                    <span class="text-[8px] text-slate-400 font-bold uppercase">FGTS:</span>
+                                    <span class="text-[10px] text-white font-black" id="fluxo-leg-fgts">R$ 0</span>
+                                </div>
                             </div>
                             <div class="flex items-center gap-2">
-                                <div class="w-2 h-2 rounded-full bg-white/40"></div>
-                                <span class="text-[8px] text-slate-400 font-bold uppercase">Entrada:</span>
-                                <span class="text-[10px] text-white font-black" id="fluxo-leg-ent">R$ 0</span>
+                                <div class="w-2 h-2 rounded-full bg-white/40 shrink-0"></div>
+                                <div class="flex flex-col">
+                                    <span class="text-[8px] text-slate-400 font-bold uppercase">Entrada:</span>
+                                    <span class="text-[10px] text-white font-black" id="fluxo-leg-ent">R$ 0</span>
+                                </div>
                             </div>
                             <div class="flex items-center gap-2">
-                                <div class="w-2 h-2 rounded-full bg-tertiary"></div>
-                                <span class="text-[8px] text-slate-400 font-bold uppercase">Financ.:</span>
-                                <span class="text-[10px] text-white font-black" id="fluxo-leg-fin">R$ 0</span>
+                                <div class="w-2 h-2 rounded-full bg-tertiary shrink-0"></div>
+                                <div class="flex flex-col">
+                                    <span class="text-[8px] text-slate-400 font-bold uppercase">Financ.:</span>
+                                    <span class="text-[10px] text-white font-black" id="fluxo-leg-fin">R$ 0</span>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -1123,12 +1135,12 @@
 <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-6" id="docs-checklist">
 <!-- Doc 1 -->
 <div id="card-doc-id" class="doc-card glass-card p-6 rounded-2xl border-t-2 border-t-transparent hover:border-t-primary transition-all cursor-pointer group" onclick="toggleDoc('id')">
-<div class="flex justify-between items-start mb-6">
+<div class="flex justify-between items-center mb-6">
 <div class="icon-box w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center text-primary transition-colors">
 <span class="material-symbols-outlined">id_card</span>
 </div>
 <div class="flex items-center gap-2">
-<span class="status-text text-[10px] font-bold uppercase text-outline">Pendente</span>
+<span class="status-text text-[8px] md:text-[10px] font-bold uppercase text-outline">Pendente</span>
 <div class="status-dot w-2 h-2 rounded-full bg-outline transition-all"></div>
 </div>
 </div>
@@ -1137,12 +1149,12 @@
 </div>
 <!-- Doc 2 -->
 <div id="card-doc-residencia" class="doc-card glass-card p-6 rounded-2xl border-t-2 border-t-transparent hover:border-t-primary transition-all cursor-pointer group" onclick="toggleDoc('residencia')">
-<div class="flex justify-between items-start mb-6">
+<div class="flex justify-between items-center mb-6">
 <div class="icon-box w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center text-primary transition-colors">
 <span class="material-symbols-outlined">home_pin</span>
 </div>
 <div class="flex items-center gap-2">
-<span class="status-text text-[10px] font-bold uppercase text-outline">Pendente</span>
+<span class="status-text text-[8px] md:text-[10px] font-bold uppercase text-outline">Pendente</span>
 <div class="status-dot w-2 h-2 rounded-full bg-outline transition-all"></div>
 </div>
 </div>
@@ -1151,12 +1163,12 @@
 </div>
 <!-- Doc 3 -->
 <div id="card-doc-civil" class="doc-card glass-card p-6 rounded-2xl border-t-2 border-t-transparent hover:border-t-primary transition-all cursor-pointer group" onclick="toggleDoc('civil')">
-<div class="flex justify-between items-start mb-6">
+<div class="flex justify-between items-center mb-6">
 <div class="icon-box w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center text-primary transition-colors">
 <span class="material-symbols-outlined">diversity_3</span>
 </div>
 <div class="flex items-center gap-2">
-<span class="status-text text-[10px] font-bold uppercase text-outline">Pendente</span>
+<span class="status-text text-[8px] md:text-[10px] font-bold uppercase text-outline">Pendente</span>
 <div class="status-dot w-2 h-2 rounded-full bg-outline transition-all"></div>
 </div>
 </div>
@@ -1165,12 +1177,12 @@
 </div>
 <!-- Doc 4 -->
 <div id="card-doc-renda" class="doc-card glass-card p-6 rounded-2xl border-t-2 border-t-transparent hover:border-t-primary transition-all cursor-pointer group" onclick="toggleDoc('renda')">
-<div class="flex justify-between items-start mb-6">
+<div class="flex justify-between items-center mb-6">
 <div class="icon-box w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center text-primary transition-colors">
 <span class="material-symbols-outlined">payments</span>
 </div>
 <div class="flex items-center gap-2">
-<span class="status-text text-[10px] font-bold uppercase text-outline">Pendente</span>
+<span class="status-text text-[8px] md:text-[10px] font-bold uppercase text-outline">Pendente</span>
 <div class="status-dot w-2 h-2 rounded-full bg-outline transition-all"></div>
 </div>
 </div>
@@ -1419,7 +1431,7 @@
             © 2024 MT Parceiros IA - Inteligência em Crédito Imobiliário
         </p>
 </footer>
-    <script src="assets/js/shared.min.js?v=6.0"></script>
+    <script src="assets/js/shared.js?v=6.0"></script>
 
     <!-- [COMPONENT: MT MOBILE PILOT (BALLOON)] - MT_LOG (05/2026) -->
     <div id="mt-mobile-pilot" class="md:hidden">
@@ -1661,9 +1673,9 @@
                 // Reset do Card de Fluxo
                 const fBtn = document.getElementById('btn-abrir-fluxo');
                 const fStatus = document.getElementById('fluxo-status-label');
-                if (fBtn && fStatus) {
+                    if (fBtn && fStatus) {
                     fBtn.classList.remove('btn-fluxo-success', 'btn-fluxo-warning', 'btn-pulse');
-                    fStatus.innerHTML = '<span class="material-symbols-outlined text-[12px]">verified_user</span> Liberado: Ver Cronograma';
+                    fStatus.innerHTML = '<span class="fluxo-icon material-symbols-outlined text-[12px]">hourglass_top</span><span class="fluxo-main">Aguardando Imóvel</span><span class="fluxo-ver text-[9px] ml-2"></span>';
                     fStatus.className = "bg-tertiary/20 text-tertiary text-[8px] font-bold px-3 py-1 rounded-full flex items-center gap-1 shadow-sm";
                 }
             },
@@ -2072,11 +2084,16 @@
             // Atualizar Título do Passo 1 Dinamicamente
             const step1Title = document.getElementById('main-step1-title');
             if (step1Title) {
+                step1Title.classList.add('flex-wrap');
                 step1Title.innerHTML = `
-                    <span class="material-symbols-outlined text-primary">account_tree</span> 
-                    1. Plano de Fluxo Organizado 
-                    <span class="text-primary ml-2 animate-fade-in">${emp.nome}</span> 
-                    <span class="text-slate-400 text-[11px] font-normal ml-2 italic">(${emp.preco})</span>
+                    <div class="flex items-center gap-2">
+                        <span class="material-symbols-outlined text-primary">account_tree</span>
+                        <span>1. Plano de Fluxo Organizado</span>
+                    </div>
+                    <div class="w-full md:w-auto flex items-center md:ml-2 mt-1 md:mt-0 animate-fade-in">
+                        <span class="mobile-prop-name text-primary text-sm md:text-base truncate max-w-[200px] md:max-w-none">${emp.nome}</span>
+                        <span class="mobile-prop-price text-slate-400 text-[11px] font-normal ml-2 italic">(${emp.preco})</span>
+                    </div>
                 `;
             }
 
@@ -2113,7 +2130,7 @@
                 if (badge && bText) {
                     badge.classList.add('active');
                     if (res.isMatch) {
-                        badge.className = "property-status-badge active badge-match px-4 py-2 rounded-2xl flex items-center gap-2 shadow-2xl backdrop-blur-md border border-white/10";
+                        badge.className = "property-status-badge active badge-match px-3 py-1.5 md:px-4 md:py-2 rounded-2xl flex items-center gap-1.5 md:gap-2 shadow-2xl backdrop-blur-md border border-white/10 text-[8px] md:text-xs font-black md:whitespace-nowrap";
                         bText.innerText = "MATCH CONFIRMADO";
                         
                         // [V8.3] Toast de Sucesso para Match
@@ -2123,7 +2140,7 @@
                             "success"
                         );
                     } else {
-                        badge.className = "property-status-badge active badge-deficit px-4 py-2 rounded-2xl flex items-center gap-2 shadow-2xl backdrop-blur-md border border-white/10";
+                        badge.className = "property-status-badge active badge-deficit px-3 py-1.5 md:px-4 md:py-2 rounded-2xl flex items-center gap-1.5 md:gap-2 shadow-2xl backdrop-blur-md border border-white/10 text-[8px] md:text-xs font-black md:whitespace-nowrap";
                         bText.innerText = `DÉFICIT: ${new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL', maximumFractionDigits: 0 }).format(res.delta)}`;
                         
                         // Alerta de Déficit Premium
@@ -2174,11 +2191,11 @@
                     
                     if (res.isMatch) {
                         fBtn.classList.add('btn-fluxo-success', 'btn-pulse');
-                        fStatus.innerHTML = '<span class="material-symbols-outlined text-[10px]">auto_awesome</span> CONDIÇÃO IDEAL';
+                        fStatus.innerHTML = '<span class="fluxo-icon material-symbols-outlined text-[10px]">auto_awesome</span><span class="fluxo-main">CONDIÇÃO IDEAL</span><span class="fluxo-ver text-[9px] ml-2">Ver Cronograma</span>';
                         fStatus.className = "bg-tertiary text-on-tertiary text-[9px] font-black px-3 py-1 rounded-full flex items-center gap-1 shadow-[0_0_15px_rgba(64,225,126,0.4)] animate-bounce";
                     } else {
                         fBtn.classList.add('btn-fluxo-warning', 'btn-pulse');
-                        fStatus.innerHTML = '<span class="material-symbols-outlined text-[10px]">warning</span> NECESSÁRIO AJUSTES';
+                        fStatus.innerHTML = '<span class="fluxo-icon material-symbols-outlined text-[10px]">warning</span><span class="fluxo-main">NECESSÁRIO AJUSTES</span><span class="fluxo-ver text-[9px] ml-2"></span>';
                         fStatus.className = "bg-red-500 text-white text-[9px] font-black px-3 py-1 rounded-full flex items-center gap-1 shadow-[0_0_15px_rgba(239,68,68,0.4)] animate-pulse";
                     }
                 }
@@ -2302,7 +2319,14 @@
             }
         };
 
-        // Lead Sync
+        // =======================================================================
+        // 🚀 APROVADOR UNIVERSAL (Lead Sync V10.0)
+        // =======================================================================
+        // Coleta Dados da Simulação, Estratégia do Cockpit e Status do Checklist.
+        // Formata o Laudo Completo (UTF-8) e envia ao Corretor via WhatsApp.
+        // ATENÇÃO: Ao editar este bloco, SEMPRE salve o arquivo em "UTF-8" puro
+        // no seu editor para não quebrar a codificação dos emojis ().
+        // =======================================================================
         window.aprovarDossie = function(origemBotao) {
             const currentProp = document.getElementById('main-match-title')?.innerText || "Imóvel";
             const simID = document.getElementById('simulation-id')?.innerText || "#MT-SIM";
@@ -2397,6 +2421,15 @@
             document.querySelectorAll('.fade-in-section, .reveal-up').forEach(section => {
                 observer.observe(section);
             });
+            // Ensure fluxo pill adapts on mobile: hide secondary hint when narrow
+            const _updateFluxoMobile = () => {
+                const el = document.querySelector('#fluxo-status-label .fluxo-ver');
+                if (!el) return;
+                if (window.innerWidth <= 480) el.style.display = 'none';
+                else el.style.display = '';
+            };
+            _updateFluxoMobile();
+            window.addEventListener('resize', _updateFluxoMobile);
         });
     </script>
     <script>
@@ -2448,10 +2481,10 @@
     </script>
 
     <!-- [MODULES: SYNC] -->
-    <script src="assets/js/dossie-engine.min.js?v=6.0"></script>
-    <script src="assets/js/dossie-fluxo.min.js?v=6.0"></script>
-    <script src="assets/js/dossie-strategy.min.js?v=6.0"></script>
-    <script src="assets/js/dossie-carousel.min.js?v=6.0"></script>
-    <script src="assets/js/dossie-pilot.min.js?v=6.0"></script>
+    <script src="assets/js/dossie-engine.js?v=6.0"></script>
+    <script src="assets/js/dossie-fluxo.js?v=6.0"></script>
+    <script src="assets/js/dossie-strategy.js?v=6.0"></script>
+    <script src="assets/js/dossie-carousel.js?v=6.0"></script>
+    <script src="assets/js/dossie-pilot.js?v=6.0"></script>
 </body>
 </html>

@@ -1,0 +1,35 @@
+# ═════════════
+src/
+assets/js/simulator-core.js
+assets/js/index-logic.js
+assets/js/score-module.js
+assets/js/score-melhorias.js
+assets/css/*.css
+
+!dist/
+!dist/**/*.min.js
+!dist/**/*.min.css
+!dist/index.html
+!assets/**/*.min.js
+!assets/**/*.min.css
+!assets/css/*.min.css
+!assets/js/*.min.js
+!vendor/**
+!videos/**
+
+# Pasta de Memória do Projeto (Somente Desenvolvimento)
+_memoria_projeto/
+.env
+
+# Proteção Adicional contra vazamento de scripts e BD
+node_modules/
+scripts/
+scratch/
+Empreendimentos.xlsx
+coords_cache.json
+*.bat
+*.ps1
+
+# Bloqueio Total de JS original (Segurança Máxima)
+assets/js/*.js
+!assets/js/*.min.js
