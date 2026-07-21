@@ -172,7 +172,7 @@ var EMPREENDIMENTOS = [
     "quartos": "1",
     "diferenciais": "Opção de Varanda",
     "lazer": "Linha Prime: Acabamento Superior e Lazer Completo",
-    "preco": "23mil",
+    "preco": "233mil",
     "entrega": "Fev/2028",
     "imagem": "assets/images/empreendimentos/Vivaz_Connection_Mooca.jpg",
     "lat": -23.547048,
