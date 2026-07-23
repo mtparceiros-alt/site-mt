@@ -1,0 +1,1019 @@
+<!DOCTYPE html>
+
+<html class="light" lang="pt-BR"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>MT Parceiros | Simulador Inteligente</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;family=Manrope:wght@400;500;600;700&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "on-primary": "#ffffff",
+                      "on-secondary-container": "#581200",
+                      "surface-variant": "#d8e3fb",
+                      "error-container": "#ffdad6",
+                      "on-surface": "#111c2d",
+                      "surface-bright": "#f9f9ff",
+                      "inverse-on-surface": "#ecf1ff",
+                      "tertiary-container": "#003011",
+                      "surface-dim": "#cfdaf2",
+                      "on-tertiary-container": "#00a64b",
+                      "on-secondary-fixed": "#3b0900",
+                      "primary-fixed": "#d8e3fb",
+                      "surface-container-lowest": "#ffffff",
+                      "on-tertiary-fixed-variant": "#005322",
+                      "inverse-primary": "#bcc7de",
+                      "background": "#f9f9ff",
+                      "surface": "#f9f9ff",
+                      "surface-container": "#e7eeff",
+                      "primary-container": "#1e293b",
+                      "error": "#ba1a1a",
+                      "secondary-fixed-dim": "#ffb5a0",
+                      "secondary-fixed": "#ffdbd1",
+                      "on-primary-fixed": "#111c2d",
+                      "surface-container-low": "#f0f3ff",
+                      "secondary-container": "#ff5d2d",
+                      "on-secondary": "#ffffff",
+                      "on-secondary-fixed-variant": "#872100",
+                      "tertiary-fixed": "#66ff8e",
+                      "tertiary-fixed-dim": "#3de273",
+                      "outline": "#75777d",
+                      "on-error-container": "#93000a",
+                      "on-tertiary-fixed": "#002109",
+                      "primary": "#091426",
+                      "primary-fixed-dim": "#bcc7de",
+                      "surface-container-high": "#dee8ff",
+                      "inverse-surface": "#263143",
+                      "on-surface-variant": "#45474c",
+                      "on-background": "#111c2d",
+                      "surface-tint": "#545f73",
+                      "on-error": "#ffffff",
+                      "on-tertiary": "#ffffff",
+                      "secondary": "#b02e00",
+                      "outline-variant": "#c5c6cd",
+                      "surface-container-highest": "#d8e3fb",
+                      "tertiary": "#001906",
+                      "on-primary-container": "#8590a6",
+                      "on-primary-fixed-variant": "#3c475a"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "xxl": "1.5rem",
+                      "full": "9999px"
+              },
+              "fontFamily": {
+                      "headline": ["Plus Jakarta Sans"],
+                      "body": ["Manrope"],
+                      "label": ["Inter"]
+              }
+            },
+          }
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .plinth-input {
+            border: none;
+            border-bottom: 2px solid transparent;
+            transition: border-color 0.3s ease;
+        }
+        .plinth-input:focus {
+            outline: none;
+            border-bottom-color: #091426;
+            box-shadow: none;
+        }
+
+        /* Estilos Premium: Coach de Crédito IA (v2 Port) */
+        .tip-card {
+            background: #ffffff;
+            border-radius: 1.5rem;
+            border: 1px solid #e2e8f0;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            margin-bottom: 1rem;
+        }
+        .dark .tip-card {
+            background: #111c2d;
+            border-color: #1e293b;
+        }
+        .tip-card.active {
+            border-color: #b02e00;
+            box-shadow: 0 10px 25px -5px rgba(176, 46, 0, 0.1);
+        }
+        .tip-header {
+            padding: 1rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            user-select: none;
+        }
+        @media (min-width: 768px) {
+            .tip-header {
+                padding: 1.5rem 2rem;
+                gap: 1.5rem;
+            }
+        }
+        .tip-body {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            padding: 0 1rem;
+        }
+        @media (min-width: 768px) {
+            .tip-body {
+                padding: 0 2rem;
+            }
+        }
+        .tip-card.active .tip-body {
+            max-height: 800px;
+            padding-bottom: 2rem;
+        }
+        .score-boost {
+            font-size: 0.65rem;
+            font-weight: 900;
+            text-transform: uppercase;
+            padding: 0.1rem 0.4rem;
+            border-radius: 4px;
+            background: rgba(176, 46, 0, 0.1);
+            color: #b02e00;
+        }
+        @media (min-width: 768px) {
+            .score-boost {
+                font-size: 0.75rem;
+                padding: 0.25rem 0.75rem;
+                border-radius: 99px;
+            }
+        }
+        .timeline-step {
+            display: flex;
+            gap: 1rem;
+            position: relative;
+            padding-bottom: 1.5rem;
+        }
+        .timeline-step::before {
+            content: '';
+            position: absolute;
+            left: 0.6rem;
+            top: 1.5rem;
+            bottom: 0;
+            width: 2px;
+            background: #e2e8f0;
+        }
+        .dark .timeline-step::before { background: #1e293b; }
+        .timeline-step:last-child::before { display: none; }
+        .timeline-dot {
+            width: 1.25rem;
+            height: 1.25rem;
+            border-radius: 50%;
+            background: #f1f5f9;
+            border: 3px solid #fff;
+            box-shadow: 0 0 0 1px #e2e8f0;
+            flex-shrink: 0;
+            z-index: 10;
+        }
+        .dark .timeline-dot { background: #0f172a; border-color: #111c2d; box-shadow: 0 0 0 1px #1e293b; }
+    </style>
+</head>
+<body class="bg-surface font-body text-on-surface">
+<!-- Component 12: Overlay de Processamento IA -->
+<div class="fixed inset-0 z-[100] bg-primary/85 backdrop-blur-xl flex flex-col items-center justify-center transition-all duration-500 opacity-0 pointer-events-none" id="sim-loading-overlay">
+<div class="w-48 h-48 mb-8 relative">
+<svg class="w-full h-full animate-spin" viewbox="0 0 100 100">
+<circle cx="50" cy="50" fill="none" r="40" stroke="#1E293B" stroke-width="6"></circle>
+<circle cx="50" cy="50" fill="none" r="40" stroke="#B02E00" stroke-dasharray="251" stroke-dashoffset="180" stroke-linecap="round" stroke-width="6"></circle>
+</svg>
+<div class="absolute inset-0 flex items-center justify-center">
+<img src="assets/images/bola_laranja.gif" class="w-24 h-24 object-contain" alt="IA Pulsing">
+</div>
+</div>
+<h3 class="text-2xl font-black font-headline text-white mb-3" id="loading-msg">Processando dados...</h3>
+<p class="text-sm text-on-primary-container">Análise profissional MT Parceiros</p>
+<div class="w-64 h-1 bg-primary-container rounded-full mt-8 overflow-hidden">
+<div class="h-full bg-secondary rounded-full animate-pulse transition-all duration-300" id="loading-bar-fill" style="width: 0%"></div>
+</div>
+</div>
+<!-- MT_LOG (04/2026): Header de alta fidelidade alinhado a 1320px para paridade total com o index.html -->
+<!-- [SECTION 1: HEADER & NAVIGATION] -->
+<header class="bg-white sticky top-0 z-50 border-b border-gray-100 shadow-sm h-20 flex items-center">
+  <nav class="flex justify-between items-center w-full px-4 max-w-[1320px] mx-auto h-full">
+    <!-- Marca MTPARCEIROS -->
+    <div class="text-[28px] font-bold text-black tracking-[0.1em] font-headline uppercase leading-none">
+      MTParceiros
+    </div>
+
+    <!-- Menu de Navegação -->
+    <div class="hidden md:flex items-center gap-6 h-full font-headline text-[15px] font-medium tracking-tight">
+      <a class="relative flex items-center text-gray-800 hover:text-[#f35525] transition-colors group py-2" href="index.html">
+        Início
+        <span class="absolute bottom-[-4px] left-0 w-full h-[3px] bg-[#f35525] origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-300"></span>
+      </a>
+      <a class="relative flex items-center text-gray-800 hover:text-[#f35525] transition-colors group py-2" href="properties.html">
+        Empreendimentos
+        <span class="absolute bottom-[-4px] left-0 w-full h-[3px] bg-[#f35525] origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-300"></span>
+      </a>
+      <a class="relative flex items-center text-[#f35525] py-2" href="simulador.html">
+        Simulador
+        <span class="absolute bottom-[-4px] left-0 w-full h-[3px] bg-[#f35525]"></span>
+      </a>
+      <a class="relative flex items-center text-gray-800 hover:text-[#f35525] transition-colors group py-2" href="blog.html">
+        Blog
+        <span class="absolute bottom-[-4px] left-0 w-full h-[3px] bg-[#f35525] origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-300"></span>
+      </a>
+      <a class="relative flex items-center text-gray-800 hover:text-[#f35525] transition-colors group py-2" href="property-details.html">
+        Detalhes
+        <span class="absolute bottom-[-4px] left-0 w-full h-[3px] bg-[#f35525] origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-300"></span>
+      </a>
+      <a class="relative flex items-center text-gray-800 hover:text-[#f35525] transition-colors group py-2" href="contato.html">
+        Contato
+        <span class="absolute bottom-[-4px] left-0 w-full h-[3px] bg-[#f35525] origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-300"></span>
+      </a>
+    </div>
+    
+    <!-- Gatilho do Menu Mobile (v3 Fidelity) -->
+    <button id="mobile-menu-trigger" class="md:hidden flex flex-col justify-center items-center w-10 h-10 gap-1.5 focus:outline-none z-[60] relative">
+        <span class="w-7 h-[2px] bg-black transition-all duration-300 transform origin-center" id="line1"></span>
+        <span class="w-7 h-[2px] bg-black transition-all duration-300" id="line2"></span>
+        <span class="w-7 h-[2px] bg-black transition-all duration-300 transform origin-center" id="line3"></span>
+    </button>
+
+
+
+    <!-- Botão Agendar Removido (v3 Cleanup) -->
+
+
+  </nav>
+
+  <!-- Overlay do Menu Mobile (Villa Agency Style Fidelity) -->
+  <div id="mobile-menu" class="fixed top-20 left-0 w-full bg-white shadow-2xl border-t border-gray-100 transform -translate-y-full opacity-0 pointer-events-none transition-all duration-300 z-40">
+      <ul class="flex flex-col font-headline font-bold text-[14px]">
+          <li class="border-b border-gray-100"><a href="index.html" class="block px-8 py-5 text-gray-800 hover:bg-gray-50">Início</a></li>
+          <li class="border-b border-gray-100"><a href="properties.html" class="block px-8 py-5 text-gray-800 hover:bg-gray-50">Empreendimentos</a></li>
+          <li class="border-b border-gray-100"><a href="simulador.html" class="block px-8 py-5 text-primary bg-gray-50/50">Simulador</a></li>
+          <li class="border-b border-gray-100"><a href="blog.html" class="block px-8 py-5 text-gray-800 hover:bg-gray-50">Blog</a></li>
+          <li class="border-b border-gray-100"><a href="property-details.html" class="block px-8 py-5 text-gray-800 hover:bg-gray-50">Detalhes</a></li>
+          <li class="border-b border-gray-100"><a href="contato.html" class="block px-8 py-5 text-gray-800 hover:bg-gray-50">Contato</a></li>
+          <li><a href="https://wa.me/5511946211111" target="_blank" class="block px-8 py-6 text-[#f35525] font-black uppercase text-xs tracking-widest"><i class="fa fa-calendar mr-2"></i> Agende uma Visita</a></li>
+      </ul>
+  </div>
+
+  <!-- [SECTION 1.1: STICKY POWER BAR - EXCLUSIVE V3] -->
+  <!-- MT_LOG (04/2026): Balão flutuante para feedback em tempo real com Índice Minimalista de Paridade -->
+  <!-- MT_LOG (04/2026): Atualizado para h-20 (80px) para sincronia com o novo header -->
+  <div id="sticky-power-bar" class="fixed top-20 left-0 w-full z-30 transform -translate-y-full opacity-0 transition-all duration-500 pointer-events-none">
+      <div class="max-w-screen-2xl mx-auto px-4 md:px-8 py-3">
+          <div class="bg-white/85 backdrop-blur-md border border-white/20 rounded-2xl shadow-2xl px-6 py-4 flex items-center justify-between gap-6 border-b-2 border-primary/10">
+              <div class="flex flex-col shrink-0">
+                  <span class="text-[9px] font-black uppercase text-gray-400 tracking-widest leading-none mb-1">Poder de Compra</span>
+                  <span class="text-xl font-bold text-slate-900" id="sticky-total-val">R$ 0</span>
+              </div>
+              <div class="flex-1 flex flex-col gap-2">
+                  <div class="h-3 flex rounded-full overflow-hidden bg-slate-100/50 shadow-inner">
+                      <div id="sticky-bar-sub" class="h-full bg-tertiary-fixed-dim transition-all duration-500" style="width: 0%"></div>
+                      <div id="sticky-bar-fgts" class="h-full transition-all duration-500" style="width: 0%; background-color: #38bdf8 !important;"></div>
+                      <div id="sticky-bar-ent" class="h-full bg-cyan-400 transition-all duration-500" style="width: 0%"></div>
+                      <div id="sticky-bar-ent-p" class="h-full bg-amber-400 transition-all duration-500" style="width: 0%"></div>
+                      <div id="sticky-bar-fin" class="h-full transition-all duration-500" style="width: 0%; background-color: #f1f5f9 !important;"></div>
+                  </div>
+                  <!-- ÍNDICE MINIMALISTA (v3 Fidelity) -->
+                  <div class="flex flex-wrap gap-x-4 gap-y-1">
+                      <div class="flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-tertiary-fixed-dim"></span><span class="text-[8px] font-black text-gray-500 uppercase tracking-tighter">Sub.</span></div>
+                      <div class="flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-[#38bdf8]"></span><span class="text-[8px] font-black text-gray-500 uppercase tracking-tighter">FGTS</span></div>
+                      <div class="flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-cyan-400"></span><span class="text-[8px] font-black text-gray-500 uppercase tracking-tighter">Entrada</span></div>
+                      <div class="flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-amber-400"></span><span class="text-[8px] font-black text-gray-500 uppercase tracking-tighter">Parc.</span></div>
+                      <div class="flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-[#f1f5f9] border border-gray-200"></span><span class="text-[8px] font-black text-gray-500 uppercase tracking-tighter">Financ.</span></div>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+</header>
+
+<!-- Hero Section -->
+<section class="relative bg-primary pt-24 pb-32 overflow-hidden">
+<div class="absolute inset-0 opacity-10">
+<img class="w-full h-full object-cover" data-alt="high-end modern skyscraper facade with reflective glass windows at sunset architectural detail" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDJfNxVhRqc0FVfGgJOotAEpTxTHkubQhIzJERcXwvUnDOh5b1hLkJlWQk_lrgDK6A9GjnySQs70G2fnT0hxN285EbnA-49drhrA4tN3EtMZkRiwW4QuefagvoXf9PGFN4qMP496GKhuoddHe-ya0u4JBUM_bmkmjQtKL97q5Hmg5ZzeRGz9Jdp6vDWCrxtDjsakTjgXGY2ntXyFEeNFA8ybfrTqfDW4ycryy8mrc22enjdDfJ58FL2R2VAczI9dL_Lqk5ujsSXHxc"/>
+</div>
+<div class="relative max-w-screen-2xl mx-auto px-8">
+<div class="max-w-3xl">
+<span class="inline-block py-1 px-4 rounded-full bg-secondary text-white text-xs font-bold tracking-widest uppercase mb-6">
+                Real Estate Financial Tech
+            </span>
+<h1 class="text-6xl md:text-7xl font-extrabold text-white font-headline leading-[1.1] tracking-tight mb-8">
+                Simulador Inteligente <br/><span class="text-secondary-fixed-dim">MT Parceiros</span>
+</h1>
+<p class="text-xl text-on-primary-container font-medium max-w-xl leading-relaxed">
+                Arquitetamos o seu futuro financeiro. Descubra o seu real poder de compra com precisão bancária e análise preditiva.
+            </p>
+<!-- Component 5: Barra de Progresso IA -->
+<div class="mt-10 max-w-xl">
+<div class="flex justify-between items-center mb-2">
+<span class="text-[10px] font-bold text-on-primary-container uppercase tracking-widest">Status do Perfil IA</span>
+<span class="text-sm font-black text-secondary-fixed-dim" id="sim-progress-pct">0%</span>
+</div>
+<div class="h-2 w-full bg-primary-container rounded-full overflow-hidden">
+<div class="h-full rounded-full transition-all duration-500 ease-out" id="sim-progress-fill" style="width: 0%; background: linear-gradient(90deg, #B02E00, #ff8a65);"></div>
+</div>
+<p class="text-[11px] text-on-primary-container mt-2 font-medium" id="sim-progress-msg">
+                    Aguardando dados iniciais...
+                </p>
+</div>
+</div>
+</div>
+</section>
+<!-- Infrastructure: Form Wrapper -->
+<form id="simulator-form">
+<!-- Simulation Main Content -->
+<main class="max-w-screen-2xl mx-auto px-8 -mt-16 relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-8 mb-12 md:mb-24">
+<!-- Left Column: Identification -->
+<div class="lg:col-span-5 flex flex-col gap-6 md:gap-8">
+<section class="bg-surface-container-lowest p-6 md:p-10 rounded-xxl shadow-xl shadow-primary/5">
+<h3 class="text-2xl font-bold font-headline mb-6 md:mb-8 flex items-center gap-3">
+<span class="material-symbols-outlined text-secondary" data-icon="person">person</span>
+                    Identificação Profissional
+                </h3>
+<div class="space-y-6 md:space-y-8">
+<div>
+<label class="block text-sm font-bold text-on-surface-variant uppercase tracking-wider mb-2 md:mb-4">Vínculo Empregatício</label>
+<div class="grid grid-cols-2 gap-4">
+<button class="flex items-center justify-between p-3.5 md:p-4 rounded-xl bg-primary text-white font-semibold" data-vinculo="clt" type="button">
+                                CLT
+                                <span class="material-symbols-outlined text-sm" data-icon="check_circle" data-weight="fill" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+</button>
+<input checked="" name="vinculo" style="display:none;" type="radio" value="clt"/>
+<button class="flex items-center justify-between p-3.5 md:p-4 rounded-xl bg-surface-container-low text-on-surface font-semibold transition-colors md:hover:bg-surface-container-high" data-vinculo="mei" type="button">
+                                MEI
+                            </button>
+<input name="vinculo" style="display:none;" type="radio" value="mei"/>
+<button class="flex items-center justify-between p-3.5 md:p-4 rounded-xl bg-surface-container-low text-on-surface font-semibold transition-colors md:hover:bg-surface-container-high" data-vinculo="autonomo" type="button">
+                                Autônomo
+                            </button>
+<input name="vinculo" style="display:none;" type="radio" value="autonomo"/>
+<button class="flex items-center justify-between p-3.5 md:p-4 rounded-xl bg-surface-container-low text-on-surface font-semibold transition-colors md:hover:bg-surface-container-high" data-vinculo="publico" type="button">
+                                Funcionário Público
+                            </button>
+<input name="vinculo" style="display:none;" type="radio" value="publico"/>
+</div>
+</div>
+<div class="space-y-4 md:space-y-6">
+<div class="group">
+<label class="block text-xs font-bold text-on-surface-variant uppercase mb-2">Nome Completo</label>
+<input class="w-full bg-surface-container-low p-3.5 md:p-4 rounded-md plinth-input font-medium text-on-surface" id="nome" name="nome" placeholder="Ex: Rodrigo Moraes" type="text"/>
+</div>
+<div class="group">
+<label class="block text-xs font-bold text-on-surface-variant uppercase mb-2">Telefone de Contato</label>
+<input class="w-full bg-surface-container-low p-3.5 md:p-4 rounded-md plinth-input font-medium text-on-surface" id="celular" name="celular" placeholder="(00) 00000-0000" type="tel"/>
+</div>
+</div>
+</div>
+</section>
+<!-- Results Preview / Power Index -->
+<section class="bg-primary text-white p-5 md:p-10 rounded-xxl overflow-hidden relative" id="main-results-card">
+<div class="absolute top-0 right-0 p-4">
+<img src="./assets/images/bola_laranja.gif" class="w-20 h-20 object-contain" alt="IA Pulsing">
+</div>
+<h3 class="text-xl md:text-2xl font-bold font-headline mb-2">Poder de Compra Total</h3>
+<div class="text-[32px] sm:text-4xl md:text-5xl font-extrabold font-headline text-white mb-6 whitespace-nowrap" id="total-value">
+                    <!-- MT_LOG (04/2026): Implementação 'Zero-Start' para forçar interação inicial do usuário -->
+                    R$ 0<span class="text-lg font-normal text-on-primary-container">,00</span>
+</div>
+<div class="relative pt-4">
+<!-- Component 4: 5º Segmento na Barra de Composição -->
+    <div class="h-[26px] w-full bg-primary-container rounded-full overflow-hidden flex shadow-inner">
+        <div class="h-full bg-tertiary-fixed-dim transition-all duration-300" id="bar-sub" style="width: 0%"></div>
+        <div class="h-full transition-all duration-300" id="bar-fgts" style="width: 0%; background-color: #38bdf8 !important;"></div>
+        <div class="h-full bg-cyan-400 transition-all duration-300" id="bar-ent" style="width: 0%"></div>
+        <div class="h-full bg-amber-400 relative flex items-center justify-center transition-all duration-300 overflow-hidden" id="bar-ent-parcelado" style="width: 0%">
+            <!-- MT_LOG (04/2026): Visibilidade condicional do 36x baseada na largura da barra via JS -->
+            <span id="label-36x" class="absolute text-[10px] font-black text-primary pointer-events-none transition-opacity duration-300 opacity-0">36x</span>
+        </div>
+        <div class="h-full transition-all duration-300" id="bar-fin" style="width: 0%; background-color: #f1f5f9 !important;"></div>
+    </div>
+<!-- Legend Grid -->
+    <div class="grid grid-cols-2 gap-x-4 md:gap-x-12 gap-y-4 md:gap-y-8 mt-8">
+        <div class="space-y-1">
+            <div class="flex items-center gap-2">
+                <span class="w-1.5 h-1.5 rounded-full bg-tertiary-fixed-dim"></span>
+                <span class="text-[11px] md:text-[13px] font-bold text-on-primary-container uppercase tracking-wider">Subsídio</span>
+            </div>
+            <div class="flex items-baseline gap-2">
+                <div class="text-base md:text-2xl font-black" id="val-sub">R$ 0</div>
+                <div class="text-[10px] text-on-primary-container hidden md:block" id="pct-sub">0%</div>
+            </div>
+        </div>
+        <div class="space-y-1">
+            <div class="flex items-center gap-2">
+                <span class="w-1.5 h-1.5 rounded-full" style="background-color: #38bdf8 !important;"></span>
+                <span class="text-[11px] md:text-[13px] font-black uppercase tracking-wider" style="color: #d8e3fb !important;">FGTS</span>
+            </div>
+            <div class="flex items-baseline gap-2">
+                <div class="text-base md:text-2xl font-black" style="color: #ffffff !important;" id="val-fgts">R$ 0</div>
+                <div class="text-[10px] text-on-primary-container hidden md:block" id="pct-fgts">0%</div>
+            </div>
+        </div>
+        <div class="space-y-1">
+            <div class="flex items-center gap-2">
+                <span class="w-1.5 h-1.5 rounded-full bg-cyan-400"></span>
+                <span class="text-[11px] md:text-[13px] font-black uppercase tracking-wider" style="color: #d8e3fb !important;">Entrada Própria</span>
+            </div>
+            <div class="flex items-baseline gap-2">
+                <div class="text-base md:text-2xl font-black" style="color: #ffffff !important;" id="val-ent">R$ 0</div>
+                <div class="text-[10px] text-on-primary-container hidden md:block" id="pct-ent">0%</div>
+            </div>
+        </div>
+        <div class="space-y-1">
+            <div class="flex items-center gap-2">
+                <span class="w-1.5 h-1.5 rounded-full bg-amber-400"></span>
+                <span class="text-[11px] md:text-[13px] font-black uppercase tracking-wider" style="color: #d8e3fb !important;">Entrada 36x</span>
+            </div>
+            <div class="flex items-baseline gap-2">
+                <div class="text-base md:text-2xl font-black text-white" id="val-ent-parcelado">R$ 0</div>
+                <div class="text-[10px] text-on-primary-container hidden md:block" id="pct-ent-parcelado">0%</div>
+            </div>
+        </div>
+        <div class="space-y-1">
+            <div class="flex items-center gap-2">
+                <span class="w-1.5 h-1.5 rounded-full" style="background-color: #f1f5f9 !important;"></span>
+                <span class="text-[11px] md:text-[13px] font-black uppercase tracking-wider" style="color: #d8e3fb !important;">Financiamento</span>
+            </div>
+            <div class="flex items-baseline gap-2">
+                <div class="text-base md:text-2xl font-black" style="color: #ffffff !important;" id="val-fin">R$ 0</div>
+                <div class="text-[10px] text-on-primary-container hidden md:block" id="pct-fin">0%</div>
+            </div>
+        </div>
+    </div>
+</div>
+</section>
+</div>
+<!-- MT_LOG (04/2026): Alinhamento de Simetria Desktop. 
+     Ajustados paddings e gaps para equalizar a altura com a coluna de resultados. 
+     Módulo de Qualificação Adicional transformado em Grid (3 cols) para economia vertical. -->
+<!-- [SECTION 2: FINANCIAL INPUTS & SLIDERS] -->
+<div class="lg:col-span-7 bg-surface-container-lowest p-6 md:py-8 md:px-10 rounded-xxl shadow-xl shadow-primary/5">
+<h3 class="text-2xl font-bold font-headline mb-6 md:mb-8 flex items-center gap-3">
+<span class="material-symbols-outlined text-secondary" data-icon="account_balance_wallet">account_balance_wallet</span>
+                Perfil Financeiro Detalhado
+            </h3>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-6 md:gap-x-12 md:gap-y-8">
+<!-- Renda Bruta -->
+<div class="space-y-4 md:space-y-4">
+<div class="flex justify-between items-end">
+<label class="text-sm font-bold text-on-surface-variant uppercase tracking-wider" id="label-renda-title">Renda Familiar Bruta</label>
+<span class="text-xl font-extrabold text-primary" id="label-renda">R$ 0</span>
+</div>
+<input class="w-full h-1.5 bg-surface-container-highest rounded-lg appearance-none cursor-pointer accent-secondary" id="renda" max="30000" min="0" name="renda" step="100" type="range" value="0"/>
+<p class="text-xs text-slate-500 hidden md:block">Soma de todos os proponentes do financiamento.</p>
+</div>
+<!-- Idade -->
+<div class="space-y-4 md:space-y-4">
+<div class="flex justify-between items-end">
+<label class="text-sm font-bold text-on-surface-variant uppercase tracking-wider">Idade do Proponente</label>
+<span class="text-xl font-extrabold text-primary" id="label-idade">18 anos</span>
+</div>
+<input class="w-full h-1.5 bg-surface-container-highest rounded-lg appearance-none cursor-pointer accent-secondary" id="idade" max="80" min="18" name="idade" type="range" value="18"/>
+<p class="text-xs text-slate-500 hidden md:block">Influencia diretamente no prazo máximo de parcelamento.</p>
+<!-- Component 2: Badge de Prazo Dinâmico -->
+<div class="mt-2 text-xs font-bold text-emerald-600 bg-emerald-50 px-3 py-1.5 rounded-full w-fit flex items-center gap-1.5 border border-emerald-100" id="badge-prazo">
+    <span class="material-symbols-outlined text-sm" data-icon="calendar_month">calendar_month</span>
+    Prazo máximo: <span id="label-prazo-val">35</span> anos
+</div>
+</div>
+<!-- Dívidas Mensais -->
+<div class="space-y-4 md:space-y-4">
+<div class="flex justify-between items-end">
+<label class="text-sm font-bold text-on-surface-variant uppercase tracking-wider">Dívidas Mensais</label>
+<span class="text-xl font-extrabold text-primary" id="label-dividas">R$ 0</span>
+</div>
+<input class="w-full h-1.5 bg-surface-container-highest rounded-lg appearance-none cursor-pointer accent-secondary" id="dividas" max="5000" min="0" name="dividas" step="50" type="range" value="0"/>
+<p class="text-xs text-slate-500 hidden md:block">Empréstimos, cartões ou outros financiamentos ativos.</p>
+</div>
+<!-- Saldo FGTS -->
+<div class="space-y-4 md:space-y-4">
+<div class="flex justify-between items-end">
+<label class="text-sm font-bold text-on-surface-variant uppercase tracking-wider">Saldo FGTS</label>
+<span class="text-xl font-extrabold text-primary" id="label-fgts">R$ 0</span>
+</div>
+<input class="w-full h-1.5 bg-surface-container-highest rounded-lg appearance-none cursor-pointer accent-secondary" id="fgts" max="200000" min="0" name="fgts" step="100" type="range" value="0"/>
+<p class="text-xs text-slate-500 hidden md:block">Pode ser usado para abater o valor da entrada.</p>
+</div>
+<!-- Entrada Adicional -->
+<div class="md:col-span-2 space-y-6 pt-6 border-t border-surface-container-low">
+<div class="flex justify-between items-end">
+<label class="text-sm font-bold text-on-surface-variant uppercase tracking-wider">Valor de Entrada Adicional</label>
+<span class="text-2xl font-black text-secondary" id="label-entrada">R$ 0</span>
+</div>
+<input class="w-full h-2 bg-surface-container-highest rounded-lg appearance-none cursor-pointer accent-secondary" id="entrada" max="500000" min="0" name="entrada" step="500" type="range" value="0"/>
+<div class="flex justify-between px-2">
+<span class="text-[10px] font-bold text-slate-400">R$ 0</span>
+<span class="text-[10px] font-bold text-slate-400">R$ 500k</span>
+</div>
+<!-- Component 3: Estratégia de Entrada Facilitada (Estilo V2 Premium - Optimized) -->
+<div class="mt-4 p-4 rounded-2xl bg-surface-container-low border border-surface-container-high transition-all duration-500" id="badge-entrada">
+    <div class="flex gap-4 items-start mb-3">
+        <div class="w-10 h-10 rounded-full bg-secondary/10 flex items-center justify-center shrink-0">
+            <span class="material-symbols-outlined text-secondary text-xl" data-icon="build">build</span>
+        </div>
+        <div class="flex-1 space-y-0.5">
+            <h4 class="font-bold text-on-surface text-sm sm:text-base">Estratégia de Entrada Facilitada</h4>
+            <p class="text-[11px] text-on-surface-variant leading-relaxed">
+                Parcelamento direto com a construtora durante as obras, sem juros bancários.
+            </p>
+        </div>
+    </div>
+    
+    <!-- Projection Full Width Dashboard Style -->
+    <div class="bg-emerald-500/5 border border-emerald-500/10 p-3 rounded-xl flex justify-between items-center shadow-sm">
+        <div class="flex items-center gap-2">
+            <span class="material-symbols-outlined text-emerald-600 text-base" data-icon="analytics">analytics</span>
+            <span class="text-[9px] font-black text-emerald-800/60 uppercase tracking-widest">Projeção Mensal</span>
+        </div>
+        <span class="text-sm font-black text-emerald-700" id="val-parcela-entrada">36x de R$ 500</span>
+    </div>
+</div>
+</div>
+<!-- Component 1: Checkboxes de Qualificação -->
+<div class="md:col-span-2 pt-6 md:pt-8 mt-6 md:mt-8 border-t border-surface-container-low grid grid-cols-1 md:grid-cols-3 gap-4 md:space-y-0 items-start">
+<p class="md:col-span-3 text-xs font-bold text-on-surface-variant uppercase tracking-wider mb-2">Qualificação Adicional</p>
+<label class="flex items-center gap-3 cursor-pointer group">
+<input class="w-5 h-5 rounded-md border-2 border-outline-variant accent-secondary cursor-pointer" id="dependentes" name="dependentes" type="checkbox"/>
+<span class="text-sm font-medium text-on-surface-variant group-hover:text-on-surface transition-colors">
+                            Possuo dependentes (Filhos ou Cônjuge)
+                        </span>
+</label>
+<label class="flex items-center gap-3 cursor-pointer group" id="wrap-clt3anos">
+<input class="w-5 h-5 rounded-md border-2 border-outline-variant accent-secondary cursor-pointer" id="clt3anos" name="clt3anos" type="checkbox"/>
+<span class="text-sm font-medium text-on-surface-variant group-hover:text-on-surface transition-colors">
+                            Trabalhei 3 anos ou mais (CLT/FGTS)
+                        </span>
+</label>
+<label class="flex items-center gap-3 cursor-pointer group">
+<input checked="" class="w-5 h-5 rounded-md border-2 border-outline-variant accent-secondary cursor-pointer" id="primeiroImovel" name="primeiroImovel" type="checkbox"/>
+<span class="text-sm font-medium text-on-surface-variant group-hover:text-on-surface transition-colors">
+                            Este é meu primeiro imóvel
+                        </span>
+</label>
+</div>
+<!-- Component 1: Botão Principal de Submit -->
+<div class="mt-8 md:col-span-2">
+<button class="w-full mt-8 md:mt-6 bg-secondary text-white font-black py-4 md:py-5 rounded-xl shadow-lg shadow-secondary/20 hover:scale-[1.01] transition-all flex items-center justify-center gap-3 text-base md:text-lg" id="btn-final-submit" type="button">
+    <span class="material-symbols-outlined" data-icon="lock_open">lock_open</span>
+    <span>Desbloquear Laudo <span class="hidden sm:inline">Oficial</span></span>
+    <span class="material-symbols-outlined transition-transform group-hover:translate-x-1" data-icon="arrow_forward">arrow_forward</span>
+</button>
+<p class="text-center text-[10px] text-on-surface-variant mt-3">
+                        Simulação gratuita e sem compromisso. Seus dados são protegidos.
+                    </p>
+</div>
+</div>
+</div>
+</main>
+<!-- Hidden Lead Capture Inputs -->
+<input name="_captcha" type="hidden" value="false"/>
+<input id="h_margem" name="Parcelas Estimadas" type="hidden"/>
+<input id="h_potencial" name="Potencial de Financiamento" type="hidden"/>
+<input id="h_poder" name="Poder de Compra Total" type="hidden"/>
+<input name="_subject" type="hidden" value="🏠 Nova Simulação de Financiamento!"/>
+</form>
+<!-- =================================================================
+     📊 SEÇÃO 03: RESULTS DASHBOARD (Bento Grid)
+     ================================================================= -->
+<!-- MT_LOG (04/2026): Oculto no mobile para otimizar LCP e reduzir scroll técnico -->
+<section class="max-w-screen-2xl mx-auto px-8 mb-12 md:mb-24 hidden md:block">
+<div class="flex flex-col md:flex-row justify-between items-end mb-12 gap-6">
+<div>
+<h2 class="text-4xl font-extrabold font-headline mb-4">Análise Detalhada</h2>
+<p class="text-on-surface-variant max-w-xl">Entenda como seu crédito está distribuído entre subsídios governamentais, fundos próprios e recursos bancários.</p>
+</div>
+<div class="bg-surface-container-high px-6 py-3 rounded-full flex items-center gap-2">
+<span class="w-3 h-3 bg-tertiary-fixed-dim rounded-full"></span>
+<span class="text-sm font-bold text-primary">Simulação Atualizada Agora</span>
+</div>
+</div>
+<!-- Bento Grid for Results -->
+<div class="grid grid-cols-1 md:grid-cols-4 gap-6">
+<!-- Subsidy Card -->
+<div class="bg-surface-container-low p-8 rounded-xxl flex flex-col justify-between group hover:bg-surface-container-high transition-colors">
+<div>
+<span class="material-symbols-outlined text-tertiary-fixed-dim text-4xl mb-6" data-icon="request_quote">request_quote</span>
+        <p class="text-xs font-bold text-on-surface-variant uppercase tracking-widest mb-1">Subsídio Federal</p>
+        <h4 class="text-3xl font-black font-headline text-primary" id="bento-sub-val">R$ 0</h4>
+      </div>
+      <div class="mt-8 text-xs text-on-tertiary-fixed-variant bg-tertiary-fixed/30 px-3 py-1 rounded-full w-fit">Minha Casa Minha Vida</div>
+    </div>
+    <!-- FGTS Card -->
+    <div class="bg-surface-container-low p-8 rounded-xxl flex flex-col justify-between group hover:bg-surface-container-high transition-colors">
+      <div>
+        <span class="material-symbols-outlined text-primary text-4xl mb-6" data-icon="savings">savings</span>
+        <p class="text-xs font-bold text-on-surface-variant uppercase tracking-widest mb-1">Uso do FGTS</p>
+        <h4 class="text-3xl font-black font-headline text-primary" id="bento-fgts-val">R$ 0</h4>
+      </div>
+      <div class="mt-8 text-xs text-on-primary-fixed-variant bg-primary-fixed px-3 py-1 rounded-full w-fit">Saldo Disponível</div>
+    </div>
+    <!-- Entry Card -->
+    <div class="bg-surface-container-low p-8 rounded-xxl flex flex-col justify-between group hover:bg-surface-container-high transition-colors">
+      <div>
+        <span class="material-symbols-outlined text-secondary text-4xl mb-6" data-icon="payments">payments</span>
+        <p class="text-xs font-bold text-on-surface-variant uppercase tracking-widest mb-1">Entrada Própria</p>
+        <h4 class="text-3xl font-black font-headline text-primary" id="bento-ent-val">R$ 0</h4>
+      </div>
+      <div class="mt-8 text-xs text-on-secondary-fixed-variant bg-secondary-fixed px-3 py-1 rounded-full w-fit">Recurso do Proponente</div>
+    </div>
+    <!-- Loan Card -->
+    <div class="bg-primary text-white p-8 rounded-xxl flex flex-col justify-between">
+      <div>
+        <span class="material-symbols-outlined text-secondary-fixed-dim text-4xl mb-6" data-icon="account_balance">account_balance</span>
+        <p class="text-xs font-bold text-on-primary-container uppercase tracking-widest mb-1">Financiamento</p>
+        <h4 class="text-3xl font-black font-headline" id="bento-fin-val">R$ 0</h4>
+      </div>
+<div class="mt-8 text-xs text-secondary-fixed-dim border border-secondary-fixed-dim/30 px-3 py-1 rounded-full w-fit">Taxa Bancária Aplicada</div>
+</div>
+</div>
+<!-- Component 6: Quadro "Seu Perfil" -->
+<div class="mt-6 bg-primary text-white p-8 rounded-xxl grid grid-cols-2 md:grid-cols-5 gap-6">
+<div class="space-y-1">
+<p class="text-[10px] font-bold text-on-primary-container uppercase tracking-widest">Renda Familiar</p>
+<p class="text-lg font-black font-headline" id="prof-renda">R$ 0</p>
+</div>
+<div class="space-y-1">
+<p class="text-[10px] font-bold text-on-primary-container uppercase tracking-widest">Taxa de Juros</p>
+<p class="text-lg font-black font-headline" id="prof-taxa">0% a.a.</p>
+</div>
+<div class="space-y-1">
+<p class="text-[10px] font-bold text-on-primary-container uppercase tracking-widest">Prazo Máximo</p>
+<p class="text-lg font-black font-headline" id="prof-prazo">0 meses</p>
+</div>
+<div class="space-y-1">
+<p class="text-[10px] font-bold text-on-primary-container uppercase tracking-widest">Parcela Estimada</p>
+<p class="text-lg font-black font-headline text-secondary-fixed-dim" id="prof-parcela">R$ 0</p>
+</div>
+<div class="space-y-1">
+<p class="text-[10px] font-bold text-on-primary-container uppercase tracking-widest">Imóvel Sugerido Até</p>
+<p class="text-lg font-black font-headline text-tertiary-fixed-dim" id="prof-imovel-max">R$ 0</p>
+</div>
+</div>
+</section>
+<!-- =================================================================
+     ⚖️ SEÇÃO 04: MODALITY COMPARISON (Tabela Técnica)
+     ================================================================= -->
+<!-- MT_LOG (04/2026): Oculto no mobile para focar na conversão direta do Score IA -->
+<section class="max-w-screen-2xl mx-auto px-8 mb-12 md:mb-24 hidden md:block">
+<div class="bg-surface-container-lowest rounded-xxl overflow-hidden shadow-2xl shadow-primary/5">
+<div class="p-10 border-b border-surface-container-low">
+<h3 class="text-2xl font-extrabold font-headline">Comparativo de Modalidades</h3>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full text-left">
+<thead>
+<tr class="bg-surface-container-low">
+<th class="px-10 py-6 text-sm font-bold text-on-surface-variant uppercase tracking-wider">Modalidade</th>
+<th class="px-10 py-6 text-sm font-bold text-on-surface-variant uppercase tracking-wider">Taxa de Juros (a.a.)</th>
+<th class="px-10 py-6 text-sm font-bold text-on-surface-variant uppercase tracking-wider">Prazo Máximo</th>
+<th class="px-10 py-6 text-sm font-bold text-on-surface-variant uppercase tracking-wider">Renda Recomendada</th>
+<th class="px-10 py-6 text-sm font-bold text-on-surface-variant uppercase tracking-wider">Status</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-surface-container-low">
+<!-- MCMV Row -->
+<tr class="hover:bg-surface-container-low/50 transition-colors cursor-pointer" onclick="document.getElementById('details-mcmv').classList.toggle('hidden')">
+<td class="px-10 py-8">
+<div class="font-bold text-primary">Minha Casa Minha Vida</div>
+<div class="text-xs text-slate-500">Recursos FGTS</div>
+</td>
+<td class="px-10 py-8 font-headline font-extrabold text-primary" id="comp-mcmv-taxa">4.25% + TR</td>
+<td class="px-10 py-8 font-medium" id="comp-mcmv-prazo">420 Meses</td>
+<td class="px-10 py-8 font-medium" id="comp-mcmv-renda">Até R$ 8.000</td>
+<td>
+<span class="bg-tertiary-fixed text-on-tertiary-fixed text-[10px] font-black uppercase px-3 py-1 rounded-full" id="comp-mcmv-status">Recomendado</span>
+</td>
+</tr>
+<!-- Component 8: Detalhes MCMV -->
+<tr class="hidden" id="details-mcmv">
+<td class="px-10 py-6 bg-surface-container-low" colspan="5">
+<div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+<div>
+<p class="text-[10px] font-bold text-on-surface-variant uppercase mb-1">Subsídio Federal</p>
+<p class="text-sm font-black text-primary" id="det-mcmv-subsidio">R$ 0</p>
+</div>
+<div>
+<p class="text-[10px] font-bold text-on-surface-variant uppercase mb-1">Seguros (MIP/DFI)</p>
+<p class="text-sm font-black text-primary" id="det-mcmv-seguros">R$ 0</p>
+</div>
+<div>
+<p class="text-[10px] font-bold text-on-surface-variant uppercase mb-1">Parcela Estimada</p>
+<p class="text-sm font-black text-primary" id="det-mcmv-parcela">R$ 0</p>
+</div>
+<div>
+<p class="text-[10px] font-bold text-on-surface-variant uppercase mb-1">ITBI Estimado</p>
+<p class="text-sm font-black text-primary" id="det-mcmv-itbi">R$ 0</p>
+</div>
+</div>
+</td>
+</tr>
+<!-- SBPE Flex Row -->
+<tr class="hover:bg-surface-container-low/50 transition-colors cursor-pointer" onclick="document.getElementById('details-sbpe').classList.toggle('hidden')">
+<td class="px-10 py-8">
+<div class="font-bold text-primary">SBPE Flex</div>
+<div class="text-xs text-slate-500">Recursos Poupança</div>
+</td>
+<td class="px-10 py-8 font-headline font-extrabold text-primary" id="comp-sbpe-taxa">9.50% + TR</td>
+<td class="px-10 py-8 font-medium" id="comp-sbpe-prazo">420 Meses</td>
+<td class="px-10 py-8 font-medium" id="comp-sbpe-renda">Acima de R$ 8.000</td>
+<td>
+<span class="bg-surface-container-highest text-on-surface-variant text-[10px] font-black uppercase px-3 py-1 rounded-full" id="comp-sbpe-status">Disponível</span>
+</td>
+</tr>
+<!-- Component 8: Detalhes SBPE -->
+<tr class="hidden" id="details-sbpe">
+<td class="px-10 py-6 bg-surface-container-low" colspan="5">
+<div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+<div>
+<p class="text-[10px] font-bold text-on-surface-variant uppercase mb-1">Taxa Efetiva</p>
+<p class="text-sm font-black text-primary" id="det-sbpe-taxa">9.50% + TR</p>
+</div>
+<div>
+<p class="text-[10px] font-bold text-on-surface-variant uppercase mb-1">Prazo Selecionado</p>
+<p class="text-sm font-black text-primary" id="det-sbpe-prazo">420 Meses</p>
+</div>
+<div>
+<p class="text-[10px] font-bold text-on-surface-variant uppercase mb-1">Parcela Estimada</p>
+<p class="text-sm font-black text-primary" id="det-sbpe-parcela">R$ 0</p>
+</div>
+<div>
+<p class="text-[10px] font-bold text-on-surface-variant uppercase mb-1">Amortização</p>
+<p class="text-sm font-black text-primary">SAC</p>
+</div>
+</div>
+</td>
+</tr>
+<!-- Component 7: SBPE Pré-Fixado Row -->
+<tr class="hover:bg-surface-container-low/50 transition-colors cursor-pointer" onclick="document.getElementById('details-sbpe-pre').classList.toggle('hidden')">
+<td class="px-10 py-8">
+<div class="font-bold text-primary">SBPE Pré-Fixado</div>
+<div class="text-xs text-slate-500">Taxa Fixa (Sem TR)</div>
+</td>
+<td class="px-10 py-8 font-headline font-extrabold text-primary" id="comp-sbpe-pre-taxa">11.0% Fixa</td>
+<td class="px-10 py-8 font-medium" id="comp-sbpe-pre-prazo">300 Meses</td>
+<td class="px-10 py-8 font-medium" id="comp-sbpe-pre-renda">Acima de R$ 13.000</td>
+<td>
+<span class="bg-surface-container-highest text-on-surface-variant text-[10px] font-black uppercase px-3 py-1 rounded-full" id="comp-sbpe-pre-status">Disponível</span>
+</td>
+</tr>
+<!-- Component 8: Detalhes SBPE Pré -->
+<tr class="hidden" id="details-sbpe-pre">
+<td class="px-10 py-6 bg-surface-container-low" colspan="5">
+<div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+<div>
+<p class="text-[10px] font-bold text-on-surface-variant uppercase mb-1">Segurança de Taxa</p>
+<p class="text-sm font-black text-primary">100% Imutável</p>
+</div>
+<div>
+<p class="text-[10px] font-bold text-on-surface-variant uppercase mb-1">Custo Total</p>
+<p class="text-sm font-black text-primary">Prefixado</p>
+</div>
+<div>
+<p class="text-[10px] font-bold text-on-surface-variant uppercase mb-1">Parcela Final</p>
+<p class="text-sm font-black text-primary" id="det-sbpe-pre-parcela">R$ 0</p>
+</div>
+<div>
+<p class="text-[10px] font-bold text-on-surface-variant uppercase mb-1">Vantagem</p>
+<p class="text-sm font-black text-primary">Sem Surpresas</p>
+</div>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</section>
+<!-- =================================================================
+     🛡️ SEÇÃO 05: IA CREDIT REPORT (Gauge & Score)
+     ================================================================= -->
+<section class="max-w-screen-2xl mx-auto px-8 mb-12 md:mb-24">
+<div class="bg-[#091426] rounded-xxl p-8 md:p-20 relative overflow-hidden flex flex-col md:flex-row gap-10 md:gap-16 items-center">
+<!-- Background Decoration -->
+<div class="absolute inset-0 pointer-events-none opacity-20">
+<div class="absolute top-0 left-0 w-full h-full bg-[radial-gradient(circle_at_top_right,_var(--tw-gradient-stops))] from-secondary via-transparent to-transparent"></div>
+</div>
+<!-- Left: Gauge -->
+<div class="relative w-52 h-52 md:w-64 md:h-64 flex items-center justify-center">
+<svg class="w-full h-full -rotate-90" viewBox="0 0 256 256">
+<circle class="text-primary-container" cx="128" cy="128" fill="none" r="110" stroke="currentColor" stroke-width="12"></circle>
+<circle class="text-tertiary-fixed-dim transition-all duration-1000" cx="128" cy="128" fill="none" id="gauge-arc" r="110" stroke="currentColor" stroke-dasharray="690" stroke-dashoffset="140" stroke-width="12"></circle>
+</svg>
+<div class="absolute flex flex-col items-center">
+<span class="text-4xl md:text-5xl font-black font-headline text-white" id="score-value">82</span>
+<span class="text-[9px] md:text-[11px] font-bold text-on-primary-container uppercase tracking-[0.2em] mt-1 md:mt-2" id="score-concept">Credit Score</span>
+</div>
+</div>
+<!-- Right: Status -->
+<div class="flex-1 text-center md:text-left z-10">
+<h3 class="text-2xl md:text-3xl font-black font-headline text-white mb-4">Relatório de Crédito IA</h3>
+<p class="text-base md:text-lg text-on-primary-container mb-8 max-w-lg">Nosso algoritmo baseado em dados bancários reais classificou seu perfil como <span class="text-tertiary-fixed-dim font-bold" id="score-status-label">Excelente</span>. <span id="score-status-desc">Você possui alta probabilidade de aprovação imediata.</span></p>
+<!-- Component 9: Score Breakdown -->
+<div class="grid grid-cols-2 sm:grid-cols-3 gap-4 mb-8 md:mb-10" id="score-criteria-grid">
+<!-- Critério 1 -->
+<div class="space-y-2">
+<div class="flex justify-between items-center">
+<span class="text-[10px] font-bold text-on-primary-container uppercase">Renda</span>
+<span class="text-xs font-black text-tertiary-fixed-dim" id="score-c1-pts">0/30</span>
+</div>
+<div class="h-1.5 bg-primary-container rounded-full overflow-hidden">
+<div class="h-full bg-tertiary-fixed-dim rounded-full transition-all duration-500" id="score-c1-bar" style="width: 0%"></div>
+</div>
+</div>
+<!-- Critério 2 -->
+<div class="space-y-2">
+<div class="flex justify-between items-center">
+<span class="text-[10px] font-bold text-on-primary-container uppercase">Dívidas</span>
+<span class="text-xs font-black text-tertiary-fixed-dim" id="score-c2-pts">0/20</span>
+</div>
+<div class="h-1.5 bg-primary-container rounded-full overflow-hidden">
+<div class="h-full bg-tertiary-fixed-dim rounded-full transition-all duration-500" id="score-c2-bar" style="width: 0%"></div>
+</div>
+</div>
+<!-- Critério 3 -->
+<div class="space-y-2">
+<div class="flex justify-between items-center">
+<span class="text-[10px] font-bold text-on-primary-container uppercase">FGTS</span>
+<span class="text-xs font-black text-tertiary-fixed-dim" id="score-c3-pts">0/15</span>
+</div>
+<div class="h-1.5 bg-primary-container rounded-full overflow-hidden">
+<div class="h-full bg-tertiary-fixed-dim rounded-full transition-all duration-500" id="score-c3-bar" style="width: 0%"></div>
+</div>
+</div>
+<!-- Critério 4 -->
+<div class="space-y-2">
+<div class="flex justify-between items-center">
+<span class="text-[10px] font-bold text-on-primary-container uppercase">Capital</span>
+<span class="text-xs font-black text-tertiary-fixed-dim" id="score-c4-pts">0/15</span>
+</div>
+<div class="h-1.5 bg-primary-container rounded-full overflow-hidden">
+<div class="h-full bg-tertiary-fixed-dim rounded-full transition-all duration-500" id="score-c4-bar" style="width: 0%"></div>
+</div>
+</div>
+<!-- Critério 5 -->
+<div class="space-y-2">
+<div class="flex justify-between items-center">
+<span class="text-[10px] font-bold text-on-primary-container uppercase">Vínculo</span>
+<span class="text-xs font-black text-tertiary-fixed-dim" id="score-c5-pts">0/12</span>
+</div>
+<div class="h-1.5 bg-primary-container rounded-full overflow-hidden">
+<div class="h-full bg-tertiary-fixed-dim rounded-full transition-all duration-500" id="score-c5-bar" style="width: 0%"></div>
+</div>
+</div>
+<!-- Critério 6 -->
+<div class="space-y-2">
+<div class="flex justify-between items-center">
+<span class="text-[10px] font-bold text-on-primary-container uppercase">Prazo</span>
+<span class="text-xs font-black text-tertiary-fixed-dim" id="score-c6-pts">0/8</span>
+</div>
+<div class="h-1.5 bg-primary-container rounded-full overflow-hidden">
+<div class="h-full bg-tertiary-fixed-dim rounded-full transition-all duration-500" id="score-c6-bar" style="width: 0%"></div>
+</div>
+</div>
+</div>
+<div class="grid grid-cols-2 gap-4 md:gap-6 mb-10 md:mb-12">
+<div class="flex flex-col md:flex-row items-center md:items-start text-center md:text-left gap-2 md:gap-4">
+<span class="material-symbols-outlined text-tertiary-fixed-dim" data-icon="verified">verified</span>
+<div class="text-center md:text-left">
+<h5 class="text-white font-bold text-sm">Documentação OK</h5>
+<p class="text-xs text-on-primary-container">Perfil verificado por IA</p>
+</div>
+</div>
+<div class="flex flex-col md:flex-row items-center md:items-start text-center md:text-left gap-2 md:gap-4">
+<span class="material-symbols-outlined text-tertiary-fixed-dim" data-icon="speed">speed</span>
+<div class="text-center md:text-left">
+<h5 class="text-white font-bold text-sm">Resposta Rápida</h5>
+<p class="text-xs text-on-primary-container">Aprovação em até 24h</p>
+</div>
+</div>
+</div>
+            <button id="btn-footer-ia" class="bg-secondary text-white px-8 py-4 md:px-12 md:py-5 rounded-full font-extrabold text-base md:text-lg hover:scale-105 active:scale-95 transition-all shadow-xl shadow-secondary/20">
+                Gerar Certificado Oficial
+            </button>
+</div>
+</div>
+</section>
+<!-- =================================================================
+     🧠 SEÇÃO 10: IA COACH TIPS (Dicas de Melhoria)
+     ================================================================= -->
+<section class="max-w-screen-2xl mx-auto px-8 mb-12 md:mb-24">
+<div class="bg-surface-container-low rounded-xxl overflow-hidden">
+<button class="w-full p-8 flex justify-between items-center hover:bg-surface-container-high transition-colors" id="toggle-dicas-ia" onclick="this.nextElementSibling.classList.toggle('hidden'); this.querySelector('.chevron-icon').classList.toggle('rotate-180')">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-secondary text-2xl" data-icon="psychology">psychology</span>
+<h3 class="text-xl font-extrabold font-headline">Como Melhorar Seu Score</h3>
+</div>
+<span class="material-symbols-outlined chevron-icon transition-transform duration-300 text-on-surface-variant" data-icon="expand_more">expand_more</span>
+</button>
+<div class="hidden px-8 pb-8" id="dicas-ia-body">
+<div class="space-y-4" id="mt-dicas-list">
+<p class="text-sm text-on-surface-variant">Complete os dados do simulador para receber dicas personalizadas.</p>
+</div>
+</div>
+</div>
+</section>
+<!-- Footer -->
+<footer class="bg-[#F0F3FF] dark:bg-[#091426] w-full">
+<div class="w-full py-12 px-8 flex flex-col md:flex-row justify-between items-center max-w-screen-2xl mx-auto font-['Inter'] text-sm">
+<div class="mb-8 md:mb-0">
+<div class="text-lg font-black text-[#091426] dark:text-white uppercase tracking-wider mb-2">EstateArchitect</div>
+<p class="text-slate-500 dark:text-slate-400">© 2024 EstateArchitect Financial Services. All rights reserved.</p>
+</div>
+<div class="flex flex-wrap justify-center gap-8">
+<a class="text-slate-500 dark:text-slate-400 hover:text-[#091426] dark:hover:text-white transition-opacity opacity-80 hover:opacity-100" href="#">Privacy Policy</a>
+<a class="text-slate-500 dark:text-slate-400 hover:text-[#091426] dark:hover:text-white transition-opacity opacity-80 hover:opacity-100" href="#">Terms of Service</a>
+<a class="text-slate-500 dark:text-slate-400 hover:text-[#091426] dark:hover:text-white transition-opacity opacity-80 hover:opacity-100" href="#">Financial Disclosure</a>
+<a class="text-slate-500 dark:text-slate-400 hover:text-[#091426] dark:hover:text-white transition-opacity opacity-80 hover:opacity-100" href="#">Contact Support</a>
+</div>
+</div>
+</footer>
+
+    <!-- Scripts do Motor de Cálculo e Lógica Interativa -->
+    <script src="assets/js/simulator-core.min.js"></script>
+    <script src="assets/js/simulator-v3-logic.min.js"></script>
+
+    <script id="animations-js">
+        // Simple intersection observer for scroll reveal
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.fade-in-section').forEach(section => {
+            observer.observe(section);
+        });
+
+        // Score Counter Animation
+        const scoreElement = document.getElementById('score-counter');
+        const startScore = 0;
+        const endScore = 850;
+        const duration = 2000;
+        let startTime = null;
+
+        function animateScore(timestamp) {
+            if (!startTime) startTime = timestamp;
+            const progress = Math.min((timestamp - startTime) / duration, 1);
+            const currentScore = Math.floor(progress * (endScore - startScore) + startScore);
+            if (scoreElement) scoreElement.textContent = currentScore;
+            if (progress < 1) {
+                window.requestAnimationFrame(animateScore);
+            }
+        }
+
+        setTimeout(() => {
+            window.requestAnimationFrame(animateScore);
+        }, 500);
+    </script>
+<script>
+    // --- LÓGICA DE MENU MOBILE (v3 FIDELITY) ---
+    document.addEventListener('DOMContentLoaded', () => {
+        const trigger = document.getElementById('mobile-menu-trigger');
+        const menu = document.getElementById('mobile-menu');
+        const line1 = document.getElementById('line1');
+        const line2 = document.getElementById('line2');
+        const line3 = document.getElementById('line3');
+        let isOpen = false;
+
+        if (trigger && menu) {
+            trigger.addEventListener('click', () => {
+                isOpen = !isOpen;
+                
+                if (isOpen) {
+                    // Abrir Menu
+                    menu.classList.remove('-translate-y-full', 'opacity-0', 'pointer-events-none');
+                    menu.classList.add('translate-y-0', 'opacity-100');
+                    
+                    // Transformar Hambúrguer em X
+                    line1.style.transform = 'translateY(8px) rotate(45deg)';
+                    line2.style.opacity = '0';
+                    line3.style.transform = 'translateY(-8px) rotate(-45deg)';
+                } else {
+                    // Fechar Menu
+                    menu.classList.add('-translate-y-full', 'opacity-0', 'pointer-events-none');
+                    menu.classList.remove('translate-y-0', 'opacity-100');
+                    
+                    // Voltar Hambúrguer ao normal
+                    line1.style.transform = 'none';
+                    line2.style.opacity = '1';
+                    line3.style.transform = 'none';
+                }
+            });
+        }
+    });
+</script>
+</body>
+</html>
